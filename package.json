@@ -12,8 +12,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@next/font": "13.1.1",
     "@prisma/client": "^4.8.1",
+    "framer-motion": "^8.1.9",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
