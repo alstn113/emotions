@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "[✨ Running commit-msg hook ✨]" 
+echo "[🔥 Running commit-msg hook 🔥]" 
 
 pnpm commitlint --edit $1
