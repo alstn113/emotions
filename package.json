@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prisma:migrate": "pnpm prisma migrate dev --name init && pnpm prisma generate",
     "format": "prettier --write --ignore-path .gitignore .",
     "lint": "next lint --ignore-path .gitignore . --fix",
     "prepare": "husky install"
