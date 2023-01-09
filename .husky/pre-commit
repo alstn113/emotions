@@ -4,4 +4,3 @@
 echo "[⭐️ Running pre-commit hook ⭐️]" # 이거는 그냥 장식용
 
 pnpm lint-staged
-git add .
