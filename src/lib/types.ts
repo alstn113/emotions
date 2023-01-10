@@ -1,4 +1,4 @@
 export interface CreatePostParams {
   title: string;
-  body: string;
+  content: string;
 }
