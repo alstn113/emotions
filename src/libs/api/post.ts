@@ -4,7 +4,7 @@ import { CreatePostParams } from '../types';
 import apiClient from './apiClient';
 
 const PostAPI = {
-  getPosts: async (): Promise<Post> => {
+  getPosts: async (): Promise<Post[]> => {
     const { data } = await apiClient.get(`/${PROPERTIES.POST}`);
     return data;
   },
