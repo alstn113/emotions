@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { Socket } from 'socket.io-client';
-import SOCKET_EVENT from '~/constants/event';
+import React from 'react';
 import useSocket from '~/hooks/useSocket';
 
 const Home = () => {
-  const socket = useSocket();
+  useSocket();
 
   return <div>Home</div>;
 };
