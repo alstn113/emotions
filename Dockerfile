@@ -1,4 +1,4 @@
-FROM node:18-alphine as dependecies
+FROM node:18-alpine as dependecies
 
 # Path: dockerFile
 WORKDIR /app
@@ -8,7 +8,7 @@ COPY pnpm-lock.yaml ./
 
 RUN pnpm install
 
-FROM node:18-alphine as build
+FROM node:18-alpine as build
 
 WORKDIR /app
 COPY --from=dependecies /app/node_modules ./node_modules
@@ -19,7 +19,7 @@ RUN npx prisma migrate deploy
 RUN pnpm build
 
 
-FROM node:18-alphine as deploy
+FROM node:18-alpine as deploy
 
 WORKDIR /app
 
