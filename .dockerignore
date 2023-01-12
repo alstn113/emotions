@@ -1,2 +1,4 @@
-node_modueles
-.next
+node_modules
+dist
+Dockerfile
+.dockerignore
