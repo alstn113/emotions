@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
+import { SOCKET_EVENT } from '~/common/constants';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto } from '../dto';
 
 @Injectable()
@@ -15,24 +16,33 @@ export class RoomGatewayService {
   }
 
   async onConnection(client: Socket) {
-    return;
+    this.logger.verbose(`Client connected: ${client.id}`);
   }
 
   onDisconnect(client: Socket) {
-    return;
+    this.logger.verbose(`Client disconnected: ${client.id}`);
   }
 
   /** Socket Chat */
 
   async onJoinRoom(client: Socket, dto: JoinRoomDto) {
-    return;
+    await client.join(dto.roomId);
+    client.to(dto.roomId).emit(SOCKET_EVENT.JOINED_ROOM, {
+      message: `${client.id} joined ${dto.roomId}`,
+    });
   }
 
-  onLeaveRoom(client: Socket, dto: LeaveRoomDto) {
-    return;
+  async onLeaveRoom(client: Socket, dto: LeaveRoomDto) {
+    await client.leave(dto.roomId);
+    client.to(dto.roomId).emit(SOCKET_EVENT.LEFT_ROOM, {
+      message: `${client.id} left ${dto.roomId}`,
+    });
   }
 
-  onSendMessage(client: Socket, dto: RoomMessageDto) {
-    return;
+  onChatMessage(client: Socket, dto: RoomMessageDto) {
+    // send to all users in room
+    this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
+      message: `FROM: ${client.id}: ${dto.message}`,
+    });
   }
 }

@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-
 import { AppModule } from '~/app.module';
 import { setupSwagger } from '~/utils';
+import { SocketIoAdapter } from './adapter';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +19,7 @@ const bootstrap = async () => {
     origin: configService.get<string>('client'),
     credentials: true,
   });
+  app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   setupSwagger(app);
   await app.listen(port);

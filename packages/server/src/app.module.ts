@@ -9,6 +9,7 @@ import { APP_PIPE } from '@nestjs/core';
 
 // main modules
 import { PostsModule } from './modules/posts/posts.module';
+import { EventsModule } from './modules/events/events.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PostsModule } from './modules/posts/posts.module';
     }),
     PrismaModule,
     // main modules
+    EventsModule,
     PostsModule,
   ],
 

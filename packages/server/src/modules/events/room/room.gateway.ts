@@ -45,7 +45,7 @@ export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   }
 
   @SubscribeMessage(SOCKET_EVENT.CHAT_MESSAGE)
-  handleSendMessage(client: Socket, dto: RoomMessageDto) {
-    return this.roomGatewayService.onSendMessage(client, dto);
+  handleChatMessage(client: Socket, dto: RoomMessageDto) {
+    return this.roomGatewayService.onChatMessage(client, dto);
   }
 }
