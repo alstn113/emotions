@@ -8,7 +8,7 @@ const useTyping = () => {
   const startTyping = () => {
     setIsTyping(true);
     setIsKeyPressed(true);
-    setCountdown(2);
+    setCountdown(5);
   };
 
   const stopTyping = () => {
@@ -25,7 +25,7 @@ const useTyping = () => {
     if (!isKeyPressed) {
       interval = setTimeout(() => {
         setCountdown((prev) => prev - 1);
-      }, 1000);
+      }, 100);
     } else if (isKeyPressed && countdown === 0) {
       if (interval) clearInterval(interval);
     }

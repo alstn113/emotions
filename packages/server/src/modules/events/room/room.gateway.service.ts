@@ -49,7 +49,7 @@ export class RoomGatewayService {
   onTypingStatus(client: Socket, dto: TypingStatusDto) {
     client.to(dto.roomId).emit(SOCKET_EVENT.TYPING_STATUS, {
       sid: client.id,
-      status: dto.status,
+      isTyping: dto.isTyping,
     });
   }
 }

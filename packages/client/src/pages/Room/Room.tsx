@@ -4,12 +4,15 @@ import { useParams } from 'react-router-dom';
 import { Button } from '~/components/common';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/libs/sockets/roomSocket';
+import useTyping from '~/hooks/useTyping';
 
 const Room = () => {
   const { roomId } = useParams() as { roomId: string };
+  const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
   const [messages, setMessages] = useState<string[]>([]);
   const [messageInput, setMessageInput] = useState<string>('');
-  const chatListRef = useRef<HTMLDivElement>(null);
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const scrollTargetRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = ({ message }: { message: string }) => {
     roomSocket.socket?.emit(SOCKET_EVENT.CHAT_MESSAGE, {
@@ -26,13 +29,36 @@ const Room = () => {
 
   const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    cancelTyping();
     sendMessage({ message: messageInput });
     setMessageInput('');
+  };
+
+  const handleChangeMessageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessageInput(e.target.value);
+  };
+
+  const startTypingMessage = () => {
+    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: true });
+  };
+
+  const stopTypingMessage = () => {
+    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: false });
   };
 
   useEffect(() => {
     initRoomSocket(roomId);
     receiveMessage();
+    roomSocket.socket?.on(
+      SOCKET_EVENT.TYPING_STATUS,
+      (data: { isTyping: boolean; sid: string }) => {
+        if (data.isTyping) {
+          setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.sid]);
+        } else {
+          setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((sid) => sid !== data.sid));
+        }
+      },
+    );
 
     return () => {
       leaveRoom();
@@ -40,15 +66,25 @@ const Room = () => {
   }, [roomId]);
 
   useEffect(() => {
-    chatListRef.current?.scrollTo(0, chatListRef.current.scrollHeight);
+    if (isTyping) startTypingMessage();
+    else stopTypingMessage();
+  }, [isTyping]);
+
+  useEffect(() => {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollTop = scrollTargetRef.current.scrollHeight;
+    }
   }, [messages]);
 
   return (
     <Container>
       <ContentsWrapper>
-        <ChatContainer ref={chatListRef}>
+        <ChatContainer ref={scrollTargetRef}>
           {messages.map((message) => {
             return <div key={crypto.randomUUID()}>{message}</div>;
+          })}
+          {typingUsers.map((typingUser) => {
+            return <div key={typingUser}>{typingUser} 입력 중...</div>;
           })}
         </ChatContainer>
         <OnlineUserContainer>온라인</OnlineUserContainer>
@@ -56,7 +92,9 @@ const Room = () => {
       <ChatForm onSubmit={handleSubmitMessage}>
         <ChatInput
           placeholder="Write Message..."
-          onChange={(e) => setMessageInput(e.target.value)}
+          onChange={handleChangeMessageInput}
+          onKeyDown={startTyping}
+          onKeyUp={stopTyping}
           value={messageInput}
         />
         <Button type="submit" shadow color="secondary">

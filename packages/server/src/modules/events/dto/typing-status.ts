@@ -1,10 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-
-enum TypingStatus {
-  ON,
-  OFF,
-}
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 @ApiTags('/socket')
 export class TypingStatusDto {
@@ -18,9 +13,9 @@ export class TypingStatusDto {
 
   @ApiProperty({
     type: String,
-    description: 'Room id',
+    description: 'Typing Status',
   })
-  @IsEnum(TypingStatus)
+  @IsBoolean()
   @IsNotEmpty()
-  status: TypingStatus;
+  isTyping: boolean;
 }
