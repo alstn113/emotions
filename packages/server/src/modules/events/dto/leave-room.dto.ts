@@ -1,7 +1,7 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-@ApiTags('/socket/rooms')
+@ApiTags('/socket')
 export class LeaveRoomDto {
   @ApiProperty({
     type: String,
