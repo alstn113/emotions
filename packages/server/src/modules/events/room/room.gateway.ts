@@ -7,7 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
-import { JoinRoomDto, LeaveRoomDto, RoomMessageDto } from '../dto';
+import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, StartTypingDto, StopTypingDto } from '../dto';
 import { RoomGatewayService } from './room.gateway.service';
 
 @WebSocketGateway({
@@ -47,5 +47,15 @@ export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   @SubscribeMessage(SOCKET_EVENT.CHAT_MESSAGE)
   handleChatMessage(client: Socket, dto: RoomMessageDto) {
     return this.roomGatewayService.onChatMessage(client, dto);
+  }
+
+  @SubscribeMessage(SOCKET_EVENT.START_TYPING)
+  handleStartTyping(client: Socket, dto: StartTypingDto) {
+    return this.roomGatewayService.onStartTyping(client, dto);
+  }
+
+  @SubscribeMessage(SOCKET_EVENT.START_TYPING)
+  handleStopTyping(client: Socket, dto: StopTypingDto) {
+    return this.roomGatewayService.onStopTyping(client, dto);
   }
 }

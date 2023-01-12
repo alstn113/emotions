@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
-import { JoinRoomDto, LeaveRoomDto, RoomMessageDto } from '../dto';
+import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, StartTypingDto } from '../dto';
 
 @Injectable()
 export class RoomGatewayService {
@@ -43,6 +43,18 @@ export class RoomGatewayService {
     // send to all users in room
     this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
       message: `FROM: ${client.id}: ${dto.message}`,
+    });
+  }
+
+  onStartTyping(client: Socket, dto: StartTypingDto) {
+    client.to(dto.roomId).emit(SOCKET_EVENT.START_TYPING, {
+      sid: client.id,
+    });
+  }
+
+  onStopTyping(client: Socket, dto: StartTypingDto) {
+    client.to(dto.roomId).emit(SOCKET_EVENT.STOP_TYPING, {
+      sid: client.id,
     });
   }
 }
