@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
-import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, StartTypingDto } from '../dto';
+import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 
 @Injectable()
 export class RoomGatewayService {
@@ -46,15 +46,10 @@ export class RoomGatewayService {
     });
   }
 
-  onStartTyping(client: Socket, dto: StartTypingDto) {
-    client.to(dto.roomId).emit(SOCKET_EVENT.START_TYPING, {
+  onTypingStatus(client: Socket, dto: TypingStatusDto) {
+    client.to(dto.roomId).emit(SOCKET_EVENT.TYPING_STATUS, {
       sid: client.id,
-    });
-  }
-
-  onStopTyping(client: Socket, dto: StartTypingDto) {
-    client.to(dto.roomId).emit(SOCKET_EVENT.STOP_TYPING, {
-      sid: client.id,
+      status: dto.status,
     });
   }
 }

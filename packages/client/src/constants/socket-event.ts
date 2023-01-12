@@ -4,8 +4,7 @@ export const SOCKET_EVENT = {
   JOINED_ROOM: 'joined_room',
   LEFT_ROOM: 'left_room',
   CHAT_MESSAGE: 'chat_message',
-  START_TYPING: 'start_typing',
-  STOP_TYPING: 'stop_typing',
+  TYPING_STATUS: 'typing_status',
 } as const;
 
 export type SOCKET_EVENT = (typeof SOCKET_EVENT)[keyof typeof SOCKET_EVENT];
