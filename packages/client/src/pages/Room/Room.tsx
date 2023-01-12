@@ -47,6 +47,7 @@ const Room = () => {
   };
 
   useEffect(() => {
+    console.log('1');
     initRoomSocket(roomId);
     receiveMessage();
     roomSocket.socket?.on(
@@ -66,11 +67,15 @@ const Room = () => {
   }, [roomId]);
 
   useEffect(() => {
+    console.log('2');
+
     if (isTyping) startTypingMessage();
     else stopTypingMessage();
   }, [isTyping]);
 
   useEffect(() => {
+    console.log('3');
+
     if (scrollTargetRef.current) {
       scrollTargetRef.current.scrollTop = scrollTargetRef.current.scrollHeight;
     }

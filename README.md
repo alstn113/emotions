@@ -1,1 +1,1 @@
-Super Chat
+# iChat = Interactive Chat

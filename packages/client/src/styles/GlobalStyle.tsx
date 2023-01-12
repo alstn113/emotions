@@ -14,6 +14,9 @@ export const GlobalStyle = () => {
             outline: none;
             border: none;
           }
+          input:focus {
+            outline: none;
+          }
           button {
             border: none;
             outline: none;
