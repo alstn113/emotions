@@ -1,13 +1,20 @@
 import styled from '@emotion/styled';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
+import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 const Home = () => {
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
   };
 
+  const openLoginDialog = useOpenLoginDialog();
+
+  const handleAuth = () => {
+    openLoginDialog();
+  };
   return (
     <Container>
+      <button onClick={handleAuth}>modal</button>
       <GithubLoginButton onClick={handleGithubLogin}>
         <GithubIcon width="24px" height="24px" fill="#fff" />
         <span>Login With Github</span>

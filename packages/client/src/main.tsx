@@ -6,8 +6,9 @@ import App from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-// store
+// provider
 import MyThemeProvider from './styles/MyThemeProvider';
+import ModalProvider from './components/ModalProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <ReactQueryDevtools initialIsOpen={false} />
     <MyThemeProvider>
+      <ModalProvider />
       <App />
     </MyThemeProvider>
   </QueryClientProvider>,
