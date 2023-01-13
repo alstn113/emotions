@@ -1,24 +1,28 @@
 // nest config
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { EnvConfig } from './config';
+import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { PrismaModule } from './prisma/prisma.module';
 
 // providers
 import { APP_PIPE } from '@nestjs/core';
 
 // main modules
-import { PostsModule } from './modules/posts/posts.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [EnvConfig],
+      load: [EnvConfig, AuthConfig, JwtConfig],
     }),
     PrismaModule,
     // main modules
+    AuthModule,
+    UsersModule,
     EventsModule,
     PostsModule,
   ],

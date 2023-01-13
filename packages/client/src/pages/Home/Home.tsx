@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
 
 const Home = () => {
-  return <Container>Home</Container>;
+  return (
+    <Container>
+      <button onClick={() => (window.location.href = 'http://localhost:8080/auth/github')}>
+        깃허브 로그인
+      </button>
+    </Container>
+  );
 };
 
 const Container = styled.div`
