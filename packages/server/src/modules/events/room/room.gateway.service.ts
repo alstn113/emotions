@@ -43,6 +43,7 @@ export class RoomGatewayService {
     // send to all users in room
     this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
       message: `FROM: ${client.id}: ${dto.message}`,
+      sid: client.id,
     });
   }
 

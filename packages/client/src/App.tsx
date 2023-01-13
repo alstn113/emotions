@@ -7,20 +7,18 @@ import BaseLayout from './components/layouts/BaseLayout';
 // pages
 import Home from '~/pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
-import Room from './pages/Room/Room';
 import Chat from './pages/Chat/Chat';
+import Post from './pages/Post/Post';
 
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/room" element={<BaseLayout />}>
-          <Route path=":roomId" element={<Room />} />
-        </Route>
         <Route path="/" element={<BaseLayout />}>
+          <Route index element={<Home />} />
           <Route path="chat" element={<Chat />} />
+          <Route path="post" element={<Post />} />
         </Route>
 
         {/* catch all */}
