@@ -37,26 +37,26 @@ const Screen = styled.div`
   }
 
   .color:nth-of-type(1) {
-    top: -350px;
+    top: -35%;
     background: #ff359b;
-    width: 600px;
-    height: 600px;
+    width: 60%;
+    height: 60%;
   }
 
   .color:nth-of-type(2) {
-    bottom: -150px;
-    left: 100px;
+    bottom: -15%;
+    left: 10%;
     background: #fffd87;
-    width: 500px;
-    height: 500px;
+    width: 50%;
+    height: 50%;
   }
 
   .color:nth-of-type(3) {
-    bottom: -50px;
+    bottom: -5%;
     right: 0;
     background: #00d2ff;
-    width: 300px;
-    height: 300px;
+    width: 30%;
+    height: 30%;
   }
 `;
 
