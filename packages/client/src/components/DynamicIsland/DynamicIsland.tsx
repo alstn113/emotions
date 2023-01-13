@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface Props {
-  test: boolean;
-}
+interface Props {}
 
-const DynamicIsland = ({ test }: Props) => {
+const DynamicIsland = ({}: Props) => {
   return (
     <AnimatePresence>
       <Container
-        animate={{ width: test ? '80vw' : '40%', height: test ? '40vh' : '7%' }}
-        // whileHover={{ width: '80vw', height: '40vh', borderRadius: '20px' }}
+        whileHover={{ width: '80vw', height: '40vh', borderRadius: '20px' }}
         transition={{
           type: 'tween',
         }}
@@ -32,7 +29,7 @@ const Container = styled(motion.div)`
   z-index: 100;
   // glassmorphism
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;

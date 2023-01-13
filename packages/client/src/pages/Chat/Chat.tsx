@@ -72,7 +72,7 @@ const Chat = () => {
 
   return (
     <Container>
-      <DynamicIsland test={typingUsers.length > 0} />
+      <DynamicIsland />
       <Contents>
         {messages.map((message, i) => {
           return (
@@ -113,7 +113,7 @@ const MessageInput = styled.input`
 
   // glassmorphism
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
