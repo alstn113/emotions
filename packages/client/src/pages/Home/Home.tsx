@@ -1,14 +1,43 @@
 import styled from '@emotion/styled';
-
+import { GithubIcon } from '~/components/vectors';
+import { API } from '~/constants';
 const Home = () => {
+  const handleGithubLogin = () => {
+    window.location.href = API.GITHUB_AUTH;
+  };
   return (
     <Container>
-      <button onClick={() => (window.location.href = 'http://localhost:8080/auth/github')}>
-        깃허브 로그인
-      </button>
+      <GithubLoginButton onClick={handleGithubLogin}>
+        <GithubIcon width="24px" height="24px" fill="#fff" />
+        <span>Login With Github</span>
+      </GithubLoginButton>
     </Container>
   );
 };
+
+const GithubLoginButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #24292e;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: 0.7s;
+  span {
+    margin-left: 1rem;
+  }
+
+  &:hover {
+    background-color: #2f363d;
+  }
+`;
 
 const Container = styled.div`
   margin: auto auto;

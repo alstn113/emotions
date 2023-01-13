@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "transform:svg": "pnpm svgr --typescript --out-dir src/components/vectors src/assets/vectors"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -25,6 +26,7 @@
     "zustand": "^4.3.1"
   },
   "devDependencies": {
+    "@svgr/cli": "^6.5.1",
     "@tanstack/react-query-devtools": "^4.22.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
