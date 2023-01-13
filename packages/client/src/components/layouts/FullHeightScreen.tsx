@@ -18,7 +18,6 @@ const FullHeightScreen = ({ children }: Props) => {
           body,
           #root {
             height: 100%;
-            overflow: hidden;
           }
         `}
       ></Global>
