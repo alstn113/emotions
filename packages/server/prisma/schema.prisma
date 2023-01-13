@@ -15,18 +15,48 @@ datasource db {
 }
 
 model User {
-  id          String   @id() @default(uuid())
-  email       String   @unique
-  username    String   @unique
+  id          String @id() @default(uuid())
+  email       String @unique
+  username    String @unique
   displayName String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Room Room[]
+  Vote Vote[]
+}
+
+model Room {
+  id      String @id() @default(uuid())
+  name    String
+  ownerId String
+
+  owner User @relation(fields: [ownerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Vote Vote[]
+}
+
+model Vote {
+  id     String @id() @default(uuid())
+  userId String
+  roomId String
+
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Post {
-  id        String   @id() @default(uuid())
-  title     String
-  content   String
+  id      String @id() @default(uuid())
+  title   String
+  content String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }

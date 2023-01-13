@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
 import { PostsModule } from './modules/posts/posts.module';
+import { RoomsModule } from './modules/rooms/rooms.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PostsModule } from './modules/posts/posts.module';
     AuthModule,
     UsersModule,
     EventsModule,
+    RoomsModule,
     PostsModule,
   ],
 
