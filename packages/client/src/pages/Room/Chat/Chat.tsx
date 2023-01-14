@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/libs/sockets/roomSocket';
@@ -13,6 +13,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<{ message: string; uid: string }[]>([]);
   const [messageInput, setMessageInput] = useState<string>('');
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = ({ message }: { message: string }) => {
     roomSocket.socket?.emit(SOCKET_EVENT.CHAT_MESSAGE, {
@@ -50,10 +51,10 @@ const Chat = () => {
     initRoomSocket(roomId);
     receiveMessage();
     roomSocket.socket?.on(SOCKET_EVENT.JOINED_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: 'admin' }]);
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
     });
     roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: 'admin' }]);
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
     });
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
@@ -79,14 +80,22 @@ const Chat = () => {
     else stopTypingMessage();
   }, [isTyping]);
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
+  }, [messages]);
+
   return (
     <Container>
       <DynamicIsland />
-      <Contents>
+      <Contents ref={scrollRef}>
         {messages.map((message, i) => {
           return (
             <MessageWrapper key={i} isCurrentUser={roomSocket.socket?.id === message.uid}>
-              <Message>{message.message}</Message>
+              <Message>
+                <div>{message.uid}</div>
+                <div>------</div>
+                <div>{message.message}</div>
+              </Message>
             </MessageWrapper>
           );
         })}
@@ -134,15 +143,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 100%;
 `;
 
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 120px 0;
-  min-height: 100vh;
-  width: 80%;
+  padding: 120px 10%;
+  min-height: 100%;
+  overflow-y: auto;
+
+  width: 100%;
 `;
 
 const MessageWrapper = styled.div<{ isCurrentUser: boolean }>`

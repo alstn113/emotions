@@ -25,7 +25,7 @@ export class WsJwtStrategy extends PassportStrategy(Strategy, 'wsJwt') {
       },
     });
 
-    if (!user) return false;
+    if (!user) return null;
 
     return user;
   }

@@ -12,7 +12,7 @@ import { WsJwtGuard } from '~/common/guards/wsJwt.guard';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 import { RoomGatewayService } from './room.gateway.service';
 
-@UseGuards(WsJwtGuard)
+// @UseGuards(WsJwtGuard)
 @WebSocketGateway({
   cors: { origin: '*' },
   transports: ['websocket', 'polling'],

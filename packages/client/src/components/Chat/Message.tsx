@@ -28,7 +28,7 @@ const Container = styled(motion.div)`
   min-height: 40px;
   min-width: 120px;
   max-width: 200px;
-  padding: 20px;
+  padding: 15px 20px;
   font-size: 0.5rem;
   // glassmorphism
   background: rgba(255, 255, 255, 0.25);

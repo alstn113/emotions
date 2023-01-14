@@ -19,14 +19,14 @@ export class RoomGatewayService {
   }
 
   async onConnection(client: Socket) {
-    const { userId, email } = await this.authService.verifyAccessToken(
-      client.handshake.query.access_token as string,
-    );
+    // const { userId, email } = await this.authService.verifyAccessToken(
+    //   client.handshake.query.access_token as string,
+    // );
 
-    client.data = {
-      uid: userId,
-      email,
-    };
+    // client.data = {
+    //   uid: userId,
+    //   email,
+    // };
 
     this.logger.verbose(`Client connected: ${client.id}`);
   }
@@ -40,28 +40,30 @@ export class RoomGatewayService {
   async onJoinRoom(client: Socket, dto: JoinRoomDto) {
     await client.join(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.JOINED_ROOM, {
-      message: `${client.data.email} joined ${dto.roomId}`,
+      uid: `${client.id}`,
+      message: `joined ${dto.roomId}`,
     });
   }
 
   async onLeaveRoom(client: Socket, dto: LeaveRoomDto) {
     await client.leave(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.LEFT_ROOM, {
-      message: `${client.data.email} left ${dto.roomId}`,
+      uid: `${client.id}`,
+      message: `left ${dto.roomId}`,
     });
   }
 
   onChatMessage(client: Socket, dto: RoomMessageDto) {
     // send to all users in room
     this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
-      message: `FROM: ${client.data.email} ${dto.message}`,
-      uid: client.data.email,
+      uid: `${client.id}`,
+      message: `${dto.message}`,
     });
   }
 
   onTypingStatus(client: Socket, dto: TypingStatusDto) {
     client.to(dto.roomId).emit(SOCKET_EVENT.TYPING_STATUS, {
-      uid: client.data.email,
+      uid: `${client.id}`,
       isTyping: dto.isTyping,
     });
   }
