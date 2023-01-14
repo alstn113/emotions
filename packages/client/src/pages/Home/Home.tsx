@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
-
 const Home = () => {
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
@@ -10,7 +9,7 @@ const Home = () => {
   return (
     <Container>
       <GithubLoginButton onClick={handleGithubLogin}>
-        <GithubIcon width="24px" height="24px" fill="#fff" />
+        <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
         <span>Login With Github</span>
       </GithubLoginButton>
     </Container>
@@ -23,7 +22,7 @@ const GithubLoginButton = styled.button`
   align-items: center;
   width: 250px;
   height: 50px;
-  color: #fff;
+  color: #aaaaaa;
   font-size: 1.2rem;
   span {
     margin-left: 1rem;

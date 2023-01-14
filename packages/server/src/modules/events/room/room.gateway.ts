@@ -53,4 +53,24 @@ export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   handleTypingStatus(client: Socket, dto: TypingStatusDto) {
     return this.roomGatewayService.onTypingStatus(client, dto);
   }
+
+  @SubscribeMessage(SOCKET_EVENT.CHOOSE_QUESTION)
+  handleChooseQuestion(client: Socket) {
+    return;
+  }
+
+  @SubscribeMessage(SOCKET_EVENT.QUESTION_CHOSEN)
+  handleQuestionChosen(client: Socket) {
+    return;
+  }
+
+  @SubscribeMessage(SOCKET_EVENT.ANSWER_QUESTION)
+  handleAnswerQuestion(client: Socket) {
+    return;
+  }
+
+  @SubscribeMessage(SOCKET_EVENT.QUESTION_ANSWERED)
+  handleQuestionAnswered(client: Socket) {
+    return;
+  }
 }

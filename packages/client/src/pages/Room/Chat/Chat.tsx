@@ -49,6 +49,12 @@ const Chat = () => {
   useEffect(() => {
     initRoomSocket(roomId);
     receiveMessage();
+    roomSocket.socket?.on(SOCKET_EVENT.JOINED_ROOM, (data) => {
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, sid: 'admin' }]);
+    });
+    roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, (data) => {
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, sid: 'admin' }]);
+    });
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
       (data: { isTyping: boolean; sid: string }) => {
@@ -61,6 +67,9 @@ const Chat = () => {
     );
 
     return () => {
+      roomSocket.socket?.emit(SOCKET_EVENT.LEAVE_ROOM, {
+        roomId,
+      });
       leaveRoom();
     };
   }, [roomId]);

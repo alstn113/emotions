@@ -1,5 +1,4 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { PrismaService } from '~/prisma/prisma.service';
 import { CreateRoomDto } from './dto';
 
@@ -12,6 +11,9 @@ export class RoomsRepository {
       where: {
         id,
       },
+      include: {
+        owner: true,
+      },
     });
     if (!room) throw new HttpException('Room not found', 404);
 
@@ -19,7 +21,11 @@ export class RoomsRepository {
   }
 
   async findRooms() {
-    return this.prisma.room.findMany({});
+    return this.prisma.room.findMany({
+      include: {
+        owner: true,
+      },
+    });
   }
 
   async createRoom(dto: CreateRoomDto, userId: string) {

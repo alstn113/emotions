@@ -17,12 +17,6 @@ export const initRoomSocket = (roomId: string) => {
   }
   roomSocket.socket?.connect();
   roomSocket.socket?.emit(SOCKET_EVENT.JOIN_ROOM, { roomId });
-  roomSocket.socket?.on(SOCKET_EVENT.JOINED_ROOM, (data) => {
-    console.log(data.message);
-  });
-  roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, (data) => {
-    console.log(data.message);
-  });
 };
 
 export const leaveRoom = () => {
