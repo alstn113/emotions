@@ -44,19 +44,19 @@ const Screen = styled.div`
   }
 
   .color:nth-of-type(2) {
-    bottom: -15%;
+    bottom: 0;
     left: 10%;
     background: #fffd87;
     width: 50%;
-    height: 50%;
+    height: 40%;
   }
 
   .color:nth-of-type(3) {
-    bottom: -5%;
+    bottom: 0;
     right: 0;
     background: #00d2ff;
     width: 30%;
-    height: 30%;
+    height: 20%;
   }
 `;
 
