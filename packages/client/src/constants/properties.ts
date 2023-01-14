@@ -5,7 +5,6 @@ export const API = {
   // auth
   GITHUB_AUTH: `${BASE_URL}/auth/github`,
   // rest
-  POST: `${BASE_URL}/posts`,
   ROOM: `${BASE_URL}/rooms`,
   // socket
   ROOM_SOCKET: `${BASE_URL}/socket/room`,

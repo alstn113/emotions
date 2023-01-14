@@ -18,16 +18,3 @@ export interface Room {
 export interface CreateRoomParams {
   name: string;
 }
-
-export interface Post {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface CreatePostParams {
-  title: string;
-  content: string;
-}

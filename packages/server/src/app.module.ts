@@ -11,7 +11,6 @@ import { APP_PIPE } from '@nestjs/core';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
-import { PostsModule } from './modules/posts/posts.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 
 @Module({
@@ -26,7 +25,6 @@ import { RoomsModule } from './modules/rooms/rooms.module';
     UsersModule,
     EventsModule,
     RoomsModule,
-    PostsModule,
   ],
 
   providers: [
