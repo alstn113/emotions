@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -7,9 +8,11 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
+import { WsJwtGuard } from '~/common/guards/wsJwt.guard';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 import { RoomGatewayService } from './room.gateway.service';
 
+@UseGuards(WsJwtGuard)
 @WebSocketGateway({
   cors: { origin: '*' },
   transports: ['websocket', 'polling'],
@@ -56,21 +59,11 @@ export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
   @SubscribeMessage(SOCKET_EVENT.CHOOSE_QUESTION)
   handleChooseQuestion(client: Socket) {
-    return;
-  }
-
-  @SubscribeMessage(SOCKET_EVENT.QUESTION_CHOSEN)
-  handleQuestionChosen(client: Socket) {
-    return;
+    return this.roomGatewayService.onChooseQuestion(client);
   }
 
   @SubscribeMessage(SOCKET_EVENT.ANSWER_QUESTION)
   handleAnswerQuestion(client: Socket) {
-    return;
-  }
-
-  @SubscribeMessage(SOCKET_EVENT.QUESTION_ANSWERED)
-  handleQuestionAnswered(client: Socket) {
-    return;
+    return this.roomGatewayService.onAnswerQuestion(client);
   }
 }

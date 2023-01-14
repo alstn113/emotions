@@ -8,6 +8,7 @@ const roomSocket = {
 export const generateRoomSocket = () => {
   roomSocket.socket = io(`${API.ROOM_SOCKET}`, {
     transports: ['websocket', 'polling'],
+    query: { access_token: localStorage.getItem('access_token') },
   });
 };
 

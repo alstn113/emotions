@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { TokenPayload } from './types';
 
 @Injectable()
 export class AuthService {
@@ -28,13 +29,15 @@ export class AuthService {
     return accessToken;
   }
 
-  async verifyAccessToken(accessToken: string): Promise<User> {
+  async verifyAccessToken(accessToken: string) {
     const ACCESS_TOKEN_SECRET = this.configService.get<string>('access_token.secret');
-
-    const payload = await this.jwtService.verifyAsync(accessToken, {
-      secret: ACCESS_TOKEN_SECRET,
-    });
-
-    return payload;
+    try {
+      const payload: TokenPayload = await this.jwtService.verifyAsync(accessToken, {
+        secret: ACCESS_TOKEN_SECRET,
+      });
+      return payload;
+    } catch (error) {
+      throw new HttpException('Invalid access token', 401);
+    }
   }
 }

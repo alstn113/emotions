@@ -10,7 +10,7 @@ import useTyping from '~/hooks/useTyping';
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
   const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
-  const [messages, setMessages] = useState<{ message: string; sid: string }[]>([]);
+  const [messages, setMessages] = useState<{ message: string; uid: string }[]>([]);
   const [messageInput, setMessageInput] = useState<string>('');
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
 
@@ -22,8 +22,8 @@ const Chat = () => {
   };
 
   const receiveMessage = () => {
-    roomSocket.socket?.on(SOCKET_EVENT.CHAT_MESSAGE, (data: { message: string; sid: string }) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, sid: data.sid }]);
+    roomSocket.socket?.on(SOCKET_EVENT.CHAT_MESSAGE, (data: { message: string; uid: string }) => {
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
     });
   };
 
@@ -50,18 +50,18 @@ const Chat = () => {
     initRoomSocket(roomId);
     receiveMessage();
     roomSocket.socket?.on(SOCKET_EVENT.JOINED_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, sid: 'admin' }]);
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: 'admin' }]);
     });
     roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, sid: 'admin' }]);
+      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: 'admin' }]);
     });
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
-      (data: { isTyping: boolean; sid: string }) => {
+      (data: { isTyping: boolean; uid: string }) => {
         if (data.isTyping) {
-          setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.sid]);
+          setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.uid]);
         } else {
-          setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((sid) => sid !== data.sid));
+          setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((uid) => uid !== data.uid));
         }
       },
     );
@@ -85,8 +85,8 @@ const Chat = () => {
       <Contents>
         {messages.map((message, i) => {
           return (
-            <MessageWrapper isCurrentUser={roomSocket.socket?.id === message.sid}>
-              <Message key={i}>{message.message}</Message>
+            <MessageWrapper key={i} isCurrentUser={roomSocket.socket?.id === message.uid}>
+              <Message>{message.message}</Message>
             </MessageWrapper>
           );
         })}
