@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '~/modules/auth/auth.service';
 
 @Injectable()
-export class JwtAuthMiddleware implements NestMiddleware {
+export class JwtMiddleware implements NestMiddleware {
   constructor(private readonly authService: AuthService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
@@ -18,8 +18,8 @@ export class JwtAuthMiddleware implements NestMiddleware {
     try {
       const decoded = await this.authService.verifyToken(token);
       req.user = {
-        id: decoded.id,
-        email: decoded.email,
+        userId: decoded.userId,
+        username: decoded.username,
       };
     } catch (error) {
       this.authService.clearTokenCookie(res);
@@ -33,8 +33,8 @@ export class JwtAuthMiddleware implements NestMiddleware {
 declare module 'Express' {
   interface Request {
     user: {
-      id: string;
-      email: string;
+      userId: string;
+      username: string;
     } | null;
   }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './types';
@@ -12,18 +11,15 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async generateToken(id: string, email: string): Promise<string> {
-    const ACCESS_TOKEN_SECRET = this.configService.get<string>('access_token.secret');
-    const ACCESS_TOKEN_DURATION = this.configService.get<string>('access_token.duration');
-
+  async generateToken(userId: string, username: string): Promise<string> {
     const token = await this.jwtService.signAsync(
       {
-        id,
-        email,
+        userId,
+        username,
       },
       {
-        secret: ACCESS_TOKEN_SECRET,
-        expiresIn: ACCESS_TOKEN_DURATION,
+        secret: this.configService.get<string>('ACCESS_TOKEN.SECRET'),
+        expiresIn: this.configService.get<string>('ACCESS_TOKEN.DURATION'),
       },
     );
 
@@ -42,10 +38,8 @@ export class AuthService {
   }
 
   async verifyToken(token: string) {
-    const ACCESS_TOKEN_SECRET = this.configService.get<string>('access_token.secret');
-
     const decoded: TokenPayload = await this.jwtService.verifyAsync(token, {
-      secret: ACCESS_TOKEN_SECRET,
+      secret: this.configService.get<string>('ACCESS_TOKEN.SECRET'),
     });
 
     return decoded;

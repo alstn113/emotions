@@ -23,11 +23,14 @@ export class AuthController {
 
   @Get('/github/callback')
   @UseGuards(GithubGuard)
-  async githubCallback(@Res() res: Response, @GetCurrentUser() user) {
-    const CLIENT_URL = this.configService.get<string>('client');
-    const token = await this.authService.generateToken(user.id, user.email);
+  async githubCallback(
+    @Res() res: Response,
+    @GetCurrentUser() user: { userId: string; username: string },
+  ) {
+    const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
+    const token = await this.authService.generateToken(user.userId, user.username);
     this.authService.setTokenCookie(res, token);
-    return res.redirect(CLIENT_URL);
+    return res.redirect(`${FRONTEND_URL}/room`);
   }
 
   @Delete('/logout')

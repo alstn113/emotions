@@ -1,2 +1,3 @@
 export * from './github.guard';
-export * from './jwt-auth.guard';
+export * from './jwt.guard';
+export * from './wsJwt.guard';

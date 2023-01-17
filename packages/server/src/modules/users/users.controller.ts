@@ -12,11 +12,11 @@ export class UsersController {
   @Public()
   @Get('/me')
   async getCurrentUser(
-    @GetCurrentUser() user: { id: string; email: string },
+    @GetCurrentUser() user: { userId: string; username: string },
   ): Promise<User | null> {
     if (!user) {
       return null;
     }
-    return await this.usersService.getCurrentUser(user.id);
+    return await this.usersService.getCurrentUser(user.userId);
   }
 }

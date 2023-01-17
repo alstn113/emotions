@@ -8,9 +8,9 @@ import { GithubProfileType } from '../types';
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   constructor(readonly configService: ConfigService, private readonly prisma: PrismaService) {
-    const GITHUB_CLIENT_ID = configService.get<string>('github.client_id');
-    const GITHUB_CLIENT_SECRET = configService.get<string>('github.client_secret');
-    const GITHUB_CALLBACK_URL = configService.get<string>('github.callback_url');
+    const GITHUB_CLIENT_ID = configService.get<string>('GITHUB.CLIENT_ID');
+    const GITHUB_CLIENT_SECRET = configService.get<string>('GITHUB.CLIENT_SECRET');
+    const GITHUB_CALLBACK_URL = configService.get<string>('GITHUB.CALLBACK_URL');
 
     super({
       clientID: GITHUB_CLIENT_ID,
@@ -21,18 +21,17 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   }
 
   async validate(_accessToken: string, _refreshToken: string, profile: any, done: any) {
-    const { email, login, name }: GithubProfileType = profile._json;
+    const { login, name }: GithubProfileType = profile._json;
     try {
       const exUser = await this.prisma.user.findUnique({
         where: {
-          email,
+          username: login,
         },
       });
       if (exUser) return done(null, exUser);
 
       const newUser = await this.prisma.user.create({
         data: {
-          email,
           username: login,
           displayName: name,
         },

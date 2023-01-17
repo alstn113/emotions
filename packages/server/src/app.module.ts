@@ -6,11 +6,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
 
 // middlewares
-import { JwtAuthMiddleware } from './middlewares';
+import { JwtMiddleware } from './middlewares';
 
 // providers
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
-import { JwtAuthGuard } from './common/guards';
+import { JwtGuard } from './common/guards';
 
 // main modules
 import { AuthModule } from './modules/auth/auth.module';
@@ -24,6 +24,7 @@ import { RoomsModule } from './modules/rooms/rooms.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [EnvConfig, AuthConfig, JwtConfig],
+      cache: true,
     }),
     PrismaModule,
     // main modules
@@ -40,12 +41,12 @@ import { RoomsModule } from './modules/rooms/rooms.module';
     },
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useClass: JwtGuard,
     },
   ],
 })
 export class AppModule implements NestModule {
   configure(cunsumer: MiddlewareConsumer) {
-    cunsumer.apply(JwtAuthMiddleware).forRoutes('*');
+    cunsumer.apply(JwtMiddleware).forRoutes('*');
   }
 }
