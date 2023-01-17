@@ -1,5 +1,4 @@
-import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateRoomDto } from './dto';
 import { RoomsRepository } from './rooms.repository';
 
@@ -19,7 +18,10 @@ export class RoomsService {
     return await this.roomsRepository.createRoom(dto, userId);
   }
 
-  async deleteRoomById(id: string) {
+  async deleteRoomById(id: string, userId: string) {
+    const room = await this.roomsRepository.findRoomById(id);
+    if (room.ownerId !== userId) throw new HttpException('You are not the owner of this room', 403);
+
     return await this.roomsRepository.deleteRoomById(id);
   }
 }

@@ -1,4 +1,3 @@
-import { UseGuards } from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -8,11 +7,9 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
-import { WsJwtGuard } from '~/common/guards/wsJwt.guard';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 import { RoomGatewayService } from './room.gateway.service';
 
-// @UseGuards(WsJwtGuard)
 @WebSocketGateway({
   cors: { origin: '*' },
   transports: ['websocket', 'polling'],
