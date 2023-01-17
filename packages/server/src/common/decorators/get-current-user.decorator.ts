@@ -1,5 +1,4 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { Request } from 'express';
 
 export const GetCurrentUser = createParamDecorator(
@@ -9,9 +8,3 @@ export const GetCurrentUser = createParamDecorator(
     return req.user;
   },
 );
-
-declare module 'Express' {
-  interface Request {
-    user: User;
-  }
-}

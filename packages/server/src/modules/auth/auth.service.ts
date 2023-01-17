@@ -40,4 +40,19 @@ export class AuthService {
       throw new HttpException('Invalid access token', 401);
     }
   }
+
+  async verifyToken(token: string) {
+    const ACCESS_TOKEN_SECRET = this.configService.get<string>('access_token.secret');
+    try {
+      const decoded = await this.jwtService.verifyAsync(token, {
+        secret: ACCESS_TOKEN_SECRET,
+      });
+      return decoded;
+    } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        throw new HttpException('Token expired', 401);
+      }
+      throw new HttpException('Invalid token', 401);
+    }
+  }
 }

@@ -37,7 +37,7 @@ export class RoomsRepository {
     });
   }
 
-  async deleteRoomById(id: string) {
+  async deleteRoomById(id: string, userId: string) {
     return await this.prisma.room.delete({
       where: {
         id,

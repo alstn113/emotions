@@ -1,7 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { GetCurrentUser } from '~/common/decorators';
-import { JwtGuard } from '~/common/guards';
+import { GetCurrentUser, Public } from '~/common/decorators';
 import { CreateRoomDto } from './dto';
 import { RoomsService } from './rooms.service';
 
@@ -10,24 +9,25 @@ import { RoomsService } from './rooms.service';
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
+  @Public()
   @Get('/:id')
   async getRoomById(@Param('id') id: string) {
     return await this.roomsService.getRoomById(id);
   }
 
+  @Public()
   @Get('/')
   async getRooms() {
     return await this.roomsService.getRooms();
   }
 
   @Post('/')
-  @UseGuards(JwtGuard)
   async createRoom(@Body() dto: CreateRoomDto, @GetCurrentUser('id') userId: string) {
     return this.roomsService.createRoom(dto, userId);
   }
 
   @Delete('/:id')
-  async deleteRoom(@Param('id') id: string) {
-    return this.roomsService.deleteRoomById(id);
+  async deleteRoom(@Param('id') id: string, @GetCurrentUser('id') userId: string) {
+    return this.roomsService.deleteRoomById(id, userId);
   }
 }

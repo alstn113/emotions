@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { CreateRoomDto } from './dto';
 import { RoomsRepository } from './rooms.repository';
 
@@ -19,7 +18,7 @@ export class RoomsService {
     return await this.roomsRepository.createRoom(dto, userId);
   }
 
-  async deleteRoomById(id: string) {
-    return await this.roomsRepository.deleteRoomById(id);
+  async deleteRoomById(id: string, userId: string) {
+    return await this.roomsRepository.deleteRoomById(id, userId);
   }
 }

@@ -108,7 +108,6 @@ importers:
       helmet: ^6.0.1
       passport: ^0.6.0
       passport-github2: ^0.1.12
-      passport-jwt: ^4.0.1
       prisma: ^4.8.0
       reflect-metadata: ^0.1.13
       rimraf: ^3.0.2
@@ -139,7 +138,6 @@ importers:
       helmet: 6.0.1
       passport: 0.6.0
       passport-github2: 0.1.12
-      passport-jwt: 4.0.1
       prisma: 4.8.1
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
@@ -6129,13 +6127,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dependencies:
       passport-oauth2: 1.6.1
-    dev: false
-
-  /passport-jwt/4.0.1:
-    resolution: {integrity: sha512-UCKMDYhNuGOBE9/9Ycuoyh7vP6jpeTp/+sfMJl7nLff/t6dps+iaeE0hhNkKN8/HZHcJ7lCdOyDxHdDoxoSvdQ==}
-    dependencies:
-      jsonwebtoken: 9.0.0
-      passport-strategy: 1.0.0
     dev: false
 
   /passport-oauth2/1.6.1:

@@ -3,10 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { Response } from 'express';
-import { GetCurrentUser } from '~/common/decorators';
+import { GetCurrentUser, Public } from '~/common/decorators';
 import { GithubGuard } from '~/common/guards';
 import { AuthService } from './auth.service';
 
+@Public()
 @ApiTags('/auth')
 @Controller('/auth')
 export class AuthController {

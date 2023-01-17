@@ -1,15 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
-import { AuthService } from '~/modules/auth/auth.service';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 
 @Injectable()
 export class RoomGatewayService {
   private server: Server;
   private logger = new Logger('RoomGateway');
-
-  constructor(private readonly authService: AuthService) {}
 
   /** Default Setting */
 
@@ -19,15 +16,6 @@ export class RoomGatewayService {
   }
 
   async onConnection(client: Socket) {
-    // const { userId, email } = await this.authService.verifyAccessToken(
-    //   client.handshake.query.access_token as string,
-    // );
-
-    // client.data = {
-    //   uid: userId,
-    //   email,
-    // };
-
     this.logger.verbose(`Client connected: ${client.id}`);
   }
 
