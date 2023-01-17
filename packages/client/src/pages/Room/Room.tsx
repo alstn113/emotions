@@ -5,6 +5,7 @@ import useDeleteRoom from '~/hooks/queries/room/useDeleteRoom';
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import { Link } from 'react-router-dom';
+import BaseLayout from '~/components/layouts/BaseLayout';
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -35,26 +36,28 @@ const Room = () => {
   }
 
   return (
-    <Container>
-      <Spacer />
-      <Button shadow onClick={handleCreateRoom}>
-        Create Room
-      </Button>
-      <Spacer />
-      <div>
-        {rooms?.map((room) => {
-          return (
-            <RoomContainer key={room.id}>
-              <Link to={room.id}>Room: {room.id}</Link>
-              <div>{room.name}</div>
-              <div>{room.ownerId}</div>
-              <div onClick={() => handleDeleteRoom(room.id)}>Delete</div>
-            </RoomContainer>
-          );
-        })}
-      </div>
-      <Spacer />
-    </Container>
+    <BaseLayout>
+      <Container>
+        <Spacer />
+        <Button shadow onClick={handleCreateRoom}>
+          Create Room
+        </Button>
+        <Spacer />
+        <div>
+          {rooms?.map((room) => {
+            return (
+              <RoomContainer key={room.id}>
+                <Link to={room.id}>Room: {room.id}</Link>
+                <div>{room.name}</div>
+                <div>{room.ownerId}</div>
+                <div onClick={() => handleDeleteRoom(room.id)}>Delete</div>
+              </RoomContainer>
+            );
+          })}
+        </div>
+        <Spacer />
+      </Container>
+    </BaseLayout>
   );
 };
 

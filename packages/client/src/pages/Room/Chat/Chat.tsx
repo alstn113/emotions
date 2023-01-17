@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import useTyping from '~/hooks/useTyping';
+import BaseLayout from '~/components/layouts/BaseLayout';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -85,34 +86,36 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <Container>
-      <DynamicIsland />
-      <Contents ref={scrollRef}>
-        {messages.map((message, i) => {
-          return (
-            <MessageWrapper key={i} isCurrentUser={roomSocket.socket?.id === message.uid}>
-              <Message>
-                <div>{message.uid}</div>
-                <div>------</div>
-                <div>{message.message}</div>
-              </Message>
-            </MessageWrapper>
-          );
-        })}
-        {typingUsers.map((typingUser, i) => {
-          return <div key={i}>{typingUser} 입력 중...</div>;
-        })}
-      </Contents>
-      <form onSubmit={handleSubmitMessage}>
-        <MessageInput
-          placeholder="Write Message..."
-          onChange={handleChangeMessageInput}
-          onKeyDown={startTyping}
-          onKeyUp={stopTyping}
-          value={messageInput}
-        />
-      </form>
-    </Container>
+    <BaseLayout>
+      <Container>
+        <DynamicIsland />
+        <Contents ref={scrollRef}>
+          {messages.map((message, i) => {
+            return (
+              <MessageWrapper key={i} isCurrentUser={roomSocket.socket?.id === message.uid}>
+                <Message>
+                  <div>{message.uid}</div>
+                  <div>------</div>
+                  <div>{message.message}</div>
+                </Message>
+              </MessageWrapper>
+            );
+          })}
+          {typingUsers.map((typingUser, i) => {
+            return <div key={i}>{typingUser} 입력 중...</div>;
+          })}
+        </Contents>
+        <form onSubmit={handleSubmitMessage}>
+          <MessageInput
+            placeholder="Write Message..."
+            onChange={handleChangeMessageInput}
+            onKeyDown={startTyping}
+            onKeyUp={stopTyping}
+            value={messageInput}
+          />
+        </form>
+      </Container>
+    </BaseLayout>
   );
 };
 

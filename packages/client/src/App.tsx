@@ -1,9 +1,6 @@
 // react-router-dom
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-// layouts
-import BaseLayout from './components/layouts/BaseLayout';
-
 // pages
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
@@ -15,11 +12,9 @@ const App = () => {
     <Router>
       <Routes>
         {/* public routes */}
-        <Route path="/" element={<BaseLayout />}>
-          <Route index element={<Home />} />
-          <Route path="room" element={<Room />} />
-          <Route path="room/:roomId" element={<Chat />} />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/room" element={<Room />} />
+        <Route path="/room/:roomId" element={<Chat />} />
 
         {/* catch all */}
         <Route path="*" element={<NotFound />} />

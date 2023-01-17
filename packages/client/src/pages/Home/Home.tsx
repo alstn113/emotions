@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import BaseLayout from '~/components/layouts/BaseLayout';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
 const Home = () => {
@@ -7,12 +8,14 @@ const Home = () => {
   };
 
   return (
-    <Container>
-      <GithubLoginButton onClick={handleGithubLogin}>
-        <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
-        <span>Login With Github</span>
-      </GithubLoginButton>
-    </Container>
+    <BaseLayout>
+      <Container>
+        <GithubLoginButton onClick={handleGithubLogin}>
+          <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
+          <span>Login With Github</span>
+        </GithubLoginButton>
+      </Container>
+    </BaseLayout>
   );
 };
 
@@ -20,10 +23,10 @@ const GithubLoginButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
+  width: 200px;
   height: 50px;
   color: #aaaaaa;
-  font-size: 1.2rem;
+  font-size: 1rem;
   span {
     margin-left: 1rem;
   }
@@ -68,8 +71,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 400px;
-  width: 300px;
+  height: 360px;
+  width: 250px;
   border-radius: 20px;
   // grassmorphism
   background: rgba(255, 255, 255, 0.25);
