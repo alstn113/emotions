@@ -12,12 +12,12 @@ const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const PORT = configService.get<number>('PORT');
-  const CORS_ALLOW_LIST = configService.get<string[]>('CORS_ALLOW_LIST');
+  const ALLOWLIST = configService.get<string[]>('ALLOWLIST');
 
   app.use(helmet());
   app.use(cookieParser());
   app.enableCors({
-    origin: CORS_ALLOW_LIST,
+    origin: ALLOWLIST,
     credentials: true,
   });
   app.useWebSocketAdapter(new SocketIoAdapter(app));
