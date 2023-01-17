@@ -1,16 +1,12 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { Request, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { AuthService } from '~/modules/auth/auth.service';
 
 @Injectable()
 export class JwtAuthMiddleware implements NestMiddleware {
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
-  async use(req: Request, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     req.user = null;
 
     const token = req?.cookies?.access_token;
@@ -20,14 +16,13 @@ export class JwtAuthMiddleware implements NestMiddleware {
     }
 
     try {
-      const decoded = await this.jwtService.verifyAsync(token, {
-        secret: this.configService.get<string>('access_token.secret'),
-      });
+      const decoded = await this.authService.verifyToken(token);
       req.user = {
         id: decoded.id,
         email: decoded.email,
       };
     } catch (error) {
+      this.authService.clearTokenCookie(res);
       console.log(error);
     }
 

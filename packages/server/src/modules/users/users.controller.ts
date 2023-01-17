@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { GetCurrentUser } from '~/common/decorators';
+import { User } from '@prisma/client';
+import { GetCurrentUser, Public } from '~/common/decorators';
 import { UsersService } from './users.service';
 
 @ApiTags('/users')
@@ -8,8 +9,14 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Get('/me')
-  async getCurrentUser(@GetCurrentUser('id') userId: string) {
-    return await this.usersService.getUserById(userId);
+  async getCurrentUser(
+    @GetCurrentUser() user: { id: string; email: string },
+  ): Promise<User | null> {
+    if (!user) {
+      return null;
+    }
+    return await this.usersService.getCurrentUser(user.id);
   }
 }

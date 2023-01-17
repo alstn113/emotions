@@ -1,7 +1,6 @@
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { Response } from 'express';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { GithubGuard } from '~/common/guards';
@@ -24,9 +23,16 @@ export class AuthController {
 
   @Get('/github/callback')
   @UseGuards(GithubGuard)
-  async githubCallback(@Res() res: Response, @GetCurrentUser() user: User) {
+  async githubCallback(@Res() res: Response, @GetCurrentUser() user) {
     const CLIENT_URL = this.configService.get<string>('client');
-    const accessToken = await this.authService.generateAccessToken(user);
-    return res.redirect(`${CLIENT_URL}/auth?access_token=${accessToken}`);
+    const token = await this.authService.generateToken(user.id, user.email);
+    this.authService.setTokenCookie(res, token);
+    return res.redirect(CLIENT_URL);
+  }
+
+  @Delete('/logout')
+  logout(@Res() res: Response) {
+    this.authService.clearTokenCookie(res);
+    return res.status(200).json({ message: 'Logout success' });
   }
 }

@@ -3,11 +3,14 @@ import { MiddlewareConsumer, Module, NestModule, ValidationPipe } from '@nestjs/
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { PrismaModule } from './prisma/prisma.module';
+import { JwtModule } from '@nestjs/jwt';
+
+// middlewares
 import { JwtAuthMiddleware } from './middlewares';
-import { JwtAuthGuard } from './common/guards';
 
 // providers
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { JwtAuthGuard } from './common/guards';
 
 // main modules
 import { AuthModule } from './modules/auth/auth.module';
@@ -17,6 +20,7 @@ import { RoomsModule } from './modules/rooms/rooms.module';
 
 @Module({
   imports: [
+    JwtModule.register({}),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [EnvConfig, AuthConfig, JwtConfig],
