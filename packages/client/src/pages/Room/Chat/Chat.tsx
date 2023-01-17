@@ -4,7 +4,7 @@ import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { SOCKET_EVENT } from '~/constants';
-import roomSocket, { initRoomSocket, leaveRoom } from '~/libs/sockets/roomSocket';
+import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import useTyping from '~/hooks/useTyping';
 
 const Chat = () => {

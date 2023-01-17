@@ -1,4 +1,4 @@
-import RoomAPI from '~/libs/api/room';
+import RoomAPI from '~/api/room';
 import { useMutation } from '@tanstack/react-query';
 import type { UseMutationOptionsOf } from '~/hooks/types';
 

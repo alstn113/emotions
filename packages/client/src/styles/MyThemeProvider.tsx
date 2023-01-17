@@ -1,20 +1,17 @@
 import { ThemeProvider } from '@emotion/react';
 import { GlobalStyle } from './GlobalStyle';
+import { lightTheme } from './theme';
 
 interface Props {
   children: React.ReactNode;
 }
 
 const MyThemeProvider = ({ children }: Props) => {
-  // const { theme } = useThemeStore();
   return (
-    // <ThemeProvider theme={theme}>
-    //TODO: 이거 localStorage에서 { {"state":{"theme":"lightTheme"},"version":0} }에서 theme를 가져와야함
-
-    <>
+    <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
       {children}
-    </>
+    </ThemeProvider>
   );
 };
 

@@ -25,7 +25,7 @@ const Container = styled(motion.div)`
   align-items: center;
   justify-content: center;
   width: 40%;
-  height: 7%;
+  height: 50px;
   z-index: 100;
   // glassmorphism
   background: rgba(255, 255, 255, 0.25);
