@@ -22,12 +22,12 @@ export class RoomsController {
   }
 
   @Post('/')
-  async createRoom(@Body() dto: CreateRoomDto, @GetCurrentUser('id') userId: string) {
+  async createRoom(@Body() dto: CreateRoomDto, @GetCurrentUser('userId') userId: string) {
     return this.roomsService.createRoom(dto, userId);
   }
 
   @Delete('/:id')
-  async deleteRoom(@Param('id') id: string, @GetCurrentUser('id') userId: string) {
+  async deleteRoom(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
     return this.roomsService.deleteRoomById(id, userId);
   }
 }

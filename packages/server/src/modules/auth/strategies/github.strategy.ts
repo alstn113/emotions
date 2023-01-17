@@ -28,7 +28,11 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
           username: login,
         },
       });
-      if (exUser) return done(null, exUser);
+      if (exUser)
+        return done(null, {
+          userId: exUser.id,
+          username: exUser.username,
+        });
 
       const newUser = await this.prisma.user.create({
         data: {
@@ -37,7 +41,10 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
         },
       });
 
-      return done(null, newUser);
+      return done(null, {
+        userId: newUser.id,
+        username: newUser.username,
+      });
     } catch (error) {
       return done(error, false);
     }

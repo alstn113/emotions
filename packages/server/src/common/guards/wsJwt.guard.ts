@@ -1,8 +1,33 @@
-import { CanActivate, ExecutionContext, HttpException, Injectable } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Socket } from 'socket.io';
+import { AuthService } from '~/modules/auth/auth.service';
+import { PrismaService } from '~/prisma/prisma.service';
+import { parseCookie } from '~/utils/parseCookie';
 
 @Injectable()
 export class WsJwtGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
-  public canActivate(context: ExecutionContext): boolean {}
+  constructor(private readonly authService: AuthService, private readonly prisma: PrismaService) {}
+  public async canActivate(context: ExecutionContext) {
+    const client: Socket = context.switchToWs().getClient();
+    const token = parseCookie(client.handshake.headers.cookie, 'access_token');
+
+    const decoded = await this.authService.verifyToken(token);
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: decoded.userId,
+      },
+    });
+
+    if (!user) return false;
+
+    const req = context.switchToHttp().getRequest();
+
+    req.user = {
+      userId: decoded.userId,
+      username: decoded.username,
+    };
+
+    return true;
+  }
 }

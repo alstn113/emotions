@@ -12,15 +12,15 @@ export class RoomGatewayService {
 
   onAfterInit(server: Server) {
     this.server = server;
-    this.logger.verbose('Initialized RoomGateway');
+    this.logger.log('Initialized RoomGateway');
   }
 
   async onConnection(client: Socket) {
-    this.logger.verbose(`Client connected: ${client.id}`);
+    this.logger.log(`Client connected: ${client.id}`);
   }
 
   onDisconnect(client: Socket) {
-    this.logger.verbose(`Client disconnected: ${client.id}`);
+    this.logger.log(`Client disconnected: ${client.id}`);
   }
 
   /** Socket Chat */

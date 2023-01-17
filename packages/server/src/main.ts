@@ -5,8 +5,7 @@ import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from '~/app.module';
 import { SocketIoAdapter } from './adapter';
-import { INestApplication } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { createDocumnet } from './utils';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
@@ -26,14 +25,7 @@ const bootstrap = async () => {
   await app.listen(PORT);
 };
 
-const createDocumnet = (app: INestApplication): void => {
-  const config = new DocumentBuilder().setTitle('iChat').setVersion('1.0.0').build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
-};
-
-const logger = new Logger('iChat_Main');
+const logger = new Logger('iChatMain');
 
 bootstrap()
   .then((port) => {

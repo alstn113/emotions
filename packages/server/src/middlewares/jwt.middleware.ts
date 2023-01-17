@@ -1,10 +1,11 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '~/modules/auth/auth.service';
+import { PrismaService } from '~/prisma/prisma.service';
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly prisma: PrismaService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     req.user = null;
@@ -17,6 +18,13 @@ export class JwtMiddleware implements NestMiddleware {
 
     try {
       const decoded = await this.authService.verifyToken(token);
+      const user = await this.prisma.user.findUnique({
+        where: {
+          id: decoded.userId,
+        },
+      });
+      if (!user) return next();
+
       req.user = {
         userId: decoded.userId,
         username: decoded.username,
