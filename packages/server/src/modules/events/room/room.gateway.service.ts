@@ -50,6 +50,7 @@ export class RoomGatewayService {
     await client.join(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.JOINED_ROOM, {
       uid: `${client.data.uid}`,
+      username: `${client.data.username}`,
       message: `joined ${dto.roomId}`,
     });
   }
@@ -58,6 +59,7 @@ export class RoomGatewayService {
     await client.leave(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.LEFT_ROOM, {
       uid: `${client.data.uid}`,
+      username: `${client.data.username}`,
       message: `left ${dto.roomId}`,
     });
   }
@@ -66,6 +68,7 @@ export class RoomGatewayService {
     // send to all users in room
     this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
       uid: `${client.data.uid}`,
+      username: `${client.data.username}`,
       message: `${dto.message}`,
     });
   }
@@ -73,6 +76,7 @@ export class RoomGatewayService {
   onTypingStatus(client: Socket, dto: TypingStatusDto) {
     client.to(dto.roomId).emit(SOCKET_EVENT.TYPING_STATUS, {
       uid: `${client.data.uid}`,
+      username: `${client.data.username}`,
       isTyping: dto.isTyping,
     });
   }

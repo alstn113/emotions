@@ -9,7 +9,7 @@ import useTyping from '~/hooks/useTyping';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetMe from '~/hooks/queries/user/useGetMe';
-import { User } from '~/types';
+import { SocketMessagePayload, User } from '~/types';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -18,7 +18,9 @@ const Chat = () => {
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
 
   const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
-  const [messages, setMessages] = useState<{ message: string; uid: string }[]>([]);
+  const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
+    [],
+  );
   const [messageInput, setMessageInput] = useState<string>('');
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -31,9 +33,12 @@ const Chat = () => {
   };
 
   const receiveMessage = () => {
-    roomSocket.socket?.on(SOCKET_EVENT.CHAT_MESSAGE, (data: { message: string; uid: string }) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
-    });
+    roomSocket.socket?.on(
+      SOCKET_EVENT.CHAT_MESSAGE,
+      ({ uid, username, message }: SocketMessagePayload) => {
+        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+      },
+    );
   };
 
   const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,12 +63,18 @@ const Chat = () => {
   useEffect(() => {
     initRoomSocket(roomId);
     receiveMessage();
-    roomSocket.socket?.on(SOCKET_EVENT.JOINED_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
-    });
-    roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, (data) => {
-      setMessages((prevMessages) => [...prevMessages, { message: data.message, uid: data.uid }]);
-    });
+    roomSocket.socket?.on(
+      SOCKET_EVENT.JOINED_ROOM,
+      ({ uid, username, message }: SocketMessagePayload) => {
+        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+      },
+    );
+    roomSocket.socket?.on(
+      SOCKET_EVENT.LEFT_ROOM,
+      ({ uid, username, message }: SocketMessagePayload) => {
+        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+      },
+    );
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
       (data: { isTyping: boolean; uid: string }) => {
@@ -99,7 +110,7 @@ const Chat = () => {
         <Contents ref={scrollRef}>
           {messages.map((message, i) => {
             return (
-              <MessageWrapper key={i} isCurrentUser={roomSocket.socket?.id === message.uid}>
+              <MessageWrapper key={i} isCurrentUser={user?.id === message.uid}>
                 <Message>
                   <div>{message.uid}</div>
                   <div>------</div>
