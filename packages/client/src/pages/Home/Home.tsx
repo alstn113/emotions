@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
+import { glassmorphism } from '~/styles';
 const Home = () => {
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
@@ -75,12 +76,7 @@ const Container = styled.div`
   width: 250px;
   border-radius: 20px;
   // grassmorphism
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  ${glassmorphism}
 `;
 
 export default Home;

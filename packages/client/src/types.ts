@@ -8,8 +8,8 @@ export interface User {
 export interface Room {
   id: string;
   name: string;
-  owner: User;
-  ownerId: string;
+  host: User;
+  hostId: string;
   createdAt: string;
   updatedAt: string;
 }

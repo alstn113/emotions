@@ -12,7 +12,7 @@ export class RoomsRepository {
         id,
       },
       include: {
-        owner: true,
+        host: true,
       },
     });
     if (!room) throw new HttpException('Room not found', 404);
@@ -23,7 +23,7 @@ export class RoomsRepository {
   async findRooms() {
     return this.prisma.room.findMany({
       include: {
-        owner: true,
+        host: true,
       },
     });
   }
@@ -32,7 +32,7 @@ export class RoomsRepository {
     return await this.prisma.room.create({
       data: {
         ...dto,
-        ownerId: userId,
+        hostId: userId,
       },
     });
   }

@@ -49,7 +49,7 @@ const Room = () => {
               <RoomContainer key={room.id}>
                 <Link to={room.id}>Room: {room.id}</Link>
                 <div>{room.name}</div>
-                <div>{room.ownerId}</div>
+                <div>{room.hostId}</div>
                 <div onClick={() => handleDeleteRoom(room.id)}>Delete</div>
               </RoomContainer>
             );
