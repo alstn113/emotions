@@ -26,6 +26,7 @@ const Message = ({ children }: Props) => {
 
 const Container = styled(motion.div)`
   width: 100%;
+  word-wrap: break-word;
   padding: 15px 20px;
   font-size: 14px;
   // glassmorphism
