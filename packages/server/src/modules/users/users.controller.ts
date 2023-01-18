@@ -17,6 +17,6 @@ export class UsersController {
     if (!user) {
       return null;
     }
-    return await this.usersService.getCurrentUser(user.userId);
+    return await this.usersService.getUserById(user.userId);
   }
 }

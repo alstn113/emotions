@@ -6,8 +6,11 @@ import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import Room from './pages/Room/Room';
 import Chat from './pages/Room/Chat/Chat';
+import useGetMe from './hooks/queries/user/useGetMe';
 
 const App = () => {
+  useGetMe();
+
   return (
     <Router>
       <Routes>

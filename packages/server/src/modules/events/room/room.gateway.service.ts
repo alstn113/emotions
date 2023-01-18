@@ -1,12 +1,20 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
+import { AuthService } from '~/modules/auth/auth.service';
+import { parseCookie } from '~/utils/parseCookie';
 import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
+import { UsersService } from '~/modules/users/users.service';
 
 @Injectable()
 export class RoomGatewayService {
   private server: Server;
   private logger = new Logger('RoomGateway');
+
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
   /** Default Setting */
 
@@ -16,7 +24,20 @@ export class RoomGatewayService {
   }
 
   async onConnection(client: Socket) {
-    this.logger.log(`Client connected: ${client.id}`);
+    try {
+      const token = parseCookie(client.handshake.headers.cookie, 'access_token');
+      const decoded = await this.authService.verifyToken(token);
+      const user = await this.usersService.getUserById(decoded.userId);
+
+      // set user data to client
+      client.data.uid = user.id;
+      client.data.username = user.username;
+
+      this.logger.log(`Client connected: ${client.id}`);
+    } catch (error) {
+      console.log(error);
+      client.disconnect();
+    }
   }
 
   onDisconnect(client: Socket) {
@@ -28,7 +49,7 @@ export class RoomGatewayService {
   async onJoinRoom(client: Socket, dto: JoinRoomDto) {
     await client.join(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.JOINED_ROOM, {
-      uid: `${client.id}`,
+      uid: `${client.data.uid}`,
       message: `joined ${dto.roomId}`,
     });
   }
@@ -36,7 +57,7 @@ export class RoomGatewayService {
   async onLeaveRoom(client: Socket, dto: LeaveRoomDto) {
     await client.leave(dto.roomId);
     client.to(dto.roomId).emit(SOCKET_EVENT.LEFT_ROOM, {
-      uid: `${client.id}`,
+      uid: `${client.data.uid}`,
       message: `left ${dto.roomId}`,
     });
   }
@@ -44,14 +65,14 @@ export class RoomGatewayService {
   onChatMessage(client: Socket, dto: RoomMessageDto) {
     // send to all users in room
     this.server.to(dto.roomId).emit(SOCKET_EVENT.CHAT_MESSAGE, {
-      uid: `${client.id}`,
+      uid: `${client.data.uid}`,
       message: `${dto.message}`,
     });
   }
 
   onTypingStatus(client: Socket, dto: TypingStatusDto) {
     client.to(dto.roomId).emit(SOCKET_EVENT.TYPING_STATUS, {
-      uid: `${client.id}`,
+      uid: `${client.data.uid}`,
       isTyping: dto.isTyping,
     });
   }

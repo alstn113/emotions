@@ -12,6 +12,7 @@ const bootstrap = async () => {
   const configService = app.get(ConfigService);
   const PORT = configService.get<number>('PORT');
   const ALLOWLIST = configService.get<string[]>('ALLOWLIST');
+  const logger = new Logger('iChatMain');
 
   app.use(helmet());
   app.use(cookieParser());
@@ -23,14 +24,8 @@ const bootstrap = async () => {
 
   createDocumnet(app);
   await app.listen(PORT);
+
+  logger.log(`Server is running on port ${PORT}`);
 };
 
-const logger = new Logger('iChatMain');
-
-bootstrap()
-  .then((port) => {
-    logger.log(`Server is running on port ${port}`);
-  })
-  .catch((err) => {
-    logger.error(err.message, err);
-  });
+bootstrap();

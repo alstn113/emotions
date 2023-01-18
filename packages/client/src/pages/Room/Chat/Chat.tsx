@@ -7,9 +7,16 @@ import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import useTyping from '~/hooks/useTyping';
 import BaseLayout from '~/components/layouts/BaseLayout';
+import { useQueryClient } from '@tanstack/react-query';
+import useGetMe from '~/hooks/queries/user/useGetMe';
+import { User } from '~/types';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
+  // get user data
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData<User>(useGetMe.getKey());
+
   const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
   const [messages, setMessages] = useState<{ message: string; uid: string }[]>([]);
   const [messageInput, setMessageInput] = useState<string>('');
