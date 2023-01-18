@@ -11,39 +11,36 @@ const BaseLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
       <Header />
-      <Content>
+      <Background>
         <div className="color"></div>
         <div className="color"></div>
         <div className="color"></div>
-        {children}
-      </Content>
+        <Content>{children}</Content>
+      </Background>
       <Footer />
     </FullHeightScreen>
   );
 };
 
-const Content = styled.div`
+const Background = styled.div`
   position: relative;
+  background: linear-gradient(to bottom, #ff4f8b, #dff1ff);
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow: scroll;
-  padding: 16px;
-
-  background: linear-gradient(to bottom, #ff4f8b, #dff1ff);
+  overflow: hidden;
+  overflow-x: hidden;
 
   .color {
     position: absolute;
     filter: blur(150px);
   }
-
   .color:nth-of-type(1) {
     top: -35%;
-    background: #f598fd;
+    background: #ff359b;
     width: 60%;
     height: 60%;
   }
-
   .color:nth-of-type(2) {
     bottom: 0;
     left: 10%;
@@ -51,7 +48,6 @@ const Content = styled.div`
     width: 50%;
     height: 40%;
   }
-
   .color:nth-of-type(3) {
     bottom: 0;
     right: 0;
@@ -59,6 +55,16 @@ const Content = styled.div`
     width: 30%;
     height: 20%;
   }
+`;
+
+const Content = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 16px;
 `;
 
 export default BaseLayout;

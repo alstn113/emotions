@@ -25,11 +25,9 @@ const Message = ({ children }: Props) => {
 };
 
 const Container = styled(motion.div)`
-  min-height: 40px;
-  min-width: 120px;
-  max-width: 200px;
+  width: 100%;
   padding: 15px 20px;
-  font-size: 0.5rem;
+  font-size: 14px;
   // glassmorphism
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);

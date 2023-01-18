@@ -10,7 +10,7 @@ const Container = styled.header`
   align-items: center;
   justify-content: center;
   height: 50px;
-  border-bottom: 3px solid gray;
+  border-bottom: 6px solid gray;
   padding-left: 16px;
   padding-right: 16px;
 

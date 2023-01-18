@@ -119,6 +119,11 @@ const Chat = () => {
   );
 };
 
+const Container = styled.div`
+  max-width: 768px;
+  margin: 0 auto;
+`;
+
 const MessageInput = styled.input`
   position: fixed;
   bottom: 40px;
@@ -141,27 +146,17 @@ const MessageInput = styled.input`
   border: 1px solid rgba(255, 255, 255, 0.18);
 `;
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-`;
-
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 120px 10%;
-  min-height: 100%;
-  overflow-y: auto;
-
-  width: 100%;
 `;
 
 const MessageWrapper = styled.div<{ isCurrentUser: boolean }>`
   display: flex;
+  min-height: 40px;
+  min-width: 33%;
+  max-width: 66%;
   align-self: ${({ isCurrentUser }) => (isCurrentUser ? 'flex-end' : 'flex-start')};
 `;
 

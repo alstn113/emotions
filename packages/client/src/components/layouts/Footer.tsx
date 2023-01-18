@@ -9,7 +9,7 @@ const Container = styled.footer`
   align-items: center;
   justify-content: center;
   height: 50px;
-  border-top: 3px solid gray;
+  border-top: 6px solid gray;
   padding-left: 16px;
   padding-right: 16px;
 
