@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { CreateRoomDto } from './dto';
-import { RoomsRepository } from './rooms.repository';
+import { CreateRoomDto } from '../dto';
+import { RoomsRepository } from '../repositories/rooms.repository';
 
 @Injectable()
 export class RoomsService {

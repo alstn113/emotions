@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { CreateRoomDto } from './dto';
-import { RoomsService } from './rooms.service';
+import { RoomsService } from './services/rooms.service';
 
 @ApiTags('/rooms')
 @Controller('/rooms')
