@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { HttpException, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from '~/modules/auth/auth.service';
 import { PrismaService } from '~/prisma/prisma.service';
@@ -18,12 +18,13 @@ export class JwtMiddleware implements NestMiddleware {
 
     try {
       const decoded = await this.authService.verifyToken(token);
+
       const user = await this.prisma.user.findUnique({
         where: {
           id: decoded.userId,
         },
       });
-      if (!user) return next();
+      if (!user) throw new HttpException('User is not Found', 400);
 
       req.user = {
         userId: decoded.userId,
