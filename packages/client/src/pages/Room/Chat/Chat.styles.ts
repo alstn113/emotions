@@ -8,12 +8,13 @@ export const Container = styled.div`
 
 export const MessageInput = styled.input`
   position: fixed;
-  bottom: 40px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 
   width: 80%;
   height: 60px;

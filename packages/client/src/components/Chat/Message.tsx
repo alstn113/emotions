@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
+import { glassmorphism } from '~/styles';
 
 interface Props {
   children: React.ReactNode;
@@ -29,13 +30,8 @@ const Container = styled(motion.div)`
   word-wrap: break-word;
   padding: 15px 20px;
   font-size: 14px;
-  // glassmorphism
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  ${glassmorphism}
 `;
 
 export default Message;

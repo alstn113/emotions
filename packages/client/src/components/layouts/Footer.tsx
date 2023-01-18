@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { glassmorphism } from '~/styles';
 
 const Footer = () => {
   return <Container>Interactive Chat</Container>;
@@ -9,11 +10,15 @@ const Container = styled.footer`
   align-items: center;
   justify-content: center;
   height: 50px;
-  border-top: 6px solid gray;
   padding-left: 16px;
   padding-right: 16px;
 
-  font-size: 1.2rem;
+  margin: 8px 16px;
+
+  ${glassmorphism}
+
+  // font
+  font-size: 1.5rem;
   font-weight: 700;
 `;
 

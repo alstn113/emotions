@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
+import { glassmorphism } from '~/styles';
 
 interface Props {}
 
@@ -18,7 +19,7 @@ const DynamicIsland = ({}: Props) => {
 
 const Container = styled(motion.div)`
   position: fixed;
-  top: 30px;
+  top: 50px;
   left: 50%;
   transform: translate(-50%, -5%);
   display: flex;
@@ -27,12 +28,7 @@ const Container = styled(motion.div)`
   width: 40%;
   height: 50px;
   z-index: 100;
-  // glassmorphism
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  ${glassmorphism}
 `;
 export default DynamicIsland;

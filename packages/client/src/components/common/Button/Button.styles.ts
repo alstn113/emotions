@@ -1,4 +1,4 @@
-import { palette, NormalColorType } from '~/styles/palette';
+import { palette, NormalColorType } from '~/styles';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 

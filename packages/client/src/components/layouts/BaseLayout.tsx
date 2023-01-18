@@ -10,21 +10,21 @@ interface Props {
 const BaseLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
-      <Header />
       <Background>
+        <Header />
         <div className="color"></div>
         <div className="color"></div>
         <div className="color"></div>
         <Content>{children}</Content>
+        <Footer />
       </Background>
-      <Footer />
     </FullHeightScreen>
   );
 };
 
 const Background = styled.div`
   position: relative;
-  background: linear-gradient(to bottom, #ff4f8b, #dff1ff);
+  background: linear-gradient(to bottom, #ff87af, #dff1ff);
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -37,21 +37,21 @@ const Background = styled.div`
   }
   .color:nth-of-type(1) {
     top: -35%;
-    background: #ff359b;
-    width: 60%;
-    height: 60%;
+    background: #ff87af;
+    width: 30%;
+    height: 30%;
   }
   .color:nth-of-type(2) {
     bottom: 0;
     left: 10%;
-    background: #fffd87;
+    background: #fffec8;
     width: 50%;
     height: 40%;
   }
   .color:nth-of-type(3) {
     bottom: 0;
     right: 0;
-    background: #00d2ff;
+    background: #a6efff;
     width: 30%;
     height: 20%;
   }
