@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import * as S from './Chat.styles';
 import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
 import { useEffect, useRef, useState } from 'react';
@@ -9,7 +9,7 @@ import useTyping from '~/hooks/useTyping';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetMe from '~/hooks/queries/user/useGetMe';
-import { SocketMessagePayload, User } from '~/types';
+import { MessagePayload, TypingStatusPayload, User } from '~/types';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -35,7 +35,7 @@ const Chat = () => {
   const receiveMessage = () => {
     roomSocket.socket?.on(
       SOCKET_EVENT.CHAT_MESSAGE,
-      ({ uid, username, message }: SocketMessagePayload) => {
+      ({ uid, username, message }: MessagePayload) => {
         setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
       },
     );
@@ -65,23 +65,20 @@ const Chat = () => {
     receiveMessage();
     roomSocket.socket?.on(
       SOCKET_EVENT.JOINED_ROOM,
-      ({ uid, username, message }: SocketMessagePayload) => {
-        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+      ({ uid, username, message }: MessagePayload) => {
+        setMessages((prev) => [...prev, { uid, username, message }]);
       },
     );
-    roomSocket.socket?.on(
-      SOCKET_EVENT.LEFT_ROOM,
-      ({ uid, username, message }: SocketMessagePayload) => {
-        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
-      },
-    );
+    roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, ({ uid, username, message }: MessagePayload) => {
+      setMessages((prev) => [...prev, { uid, username, message }]);
+    });
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
-      (data: { isTyping: boolean; uid: string }) => {
-        if (data.isTyping) {
-          setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.uid]);
+      ({ uid, username, isTyping }: TypingStatusPayload) => {
+        if (isTyping) {
+          setTypingUsers((prev) => [...prev, username]);
         } else {
-          setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((uid) => uid !== data.uid));
+          setTypingUsers((prev) => prev.filter((username) => username !== username));
         }
       },
     );
@@ -105,26 +102,25 @@ const Chat = () => {
 
   return (
     <BaseLayout>
-      <Container>
+      <S.Container>
         <DynamicIsland />
-        <Contents ref={scrollRef}>
-          {messages.map((message, i) => {
+        <S.Contents ref={scrollRef}>
+          {messages.map((message, index) => {
             return (
-              <MessageWrapper key={i} isCurrentUser={user?.id === message.uid}>
+              <S.MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
                 <Message>
-                  <div>{message.uid}</div>
-                  <div>------</div>
+                  <div>{message.username}</div>
                   <div>{message.message}</div>
                 </Message>
-              </MessageWrapper>
+              </S.MessageWrapper>
             );
           })}
-          {typingUsers.map((typingUser, i) => {
-            return <div key={i}>{typingUser} 입력 중...</div>;
+          {typingUsers.map((typingUser, index) => {
+            return <div key={index}>{typingUser} 입력 중...</div>;
           })}
-        </Contents>
+        </S.Contents>
         <form onSubmit={handleSubmitMessage}>
-          <MessageInput
+          <S.MessageInput
             placeholder="Write Message..."
             onChange={handleChangeMessageInput}
             onKeyDown={startTyping}
@@ -132,51 +128,9 @@ const Chat = () => {
             value={messageInput}
           />
         </form>
-      </Container>
+      </S.Container>
     </BaseLayout>
   );
 };
-
-const Container = styled.div`
-  max-width: 768px;
-  width: 100%;
-  margin: 0 auto;
-`;
-
-const MessageInput = styled.input`
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 80%;
-  height: 60px;
-  padding: 0 1rem;
-
-  // glassmorphism
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-`;
-
-const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const MessageWrapper = styled.div<{ isCurrentUser: boolean }>`
-  display: flex;
-  min-height: 40px;
-  min-width: 33%;
-  max-width: 66%;
-  align-self: ${({ isCurrentUser }) => (isCurrentUser ? 'flex-end' : 'flex-start')};
-`;
 
 export default Chat;

@@ -18,8 +18,14 @@ export interface CreateRoomParams {
   name: string;
 }
 
-export interface SocketMessagePayload {
+export interface MessagePayload {
   uid: string;
   username: string;
   message: string;
+}
+
+export interface TypingStatusPayload {
+  uid: string;
+  username: string;
+  isTyping: boolean;
 }

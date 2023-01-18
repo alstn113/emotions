@@ -38,10 +38,39 @@ export class RoomGatewayService {
       console.log(error);
       client.disconnect();
     }
+
+    client.on('disconnecting', () => this.onDisconnecting(client));
   }
 
   onDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
+  }
+
+  private onDisconnecting(client: Socket) {
+    // user가 참여하고 있는 room을 가져온다.
+    const roomsToLeave: Set<string> = this.server.adapter['sids'].get(client.id);
+
+    if (!roomsToLeave) {
+      return;
+    }
+
+    // user sid와 같은 것을 제외시킨다.
+    const rooms = [...roomsToLeave].filter(
+      (room) => room !== client.id && room !== client.data.uid.toString(),
+    );
+
+    rooms.forEach(async (room) => {
+      client.to(room).emit(SOCKET_EVENT.LEFT_ROOM, {
+        uid: `${client.id}`,
+        username: `${client.data.username}`,
+        message: `left ${room}`,
+      });
+      client.to(room).emit(SOCKET_EVENT.TYPING_STATUS, {
+        uid: `${client.data.uid}`,
+        username: `${client.data.username}`,
+        isTyping: false,
+      });
+    });
   }
 
   /** Socket Chat */
