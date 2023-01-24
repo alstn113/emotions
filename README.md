@@ -10,6 +10,12 @@
 
 AWS EC2 NGINX
 
-- frontend: https://wap-dev.store
-- backend: https://api.wap-dev.store
-- admin: https://admin.wap-dev.store
+client: reactjs - vite
+server: nestjs
+
+- client: <https://wap-dev.store>
+- server: <https://api.wap-dev.store>
+- admin: <https://admin.wap-dev.store>
+
+Superbase(postgresql)
+Redis
