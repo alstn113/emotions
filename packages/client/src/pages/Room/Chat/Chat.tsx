@@ -7,10 +7,10 @@ import { MessagePayload, TypingStatusPayload, User } from '~/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { useGetMe } from '~/hooks/queries/user';
 import { useGetRoom } from '~/hooks/queries/room';
-import useTyping from '~/hooks/useTyping';
 
 // components
-import * as S from './Chat.styles';
+import styled from '@emotion/styled';
+import ChatInput from './ChatInput';
 import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
 import BaseLayout from '~/components/layouts/BaseLayout';
@@ -27,20 +27,11 @@ const Chat = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
 
-  const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
   const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
     [],
   );
-  const [messageInput, setMessageInput] = useState<string>('');
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const sendMessage = ({ message }: { message: string }) => {
-    roomSocket.socket?.emit(SOCKET_EVENT.CHAT_MESSAGE, {
-      roomId,
-      message,
-    });
-  };
 
   const receiveMessage = () => {
     roomSocket.socket?.on(
@@ -49,25 +40,6 @@ const Chat = () => {
         setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
       },
     );
-  };
-
-  const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    cancelTyping();
-    sendMessage({ message: messageInput });
-    setMessageInput('');
-  };
-
-  const handleChangeMessageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMessageInput(e.target.value);
-  };
-
-  const startTypingMessage = () => {
-    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: true });
-  };
-
-  const stopTypingMessage = () => {
-    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: false });
   };
 
   useEffect(() => {
@@ -101,11 +73,6 @@ const Chat = () => {
     };
   }, [roomId]);
 
-  useEffect(() => {
-    if (isTyping) startTypingMessage();
-    else stopTypingMessage();
-  }, [isTyping]);
-
   //TODO: 스크롤이 바닥에 있을 경우에만 따라가게 하기
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
@@ -113,37 +80,58 @@ const Chat = () => {
 
   return (
     <BaseLayout>
-      <S.Container ref={scrollRef}>
-        <S.Wrapper>
+      <Container ref={scrollRef}>
+        <Wrapper>
           <DynamicIsland isHost={room?.hostId === user?.id} />
-          <S.Contents>
+          <Contents>
             {messages.map((message, index) => {
               return (
-                <S.MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
+                <MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
                   <Message>
                     <div>{message.username}</div>
                     <div>{message.message}</div>
                   </Message>
-                </S.MessageWrapper>
+                </MessageWrapper>
               );
             })}
             {typingUsers.map((typingUser, index) => {
               return <div key={index}>{typingUser} 입력 중...</div>;
             })}
-          </S.Contents>
-          <form onSubmit={handleSubmitMessage}>
-            <S.MessageInput
-              placeholder="Write Message..."
-              onChange={handleChangeMessageInput}
-              onKeyDown={startTyping}
-              onKeyUp={stopTyping}
-              value={messageInput}
-            />
-          </form>
-        </S.Wrapper>
-      </S.Container>
+          </Contents>
+          <ChatInput roomId={roomId} />
+        </Wrapper>
+      </Container>
     </BaseLayout>
   );
 };
-
 export default Chat;
+
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 16px;
+`;
+
+const Wrapper = styled.div`
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const MessageWrapper = styled.div<{ isCurrentUser: boolean }>`
+  display: flex;
+  min-height: 40px;
+  min-width: 33%;
+  max-width: 66%;
+  align-self: ${({ isCurrentUser }) => (isCurrentUser ? 'flex-end' : 'flex-start')};
+`;
