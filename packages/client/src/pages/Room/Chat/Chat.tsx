@@ -1,16 +1,23 @@
+// react
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { MessagePayload, TypingStatusPayload, User } from '~/types';
+
+// hooks
+import { useQueryClient } from '@tanstack/react-query';
+import { useGetMe } from '~/hooks/queries/user';
+import { useGetRoom } from '~/hooks/queries/room';
+import useTyping from '~/hooks/useTyping';
+
+// components
 import * as S from './Chat.styles';
 import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
-import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import BaseLayout from '~/components/layouts/BaseLayout';
+
+// sockets
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
-import useTyping from '~/hooks/useTyping';
-import BaseLayout from '~/components/layouts/BaseLayout';
-import { useQueryClient } from '@tanstack/react-query';
-import useGetMe from '~/hooks/queries/user/useGetMe';
-import { MessagePayload, TypingStatusPayload, User } from '~/types';
-import useGetRoom from '~/hooks/queries/room/useGetRoom';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };

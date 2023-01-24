@@ -1,10 +1,13 @@
-import useGetRooms from '~/hooks/queries/room/useGetRooms';
-import useCreateRoom from '~/hooks/queries/room/useCreateRoom';
+// react
+import { Link } from 'react-router-dom';
+
+// hooks
 import { useQueryClient } from '@tanstack/react-query';
-import useDeleteRoom from '~/hooks/queries/room/useDeleteRoom';
+import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room';
+
+// components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
-import { Link } from 'react-router-dom';
 import BaseLayout from '~/components/layouts/BaseLayout';
 
 const Room = () => {
