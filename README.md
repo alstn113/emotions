@@ -6,16 +6,15 @@
 - 방장의 실시간 질문 선택 및 답변 기능
 - 다이나믹 아일랜드
 
-## 구성
+## Structure
 
-AWS EC2 NGINX
+- Cloud: AWS EC2, NGINX
+- DB: Superbase(postgresql), Redis
+- Client: React(Vite)
+- Server: Nest
 
-client: reactjs - vite
-server: nestjs
+## Deploy URL
 
 - client: <https://wap-dev.store>
 - server: <https://api.wap-dev.store>
 - admin: <https://admin.wap-dev.store>
-
-Superbase(postgresql)
-Redis
