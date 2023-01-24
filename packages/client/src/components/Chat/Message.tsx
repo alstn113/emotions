@@ -4,14 +4,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { glassmorphism } from '~/styles';
 
 interface Props {
-  children: React.ReactNode;
+  uid: string;
+  username: string;
+  message: string;
   isMyMessage: boolean;
   isHost: boolean;
+  onChooseQuestion: () => void;
 }
 
-const Message = ({ children, isMyMessage, isHost }: Props) => {
+const Message = ({ uid, username, message, isMyMessage, isHost, onChooseQuestion }: Props) => {
   return (
-    <MessageWrapper isMyMessage={isMyMessage}>
+    <MessageWrapper isMyMessage={isMyMessage} onClick={onChooseQuestion}>
       <AnimatePresence>
         <Container
           animate={{
@@ -25,7 +28,8 @@ const Message = ({ children, isMyMessage, isHost }: Props) => {
           isMyMessage={isMyMessage}
           isHost={isHost}
         >
-          {children}
+          <div>{username}</div>
+          <div>{message}</div>
         </Container>
       </AnimatePresence>
     </MessageWrapper>
@@ -49,7 +53,6 @@ const Container = styled(motion.div)<{ isMyMessage: boolean; isHost: boolean }>`
 
   ${glassmorphism}
 
-  transition: 0.2s linear;
   ${({ isHost }) =>
     isHost &&
     css`

@@ -26,7 +26,7 @@ const Chat = () => {
   // get user data
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
-  const isHost = room?.hostId === user?.id;
+  const isHost: boolean = room?.hostId === user?.id;
 
   const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
     [],
@@ -65,11 +65,15 @@ const Chat = () => {
         }
       },
     );
+    roomSocket.socket?.on(SOCKET_EVENT.QUESTION_CHOSEN, (data) => {
+      console.log(data);
+    });
 
     return () => {
       roomSocket.socket?.emit(SOCKET_EVENT.LEAVE_ROOM, {
         roomId,
       });
+      roomSocket.socket?.off(SOCKET_EVENT.QUESTION_CHOSEN);
       leaveRoom();
     };
   }, [roomId]);
@@ -79,6 +83,17 @@ const Chat = () => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
   }, [messages]);
 
+  const handleChooseQuestion = (uid: string, username: string, message: string) => {
+    console.log('choose question', { uid, username, message });
+
+    roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
+      roomId,
+      uid,
+      username,
+      message,
+    });
+  };
+
   return (
     <BaseLayout>
       <Container ref={scrollRef}>
@@ -86,12 +101,19 @@ const Chat = () => {
           <DynamicIsland isHost={isHost} />
           <Contents>
             {messages.map((message, index) => {
-              const isMyMessage = user?.id === message.uid;
+              const isMyMessage: boolean = user?.id === message.uid;
               return (
-                <Message key={index} isMyMessage={isMyMessage} isHost={isHost}>
-                  <div>{message.username}</div>
-                  <div>{message.message}</div>
-                </Message>
+                <Message
+                  key={index}
+                  uid={message.uid}
+                  username={message.username}
+                  message={message.message}
+                  isMyMessage={isMyMessage}
+                  isHost={isHost}
+                  onChooseQuestion={() =>
+                    handleChooseQuestion(message.uid, message.username, message.message)
+                  }
+                />
               );
             })}
             {typingUsers.map((typingUser, index) => {
@@ -104,6 +126,7 @@ const Chat = () => {
     </BaseLayout>
   );
 };
+
 export default Chat;
 
 const Container = styled.div`

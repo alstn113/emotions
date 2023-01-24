@@ -3,7 +3,14 @@ import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
 import { AuthService } from '~/modules/auth/auth.service';
 import { parseCookie } from '~/utils/parseCookie';
-import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
+import {
+  AnswerQuestionDto,
+  ChooseQuestionDto,
+  JoinRoomDto,
+  LeaveRoomDto,
+  RoomMessageDto,
+  TypingStatusDto,
+} from '../dto';
 import { UsersService } from '~/modules/users/users.service';
 
 @Injectable()
@@ -110,11 +117,11 @@ export class RoomGatewayService {
     });
   }
 
-  onChooseQuestion(client: Socket) {
+  onChooseQuestion(client: Socket, dto: ChooseQuestionDto) {
     client.emit(SOCKET_EVENT.QUESTION_CHOSEN);
   }
 
-  onAnswerQuestion(client: Socket) {
+  onAnswerQuestion(client: Socket, dto: AnswerQuestionDto) {
     client.emit(SOCKET_EVENT.QUESTION_ANSWERED);
   }
 }

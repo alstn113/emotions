@@ -9,8 +9,15 @@ import {
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
 import { WsJwtGuard } from '~/common/guards';
-import { JoinRoomDto, LeaveRoomDto, RoomMessageDto, TypingStatusDto } from '../dto';
 import { RoomGatewayService } from './room.gateway.service';
+import {
+  AnswerQuestionDto,
+  JoinRoomDto,
+  LeaveRoomDto,
+  RoomMessageDto,
+  TypingStatusDto,
+  ChooseQuestionDto,
+} from '../dto';
 
 @UseGuards(WsJwtGuard)
 @WebSocketGateway({
@@ -58,12 +65,12 @@ export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   }
 
   @SubscribeMessage(SOCKET_EVENT.CHOOSE_QUESTION)
-  handleChooseQuestion(client: Socket) {
-    return this.roomGatewayService.onChooseQuestion(client);
+  handleChooseQuestion(client: Socket, dto: ChooseQuestionDto) {
+    return this.roomGatewayService.onChooseQuestion(client, dto);
   }
 
   @SubscribeMessage(SOCKET_EVENT.ANSWER_QUESTION)
-  handleAnswerQuestion(client: Socket) {
-    return this.roomGatewayService.onAnswerQuestion(client);
+  handleAnswerQuestion(client: Socket, dto: AnswerQuestionDto) {
+    return this.roomGatewayService.onAnswerQuestion(client, dto);
   }
 }
