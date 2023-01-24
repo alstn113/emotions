@@ -115,17 +115,13 @@ const Chat = () => {
     <BaseLayout>
       <Container ref={scrollRef}>
         <Wrapper>
-          {isHost ? (
-            <DynamicIsland
-              isHost={isHost}
-              question={question}
-              {...(isHost && {
-                onAnswerQuestion: handleAnswerQuestion,
-              })}
-            />
-          ) : (
-            <DynamicIsland isHost={isHost} question={question} />
-          )}
+          <DynamicIsland
+            question={question}
+            isHost={isHost}
+            {...(isHost && {
+              onAnswerQuestion: handleAnswerQuestion,
+            })}
+          />
 
           <Contents>
             {messages.map((message, index) => {
