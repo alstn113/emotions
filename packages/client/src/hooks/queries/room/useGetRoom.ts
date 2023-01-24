@@ -6,7 +6,7 @@ const useGetRoom = (roomId: string, options: UseQueryOptionsOf<typeof RoomAPI.ge
   return useQuery(getKey(roomId), fetcher(roomId), options);
 };
 
-const getKey = (roomId: string) => ['GetRoom', roomId];
+const getKey = (roomId: string) => ['useGetRoom', roomId];
 const fetcher = (roomId: string) => async () => await RoomAPI.getRoom(roomId);
 
 useGetRoom.getKey = getKey;

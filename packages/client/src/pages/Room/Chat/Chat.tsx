@@ -10,9 +10,12 @@ import BaseLayout from '~/components/layouts/BaseLayout';
 import { useQueryClient } from '@tanstack/react-query';
 import useGetMe from '~/hooks/queries/user/useGetMe';
 import { MessagePayload, TypingStatusPayload, User } from '~/types';
+import useGetRoom from '~/hooks/queries/room/useGetRoom';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
+  const { data: room } = useGetRoom(roomId);
+
   // get user data
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
@@ -103,7 +106,7 @@ const Chat = () => {
   return (
     <BaseLayout>
       <S.Container>
-        <DynamicIsland />
+        <DynamicIsland isHost={room?.hostId === user?.id} />
         <S.Contents ref={scrollRef}>
           {messages.map((message, index) => {
             return (

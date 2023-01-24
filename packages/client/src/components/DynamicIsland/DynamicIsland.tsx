@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
 import { glassmorphism } from '~/styles';
 
-interface Props {}
+interface Props {
+  isHost: boolean;
+}
 
-const DynamicIsland = ({}: Props) => {
+const DynamicIsland = ({ isHost }: Props) => {
   return (
     <AnimatePresence>
       <Container
@@ -12,7 +14,9 @@ const DynamicIsland = ({}: Props) => {
         transition={{
           type: 'tween',
         }}
-      ></Container>
+      >
+        {isHost ? 'You Are Host' : 'You Are Not Host'}
+      </Container>
     </AnimatePresence>
   );
 };
