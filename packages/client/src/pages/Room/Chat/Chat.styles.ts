@@ -1,6 +1,16 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 16px;
+`;
+
+export const Wrapper = styled.div`
   max-width: 768px;
   width: 100%;
   margin: 0 auto;

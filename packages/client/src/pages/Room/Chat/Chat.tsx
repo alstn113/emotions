@@ -106,38 +106,41 @@ const Chat = () => {
     else stopTypingMessage();
   }, [isTyping]);
 
+  //TODO: 스크롤이 바닥에 있을 경우에만 따라가게 하기
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
   }, [messages]);
 
   return (
     <BaseLayout>
-      <S.Container>
-        <DynamicIsland isHost={room?.hostId === user?.id} />
-        <S.Contents ref={scrollRef}>
-          {messages.map((message, index) => {
-            return (
-              <S.MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
-                <Message>
-                  <div>{message.username}</div>
-                  <div>{message.message}</div>
-                </Message>
-              </S.MessageWrapper>
-            );
-          })}
-          {typingUsers.map((typingUser, index) => {
-            return <div key={index}>{typingUser} 입력 중...</div>;
-          })}
-        </S.Contents>
-        <form onSubmit={handleSubmitMessage}>
-          <S.MessageInput
-            placeholder="Write Message..."
-            onChange={handleChangeMessageInput}
-            onKeyDown={startTyping}
-            onKeyUp={stopTyping}
-            value={messageInput}
-          />
-        </form>
+      <S.Container ref={scrollRef}>
+        <S.Wrapper>
+          <DynamicIsland isHost={room?.hostId === user?.id} />
+          <S.Contents>
+            {messages.map((message, index) => {
+              return (
+                <S.MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
+                  <Message>
+                    <div>{message.username}</div>
+                    <div>{message.message}</div>
+                  </Message>
+                </S.MessageWrapper>
+              );
+            })}
+            {typingUsers.map((typingUser, index) => {
+              return <div key={index}>{typingUser} 입력 중...</div>;
+            })}
+          </S.Contents>
+          <form onSubmit={handleSubmitMessage}>
+            <S.MessageInput
+              placeholder="Write Message..."
+              onChange={handleChangeMessageInput}
+              onKeyDown={startTyping}
+              onKeyUp={stopTyping}
+              value={messageInput}
+            />
+          </form>
+        </S.Wrapper>
       </S.Container>
     </BaseLayout>
   );

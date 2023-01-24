@@ -64,7 +64,6 @@ const Content = styled.div`
   flex: 1;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 16px;
 `;
 
 export default BaseLayout;
