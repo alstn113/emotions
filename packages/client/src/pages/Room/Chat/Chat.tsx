@@ -115,12 +115,18 @@ const Chat = () => {
     <BaseLayout>
       <Container ref={scrollRef}>
         <Wrapper>
-          <DynamicIsland
-            isHost={isHost}
-            question={question}
-            // TODO: isHost가 아닌 경우에는 아무것도 하지 않도록 하기
-            onAnswerQuestion={isHost ? handleAnswerQuestion : () => {}}
-          />
+          {isHost ? (
+            <DynamicIsland
+              isHost={isHost}
+              question={question}
+              {...(isHost && {
+                onAnswerQuestion: handleAnswerQuestion,
+              })}
+            />
+          ) : (
+            <DynamicIsland isHost={isHost} question={question} />
+          )}
+
           <Contents>
             {messages.map((message, index) => {
               const isMyMessage: boolean = user?.id === message.uid;
@@ -132,12 +138,10 @@ const Chat = () => {
                   message={message.message}
                   isMyMessage={isMyMessage}
                   isHost={isHost}
-                  //TODO: isHost가 아닌 경우에는 아무것도 하지 않도록 하기
-                  onChooseQuestion={
-                    isHost
-                      ? () => handleChooseQuestion(message.uid, message.username, message.message)
-                      : () => {}
-                  }
+                  {...(isHost && {
+                    onChooseQuestion: () =>
+                      handleChooseQuestion(message.uid, message.username, message.message),
+                  })}
                 />
               );
             })}
@@ -161,7 +165,7 @@ const Container = styled.div`
   flex: 1;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 16px;
+  padding: 24px 16px;
 `;
 
 const Wrapper = styled.div`

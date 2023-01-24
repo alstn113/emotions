@@ -6,7 +6,7 @@ import { Button } from '../common';
 interface Props {
   isHost: boolean;
   question: { uid: string; username: string; message: string } | null;
-  onAnswerQuestion: () => void;
+  onAnswerQuestion?: () => void;
 }
 
 const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
@@ -25,18 +25,16 @@ const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
         }}
       >
         {question && (
-          <>
+          <QuestionWrapper>
             <div>{question.uid}</div>
             <div>{question.username}</div>
-            <QuestionWrapper>
-              <div>{question.message}</div>
-            </QuestionWrapper>
+            <div>{question.message}</div>
             {isHost && (
               <Button shadow size="sm" onClick={onAnswerQuestion}>
                 질문 종료
               </Button>
             )}
-          </>
+          </QuestionWrapper>
         )}
       </Container>
     </AnimatePresence>
@@ -61,7 +59,7 @@ const Container = styled(motion.div)`
 
 const QuestionWrapper = styled.div`
   width: 80vw;
-  height: 40vw;
+  height: 100%;
   padding: 16px;
   overflow: scroll;
 `;

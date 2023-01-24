@@ -9,7 +9,7 @@ interface Props {
   message: string;
   isMyMessage: boolean;
   isHost: boolean;
-  onChooseQuestion: () => void;
+  onChooseQuestion?: () => void;
 }
 
 const Message = ({ uid, username, message, isMyMessage, isHost, onChooseQuestion }: Props) => {

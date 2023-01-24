@@ -69,7 +69,7 @@ const MessageInput = styled.input`
   z-index: 100;
 
   width: 80%;
-  height: 60px;
+  height: 50px;
   padding: 0 1rem;
 
   // glassmorphism
