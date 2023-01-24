@@ -26,6 +26,7 @@ const Chat = () => {
   // get user data
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
+  const isHost = room?.hostId === user?.id;
 
   const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
     [],
@@ -82,16 +83,15 @@ const Chat = () => {
     <BaseLayout>
       <Container ref={scrollRef}>
         <Wrapper>
-          <DynamicIsland isHost={room?.hostId === user?.id} />
+          <DynamicIsland isHost={isHost} />
           <Contents>
             {messages.map((message, index) => {
+              const isMyMessage = user?.id === message.uid;
               return (
-                <MessageWrapper key={index} isCurrentUser={user?.id === message.uid}>
-                  <Message>
-                    <div>{message.username}</div>
-                    <div>{message.message}</div>
-                  </Message>
-                </MessageWrapper>
+                <Message key={index} isMyMessage={isMyMessage} isHost={isHost}>
+                  <div>{message.username}</div>
+                  <div>{message.message}</div>
+                </Message>
               );
             })}
             {typingUsers.map((typingUser, index) => {
@@ -126,12 +126,4 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-
-const MessageWrapper = styled.div<{ isCurrentUser: boolean }>`
-  display: flex;
-  min-height: 40px;
-  min-width: 33%;
-  max-width: 66%;
-  align-self: ${({ isCurrentUser }) => (isCurrentUser ? 'flex-end' : 'flex-start')};
 `;
