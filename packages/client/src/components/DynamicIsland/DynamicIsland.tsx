@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { glassmorphism } from '~/styles';
+import { Button } from '../common';
 
 interface Props {
   isHost: boolean;
@@ -10,8 +11,8 @@ interface Props {
 
 const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
   const variants: Variants = {
-    open: { width: '80vw', height: '40vh', borderRadius: '20px' },
-    closed: { width: '40%', height: '50px', borderRadius: '10px' },
+    open: { width: '80vw', height: '40vh' },
+    closed: { width: '40%', height: '50px' },
   };
 
   return (
@@ -20,17 +21,21 @@ const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
         animate={question ? 'open' : 'closed'}
         variants={variants}
         transition={{
-          type: 'tween',
+          type: 'just',
         }}
       >
-        <div>{isHost ? 'You Are Host' : 'You Are Not Host'}</div>
         {question && (
           <>
             <div>{question.uid}</div>
             <div>{question.username}</div>
-            <div>{question.message}</div>
-
-            <div onClick={onAnswerQuestion}>질문 종료</div>
+            <QuestionWrapper>
+              <div>{question.message}</div>
+            </QuestionWrapper>
+            {isHost && (
+              <Button shadow size="sm" onClick={onAnswerQuestion}>
+                질문 종료
+              </Button>
+            )}
           </>
         )}
       </Container>
@@ -50,7 +55,15 @@ const Container = styled(motion.div)`
   width: 40%;
   height: 50px;
   z-index: 100;
-
-  ${glassmorphism}
+  overflow: hidden;
+  ${glassmorphism};
 `;
+
+const QuestionWrapper = styled.div`
+  width: 80vw;
+  height: 40vw;
+  padding: 16px;
+  overflow: scroll;
+`;
+
 export default DynamicIsland;
