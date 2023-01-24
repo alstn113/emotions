@@ -32,6 +32,11 @@ const Chat = () => {
     [],
   );
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const [question, setQuestion] = useState<{
+    uid: string;
+    username: string;
+    message: string;
+  } | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const receiveMessage = () => {
@@ -65,8 +70,15 @@ const Chat = () => {
         }
       },
     );
-    roomSocket.socket?.on(SOCKET_EVENT.QUESTION_CHOSEN, (data) => {
-      console.log(data);
+    roomSocket.socket?.on(
+      SOCKET_EVENT.QUESTION_CHOSEN,
+      ({ uid, username, message }: { uid: string; username: string; message: string }) => {
+        setQuestion({ uid, username, message });
+      },
+    );
+
+    roomSocket.socket?.on(SOCKET_EVENT.QUESTION_ANSWERED, () => {
+      setQuestion(null);
     });
 
     return () => {
@@ -74,6 +86,7 @@ const Chat = () => {
         roomId,
       });
       roomSocket.socket?.off(SOCKET_EVENT.QUESTION_CHOSEN);
+      roomSocket.socket?.off(SOCKET_EVENT.QUESTION_ANSWERED);
       leaveRoom();
     };
   }, [roomId]);
@@ -84,8 +97,6 @@ const Chat = () => {
   }, [messages]);
 
   const handleChooseQuestion = (uid: string, username: string, message: string) => {
-    console.log('choose question', { uid, username, message });
-
     roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
       roomId,
       uid,
@@ -94,11 +105,22 @@ const Chat = () => {
     });
   };
 
+  const handleAnswerQuestion = () => {
+    roomSocket.socket?.emit(SOCKET_EVENT.ANSWER_QUESTION, {
+      roomId,
+    });
+  };
+
   return (
     <BaseLayout>
       <Container ref={scrollRef}>
         <Wrapper>
-          <DynamicIsland isHost={isHost} />
+          <DynamicIsland
+            isHost={isHost}
+            question={question}
+            // TODO: isHost가 아닌 경우에는 아무것도 하지 않도록 하기
+            onAnswerQuestion={isHost ? handleAnswerQuestion : () => {}}
+          />
           <Contents>
             {messages.map((message, index) => {
               const isMyMessage: boolean = user?.id === message.uid;
@@ -110,8 +132,11 @@ const Chat = () => {
                   message={message.message}
                   isMyMessage={isMyMessage}
                   isHost={isHost}
-                  onChooseQuestion={() =>
-                    handleChooseQuestion(message.uid, message.username, message.message)
+                  //TODO: isHost가 아닌 경우에는 아무것도 하지 않도록 하기
+                  onChooseQuestion={
+                    isHost
+                      ? () => handleChooseQuestion(message.uid, message.username, message.message)
+                      : () => {}
                   }
                 />
               );

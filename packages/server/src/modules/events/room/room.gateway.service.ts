@@ -118,10 +118,16 @@ export class RoomGatewayService {
   }
 
   onChooseQuestion(client: Socket, dto: ChooseQuestionDto) {
-    client.emit(SOCKET_EVENT.QUESTION_CHOSEN);
+    //TODO: check if user is host
+
+    this.server.to(dto.roomId).emit(SOCKET_EVENT.QUESTION_CHOSEN, {
+      uid: `${dto.uid}`,
+      username: `${dto.username}`,
+      message: `${dto.message}`,
+    });
   }
 
   onAnswerQuestion(client: Socket, dto: AnswerQuestionDto) {
-    client.emit(SOCKET_EVENT.QUESTION_ANSWERED);
+    this.server.to(dto.roomId).emit(SOCKET_EVENT.QUESTION_ANSWERED);
   }
 }
