@@ -8,7 +8,7 @@ import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room'
 // components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
-import BaseLayout from '~/components/layouts/BaseLayout';
+import TabLayout from '~/components/layouts/TabLayout';
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -39,9 +39,8 @@ const Room = () => {
   }
 
   return (
-    <BaseLayout>
+    <TabLayout>
       <Container>
-        <Spacer />
         <Button shadow onClick={handleCreateRoom}>
           Create Room
         </Button>
@@ -53,14 +52,16 @@ const Room = () => {
                 <Link to={room.id}>Room: {room.id}</Link>
                 <div>{room.name}</div>
                 <div>{room.hostId}</div>
-                <div onClick={() => handleDeleteRoom(room.id)}>Delete</div>
+                <Spacer />
+                <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
+                  Delete
+                </Button>
               </RoomContainer>
             );
           })}
         </div>
-        <Spacer />
       </Container>
-    </BaseLayout>
+    </TabLayout>
   );
 };
 
@@ -70,6 +71,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
+  padding: 12px;
 `;
 
 const Spacer = styled.div`

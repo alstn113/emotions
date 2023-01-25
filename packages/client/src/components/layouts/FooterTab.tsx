@@ -31,13 +31,13 @@ const TabItem = styled(NavLink)`
   align-items: center;
   justify-content: center;
   svg {
-    color: #262626;
+    color: #808080;
     width: 32px;
     height: 32px;
   }
   &.active {
     svg {
-      color: #181818;
+      color: #000000;
     }
   }
 `;
