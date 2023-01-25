@@ -13,7 +13,7 @@
 - Client: React(Vite)
 - Server: Nest
 
-## Deploy URL
+## Deploy URL (예정)
 
 - client: <https://wap-dev.store>
 - server: <https://api.wap-dev.store>
