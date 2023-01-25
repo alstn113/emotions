@@ -37,6 +37,7 @@ const Container = styled.header`
 `;
 
 const Title = styled.div`
+  font-family: 'PyeongChangPeace-Bold', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
 `;
