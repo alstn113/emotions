@@ -33,6 +33,9 @@ export const GlobalStyle = () => {
             font-weight: normal;
             font-style: normal;
           }
+          body {
+            font-family: 'Roboto', sans-serif;
+          }
         `}
       />
     </>
