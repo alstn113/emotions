@@ -15,11 +15,9 @@ const customMediaQuery = (maxWidth: number) => `
 
 export const mediaQuery = {
   custom: customMediaQuery,
-  xs: customMediaQuery(375),
-  sm: customMediaQuery(768),
-  md: customMediaQuery(1024),
-  lg: customMediaQuery(1440),
-  xl: customMediaQuery(1920),
+  mobile: customMediaQuery(500),
+  tablet: customMediaQuery(1024),
+  desktop: customMediaQuery(1440),
 } as const;
 
 export type NormalColorType = 'primary' | 'success' | 'secondary' | 'warning' | 'error';

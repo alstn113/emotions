@@ -28,7 +28,7 @@ export const ModalBlock = styled(motion.div)`
   padding: 1.5rem;
   border-radius: 14px;
   box-shadow: rgb(0 0 0 / 9%) 0px 2px 12px 0px;
-  ${mediaQuery.sm} {
+  ${mediaQuery.mobile} {
     width: 18rem;
   }
 `;
@@ -37,7 +37,7 @@ export const Title = styled.h3`
   margin-top: 0;
   margin-bottom: 8px;
   font-size: 2rem;
-  ${mediaQuery.sm} {
+  ${mediaQuery.mobile} {
     font-size: 1.5rem;
   }
   line-height: 1.5;

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { glassmorphism } from '~/styles';
 import { Home, Bookmark, PlusCircle, Search, Setting } from '../vectors';
 
-const FooterTab = () => {
+const Footer = () => {
   return (
     <Container>
       <TabItem to="/room">
@@ -50,4 +50,4 @@ const Container = styled.footer`
   ${glassmorphism}
 `;
 
-export default FooterTab;
+export default Footer;
