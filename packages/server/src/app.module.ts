@@ -17,6 +17,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -33,8 +35,9 @@ import { RoomsModule } from './modules/rooms/rooms.module';
     EventsModule,
     RoomsModule,
   ],
-
+  controllers: [AppController],
   providers: [
+    AppService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,

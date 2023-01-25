@@ -48,6 +48,21 @@ const Chat = () => {
     );
   };
 
+  const handleChooseQuestion = (uid: string, username: string, message: string) => {
+    roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
+      roomId,
+      uid,
+      username,
+      message,
+    });
+  };
+
+  const handleAnswerQuestion = () => {
+    roomSocket.socket?.emit(SOCKET_EVENT.ANSWER_QUESTION, {
+      roomId,
+    });
+  };
+
   useEffect(() => {
     initRoomSocket(roomId);
     receiveMessage();
@@ -85,31 +100,14 @@ const Chat = () => {
       roomSocket.socket?.emit(SOCKET_EVENT.LEAVE_ROOM, {
         roomId,
       });
-      roomSocket.socket?.off(SOCKET_EVENT.QUESTION_CHOSEN);
-      roomSocket.socket?.off(SOCKET_EVENT.QUESTION_ANSWERED);
       leaveRoom();
     };
-  }, [roomId]);
+  }, []);
 
   //TODO: 스크롤이 바닥에 있을 경우에만 따라가게 하기
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
   }, [messages]);
-
-  const handleChooseQuestion = (uid: string, username: string, message: string) => {
-    roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
-      roomId,
-      uid,
-      username,
-      message,
-    });
-  };
-
-  const handleAnswerQuestion = () => {
-    roomSocket.socket?.emit(SOCKET_EVENT.ANSWER_QUESTION, {
-      roomId,
-    });
-  };
 
   return (
     <BaseLayout>

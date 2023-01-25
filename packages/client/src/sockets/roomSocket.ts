@@ -20,6 +20,8 @@ export const initRoomSocket = (roomId: string) => {
 };
 
 export const leaveRoom = () => {
+  roomSocket.socket?.off(SOCKET_EVENT.QUESTION_CHOSEN);
+  roomSocket.socket?.off(SOCKET_EVENT.QUESTION_ANSWERED);
   roomSocket.socket?.off(SOCKET_EVENT.JOINED_ROOM);
   roomSocket.socket?.off(SOCKET_EVENT.LEFT_ROOM);
   roomSocket.socket?.disconnect();
