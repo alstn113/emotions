@@ -11,7 +11,7 @@ const TabLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
       <Background>
-        <Header />
+        <Header backButton />
         <div className="color"></div>
         <div className="color"></div>
         <div className="color"></div>
