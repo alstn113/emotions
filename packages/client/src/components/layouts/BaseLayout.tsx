@@ -23,7 +23,6 @@ const BaseLayout = ({ children }: Props) => {
 };
 
 const Background = styled.div`
-  position: relative;
   background: linear-gradient(to bottom, #ff87af, #dff1ff);
   display: flex;
   flex-direction: column;
@@ -58,7 +57,6 @@ const Background = styled.div`
 `;
 
 const Content = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;

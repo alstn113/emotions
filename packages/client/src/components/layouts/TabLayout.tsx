@@ -1,16 +1,61 @@
 import styled from '@emotion/styled';
-import { Outlet } from 'react-router-dom';
 import FullHeightScreen from './FullHeightScreen';
+import Header from './Header';
+import Footer from './Footer';
+import FooterTab from './FooterTab';
 
-const TabLayout = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const TabLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
-      <Content>
-        <Outlet />
-      </Content>
+      <Background>
+        <Header />
+        <div className="color"></div>
+        <div className="color"></div>
+        <div className="color"></div>
+        <Content>{children}</Content>
+        <FooterTab />
+      </Background>
     </FullHeightScreen>
   );
 };
+
+const Background = styled.div`
+  background: linear-gradient(to bottom, #ff87af, #dff1ff);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  overflow-x: hidden;
+
+  .color {
+    position: absolute;
+    filter: blur(150px);
+  }
+  .color:nth-of-type(1) {
+    top: -35%;
+    background: #ff87af;
+    width: 30%;
+    height: 30%;
+  }
+  .color:nth-of-type(2) {
+    bottom: 0;
+    left: 10%;
+    background: #fffec8;
+    width: 50%;
+    height: 40%;
+  }
+  .color:nth-of-type(3) {
+    bottom: 0;
+    right: 0;
+    background: #a6efff;
+    width: 30%;
+    height: 20%;
+  }
+`;
 
 const Content = styled.div`
   display: flex;
