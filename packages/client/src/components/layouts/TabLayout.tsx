@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import FullHeightScreen from './FullHeightScreen';
 import Header from './Header';
 import Footer from './Footer';
-import FooterTab from './FooterTab';
 
 interface Props {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ const TabLayout = ({ children }: Props) => {
         <div className="color"></div>
         <div className="color"></div>
         <Content>{children}</Content>
-        <FooterTab />
+        <Footer />
       </Background>
     </FullHeightScreen>
   );

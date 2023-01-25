@@ -9,6 +9,7 @@ import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room'
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
+import { glassmorphism } from '~/styles';
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -45,7 +46,7 @@ const Room = () => {
           Create Room
         </Button>
         <Spacer />
-        <div>
+        <RoomList>
           {rooms?.map((room) => {
             return (
               <RoomContainer key={room.id}>
@@ -59,7 +60,7 @@ const Room = () => {
               </RoomContainer>
             );
           })}
-        </div>
+        </RoomList>
       </Container>
     </TabLayout>
   );
@@ -78,22 +79,20 @@ const Spacer = styled.div`
   margin: 1rem;
 `;
 
+const RoomList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 const RoomContainer = styled.div`
-  & + & {
-    margin-top: 1rem;
-  }
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  // glassmorphism
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 12px 0 rgba(100, 100, 100, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  ${glassmorphism}
 `;
 
 export default Room;

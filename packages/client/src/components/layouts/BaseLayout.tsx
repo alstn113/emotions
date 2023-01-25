@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import Footer from './Footer';
 import FullHeightScreen from './FullHeightScreen';
 import Header from './Header';
+import Footer from './Footer';
 
 interface Props {
   children: React.ReactNode;
@@ -12,9 +12,9 @@ const BaseLayout = ({ children }: Props) => {
     <FullHeightScreen>
       <Background>
         <Header />
-        <div className="color"></div>
-        <div className="color"></div>
-        <div className="color"></div>
+        <div className="color" />
+        <div className="color" />
+        <div className="color" />
         <Content>{children}</Content>
         <Footer />
       </Background>
