@@ -27,7 +27,7 @@ const Container = styled.div`
     font-weight: 700;
   }
   // gradient text color
-  background: linear-gradient(to bottom, #ff0055, #0091ff);
+  background: linear-gradient(to bottom, #b23eff, #ff8cf0);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

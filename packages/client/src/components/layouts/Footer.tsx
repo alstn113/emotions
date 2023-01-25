@@ -9,16 +9,16 @@ const FooterTab = () => {
       <TabItem to="/room">
         <Home width={24} height={24} />
       </TabItem>
-      <TabItem to="/test">
+      <TabItem to="/search">
         <Search width={24} height={24} />
       </TabItem>
-      <TabItem to="/test">
+      <TabItem to="/create">
         <PlusCircle width={24} height={24} />
       </TabItem>
-      <TabItem to="/test">
+      <TabItem to="/bookmarks">
         <Bookmark width={24} height={24} />
       </TabItem>
-      <TabItem to="/test">
+      <TabItem to="/settings">
         <Setting width={24} height={24} />
       </TabItem>
     </Container>
