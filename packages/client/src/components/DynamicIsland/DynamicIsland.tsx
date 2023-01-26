@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import { glassmorphism } from '~/styles';
+import { glassmorphism, zIndexes } from '~/styles';
 import { Button } from '../common';
 
 interface Props {
@@ -43,7 +43,7 @@ const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
 
 const Container = styled(motion.div)`
   position: fixed;
-  top: 50px;
+  top: 64px;
   left: 50%;
   transform: translate(-50%, -5%);
   display: flex;
@@ -52,7 +52,7 @@ const Container = styled(motion.div)`
   justify-content: center;
   width: 40%;
   height: 50px;
-  z-index: 100;
+  z-index: ${zIndexes.DynamicIsland};
   overflow: hidden;
   ${glassmorphism};
 `;

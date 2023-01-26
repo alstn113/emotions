@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import useTyping from '~/hooks/useTyping';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket from '~/sockets/roomSocket';
+import { zIndexes } from '~/styles';
 
 interface Props {
   roomId: string;
@@ -60,13 +61,13 @@ export default ChatInput;
 
 const MessageInput = styled.input`
   position: fixed;
-  bottom: 50px;
+  bottom: 64px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: ${zIndexes.ChatInput};
 
   width: 80%;
   height: 50px;

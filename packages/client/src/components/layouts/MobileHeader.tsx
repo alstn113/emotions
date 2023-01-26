@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { glassmorphism } from '~/styles';
+import { glassmorphism, mediaQuery } from '~/styles';
 import HeaderBackButton from './HeaderBackButton';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   headerRight?: React.ReactNode;
 }
 
-const Header = ({ title = 'iChat', backButton, headerRight }: Props) => {
+const MobileHeader = ({ title = 'iChat', backButton, headerRight }: Props) => {
   return (
     <Container>
       {backButton && (
@@ -27,13 +27,17 @@ const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
+  height: 56px;
   padding-left: 16px;
   padding-right: 16px;
 
   margin: 8px 16px;
 
   ${glassmorphism}
+
+  ${mediaQuery.mobile} {
+    display: none;
+  }
 `;
 
 const Title = styled.div`
@@ -51,4 +55,4 @@ const HeaderSide = styled.div<{ position: 'left' | 'right' }>`
   align-items: center;
 `;
 
-export default Header;
+export default MobileHeader;

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import FullHeightScreen from './FullHeightScreen';
-import Header from './Header';
+import MobileHeader from './MobileHeader';
 import Footer from './Footer';
+import DesktopHeader from './DesktopHeader';
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +12,8 @@ const TabLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
       <Background>
-        <Header backButton />
+        <MobileHeader backButton />
+        <DesktopHeader />
         <div className="color"></div>
         <div className="color"></div>
         <div className="color"></div>

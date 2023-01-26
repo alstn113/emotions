@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
-import { glassmorphism } from '~/styles';
+import { glassmorphism, mediaQuery } from '~/styles';
 import { Home, Bookmark, PlusCircle, Search, Setting } from '../vectors';
 
 const Footer = () => {
@@ -44,10 +44,14 @@ const TabItem = styled(NavLink)`
 
 const Container = styled.footer`
   display: flex;
-  height: 50px;
+  height: 56px;
   margin: 8px 16px;
 
   ${glassmorphism}
+
+  ${mediaQuery.mobile} {
+    display: none;
+  }
 `;
 
 export default Footer;

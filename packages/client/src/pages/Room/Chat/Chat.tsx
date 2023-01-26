@@ -13,11 +13,11 @@ import styled from '@emotion/styled';
 import ChatInput from './ChatInput';
 import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
-import BaseLayout from '~/components/layouts/BaseLayout';
 
 // sockets
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
+import TabLayout from '~/components/layouts/TabLayout';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -110,7 +110,7 @@ const Chat = () => {
   }, [messages]);
 
   return (
-    <BaseLayout>
+    <TabLayout>
       <Container ref={scrollRef}>
         <Wrapper>
           <DynamicIsland
@@ -146,7 +146,7 @@ const Chat = () => {
           <ChatInput roomId={roomId} />
         </Wrapper>
       </Container>
-    </BaseLayout>
+    </TabLayout>
   );
 };
 

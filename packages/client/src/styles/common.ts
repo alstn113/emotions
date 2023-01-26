@@ -10,7 +10,7 @@ export const glassmorphism = css`
 `;
 
 const customMediaQuery = (maxWidth: number) => `
-  @media (max-width: ${maxWidth}px)
+  @media (min-width: ${maxWidth}px)
 `;
 
 export const mediaQuery = {
@@ -34,7 +34,9 @@ export const palette = {
 } as const;
 
 export const zIndexes = {
-  Header: 9,
-  Footer: 9,
-  Modal: 10,
+  Header: 10,
+  Footer: 10,
+  Modal: 100,
+  ChatInput: 20,
+  DynamicIsland: 20,
 };

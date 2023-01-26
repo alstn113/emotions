@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import BaseLayout from '~/components/layouts/BaseLayout';
+import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
 import { glassmorphism } from '~/styles';
@@ -9,14 +9,14 @@ const Home = () => {
   };
 
   return (
-    <BaseLayout>
+    <TabLayout>
       <Container>
         <GithubLoginButton onClick={handleGithubLogin}>
           <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
           <span>Login With Github</span>
         </GithubLoginButton>
       </Container>
-    </BaseLayout>
+    </TabLayout>
   );
 };
 
