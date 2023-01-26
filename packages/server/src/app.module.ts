@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 // middlewares
 import { JwtMiddleware } from './middlewares';
@@ -17,8 +19,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { PostsModule } from './modules/posts/posts.module';
+import { CommnetsModule } from './modules/commnets/commnets.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 @Module({
   imports: [
@@ -34,6 +37,9 @@ import { AppService } from './app.service';
     UsersModule,
     EventsModule,
     RoomsModule,
+    PostsModule,
+    CommnetsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [
