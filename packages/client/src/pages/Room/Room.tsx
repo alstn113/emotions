@@ -9,7 +9,7 @@ import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room'
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
-import { glassmorphism } from '~/styles';
+import { glassmorphism, mediaQuery } from '~/styles';
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -49,7 +49,7 @@ const Room = () => {
         <RoomList>
           {rooms?.map((room) => {
             return (
-              <RoomContainer key={room.id}>
+              <RoomCard key={room.id}>
                 <Link to={room.id}>Room: {room.id}</Link>
                 <div>{room.name}</div>
                 <div>{room.hostId}</div>
@@ -57,7 +57,7 @@ const Room = () => {
                 <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
                   Delete
                 </Button>
-              </RoomContainer>
+              </RoomCard>
             );
           })}
         </RoomList>
@@ -67,12 +67,7 @@ const Room = () => {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  padding: 12px;
+  padding: 16px;
 `;
 
 const Spacer = styled.div`
@@ -80,18 +75,25 @@ const Spacer = styled.div`
 `;
 
 const RoomList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  ${mediaQuery.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  ${mediaQuery.desktop} {
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  gap: 48px;
 `;
 
-const RoomContainer = styled.div`
+const RoomCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-
   ${glassmorphism}
 `;
 
