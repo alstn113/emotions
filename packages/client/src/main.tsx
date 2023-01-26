@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // provider
 import MyThemeProvider from './styles/MyThemeProvider';
-import ModalProvider from './components/ModalProvider';
+import ModalProvider from './components/base/ModalProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +27,7 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
+    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     <MyThemeProvider>
       <ModalProvider />
       <App />

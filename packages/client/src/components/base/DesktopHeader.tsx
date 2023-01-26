@@ -16,10 +16,11 @@ const Container = styled.header`
   position: relative;
   display: none;
   align-items: center;
-  height: 56px;
-  padding-left: 16px;
-  padding-right: 16px;
-  border-bottom: 4px solid #fff;
+  height: 60px;
+  padding: 0px 16px;
+  background: #fff;
+  border-bottom: 2px solid #cccccc;
+
   ${mediaQuery.mobile} {
     display: flex;
   }

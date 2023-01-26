@@ -8,7 +8,7 @@ interface Props {
   headerRight?: React.ReactNode;
 }
 
-const MobileHeader = ({ title = 'iChat', backButton, headerRight }: Props) => {
+const MobileHeader = ({ title = 'iChat', backButton = true, headerRight }: Props) => {
   return (
     <Container>
       {backButton && (
@@ -27,13 +27,10 @@ const Container = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
-  padding-left: 16px;
-  padding-right: 16px;
-
-  margin: 8px 16px;
-
-  ${glassmorphism}
+  height: 60px;
+  padding: 0px 16px;
+  background: #fff;
+  border-bottom: 2px solid #cccccc;
 
   ${mediaQuery.mobile} {
     display: none;

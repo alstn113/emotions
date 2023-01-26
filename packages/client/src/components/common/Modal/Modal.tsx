@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import Portal from '~/components/Portal';
+import Portal from '~/components/base/Portal';
 import { Button } from '~/components/common';
 import * as S from './Modal.styles';
 import { useEffect } from 'react';

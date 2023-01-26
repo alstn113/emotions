@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import FullHeightScreen from './FullHeightScreen';
-import MobileHeader from './MobileHeader';
-import Footer from './Footer';
-import DesktopHeader from './DesktopHeader';
+import FullHeightScreen from '~/components/base/FullHeightScreen';
+import MobileHeader from '~/components/base/MobileHeader';
+import Footer from '~/components/base/Footer';
+import DesktopHeader from '../base/DesktopHeader';
 
 interface Props {
   children: React.ReactNode;
@@ -11,59 +11,19 @@ interface Props {
 const TabLayout = ({ children }: Props) => {
   return (
     <FullHeightScreen>
-      <Background>
-        <MobileHeader backButton />
-        <DesktopHeader />
-        <div className="color"></div>
-        <div className="color"></div>
-        <div className="color"></div>
-        <Content>{children}</Content>
-        <Footer />
-      </Background>
+      <MobileHeader />
+      <DesktopHeader />
+      <Content>{children}</Content>
+      <Footer />
     </FullHeightScreen>
   );
 };
-
-const Background = styled.div`
-  background: linear-gradient(to bottom, #ff87af, #dff1ff);
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-  overflow-x: hidden;
-
-  .color {
-    position: absolute;
-    filter: blur(150px);
-  }
-  .color:nth-of-type(1) {
-    top: -35%;
-    background: #ff87af;
-    width: 30%;
-    height: 30%;
-  }
-  .color:nth-of-type(2) {
-    bottom: 0;
-    left: 10%;
-    background: #fffec8;
-    width: 50%;
-    height: 40%;
-  }
-  .color:nth-of-type(3) {
-    bottom: 0;
-    right: 0;
-    background: #a6efff;
-    width: 30%;
-    height: 20%;
-  }
-`;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
   overflow: scroll;
-  overflow-x: hidden;
 `;
 
 export default TabLayout;

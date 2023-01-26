@@ -44,10 +44,9 @@ const TabItem = styled(NavLink)`
 
 const Container = styled.footer`
   display: flex;
-  height: 56px;
-  margin: 8px 16px;
-
-  ${glassmorphism}
+  height: 60px;
+  background: #fff;
+  border-top: 2px solid #cccccc;
 
   ${mediaQuery.mobile} {
     display: none;
