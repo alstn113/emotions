@@ -54,7 +54,7 @@ const Home = () => {
                 <div>{room.name}</div>
                 <div>{room.hostId}</div>
                 <Spacer />
-                <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
+                <Button size="sm" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
                   Delete
                 </Button>
               </RoomCard>

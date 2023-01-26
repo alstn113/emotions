@@ -32,7 +32,7 @@ const Container = styled.header`
   background: #fff;
   border-bottom: 2px solid #cccccc;
 
-  ${mediaQuery.mobile} {
+  ${mediaQuery.tablet} {
     display: none;
   }
 `;

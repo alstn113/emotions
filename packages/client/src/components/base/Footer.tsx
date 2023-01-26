@@ -6,7 +6,7 @@ import { Home, Bookmark, PlusCircle, Search, Setting } from '../vectors';
 const Footer = () => {
   return (
     <Container>
-      <TabItem to="/room">
+      <TabItem to="/">
         <Home width={24} height={24} />
       </TabItem>
       <TabItem to="/search">
@@ -48,7 +48,7 @@ const Container = styled.footer`
   background: #fff;
   border-top: 2px solid #cccccc;
 
-  ${mediaQuery.mobile} {
+  ${mediaQuery.tablet} {
     display: none;
   }
 `;
