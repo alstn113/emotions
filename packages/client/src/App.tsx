@@ -10,8 +10,7 @@ import Search from './pages/Search/Search';
 import Create from './pages/Create/Create';
 import Bookmarks from './pages/Bookmarks/Bookmarks';
 import Settings from './pages/Settings/Settings';
-import Room from './pages/Room/Room';
-import Chat from './pages/Room/Chat/Chat';
+import Chat from './pages/Room/Room';
 import NotFound from './pages/NotFound/NotFound';
 
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
         <Route path="/bookmarks" element={<Bookmarks />} />
         <Route path="/settings" element={<Settings />} />
 
-        <Route path="/room" element={<Room />} />
         <Route path="/room/:roomId" element={<Chat />} />
 
         {/* catch all */}

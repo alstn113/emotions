@@ -1,100 +1,172 @@
 // react
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { MessagePayload, TypingStatusPayload } from '~/types';
 
 // hooks
-import { useQueryClient } from '@tanstack/react-query';
-import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room';
+import { useGetRoom } from '~/hooks/queries/room';
 
 // components
 import styled from '@emotion/styled';
-import { Button } from '~/components/common';
+import ChatInput from './ChatInput';
+import Message from '~/components/Chat/Message';
+import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
+
+// sockets
+import { SOCKET_EVENT } from '~/constants';
+import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import TabLayout from '~/components/layouts/TabLayout';
-import { glassmorphism, mediaQuery } from '~/styles';
+import useUser from '~/hooks/useUser';
 
 const Room = () => {
-  const queryClient = useQueryClient();
-  const { data: rooms, isLoading } = useGetRooms();
-  const { mutate: createRoom } = useCreateRoom({
-    onSuccess: () => {
-      queryClient.refetchQueries(useGetRooms.getKey());
-    },
-  });
-  const { mutate: deleteRoom } = useDeleteRoom({
-    onSuccess: () => {
-      queryClient.refetchQueries(useGetRooms.getKey());
-    },
-  });
+  const { roomId } = useParams() as { roomId: string };
+  const { data: room } = useGetRoom(roomId);
 
-  const handleCreateRoom = () => {
-    createRoom({
-      name: `Room-${crypto.randomUUID()}`,
+  const user = useUser();
+  const isHost: boolean = room?.hostId === user?.id;
+
+  const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
+    [],
+  );
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
+  const [question, setQuestion] = useState<{
+    uid: string;
+    username: string;
+    message: string;
+  } | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const receiveMessage = () => {
+    roomSocket.socket?.on(
+      SOCKET_EVENT.CHAT_MESSAGE,
+      ({ uid, username, message }: MessagePayload) => {
+        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+      },
+    );
+  };
+
+  const handleChooseQuestion = (uid: string, username: string, message: string) => {
+    roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
+      roomId,
+      uid,
+      username,
+      message,
     });
   };
 
-  const handleDeleteRoom = (id: string) => {
-    deleteRoom(id);
+  const handleAnswerQuestion = () => {
+    roomSocket.socket?.emit(SOCKET_EVENT.ANSWER_QUESTION, {
+      roomId,
+    });
   };
 
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
+  useEffect(() => {
+    initRoomSocket(roomId);
+    receiveMessage();
+    roomSocket.socket?.on(
+      SOCKET_EVENT.JOINED_ROOM,
+      ({ uid, username, message }: MessagePayload) => {
+        setMessages((prev) => [...prev, { uid, username, message }]);
+      },
+    );
+    roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, ({ uid, username, message }: MessagePayload) => {
+      setMessages((prev) => [...prev, { uid, username, message }]);
+    });
+    roomSocket.socket?.on(
+      SOCKET_EVENT.TYPING_STATUS,
+      ({ uid, username, isTyping }: TypingStatusPayload) => {
+        if (isTyping) {
+          setTypingUsers((prev) => [...prev, username]);
+        } else {
+          setTypingUsers((prev) => prev.filter((username) => username !== username));
+        }
+      },
+    );
+    roomSocket.socket?.on(
+      SOCKET_EVENT.QUESTION_CHOSEN,
+      ({ uid, username, message }: { uid: string; username: string; message: string }) => {
+        setQuestion({ uid, username, message });
+      },
+    );
+
+    roomSocket.socket?.on(SOCKET_EVENT.QUESTION_ANSWERED, () => {
+      setQuestion(null);
+    });
+
+    return () => {
+      roomSocket.socket?.emit(SOCKET_EVENT.LEAVE_ROOM, {
+        roomId,
+      });
+      leaveRoom();
+    };
+  }, []);
+
+  //TODO: 스크롤이 바닥에 있을 경우에만 따라가게 하기
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
+  }, [messages]);
 
   return (
     <TabLayout>
-      <Container>
-        <Button shadow onClick={handleCreateRoom}>
-          Create Room
-        </Button>
-        <Spacer />
-        <RoomList>
-          {rooms?.map((room) => {
-            return (
-              <RoomCard key={room.id}>
-                <Link to={room.id}>Room: {room.id}</Link>
-                <div>{room.name}</div>
-                <div>{room.hostId}</div>
-                <Spacer />
-                <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
-                  Delete
-                </Button>
-              </RoomCard>
-            );
-          })}
-        </RoomList>
+      <Container ref={scrollRef}>
+        <Wrapper>
+          <DynamicIsland
+            question={question}
+            isHost={isHost}
+            {...(isHost && {
+              onAnswerQuestion: handleAnswerQuestion,
+            })}
+          />
+
+          <Contents>
+            {messages.map((message, index) => {
+              const isMyMessage: boolean = user?.id === message.uid;
+              return (
+                <Message
+                  key={index}
+                  uid={message.uid}
+                  username={message.username}
+                  message={message.message}
+                  isMyMessage={isMyMessage}
+                  isHost={isHost}
+                  {...(isHost && {
+                    onChooseQuestion: () =>
+                      handleChooseQuestion(message.uid, message.username, message.message),
+                  })}
+                />
+              );
+            })}
+            {typingUsers.map((typingUser, index) => {
+              return <div key={index}>{typingUser} 입력 중...</div>;
+            })}
+          </Contents>
+          <ChatInput roomId={roomId} />
+        </Wrapper>
       </Container>
     </TabLayout>
   );
 };
 
+export default Room;
+
 const Container = styled.div`
-  padding: 16px;
-`;
-
-const Spacer = styled.div`
-  margin: 1rem;
-`;
-
-const RoomList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  ${mediaQuery.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  ${mediaQuery.desktop} {
-    grid-template-columns: repeat(3, 1fr);
-    margin-left: auto;
-    margin-right: auto;
-  }
-  gap: 48px;
-`;
-
-const RoomCard = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  ${glassmorphism}
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 24px 16px;
 `;
 
-export default Room;
+const Wrapper = styled.div`
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;

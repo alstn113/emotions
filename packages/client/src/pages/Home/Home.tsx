@@ -1,81 +1,99 @@
+// react
+import { Link } from 'react-router-dom';
+
+// hooks
+import { useQueryClient } from '@tanstack/react-query';
+import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room';
+
+// components
 import styled from '@emotion/styled';
+import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
-import { GithubIcon } from '~/components/vectors';
-import { API } from '~/constants';
-import { glassmorphism } from '~/styles';
+import { glassmorphism, mediaQuery } from '~/styles';
+
 const Home = () => {
-  const handleGithubLogin = () => {
-    window.location.href = API.GITHUB_AUTH;
+  const queryClient = useQueryClient();
+  const { data: rooms, isLoading } = useGetRooms();
+  const { mutate: createRoom } = useCreateRoom({
+    onSuccess: () => {
+      queryClient.refetchQueries(useGetRooms.getKey());
+    },
+  });
+  const { mutate: deleteRoom } = useDeleteRoom({
+    onSuccess: () => {
+      queryClient.refetchQueries(useGetRooms.getKey());
+    },
+  });
+
+  const handleCreateRoom = () => {
+    createRoom({
+      name: `Room-${crypto.randomUUID()}`,
+    });
   };
+
+  const handleDeleteRoom = (id: string) => {
+    deleteRoom(id);
+  };
+
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <TabLayout>
       <Container>
-        <GithubLoginButton onClick={handleGithubLogin}>
-          <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
-          <span>Login With Github</span>
-        </GithubLoginButton>
+        <Button shadow onClick={handleCreateRoom}>
+          Create Room
+        </Button>
+        <Spacer />
+        <RoomList>
+          {rooms?.map((room) => {
+            return (
+              <RoomCard key={room.id}>
+                <Link to={`/room/${room.id}`}>Room: {room.id}</Link>
+                <div>{room.name}</div>
+                <div>{room.hostId}</div>
+                <Spacer />
+                <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
+                  Delete
+                </Button>
+              </RoomCard>
+            );
+          })}
+        </RoomList>
       </Container>
     </TabLayout>
   );
 };
 
-const GithubLoginButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 50px;
-  color: #aaaaaa;
-  font-size: 1rem;
-  span {
-    margin-left: 1rem;
-  }
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  z-index: 1;
-  box-shadow: 0 5px 45px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  overflow: hidden;
-  transition: top 0.5s, z-index 0s, transform 0.5s;
-  transition-delay: 0.1s, 0.1s, 0s;
-
-  &:hover {
-    transition-delay: 0s, 0.5s, 0.5s;
-    top: -50px;
-    z-index: 11;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: skewX(45deg) translateX(300px);
-    transition: 1.2s;
-  }
-
-  &:hover:before {
-    transform: skewX(45deg) translateX(-300px);
-  }
+const Container = styled.div`
+  padding: 16px;
 `;
 
-const Container = styled.div`
-  margin: auto auto;
+const Spacer = styled.div`
+  margin: 1rem;
+`;
+
+const RoomList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  ${mediaQuery.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  ${mediaQuery.desktop} {
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  gap: 48px;
+`;
+
+const RoomCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 360px;
-  width: 250px;
-  border-radius: 20px;
-  // grassmorphism
+  padding: 1rem;
   ${glassmorphism}
 `;
 

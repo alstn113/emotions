@@ -30,7 +30,7 @@ export class AuthController {
     const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
     const token = await this.authService.generateToken(user.userId, user.username);
     this.authService.setTokenCookie(res, token);
-    return res.redirect(`${FRONTEND_URL}/room`);
+    return res.redirect(`${FRONTEND_URL}`);
   }
 
   @Delete('/logout')
