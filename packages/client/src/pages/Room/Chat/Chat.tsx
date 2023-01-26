@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 import { MessagePayload, TypingStatusPayload, User } from '~/types';
 
 // hooks
-import { useQueryClient } from '@tanstack/react-query';
-import { useGetMe } from '~/hooks/queries/user';
 import { useGetRoom } from '~/hooks/queries/room';
 
 // components
@@ -18,14 +16,13 @@ import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import TabLayout from '~/components/layouts/TabLayout';
+import useUser from '~/hooks/useUser';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoom(roomId);
 
-  // get user data
-  const queryClient = useQueryClient();
-  const user = queryClient.getQueryData<User>(useGetMe.getKey());
+  const user = useUser();
   const isHost: boolean = room?.hostId === user?.id;
 
   const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
