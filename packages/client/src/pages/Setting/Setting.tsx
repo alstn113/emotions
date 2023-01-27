@@ -4,8 +4,11 @@ import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
 import useLogout from '~/hooks/useLogout';
+import useUser from '~/hooks/useUser';
 import { glassmorphism } from '~/styles';
+
 const Setting = () => {
+  const user = useUser();
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
   };
@@ -15,60 +18,29 @@ const Setting = () => {
   return (
     <TabLayout>
       <Container>
-        <GithubLoginButton onClick={handleGithubLogin}>
-          <GithubIcon width="24px" height="24px" fill="#aaaaaa" />
+        <Text>My Account</Text>
+        <Text>Username: {user?.username}</Text>
+        <Text>Displayname: {user?.displayName}</Text>
+        <StyledButton size="auto" shadow color="secondary" onClick={handleGithubLogin}>
+          <GithubIcon />
           <span>Login With Github</span>
-        </GithubLoginButton>
-        <Button onClick={logout}>로그아웃</Button>
+        </StyledButton>
+        <Button size="auto" shadow color="error" onClick={logout}>
+          Logout
+        </Button>
       </Container>
     </TabLayout>
   );
 };
 
-const GithubLoginButton = styled.button`
+const Text = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 50px;
-  color: #aaaaaa;
-  font-size: 1rem;
-  span {
-    margin-left: 1rem;
-  }
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  z-index: 1;
-  box-shadow: 0 5px 45px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  overflow: hidden;
-  transition: top 0.5s, z-index 0s, transform 0.5s;
-  transition-delay: 0.1s, 0.1s, 0s;
-
-  &:hover {
-    transition-delay: 0s, 0.5s, 0.5s;
-    top: -50px;
-    z-index: 11;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    transform: skewX(45deg) translateX(300px);
-    transition: 1.2s;
-  }
-
-  &:hover:before {
-    transform: skewX(45deg) translateX(-300px);
-  }
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
 `;
 
 const Container = styled.div`
@@ -77,11 +49,25 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 360px;
-  width: 250px;
+  height: 25rem;
+  width: 16rem;
   border-radius: 20px;
-  // grassmorphism
+  border: 1px solid #e5e5e5;
+  padding: 1rem;
   ${glassmorphism}
+`;
+
+const StyledButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: #aaaaaa;
+    margin-right: 1rem;
+  }
 `;
 
 export default Setting;
