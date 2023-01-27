@@ -36,10 +36,10 @@ const HeaderDropdown = () => {
             initial={{ scale: 0.9, opacity: 0.2 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: 'spring', bounce: 0.33, duration: 0.3 }}
+            transition={{ type: 'spring', bounce: 0.3, duration: 0.3 }}
           >
-            <MenuItem onClick={() => naviagate('/create')}>
-              <MenuItemText>Create Room</MenuItemText>
+            <MenuItem onClick={() => naviagate('/write')}>
+              <MenuItemText>Write Post</MenuItemText>
             </MenuItem>
             <MenuItem onClick={() => naviagate('/bookmarks')}>
               <MenuItemText>Bookmarks</MenuItemText>
@@ -71,6 +71,8 @@ const DropdownMenu = styled(motion.div)`
   position: absolute;
   top: 60px;
   right: 10px;
+  // 기준점
+  transform-origin: right top;
   margin-top: 0.5rem;
   padding: 8px;
   background: #26292b;

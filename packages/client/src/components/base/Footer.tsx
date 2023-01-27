@@ -12,7 +12,7 @@ const Footer = () => {
       <TabItem to="/search">
         <Search width={24} height={24} />
       </TabItem>
-      <TabItem to="/create">
+      <TabItem to="/write">
         <PlusCircle width={24} height={24} />
       </TabItem>
       <TabItem to="/bookmarks">

@@ -7,7 +7,7 @@ import { useGetMe } from './hooks/queries/user';
 // pages
 import Home from './pages/Home/Home';
 import Search from './pages/Search/Search';
-import Create from './pages/Create/Create';
+import Write from './pages/Write/Write';
 import Bookmarks from './pages/Bookmarks/Bookmarks';
 import Settings from './pages/Settings/Settings';
 import Chat from './pages/Room/Room';
@@ -22,7 +22,7 @@ const App = () => {
         {/* public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/write" element={<Write />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
         <Route path="/settings" element={<Settings />} />
 
