@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Loader } from '~/components/common';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
+import styled from '@emotion/styled';
 
 interface Props {
   pendingFallback?: React.ReactNode;
@@ -8,7 +9,11 @@ interface Props {
   children: React.ReactNode;
 }
 const AsyncBoundary = ({
-  pendingFallback = <Loader color="warning" size="lg" />,
+  pendingFallback = (
+    <Container>
+      <Loader color="warning" size="lg" />
+    </Container>
+  ),
   rejectedFallback,
   children,
 }: Props) => {
@@ -18,5 +23,13 @@ const AsyncBoundary = ({
     </ErrorBoundary>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
 
 export default AsyncBoundary;
