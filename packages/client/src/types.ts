@@ -14,8 +14,38 @@ export interface Room {
   updatedAt: string;
 }
 
+export interface Post {
+  id: string;
+  title: string;
+  body: string;
+  authorId: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Comment {
+  id: string;
+  text: string;
+  userId: string;
+  user: User;
+  postId: string;
+  post: Post;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CreateRoomParams {
   name: string;
+}
+
+export interface CreatePostParams {
+  title: string;
+  body: string;
+}
+
+export interface CreateCommentParams {
+  text: string;
 }
 
 export interface MessagePayload {
