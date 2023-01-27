@@ -38,17 +38,17 @@ const HeaderDropdown = () => {
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', bounce: 0.33, duration: 0.3 }}
           >
-            <MenuItem onClick={() => naviagate('/')}>
-              <MenuItemText>채팅방 만들기</MenuItemText>
+            <MenuItem onClick={() => naviagate('/create')}>
+              <MenuItemText>Create Room</MenuItemText>
             </MenuItem>
             <MenuItem onClick={() => naviagate('/bookmarks')}>
-              <MenuItemText>북마크</MenuItemText>
+              <MenuItemText>Bookmarks</MenuItemText>
             </MenuItem>
             <MenuItem onClick={() => naviagate('/settings')}>
-              <MenuItemText>설정</MenuItemText>
+              <MenuItemText>Settings</MenuItemText>
             </MenuItem>
             <MenuItem onClick={logout}>
-              <MenuItemText>로그아웃</MenuItemText>
+              <MenuItemText>Logout</MenuItemText>
             </MenuItem>
           </DropdownMenu>
         )}

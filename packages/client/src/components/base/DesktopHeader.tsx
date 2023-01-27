@@ -38,8 +38,7 @@ const Container = styled.header`
   align-items: center;
   height: 60px;
   padding: 0px 16px;
-  background: #fff;
-  border-bottom: 2px solid #cccccc;
+  background: #000;
 
   ${mediaQuery.mobile} {
     display: flex;
@@ -51,7 +50,7 @@ const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
   border-radius: 10px;
-  background: #fff;
+  color: #fff;
   padding: 0 16px;
 `;
 

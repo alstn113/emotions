@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { glassmorphism, mediaQuery } from '~/styles';
+import { mediaQuery } from '~/styles';
 import HeaderBackButton from './HeaderBackButton';
 
 interface Props {
@@ -29,8 +29,7 @@ const Container = styled.header`
   justify-content: center;
   height: 60px;
   padding: 0px 16px;
-  background: #fff;
-  border-bottom: 2px solid #cccccc;
+  background: #000;
 
   ${mediaQuery.mobile} {
     display: none;
@@ -40,6 +39,7 @@ const Container = styled.header`
 const Title = styled.div`
   font-family: 'PyeongChangPeace-Bold', sans-serif;
   font-size: 1.5rem;
+  color: #fff;
   font-weight: 700;
 `;
 

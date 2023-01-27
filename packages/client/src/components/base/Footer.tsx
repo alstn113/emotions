@@ -37,7 +37,7 @@ const TabItem = styled(NavLink)`
   }
   &.active {
     svg {
-      color: #000000;
+      color: #fff;
     }
   }
 `;
@@ -45,8 +45,7 @@ const TabItem = styled(NavLink)`
 const Container = styled.footer`
   display: flex;
   height: 60px;
-  background: #fff;
-  border-top: 2px solid #cccccc;
+  background: #000;
 
   ${mediaQuery.mobile} {
     display: none;
