@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useUser from '~/hooks/useUser';
 import { mediaQuery } from '~/styles';
 import { Button } from '../common';
@@ -9,6 +9,7 @@ interface Props {}
 
 const DesktopHeader = ({}: Props) => {
   const user = useUser();
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -18,10 +19,10 @@ const DesktopHeader = ({}: Props) => {
           <HeaderDropdown></HeaderDropdown>
         ) : (
           <ButtonsWrapper>
-            <Button shadow color="primary" size="sm">
+            <Button shadow color="primary" size="sm" onClick={() => navigate('/settings')}>
               로그인
             </Button>
-            <Button shadow color="success" size="sm">
+            <Button shadow color="success" size="sm" onClick={() => navigate('/settings')}>
               회원가입
             </Button>
           </ButtonsWrapper>
@@ -40,7 +41,7 @@ const Container = styled.header`
   background: #fff;
   border-bottom: 2px solid #cccccc;
 
-  ${mediaQuery.tablet} {
+  ${mediaQuery.mobile} {
     display: flex;
   }
 `;

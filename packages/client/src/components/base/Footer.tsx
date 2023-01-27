@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
-import { glassmorphism, mediaQuery } from '~/styles';
+import { mediaQuery } from '~/styles';
 import { Home, Bookmark, PlusCircle, Search, Setting } from '../vectors';
 
 const Footer = () => {
@@ -48,7 +48,7 @@ const Container = styled.footer`
   background: #fff;
   border-top: 2px solid #cccccc;
 
-  ${mediaQuery.tablet} {
+  ${mediaQuery.mobile} {
     display: none;
   }
 `;
