@@ -41,11 +41,11 @@ const HeaderDropdown = () => {
             <MenuItem onClick={() => naviagate('/write')}>
               <MenuItemText>Write Post</MenuItemText>
             </MenuItem>
-            <MenuItem onClick={() => naviagate('/bookmarks')}>
-              <MenuItemText>Bookmarks</MenuItemText>
+            <MenuItem onClick={() => naviagate('/room')}>
+              <MenuItemText>Room</MenuItemText>
             </MenuItem>
-            <MenuItem onClick={() => naviagate('/settings')}>
-              <MenuItemText>Settings</MenuItemText>
+            <MenuItem onClick={() => naviagate('/setting')}>
+              <MenuItemText>Setting</MenuItemText>
             </MenuItem>
             <MenuItem onClick={logout}>
               <MenuItemText>Logout</MenuItemText>

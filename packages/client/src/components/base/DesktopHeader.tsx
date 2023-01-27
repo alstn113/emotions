@@ -19,11 +19,11 @@ const DesktopHeader = ({}: Props) => {
           <HeaderDropdown />
         ) : (
           <ButtonsWrapper>
-            <Button shadow color="primary" size="sm" onClick={() => navigate('/settings')}>
-              로그인
+            <Button shadow color="primary" size="sm" onClick={() => navigate('/setting')}>
+              Login
             </Button>
-            <Button shadow color="success" size="sm" onClick={() => navigate('/settings')}>
-              회원가입
+            <Button shadow color="success" size="sm" onClick={() => navigate('/setting')}>
+              Register
             </Button>
           </ButtonsWrapper>
         )}

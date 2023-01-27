@@ -9,7 +9,7 @@ import Home from './pages/Home/Home';
 import Search from './pages/Search/Search';
 import Write from './pages/Write/Write';
 import Room from './pages/Room/Room';
-import Settings from './pages/Settings/Settings';
+import Setting from './pages/Setting/Setting';
 import Chat from './pages/Room/Chat';
 import NotFound from './pages/NotFound/NotFound';
 import ErrorBoundary from './components/base/ErrorBoundary';
@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/write" element={<Write />} />
           <Route path="/room" element={<Room />} />
-          <Route path="/setting" element={<Settings />} />
+          <Route path="/setting" element={<Setting />} />
 
           <Route path="/room/:roomId" element={<Chat />} />
 

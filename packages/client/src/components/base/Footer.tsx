@@ -32,8 +32,8 @@ const TabItem = styled(NavLink)`
   justify-content: center;
   svg {
     color: #808080;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
   &.active {
     svg {

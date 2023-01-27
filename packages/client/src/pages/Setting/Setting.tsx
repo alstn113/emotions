@@ -5,7 +5,7 @@ import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
 import useLogout from '~/hooks/useLogout';
 import { glassmorphism } from '~/styles';
-const Settings = () => {
+const Setting = () => {
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
   };
@@ -84,4 +84,4 @@ const Container = styled.div`
   ${glassmorphism}
 `;
 
-export default Settings;
+export default Setting;

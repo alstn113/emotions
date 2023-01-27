@@ -20,6 +20,11 @@ const IconButton = styled.button`
   justify-content: center;
   padding: 8px;
   margin-left: -8px;
+  svg {
+    color: #fff;
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export default HeaderBackButton;
