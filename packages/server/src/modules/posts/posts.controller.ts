@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser } from '~/common/decorators';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}

@@ -4,13 +4,13 @@ import { User } from '@prisma/client';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { UsersService } from './users.service';
 
-@ApiTags('/users')
-@Controller('/users')
+@ApiTags('users')
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Public()
-  @Get('/me')
+  @Get('me')
   async getCurrentUser(
     @GetCurrentUser() user: { userId: string; username: string },
   ): Promise<User | null> {

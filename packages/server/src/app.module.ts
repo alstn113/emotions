@@ -20,8 +20,7 @@ import { UsersModule } from './modules/users/users.module';
 import { EventsModule } from './modules/events/events.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 import { PostsModule } from './modules/posts/posts.module';
-import { CommnetsModule } from './modules/commnets/commnets.module';
-import { TagsModule } from './modules/tags/tags.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
   imports: [
@@ -38,8 +37,7 @@ import { TagsModule } from './modules/tags/tags.module';
     EventsModule,
     RoomsModule,
     PostsModule,
-    CommnetsModule,
-    TagsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [
