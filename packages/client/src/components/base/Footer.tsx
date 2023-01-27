@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 import { mediaQuery } from '~/styles';
-import { Home, Bookmark, PlusCircle, Search, Setting } from '../vectors';
+import { Home, Create, Search, Settings, Comment } from '../vectors';
 
 const Footer = () => {
   return (
@@ -13,13 +13,13 @@ const Footer = () => {
         <Search width={24} height={24} />
       </TabItem>
       <TabItem to="/write">
-        <PlusCircle width={24} height={24} />
+        <Create width={24} height={24} />
       </TabItem>
-      <TabItem to="/bookmarks">
-        <Bookmark width={24} height={24} />
+      <TabItem to="/room">
+        <Comment width={24} height={24} />
       </TabItem>
-      <TabItem to="/settings">
-        <Setting width={24} height={24} />
+      <TabItem to="/setting">
+        <Settings width={24} height={24} />
       </TabItem>
     </Container>
   );

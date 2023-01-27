@@ -13,7 +13,7 @@ import ModalProvider from './components/base/ModalProvider';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      suspense: true,
+      // suspense: true,
       // -- react-query default config --
       retry: false,
       refetchOnMount: false,

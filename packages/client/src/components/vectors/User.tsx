@@ -1,12 +1,18 @@
+import * as React from 'react';
 import { SVGProps } from 'react';
-
 const SvgUser = (props: SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    data-name="Layer 1"
+    viewBox="0 0 24 24"
+    fill="none"
+    {...props}
+  >
     <path
+      d="M16.043 14H7.957A4.963 4.963 0 0 0 3 18.957V24h18v-5.043A4.963 4.963 0 0 0 16.043 14Z"
       fill="currentColor"
-      d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4Z"
     />
+    <circle cx={12} cy={6} r={6} fill="currentColor" />
   </svg>
 );
-
 export default SvgUser;

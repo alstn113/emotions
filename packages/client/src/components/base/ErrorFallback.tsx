@@ -36,7 +36,7 @@ const Text = styled.div`
   color: red;
   h1 {
     font-weight: 700;
-    font-size: 4rem;
+    font-size: 3rem;
   }
   h2 {
     font-weight: 700;

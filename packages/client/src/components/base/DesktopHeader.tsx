@@ -16,7 +16,7 @@ const DesktopHeader = ({}: Props) => {
       <Logo to="/">iChat</Logo>
       <HeaderItems>
         {user ? (
-          <HeaderDropdown></HeaderDropdown>
+          <HeaderDropdown />
         ) : (
           <ButtonsWrapper>
             <Button shadow color="primary" size="sm" onClick={() => navigate('/settings')}>

@@ -22,9 +22,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  Room Room[]
-  Vote Vote[]
-  Chat Chat[]
+  rooms    Room[]
+  votes    Vote[]
+  chats    Chat[]
+  posts    Post[]
+  comments Comment[]
 }
 
 model Room {
@@ -36,8 +38,8 @@ model Room {
 
   createdAt DateTime @default(now())
 
-  Vote    Vote[]
-  Message Chat[]
+  votes Vote[]
+  chats Chat[]
 }
 
 model Chat {
@@ -60,4 +62,28 @@ model Vote {
   room Room @relation(fields: [roomId], references: [id])
 
   createdAt DateTime @default(now())
+}
+
+model Post {
+  id       String @id @default(uuid())
+  title    String
+  body     String
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  comments  Comment[]
+}
+
+model Comment {
+  id     String @id @default(uuid())
+  text   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

@@ -12,7 +12,7 @@ import { glassmorphism, mediaQuery } from '~/styles';
 
 const RoomList = () => {
   const queryClient = useQueryClient();
-  const { data: rooms } = useGetRooms();
+  const { data: rooms } = useGetRooms({ suspense: true });
 
   const { mutate: deleteRoom } = useDeleteRoom({
     onSuccess: () => {
@@ -53,7 +53,7 @@ const Container = styled.div`
     margin-left: auto;
     margin-right: auto;
   }
-  gap: 48px;
+  gap: 24px;
 `;
 
 const RoomCard = styled.div`
