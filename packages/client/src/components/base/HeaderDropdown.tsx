@@ -26,7 +26,7 @@ const HeaderDropdown = () => {
 
   return (
     <>
-      <DropdownButton shadow color="success" size="md" ref={triggerRef} onClick={onToggle}>
+      <DropdownButton shadow color="success" size="sm" ref={triggerRef} onClick={onToggle}>
         <User />
         {user?.username}
       </DropdownButton>
@@ -62,8 +62,8 @@ const DropdownButton = styled(Button)`
   align-items: center;
   svg {
     margin-right: 8px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 `;
 

@@ -18,14 +18,9 @@ const DesktopHeader = ({}: Props) => {
         {user ? (
           <HeaderDropdown />
         ) : (
-          <ButtonsWrapper>
-            <Button shadow color="primary" size="sm" onClick={() => navigate('/setting')}>
-              Login
-            </Button>
-            <Button shadow color="success" size="sm" onClick={() => navigate('/setting')}>
-              Register
-            </Button>
-          </ButtonsWrapper>
+          <Button shadow color="primary" size="sm" onClick={() => navigate('/setting')}>
+            Login
+          </Button>
         )}
       </HeaderItems>
     </Container>
@@ -59,11 +54,6 @@ const HeaderItems = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`;
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  gap: 8px;
 `;
 
 export default DesktopHeader;

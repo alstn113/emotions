@@ -18,9 +18,16 @@ const Setting = () => {
   return (
     <TabLayout>
       <Container>
-        <Text>My Account</Text>
-        <Text>Username: {user?.username}</Text>
-        <Text>Displayname: {user?.displayName}</Text>
+        {user ? (
+          <>
+            <Text>My Account</Text>
+            <Text>Username: {user?.username}</Text>
+            <Text>Displayname: {user?.displayName}</Text>
+          </>
+        ) : (
+          <Text>Not Logged In</Text>
+        )}
+
         <StyledButton size="auto" shadow color="secondary" onClick={handleGithubLogin}>
           <GithubIcon />
           <span>Login With Github</span>
