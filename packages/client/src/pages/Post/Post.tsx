@@ -47,7 +47,7 @@ const Container = styled.div`
   gap: 1rem;
   ${mediaQuery.tablet} {
     width: 736px;
-    margin: 4rem auto 0;
+    margin: 4rem auto;
   }
 `;
 

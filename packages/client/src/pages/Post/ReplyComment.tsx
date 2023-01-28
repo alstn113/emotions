@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { Button } from '~/components/common';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { Comment } from '~/types';
 
 interface Props {
-  postId: string;
+  parentcomment: Comment;
+  onClose: () => void;
 }
 
-const CommentInput = ({ postId }: Props) => {
+const ReplyComment = ({ parentcomment, onClose }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetComments.getKey(postId));
+      await queryClient.refetchQueries(useGetComments.getKey(parentcomment.postId));
       return;
     },
     onError: (e) => {
@@ -22,40 +25,40 @@ const CommentInput = ({ postId }: Props) => {
     },
   });
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (!text) return;
-    mutate({ postId, text });
-    setText('');
+    mutate({ postId: parentcomment.postId, text });
+    onClose();
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormTitle>Comments</FormTitle>
+    <Container>
       <Input
         type="text"
         placeholder="Write Comment..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-    </Form>
+      <ButtonsWrapper>
+        <Button shadow color="success" size="sm" onClick={handleSubmit}>
+          Confirm
+        </Button>
+        <Button shadow color="error" size="sm" onClick={onClose}>
+          Cancel
+        </Button>
+      </ButtonsWrapper>
+    </Container>
   );
 };
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const FormTitle = styled.div`
   width: 100%;
-  padding: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  display: flex;
-  justify-content: flex-start;
+  padding-top: 2rem;
+  padding-left: 2rem;
 `;
 
 const Input = styled.input`
@@ -71,4 +74,13 @@ const Input = styled.input`
   }
 `;
 
-export default CommentInput;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+export default ReplyComment;

@@ -32,6 +32,7 @@ export interface Comment {
   user: User;
   postId: string;
   post: Post;
+  subcomments?: Comment[];
   createdAt: string;
   updatedAt: string;
 }
