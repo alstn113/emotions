@@ -23,9 +23,8 @@ const PostAPI = {
     return data;
   },
 
-  deletePost: async (id: string): Promise<Post> => {
-    const { data } = await apiClient.delete(`${API.POST}/${id}`);
-    return data;
+  deletePost: async (id: string): Promise<void> => {
+    await apiClient.delete(`${API.POST}/${id}`);
   },
 };
 

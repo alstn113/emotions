@@ -15,7 +15,10 @@ export class CommentsController {
   }
 
   @Delete(':id')
-  async deleteComment(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+  async deleteComment(
+    @Param('id') id: string,
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<void> {
     return await this.commentsService.deleteComment(id, userId);
   }
 }

@@ -8,9 +8,8 @@ const CommentAPI = {
     return data;
   },
 
-  deleteComment: async (id: string): Promise<Comment> => {
-    const { data } = await apiClient.delete(`${API.COMMENT}/${id}`);
-    return data;
+  deleteComment: async (id: string): Promise<void> => {
+    await apiClient.delete(`${API.COMMENT}/${id}`);
   },
 };
 

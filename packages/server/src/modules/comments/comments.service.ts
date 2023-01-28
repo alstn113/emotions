@@ -22,9 +22,9 @@ export class CommentsService {
     return groupedComments;
   }
 
-  private groupSubcomments(comments: Comment[]) {
+  private groupSubcomments<T extends Comment>(comments: T[]) {
     const rootComments = comments.filter((comment) => !comment.parentCommentId);
-    const subcommentsMap = new Map<string, Comment[]>(); // key: parentCommentId, value: subcomment
+    const subcommentsMap = new Map<string, T[]>(); // key: parentCommentId, value: subcomment
 
     comments.forEach((comment) => {
       // skip root comments
@@ -49,11 +49,12 @@ export class CommentsService {
 
   private hideDeletedComments(comments: Comment[]) {
     return comments.map((comment) => {
-      if (!comment.deletedAt) return comment;
+      if (!comment.deletedAt) return { ...comment, isDeleted: false };
       const someDate = new Date(0);
       return {
         ...comment,
         text: '',
+        userId: '',
         user: {
           id: '',
           username: '',
@@ -61,18 +62,21 @@ export class CommentsService {
         },
         createdAt: someDate,
         updatedAt: someDate,
+        isDeleted: true,
       };
     });
   }
 
   async createComment(dto: CreateCommentDto, authorId: string) {
-    return await this.commentRepository.createComment(dto, authorId);
+    const comment = await this.commentRepository.createComment(dto, authorId);
+    return { ...comment, isDeleted: false, subcomments: [] };
   }
 
   async deleteComment(id: string, userId: string) {
     const comment = await this.getComment(id);
     if (comment.userId !== userId)
       throw new HttpException('You are not the author of this comment', 403);
-    return await this.commentRepository.deleteComment(id);
+
+    await this.commentRepository.deleteComment(id);
   }
 }

@@ -40,7 +40,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   return (
     <Container>
       <ContentsWrapper>
-        {comment.deletedAt ? (
+        {comment.isDeleted ? (
           <Text>삭제된 댓글입니다.</Text>
         ) : (
           <>

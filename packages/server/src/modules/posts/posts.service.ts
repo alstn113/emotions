@@ -27,7 +27,7 @@ export class PostsService {
     const post = await this.getPostById(id);
     if (post.authorId !== authorId)
       throw new HttpException('You are not the author of this post', 403);
-    return await this.postRepository.deletePost(id);
+    await this.postRepository.deletePost(id);
   }
 
   async getPostComments(id: string) {
