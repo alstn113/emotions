@@ -29,6 +29,7 @@ const Title = styled.div`
 
 const Body = styled.div`
   font-size: 1rem;
+  line-height: 1.5rem;
 `;
 
 const Author = styled.div`

@@ -24,8 +24,6 @@ const Post = () => {
         >
           <PostContents postId={postId} />
         </AsyncBoundary>
-      </Container>
-      <Container>
         <CommentInput postId={postId} />
         <AsyncBoundary
           rejectedFallback={
@@ -49,7 +47,7 @@ const Container = styled.div`
   gap: 1rem;
   ${mediaQuery.tablet} {
     width: 736px;
-    margin: 0 auto;
+    margin: 4rem auto 0;
   }
 `;
 

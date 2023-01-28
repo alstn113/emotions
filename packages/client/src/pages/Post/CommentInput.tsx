@@ -36,6 +36,7 @@ const CommentInput = ({ postId }: Props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormTitle>Comments</FormTitle>
       <Input
         type="text"
         placeholder="Write Comment..."
@@ -48,8 +49,18 @@ const CommentInput = ({ postId }: Props) => {
 
 const Form = styled.form`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const FormTitle = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 const Input = styled.input`
@@ -60,6 +71,9 @@ const Input = styled.input`
   width: 100%;
   height: 45px;
   border-radius: 8px;
+  &:focus {
+    border: 1px solid #2c2c2c;
+  }
 `;
 
 export default CommentInput;

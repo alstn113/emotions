@@ -10,6 +10,7 @@ import RoomList from './RoomList';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
+import { mediaQuery } from '~/styles';
 
 const Room = () => {
   const queryClient = useQueryClient();
@@ -47,6 +48,10 @@ const Room = () => {
 
 const Container = styled.div`
   padding: 16px;
+  ${mediaQuery.desktop} {
+    width: 1200px;
+    margin: 0 auto;
+  }
 `;
 
 const Spacer = styled.div`
