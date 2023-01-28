@@ -1,4 +1,4 @@
-export { default as useCreateRoom } from './useCreatePost';
-export { default as useGetRoom } from './useGetPost';
-export { default as useGetRooms } from './useGetPosts';
-export { default as useDeleteRoom } from './useDeletePost';
+export { default as useCreatePost } from './useCreatePost';
+export { default as useGetPost } from './useGetPost';
+export { default as useGetPosts } from './useGetPosts';
+export { default as useDeletePost } from './useDeletePost';

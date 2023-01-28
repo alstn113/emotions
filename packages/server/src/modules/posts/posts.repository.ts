@@ -7,7 +7,12 @@ export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findPosts() {
-    return this.prisma.post.findMany();
+    return this.prisma.post.findMany({
+      include: {
+        author: true,
+        comments: true,
+      },
+    });
   }
 
   async findPostById(id: string) {

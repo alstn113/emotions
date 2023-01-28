@@ -1,23 +1,32 @@
+// hooks
+import { useGetPosts } from '~/hooks/queries/post';
+
+// components
 import styled from '@emotion/styled';
 import TabLayout from '~/components/layouts/TabLayout';
+import PostList from './PostList';
+import AsyncBoundary from '~/components/base/AsyncBoundary';
+import ErrorFallback from '~/components/base/ErrorFallback';
+import { MESSAGE } from '~/constants';
 
-const Home = () => {
+const Post = () => {
   return (
     <TabLayout>
-      <Container>Home</Container>
+      <Container>
+        <AsyncBoundary
+          rejectedFallback={
+            <ErrorFallback message={MESSAGE.ERROR.LOAD_DATA} queryKey={useGetPosts.getKey()} />
+          }
+        >
+          <PostList />
+        </AsyncBoundary>
+      </Container>
     </TabLayout>
   );
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 5rem;
-  font-weight: 700;
+  padding: 16px;
 `;
 
-export default Home;
+export default Post;
