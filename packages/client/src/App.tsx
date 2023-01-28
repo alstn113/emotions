@@ -7,33 +7,38 @@ import { useGetMe } from './hooks/queries/user';
 // pages
 import Home from './pages/Home/Home';
 import Search from './pages/Search/Search';
-import Create from './pages/Create/Create';
-import Bookmarks from './pages/Bookmarks/Bookmarks';
-import Settings from './pages/Settings/Settings';
+import Write from './pages/Write/Write';
 import Room from './pages/Room/Room';
-import Chat from './pages/Room/Chat/Chat';
+import Setting from './pages/Setting/Setting';
+import Chat from './pages/Room/Chat';
 import NotFound from './pages/NotFound/NotFound';
+import ErrorBoundary from './components/base/ErrorBoundary';
+import ErrorFallback from './components/base/ErrorFallback';
+import { MESSAGE } from './constants';
+import Post from './pages/Post/Post';
 
 const App = () => {
   useGetMe();
 
   return (
-    <Router>
-      <Routes>
-        {/* public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/settings" element={<Settings />} />
+    <ErrorBoundary fallback={<ErrorFallback message={MESSAGE.ERROR.UNKNOWN} />}>
+      <Router>
+        <Routes>
+          {/* public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/room" element={<Room />} />
+          <Route path="/setting" element={<Setting />} />
 
-        <Route path="/room" element={<Room />} />
-        <Route path="/room/:roomId" element={<Chat />} />
+          <Route path="/post/:postId" element={<Post />} />
+          <Route path="/room/:roomId" element={<Chat />} />
 
-        {/* catch all */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+          {/* catch all */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 };
 

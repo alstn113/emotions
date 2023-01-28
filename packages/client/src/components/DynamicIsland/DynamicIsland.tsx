@@ -42,8 +42,8 @@ const DynamicIsland = ({ isHost, question, onAnswerQuestion }: Props) => {
 };
 
 const Container = styled(motion.div)`
-  position: fixed;
-  top: 64px;
+  position: absolute;
+  top: 1.5rem;
   left: 50%;
   transform: translate(-50%, -5%);
   display: flex;

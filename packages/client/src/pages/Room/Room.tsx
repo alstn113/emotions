@@ -1,25 +1,21 @@
-// react
-import { Link } from 'react-router-dom';
-
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
-import { useCreateRoom, useGetRooms, useDeleteRoom } from '~/hooks/queries/room';
+import { useCreateRoom, useGetRooms } from '~/hooks/queries/room';
 
 // components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
-import { glassmorphism } from '~/styles';
+import RoomList from './RoomList';
+import AsyncBoundary from '~/components/base/AsyncBoundary';
+import ErrorFallback from '~/components/base/ErrorFallback';
+import { MESSAGE } from '~/constants';
+import { mediaQuery } from '~/styles';
 
 const Room = () => {
   const queryClient = useQueryClient();
-  const { data: rooms, isLoading } = useGetRooms();
+
   const { mutate: createRoom } = useCreateRoom({
-    onSuccess: () => {
-      queryClient.refetchQueries(useGetRooms.getKey());
-    },
-  });
-  const { mutate: deleteRoom } = useDeleteRoom({
     onSuccess: () => {
       queryClient.refetchQueries(useGetRooms.getKey());
     },
@@ -31,14 +27,6 @@ const Room = () => {
     });
   };
 
-  const handleDeleteRoom = (id: string) => {
-    deleteRoom(id);
-  };
-
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-
   return (
     <TabLayout>
       <Container>
@@ -46,53 +34,28 @@ const Room = () => {
           Create Room
         </Button>
         <Spacer />
-        <RoomList>
-          {rooms?.map((room) => {
-            return (
-              <RoomContainer key={room.id}>
-                <Link to={room.id}>Room: {room.id}</Link>
-                <div>{room.name}</div>
-                <div>{room.hostId}</div>
-                <Spacer />
-                <Button size="auto" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
-                  Delete
-                </Button>
-              </RoomContainer>
-            );
-          })}
-        </RoomList>
+        <AsyncBoundary
+          rejectedFallback={
+            <ErrorFallback message={MESSAGE.ERROR.LOAD_DATA} queryKey={useGetRooms.getKey()} />
+          }
+        >
+          <RoomList />
+        </AsyncBoundary>
       </Container>
     </TabLayout>
   );
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  padding: 12px;
+  padding: 16px;
+  ${mediaQuery.desktop} {
+    width: 1200px;
+    margin: 0 auto;
+  }
 `;
 
 const Spacer = styled.div`
   margin: 1rem;
-`;
-
-const RoomList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const RoomContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-
-  ${glassmorphism}
 `;
 
 export default Room;

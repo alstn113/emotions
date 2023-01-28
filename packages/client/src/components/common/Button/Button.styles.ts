@@ -12,7 +12,7 @@ export const Container = styled.button<{
   background: ${({ color }) => palette[color]};
   color: #fff;
   border-radius: 0.7rem;
-  padding: 0.7rem 2rem;
+  padding: 0.7rem 1.5rem;
   width: auto;
   min-width: 100px;
   line-height: 20px;
