@@ -7,7 +7,9 @@ export class RoomsService {
   constructor(private readonly roomsRepository: RoomsRepository) {}
 
   async getRoomById(id: string) {
-    return await this.roomsRepository.findRoomById(id);
+    const room = await this.roomsRepository.findRoomById(id);
+    if (!room) throw new HttpException('Room not found', 404);
+    return room;
   }
 
   async getRooms() {
@@ -19,7 +21,7 @@ export class RoomsService {
   }
 
   async deleteRoomById(id: string, userId: string) {
-    const room = await this.roomsRepository.findRoomById(id);
+    const room = await this.getRoomById(id);
     if (room.hostId !== userId) throw new HttpException('You are not the host of this room', 403);
 
     return await this.roomsRepository.deleteRoomById(id);

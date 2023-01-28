@@ -24,17 +24,13 @@ export class PostsService {
   }
 
   async deletePost(id: string, authorId: string) {
-    const post = await this.postRepository.findPostById(id);
-    if (!post) throw new HttpException('Post not found', 404);
+    const post = await this.getPostById(id);
     if (post.authorId !== authorId)
       throw new HttpException('You are not the author of this post', 403);
     return await this.postRepository.deletePost(id);
   }
 
   async getPostComments(id: string) {
-    const post = await this.postRepository.findPostById(id);
-    if (!post) throw new HttpException('Post not found', 404);
-
     return await this.commentsService.getComments(id);
   }
 }

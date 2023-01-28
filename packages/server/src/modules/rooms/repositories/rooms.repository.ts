@@ -7,24 +7,17 @@ export class RoomsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findRoomById(id: string) {
-    const room = await this.prisma.room.findUnique({
+    return await this.prisma.room.findUnique({
       where: {
         id,
       },
-      include: {
-        host: true,
-      },
+      include: roomSelector,
     });
-    if (!room) throw new HttpException('Room not found', 404);
-
-    return room;
   }
 
   async findRooms() {
     return this.prisma.room.findMany({
-      include: {
-        host: true,
-      },
+      include: roomSelector,
     });
   }
 
@@ -34,6 +27,7 @@ export class RoomsRepository {
         ...dto,
         hostId: userId,
       },
+      include: roomSelector,
     });
   }
 
@@ -42,6 +36,17 @@ export class RoomsRepository {
       where: {
         id,
       },
+      include: roomSelector,
     });
   }
 }
+
+const roomSelector = {
+  host: {
+    select: {
+      id: true,
+      username: true,
+      displayName: true,
+    },
+  },
+};
