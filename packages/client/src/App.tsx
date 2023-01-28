@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound/NotFound';
 import ErrorBoundary from './components/base/ErrorBoundary';
 import ErrorFallback from './components/base/ErrorFallback';
 import { MESSAGE } from './constants';
+import Post from './pages/Post/Post';
 
 const App = () => {
   useGetMe();
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/room" element={<Room />} />
           <Route path="/setting" element={<Setting />} />
 
+          <Route path="/post/:postId" element={<Post />} />
           <Route path="/room/:roomId" element={<Chat />} />
 
           {/* catch all */}

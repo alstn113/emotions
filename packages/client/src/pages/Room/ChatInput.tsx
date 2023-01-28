@@ -60,8 +60,8 @@ const ChatInput = ({ roomId }: Props) => {
 export default ChatInput;
 
 const MessageInput = styled.input`
-  position: fixed;
-  bottom: 64px;
+  position: absolute;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;

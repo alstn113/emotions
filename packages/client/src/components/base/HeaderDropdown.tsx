@@ -14,6 +14,7 @@ import styled from '@emotion/styled';
 import { zIndexes } from '~/styles';
 import { Button } from '../common';
 import { User } from '../vectors';
+import { css } from '@emotion/react';
 
 const HeaderDropdown = () => {
   const user = useUser();
@@ -47,7 +48,7 @@ const HeaderDropdown = () => {
             <MenuItem onClick={() => naviagate('/setting')}>
               <MenuItemText>Setting</MenuItemText>
             </MenuItem>
-            <MenuItem onClick={logout}>
+            <MenuItem onClick={logout} red>
               <MenuItemText>Logout</MenuItemText>
             </MenuItem>
           </DropdownMenu>
@@ -80,7 +81,7 @@ const DropdownMenu = styled(motion.div)`
   z-index: ${zIndexes.Header};
 `;
 
-const MenuItem = styled.button`
+const MenuItem = styled.button<{ red?: boolean }>`
   display: flex;
   flex-direction: column;
   min-width: 200px;
@@ -93,6 +94,17 @@ const MenuItem = styled.button`
     background-color: #495057;
   }
   transition: background-color 0.2s;
+  ${({ red }) =>
+    red &&
+    css`
+      background-color: #3f0b1f;
+      &:hover {
+        background-color: #300313;
+      }
+      span {
+        color: #f4256d;
+      }
+    `}
 `;
 
 export const MenuItemText = styled.span`

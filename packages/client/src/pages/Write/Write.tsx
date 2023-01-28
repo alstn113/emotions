@@ -23,7 +23,7 @@ const Write = () => {
   const navigate = useNavigate();
   const { mutate } = useCreatePost({
     onSuccess: async () => {
-      await queryClient.invalidateQueries(useGetPosts.getKey());
+      await queryClient.refetchQueries(useGetPosts.getKey());
       navigate('/');
     },
     onError: (e) => {

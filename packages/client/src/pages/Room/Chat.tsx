@@ -14,11 +14,11 @@ import Message from '~/components/Chat/Message';
 import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
-import TabLayout from '~/components/layouts/TabLayout';
 
 // sockets
 import { MESSAGE, SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
+import BaseLayout from '~/components/layouts/BaseLayout';
 
 const Chat = () => {
   const { roomId } = useParams() as { roomId: string };
@@ -114,7 +114,7 @@ const Chat = () => {
         <ErrorFallback queryKey={useGetRoom.getKey(roomId)} message={MESSAGE.ERROR.LOAD_DATA} />
       }
     >
-      <TabLayout>
+      <BaseLayout>
         <Container ref={scrollRef}>
           <Wrapper>
             <DynamicIsland
@@ -150,7 +150,7 @@ const Chat = () => {
             <ChatInput roomId={roomId} />
           </Wrapper>
         </Container>
-      </TabLayout>
+      </BaseLayout>
     </AsyncBoundary>
   );
 };

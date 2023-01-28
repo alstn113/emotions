@@ -25,7 +25,7 @@ export class PostsController {
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') id: string) {
-    return await this.postsService.deletePost(id);
+  async deletePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+    return await this.postsService.deletePost(id, userId);
   }
 }
