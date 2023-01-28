@@ -9,8 +9,8 @@ export const glassmorphism = css`
   border: 1px solid rgba(255, 255, 255, 0.18);
 `;
 
-const customMediaQuery = (maxWidth: number) => `
-  @media (min-width: ${maxWidth}px)
+const customMediaQuery = (minWidth: number) => `
+  @media (min-width: ${minWidth}px)
 `;
 
 export const mediaQuery = {

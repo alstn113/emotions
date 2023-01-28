@@ -20,6 +20,7 @@ export interface Post {
   body: string;
   authorId: string;
   author: User;
+  comments: Comment[];
   createdAt: string;
   updatedAt: string;
 }

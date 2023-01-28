@@ -23,22 +23,22 @@ export const Positioner = styled.div`
 
 export const ModalBlock = styled(motion.div)`
   background: white;
-  width: 25rem;
+  width: 18rem;
   background: white;
   padding: 1.5rem;
   border-radius: 14px;
   box-shadow: rgb(0 0 0 / 9%) 0px 2px 12px 0px;
-  ${mediaQuery.mobile} {
-    width: 18rem;
+  ${mediaQuery.tablet} {
+    width: 25rem;
   }
 `;
 
 export const Title = styled.h3`
   margin-top: 0;
   margin-bottom: 8px;
-  font-size: 2rem;
-  ${mediaQuery.mobile} {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
+  ${mediaQuery.tablet} {
+    font-size: 2rem;
   }
   line-height: 1.5;
   font-weight: 700;
