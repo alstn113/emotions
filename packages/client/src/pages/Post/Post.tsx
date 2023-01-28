@@ -9,6 +9,7 @@ import { useGetPost } from '~/hooks/queries/post';
 import CommentList from './CommentList';
 import PostContents from './PostContents';
 import CommentInput from './CommentInput';
+import { mediaQuery } from '~/styles';
 
 const Post = () => {
   const { postId } = useParams() as { postId: string };
@@ -46,6 +47,10 @@ const Container = styled.div`
   flex-direction: column;
   padding: 16px;
   gap: 1rem;
+  ${mediaQuery.tablet} {
+    width: 736px;
+    margin: 0 auto;
+  }
 `;
 
 export default Post;

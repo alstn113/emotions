@@ -8,6 +8,7 @@ import PostList from './PostList';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
+import { mediaQuery } from '~/styles';
 
 const Post = () => {
   return (
@@ -27,6 +28,10 @@ const Post = () => {
 
 const Container = styled.div`
   padding: 16px;
+  ${mediaQuery.desktop} {
+    width: 1200px;
+    margin: 0 auto;
+  }
 `;
 
 export default Post;
