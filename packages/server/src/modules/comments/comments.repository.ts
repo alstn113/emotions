@@ -9,6 +9,7 @@ export class CommentsRepository {
   async findComments(postId: string) {
     return this.prisma.comment.findMany({
       where: { postId },
+      orderBy: { createdAt: 'asc' },
       include: {
         user: true,
       },
