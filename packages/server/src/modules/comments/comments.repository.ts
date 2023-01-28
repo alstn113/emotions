@@ -7,7 +7,7 @@ export class CommentsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findComments(postId: string) {
-    return this.prisma.comment.findMany({
+    return await this.prisma.comment.findMany({
       where: { postId },
       orderBy: { createdAt: 'asc' },
       include: commentSelector,
@@ -22,7 +22,7 @@ export class CommentsRepository {
   }
 
   async createComment(dto: CreateCommentDto, userId: string) {
-    return this.prisma.comment.create({
+    return await this.prisma.comment.create({
       data: {
         text: dto.text,
         postId: dto.postId,
@@ -34,9 +34,12 @@ export class CommentsRepository {
   }
 
   async deleteComment(id: string) {
-    return this.prisma.comment.delete({
+    return await this.prisma.comment.update({
       where: { id },
       include: commentSelector,
+      data: {
+        deletedAt: new Date(),
+      },
     });
   }
 }
