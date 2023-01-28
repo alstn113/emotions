@@ -40,15 +40,21 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   return (
     <Container>
       <ContentsWrapper>
-        <User>{comment.user.username}</User>
-        <ButtonWrapper>
-          <Button shadow color="success" size="sm" onClick={handleOpenReply}>
-            Reply
-          </Button>
-          <Button shadow color="error" size="sm" onClick={handleDelete}>
-            Delete
-          </Button>
-        </ButtonWrapper>
+        {comment.deletedAt ? (
+          <Text>삭제된 댓글입니다.</Text>
+        ) : (
+          <>
+            <User>{comment.user.username}</User>
+            <ButtonWrapper>
+              <Button shadow color="success" size="sm" onClick={handleOpenReply}>
+                Reply
+              </Button>
+              <Button shadow color="error" size="sm" onClick={handleDelete}>
+                Delete
+              </Button>
+            </ButtonWrapper>
+          </>
+        )}
       </ContentsWrapper>
       <Text>{comment.text}</Text>
       {isReplying && <ReplyComment parentcomment={comment} onClose={handleCloseReply} />}
