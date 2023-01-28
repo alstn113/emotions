@@ -10,15 +10,14 @@ export class CommentsRepository {
     return this.prisma.comment.findMany({
       where: { postId },
       orderBy: { createdAt: 'asc' },
-      include: {
-        user: true,
-      },
+      include: commentSelector,
     });
   }
 
   async findCommentById(id: string) {
     return await this.prisma.comment.findUnique({
       where: { id },
+      include: commentSelector,
     });
   }
 
@@ -30,12 +29,24 @@ export class CommentsRepository {
         userId,
         parentCommentId: dto.parentCommentId,
       },
+      include: commentSelector,
     });
   }
 
   async deleteComment(id: string) {
     return this.prisma.comment.delete({
       where: { id },
+      include: commentSelector,
     });
   }
 }
+
+const commentSelector = {
+  user: {
+    select: {
+      id: true,
+      username: true,
+      displayName: true,
+    },
+  },
+};

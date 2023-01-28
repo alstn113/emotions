@@ -15,7 +15,7 @@ export class CommentsService {
     return groupedComments;
   }
 
-  private groupSubcomments(comments: Comment[]) {
+  groupSubcomments(comments: Comment[]) {
     const rootComments = comments.filter((comment) => !comment.parentCommentId);
     const subcommentsMap = new Map<string, Comment[]>(); // key: parentCommentId, value: subcomment
 
