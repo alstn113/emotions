@@ -57,7 +57,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-top: 2rem;
+  padding-top: 1rem;
   padding-left: 2rem;
 `;
 

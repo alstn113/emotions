@@ -17,7 +17,7 @@ export const mediaQuery = {
   custom: customMediaQuery,
   mobile: customMediaQuery(500),
   tablet: customMediaQuery(768),
-  desktop: customMediaQuery(1024),
+  desktop: customMediaQuery(1200),
 } as const;
 
 export type NormalColorType = 'primary' | 'success' | 'secondary' | 'warning' | 'error';
