@@ -31,6 +31,16 @@ export class PostsController {
     return await this.postsService.createPost(dto, userId);
   }
 
+  @Post(':id/likes')
+  async likePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+    return await this.postsService.likePost(id, userId);
+  }
+
+  @Delete(':id/likes')
+  async unlikePost(@Param('id') id: string, @GetCurrentUser() userId: string) {
+    return await this.postsService.unlikePost(id, userId);
+  }
+
   @Delete(':id')
   async deletePost(
     @Param('id') id: string,

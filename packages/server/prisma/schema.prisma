@@ -22,11 +22,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  rooms    Room[]
-  votes    Vote[]
-  chats    Chat[]
-  posts    Post[]
-  comments Comment[]
+  rooms        Room[]
+  votes        Vote[]
+  chats        Chat[]
+  posts        Post[]
+  postLikes    PostLike[]
+  comments     Comment[]
+  commentLikes CommentLike[]
 }
 
 model Room {
@@ -34,7 +36,7 @@ model Room {
   name   String
   hostId String
 
-  host User @relation(fields: [hostId], references: [id])
+  host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 
@@ -48,8 +50,8 @@ model Chat {
   userId  String
   roomId  String
 
-  user      User     @relation(fields: [userId], references: [id])
-  room      Room     @relation(fields: [roomId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
 
@@ -58,8 +60,8 @@ model Vote {
   userId String
   roomId String
 
-  user User @relation(fields: [userId], references: [id])
-  room Room @relation(fields: [roomId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 }
@@ -68,25 +70,70 @@ model Post {
   id       String @id @default(uuid())
   title    String
   body     String
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
   comments  Comment[]
+  postLikes PostLike[]
+  postStats PostStats?
+}
+
+model PostStats {
+  id            String @id @default(uuid())
+  likes         Int    @default(0)
+  commentsCount Int    @default(0)
+
+  postId String @unique
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model PostLike {
+  id String @id @default(uuid())
+
+  postId String
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([postId, userId])
 }
 
 model Comment {
-  id              String  @id @default(uuid())
+  id              String        @id @default(uuid())
   text            String
   userId          String
   postId          String
   parentCommentId String?
+  commentLikes    CommentLike[]
 
-  user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
+}
+
+model CommentLike {
+  id String @id @default(uuid())
+
+  commentId String
+  userId    String
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([commentId, userId])
 }

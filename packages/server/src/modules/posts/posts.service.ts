@@ -23,6 +23,14 @@ export class PostsService {
     return await this.postRepository.createPost(dto, authorId);
   }
 
+  async likePost(id: string, userId: string) {
+    return;
+  }
+
+  async unlikePost(id: string, userId: string) {
+    return;
+  }
+
   async deletePost(id: string, authorId: string) {
     const post = await this.getPostById(id);
     if (post.authorId !== authorId)
