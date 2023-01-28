@@ -21,6 +21,7 @@ export class CommentsRepository {
         text: dto.text,
         postId: dto.postId,
         userId,
+        parentCommentId: dto.parentCommentId,
       },
     });
   }

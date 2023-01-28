@@ -27,7 +27,7 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
 
   const handleSubmit = () => {
     if (!text) return;
-    mutate({ postId: parentcomment.postId, text });
+    mutate({ postId: parentcomment.postId, text, parentCommentId: parentcomment.id });
     onClose();
   };
 
