@@ -47,6 +47,7 @@ export interface CreatePostParams {
 
 export interface CreateCommentParams {
   text: string;
+  postId: string;
 }
 
 export interface MessagePayload {

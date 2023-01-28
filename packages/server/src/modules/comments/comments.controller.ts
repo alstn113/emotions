@@ -9,19 +9,18 @@ import { ApiTags } from '@nestjs/swagger';
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
-  @Get()
-  async getComments() {
-    return await this.commentsService.getComments();
+  @Get(':postId')
+  async getComments(@Param('postId') postId: string) {
+    return await this.commentsService.getComments(postId);
   }
 
-  @Get(':id')
-  async getCommentById(@Param('id') id: string) {
-    return this.commentsService.getCommentById(id);
-  }
-
-  @Post()
-  async createComment(@Body() dto: CreateCommentDto, @GetCurrentUser('userId') userId: string) {
-    return await this.commentsService.createComment(dto, userId);
+  @Post(':postId')
+  async createComment(
+    @Param('postId') postId: string,
+    @Body() dto: CreateCommentDto,
+    @GetCurrentUser('userId') userId: string,
+  ) {
+    return await this.commentsService.createComment(dto, postId, userId);
   }
 
   @Delete(':id')

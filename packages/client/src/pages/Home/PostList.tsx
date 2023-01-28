@@ -17,8 +17,8 @@ const PostList = () => {
         return (
           <PostCard key={post.id}>
             <Link to={`/post/${post.id}`}>
-              <div>Title: {post.title}</div>
-              <div>Author: {post.author.username}</div>
+              <Title>{post.title}</Title>
+              <Author>Authored By {post.author.username}</Author>
             </Link>
           </PostCard>
         );
@@ -50,8 +50,18 @@ const PostCard = styled.div`
   ${glassmorphism}
 `;
 
-const Spacer = styled.div`
-  margin: 1rem;
+const Title = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1rem;
+`;
+
+const Author = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 0.7rem;
 `;
 
 export default PostList;

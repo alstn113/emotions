@@ -3,18 +3,15 @@ import { CreateCommentParams, Comment } from '~/types';
 import apiClient from './apiClient';
 
 const CommentAPI = {
-  getComments: async (): Promise<Comment[]> => {
-    const { data } = await apiClient.get(`${API.COMMENT}`);
+  getComments: async (postId: string): Promise<Comment[]> => {
+    const { data } = await apiClient.get(`${API.COMMENT}/${postId}`);
     return data;
   },
 
-  getComment: async (id: string): Promise<Comment> => {
-    const { data } = await apiClient.get(`${API.COMMENT}/${id}`);
-    return data;
-  },
-
-  createComment: async (params: CreateCommentParams): Promise<Comment> => {
-    const { data } = await apiClient.post(`${API.COMMENT}`, params);
+  createComment: async ({ postId, text }: CreateCommentParams): Promise<Comment> => {
+    const { data } = await apiClient.post(`${API.COMMENT}/${postId}`, {
+      text,
+    });
     return data;
   },
 

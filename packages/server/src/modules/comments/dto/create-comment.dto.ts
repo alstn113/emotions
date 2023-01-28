@@ -7,9 +7,4 @@ export class CreateCommentDto {
   @IsString()
   @IsNotEmpty()
   text: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  postId: string;
 }

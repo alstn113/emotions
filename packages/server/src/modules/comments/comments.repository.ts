@@ -6,21 +6,20 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 export class CommentsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findComments() {
-    return this.prisma.comment.findMany();
-  }
-
-  async findCommentById(id: string) {
-    return this.prisma.comment.findUnique({
-      where: { id },
+  async findComments(postId: string) {
+    return this.prisma.comment.findMany({
+      where: { postId },
+      include: {
+        user: true,
+      },
     });
   }
 
-  async createComment(dto: CreateCommentDto, userId: string) {
+  async createComment(dto: CreateCommentDto, postId: string, userId: string) {
     return this.prisma.comment.create({
       data: {
         text: dto.text,
-        postId: dto.postId,
+        postId,
         userId,
       },
     });
