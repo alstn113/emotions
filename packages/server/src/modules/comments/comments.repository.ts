@@ -15,11 +15,11 @@ export class CommentsRepository {
     });
   }
 
-  async createComment(dto: CreateCommentDto, postId: string, userId: string) {
+  async createComment(dto: CreateCommentDto, userId: string) {
     return this.prisma.comment.create({
       data: {
         text: dto.text,
-        postId,
+        postId: dto.postId,
         userId,
       },
     });

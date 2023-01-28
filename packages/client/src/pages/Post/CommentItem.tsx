@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
 import useDeleteComment from '~/hooks/queries/comment/useDeleteComment';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { useGetPostComments } from '~/hooks/queries/post';
 import { Comment } from '~/types';
 import ReplyComment from './ReplyComment';
 import SubCommentList from './SubCommentList';
@@ -19,7 +19,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetComments.getKey(comment.postId));
+      await queryClient.refetchQueries(useGetPostComments.getKey(comment.postId));
     },
     onError: (e) => {
       alert(e);

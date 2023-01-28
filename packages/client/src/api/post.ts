@@ -1,5 +1,5 @@
 import { API } from '~/constants';
-import { CreatePostParams, Post } from '~/types';
+import { Comment, CreatePostParams, Post } from '~/types';
 import apiClient from './apiClient';
 
 const PostAPI = {
@@ -10,6 +10,11 @@ const PostAPI = {
 
   getPost: async (id: string): Promise<Post> => {
     const { data } = await apiClient.get(`${API.POST}/${id}`);
+    return data;
+  },
+
+  getPostComments: async (id: string): Promise<Comment[]> => {
+    const { data } = await apiClient.get(`${API.POST}/${id}/comments`);
     return data;
   },
 

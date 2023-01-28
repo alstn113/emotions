@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { useGetPostComments } from '~/hooks/queries/post';
 
 interface Props {
   postId: string;
@@ -14,7 +14,7 @@ const CommentInput = ({ postId }: Props) => {
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetComments.getKey(postId));
+      await queryClient.refetchQueries(useGetPostComments.getKey(postId));
       return;
     },
     onError: (e) => {

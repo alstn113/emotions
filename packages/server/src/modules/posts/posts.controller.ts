@@ -19,6 +19,11 @@ export class PostsController {
     return this.postsService.getPostById(id);
   }
 
+  @Get(':id/comments')
+  async getPostComments(@Param('id') id: string) {
+    return await this.postsService.getPostComments(id);
+  }
+
   @Post()
   async createPost(@Body() dto: CreatePostDto, @GetCurrentUser('userId') userId: string) {
     return await this.postsService.createPost(dto, userId);
