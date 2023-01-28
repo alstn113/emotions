@@ -15,6 +15,12 @@ export class CommentsRepository {
     });
   }
 
+  async findCommentById(id: string) {
+    return await this.prisma.comment.findUnique({
+      where: { id },
+    });
+  }
+
   async createComment(dto: CreateCommentDto, userId: string) {
     return this.prisma.comment.create({
       data: {
