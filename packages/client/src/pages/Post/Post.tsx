@@ -4,8 +4,7 @@ import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import { MESSAGE } from '~/constants';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
-import { useGetPost } from '~/hooks/queries/post';
+import { useGetPost, useGetPostComments } from '~/hooks/queries/post';
 import CommentList from './CommentList';
 import PostContents from './PostContents';
 import CommentInput from './CommentInput';
@@ -28,7 +27,7 @@ const Post = () => {
         <AsyncBoundary
           rejectedFallback={
             <ErrorFallback
-              queryKey={useGetComments.getKey(postId)}
+              queryKey={useGetPostComments.getKey(postId)}
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }

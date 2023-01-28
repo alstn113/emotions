@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { useGetPostComments } from '~/hooks/queries/post';
 import { Comment } from '~/types';
 
 interface Props {
@@ -17,7 +17,7 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetComments.getKey(parentcomment.postId));
+      await queryClient.refetchQueries(useGetPostComments.getKey(parentcomment.postId));
       return;
     },
     onError: (e) => {
@@ -27,7 +27,7 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
 
   const handleSubmit = () => {
     if (!text) return;
-    mutate({ postId: parentcomment.postId, text });
+    mutate({ postId: parentcomment.postId, text, parentCommentId: parentcomment.id });
     onClose();
   };
 

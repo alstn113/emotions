@@ -17,6 +17,7 @@ const SubCommentList = ({ subcomments }: Props) => {
 };
 
 const Container = styled.div`
+  width: 100%;
   padding-top: 1.5rem;
   padding-left: 1.5rem;
 `;

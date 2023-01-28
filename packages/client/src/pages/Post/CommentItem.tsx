@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
 import useDeleteComment from '~/hooks/queries/comment/useDeleteComment';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { useGetPostComments } from '~/hooks/queries/post';
 import { Comment } from '~/types';
 import ReplyComment from './ReplyComment';
 import SubCommentList from './SubCommentList';
@@ -19,7 +19,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetComments.getKey(comment.postId));
+      await queryClient.refetchQueries(useGetPostComments.getKey(comment.postId));
     },
     onError: (e) => {
       alert(e);
@@ -40,15 +40,21 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   return (
     <Container>
       <ContentsWrapper>
-        <User>{comment.user.username}</User>
-        <ButtonWrapper>
-          <Button shadow color="success" size="sm" onClick={handleOpenReply}>
-            Reply
-          </Button>
-          <Button shadow color="error" size="sm" onClick={handleDelete}>
-            Delete
-          </Button>
-        </ButtonWrapper>
+        {comment.isDeleted ? (
+          <Text>삭제된 댓글입니다.</Text>
+        ) : (
+          <>
+            <User>{comment.user.username}</User>
+            <ButtonWrapper>
+              <Button shadow color="success" size="sm" onClick={handleOpenReply}>
+                Reply
+              </Button>
+              <Button shadow color="error" size="sm" onClick={handleDelete}>
+                Delete
+              </Button>
+            </ButtonWrapper>
+          </>
+        )}
       </ContentsWrapper>
       <Text>{comment.text}</Text>
       {isReplying && <ReplyComment parentcomment={comment} onClose={handleCloseReply} />}

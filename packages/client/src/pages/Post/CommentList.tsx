@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import useGetComments from '~/hooks/queries/comment/useGetComments';
+import { useGetPostComments } from '~/hooks/queries/post';
 import CommentItem from './CommentItem';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CommentList = ({ postId }: Props) => {
-  const { data: comments } = useGetComments(postId, { suspense: true });
+  const { data: comments } = useGetPostComments(postId, { suspense: true });
   return (
     <Container>
       {comments?.map((comment) => {

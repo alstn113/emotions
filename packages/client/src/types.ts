@@ -2,8 +2,6 @@ export interface User {
   id: string;
   username: string;
   displayName: string;
-  createdAt: string;
-  updatedAt: string;
 }
 export interface Room {
   id: string;
@@ -35,6 +33,8 @@ export interface Comment {
   subcomments?: Comment[];
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string;
+  isDeleted: boolean;
 }
 
 export interface CreateRoomParams {
@@ -49,6 +49,7 @@ export interface CreatePostParams {
 export interface CreateCommentParams {
   text: string;
   postId: string;
+  parentCommentId?: string;
 }
 
 export interface MessagePayload {

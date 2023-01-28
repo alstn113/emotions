@@ -1,10 +1,14 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { CommentsService } from '../comments/comments.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsRepository } from './posts.repository';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly postRepository: PostsRepository) {}
+  constructor(
+    private readonly postRepository: PostsRepository,
+    private readonly commentsService: CommentsService,
+  ) {}
   async getPosts() {
     return await this.postRepository.findPosts();
   }
@@ -20,10 +24,13 @@ export class PostsService {
   }
 
   async deletePost(id: string, authorId: string) {
-    const post = await this.postRepository.findPostById(id);
-    if (!post) throw new HttpException('Post not found', 404);
+    const post = await this.getPostById(id);
     if (post.authorId !== authorId)
       throw new HttpException('You are not the author of this post', 403);
-    return await this.postRepository.deletePost(id);
+    await this.postRepository.deletePost(id);
+  }
+
+  async getPostComments(id: string) {
+    return await this.commentsService.getComments(id);
   }
 }

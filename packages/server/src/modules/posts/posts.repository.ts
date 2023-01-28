@@ -8,20 +8,14 @@ export class PostsRepository {
 
   async findPosts() {
     return this.prisma.post.findMany({
-      include: {
-        author: true,
-        comments: true,
-      },
+      include: postSelector,
     });
   }
 
   async findPostById(id: string) {
     return this.prisma.post.findUnique({
       where: { id },
-      include: {
-        author: true,
-        comments: true,
-      },
+      include: postSelector,
     });
   }
 
@@ -32,12 +26,24 @@ export class PostsRepository {
         body: dto.body,
         authorId,
       },
+      include: postSelector,
     });
   }
 
   async deletePost(id: string) {
     return this.prisma.post.delete({
       where: { id },
+      include: postSelector,
     });
   }
 }
+
+const postSelector = {
+  author: {
+    select: {
+      id: true,
+      username: true,
+      displayName: true,
+    },
+  },
+};

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { GetCurrentUser } from '~/common/decorators';
+import { GetCurrentUser, Public } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('posts')
@@ -14,9 +14,16 @@ export class PostsController {
     return await this.postsService.getPosts();
   }
 
+  @Public()
   @Get(':id')
   async getPostById(@Param('id') id: string) {
     return this.postsService.getPostById(id);
+  }
+
+  @Public()
+  @Get(':id/comments')
+  async getPostComments(@Param('id') id: string) {
+    return await this.postsService.getPostComments(id);
   }
 
   @Post()
@@ -25,7 +32,10 @@ export class PostsController {
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+  async deletePost(
+    @Param('id') id: string,
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<void> {
     return await this.postsService.deletePost(id, userId);
   }
 }
