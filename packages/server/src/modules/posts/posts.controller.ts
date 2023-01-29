@@ -9,6 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @Public()
   @Get()
   async getPosts() {
     return await this.postsService.getPosts();

@@ -25,7 +25,7 @@ export class RoomsRepository {
     return await this.prisma.room.create({
       data: {
         ...dto,
-        hostId: userId,
+        userId,
       },
       include: roomSelector,
     });
@@ -42,7 +42,7 @@ export class RoomsRepository {
 }
 
 const roomSelector = {
-  host: {
+  user: {
     select: {
       id: true,
       username: true,

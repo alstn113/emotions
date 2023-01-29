@@ -67,8 +67,8 @@ export class CommentsService {
     });
   }
 
-  async createComment(dto: CreateCommentDto, authorId: string) {
-    const comment = await this.commentRepository.createComment(dto, authorId);
+  async createComment(dto: CreateCommentDto, userId: string) {
+    const comment = await this.commentRepository.createComment(dto, userId);
     return { ...comment, isDeleted: false, subcomments: [] };
   }
 

@@ -18,7 +18,7 @@ const PostList = () => {
           <PostCard key={post.id}>
             <Link to={`/post/${post.id}`}>
               <Title>{post.title}</Title>
-              <Author>Authored By {post.author.username}</Author>
+              <Author>Authored By {post.user.username}</Author>
             </Link>
           </PostCard>
         );

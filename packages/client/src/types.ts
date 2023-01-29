@@ -6,8 +6,8 @@ export interface User {
 export interface Room {
   id: string;
   name: string;
-  host: User;
-  hostId: string;
+  user: User;
+  userId: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,8 +16,8 @@ export interface Post {
   id: string;
   title: string;
   body: string;
-  authorId: string;
-  author: User;
+  userId: string;
+  user: User;
   comments: Comment[];
   createdAt: string;
   updatedAt: string;

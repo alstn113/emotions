@@ -25,7 +25,7 @@ const Chat = () => {
   const { data: room } = useGetRoom(roomId);
 
   const user = useUser();
-  const isHost: boolean = room?.hostId === user?.id;
+  const isHost: boolean = room?.userId === user?.id;
 
   const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
     [],

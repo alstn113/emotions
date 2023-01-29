@@ -19,22 +19,42 @@ export class PostsService {
     return post;
   }
 
-  async createPost(dto: CreatePostDto, authorId: string) {
-    return await this.postRepository.createPost(dto, authorId);
+  async createPost(dto: CreatePostDto, userId: string) {
+    const post = await this.postRepository.createPost(dto, userId);
+    await this.postRepository.createPostStats(post.id);
+
+    return post;
   }
 
-  async likePost(id: string, userId: string) {
-    return;
+  async likePost(postId: string, userId: string) {
+    const alreadyLiked = await this.postRepository.findPostLike(postId, userId);
+    if (!alreadyLiked) {
+      await this.postRepository.createPostLike(postId, userId);
+    }
+    const postStats = await this.updatePostLikes(postId);
+    return postStats;
   }
 
-  async unlikePost(id: string, userId: string) {
-    return;
+  async unlikePost(postId: string, userId: string) {
+    const alreadyLiked = await this.postRepository.findPostLike(postId, userId);
+    if (alreadyLiked) {
+      await this.postRepository.deletePostLike(postId, userId);
+    }
+
+    const postStats = await this.updatePostLikes(postId);
+    return postStats;
   }
 
-  async deletePost(id: string, authorId: string) {
+  async updatePostLikes(postId: string) {
+    const likes = await this.postRepository.countPostLikes(postId);
+    const postStats = await this.postRepository.updatePostLikes(postId, likes);
+
+    return postStats;
+  }
+
+  async deletePost(id: string, userId: string) {
     const post = await this.getPostById(id);
-    if (post.authorId !== authorId)
-      throw new HttpException('You are not the author of this post', 403);
+    if (post.userId !== userId) throw new HttpException('You are not the author of this post', 403);
     await this.postRepository.deletePost(id);
   }
 

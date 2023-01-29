@@ -18,7 +18,7 @@ const PostContents = ({ postId }: Props) => {
         <div>Content</div>
         <div>{post?.body}</div>
       </Body>
-      <Author>Authored by {post?.author.username}</Author>
+      <Author>Authored by {post?.user.username}</Author>
     </>
   );
 };

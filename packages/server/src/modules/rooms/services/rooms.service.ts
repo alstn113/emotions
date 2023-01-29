@@ -22,7 +22,7 @@ export class RoomsService {
 
   async deleteRoomById(id: string, userId: string) {
     const room = await this.getRoomById(id);
-    if (room.hostId !== userId) throw new HttpException('You are not the host of this room', 403);
+    if (room.userId !== userId) throw new HttpException('You are not the host of this room', 403);
 
     return await this.roomsRepository.deleteRoomById(id);
   }
