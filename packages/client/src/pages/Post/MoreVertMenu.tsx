@@ -10,6 +10,7 @@ import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
 import { zIndexes } from '~/styles';
 import { MenuDots } from '~/components/vectors';
+import useBottomSheetStore from '~/stores/useBottomSheetStore';
 
 interface MoreVertMenuItem {
   icon: React.ReactNode;
@@ -22,14 +23,25 @@ interface Props {
 }
 
 const MoreVertMenu = ({ items }: Props) => {
-  const { isOpen, onClose, onToggle } = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { open } = useBottomSheetStore();
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useOnClickOutside(triggerRef, onClose);
 
+  const isMobile = () => {
+    return window.innerWidth < 500;
+  };
+
+  const handleButtonClick = () => {
+    if (isOpen) return onClose();
+    if (isMobile()) return open(items);
+    return onOpen();
+  };
+
   return (
     <div>
-      <MoreButton ref={triggerRef} onClick={onToggle}>
+      <MoreButton ref={triggerRef} onClick={handleButtonClick}>
         <MenuDots />
       </MoreButton>
       <Relative>

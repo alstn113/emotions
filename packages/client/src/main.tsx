@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 // provider
 import MyThemeProvider from './styles/MyThemeProvider';
 import ModalProvider from './components/base/ModalProvider';
+import BottomSheetProvider from './components/base/BottomSheetProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ReactQueryDevtools initialIsOpen={false} />
     <MyThemeProvider>
       <ModalProvider />
+      <BottomSheetProvider />
       <App />
     </MyThemeProvider>
   </QueryClientProvider>,
