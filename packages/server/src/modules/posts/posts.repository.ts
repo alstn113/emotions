@@ -12,10 +12,10 @@ export class PostsRepository {
     });
   }
 
-  async findPostById(id: string) {
+  async findPostById(id: string, userId: string | null = null) {
     return await this.prisma.post.findUnique({
       where: { id },
-      ...postSelector,
+      ...postSelector(userId),
     });
   }
 
@@ -93,16 +93,20 @@ export class PostsRepository {
   }
 }
 
-const postSelector = {
-  include: {
-    user: {
-      select: {
-        id: true,
-        username: true,
-        displayName: true,
+const postSelector = (userId: string | null) => {
+  return {
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+        },
       },
+      postStats: postStatsSelector,
+      postLikes: userId ? { where: { userId } } : false,
     },
-  },
+  };
 };
 
 const postStatsSelector = {

@@ -17,8 +17,8 @@ export class PostsController {
 
   @Public()
   @Get(':id')
-  async getPostById(@Param('id') id: string) {
-    return this.postsService.getPostById(id);
+  async getPost(@Param('id') id: string, @GetCurrentUser('userId') userId: string | null) {
+    return this.postsService.getPost(id, userId);
   }
 
   @Public()

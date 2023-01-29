@@ -14,10 +14,10 @@ export class PostsService {
     return await this.postRepository.findPosts();
   }
 
-  async getPostById(id: string) {
-    const post = await this.postRepository.findPostById(id);
+  async getPost(id: string, userId: string | null = null) {
+    const post = await this.postRepository.findPostById(id, userId);
     if (!post) throw new HttpException('Post not found', 404);
-    return post;
+    return this.serializePost(post);
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
@@ -29,11 +29,14 @@ export class PostsService {
     return this.serializePost(postWithStats);
   }
 
-  private serializePost<T extends Post & { postlikes?: PostLike[] }>(post: T) {
-    return {
+  private serializePost<T extends Post & { postLikes?: PostLike[] }>(post: T) {
+    const serializedPost = {
       ...post,
-      isLiked: !!post.postlikes?.length,
+      isLiked: !!post.postLikes?.length,
     };
+    delete serializedPost.postLikes;
+
+    return serializedPost;
   }
 
   async likePost(postId: string, userId: string) {
@@ -63,7 +66,7 @@ export class PostsService {
   }
 
   async deletePost(id: string, userId: string) {
-    const post = await this.getPostById(id);
+    const post = await this.getPost(id);
     if (post.userId !== userId) throw new HttpException('You are not the author of this post', 403);
     await this.postRepository.deletePost(id);
   }

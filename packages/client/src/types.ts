@@ -29,9 +29,11 @@ export interface PostStats {
   id: string;
   likes: number;
   commentsCount: number;
-  postId: string;
-  post: Post;
-  updatedAt: string;
+}
+
+export interface PostWithStats extends Post {
+  postStats: PostStats;
+  isLiked: boolean;
 }
 
 export interface Comment {
