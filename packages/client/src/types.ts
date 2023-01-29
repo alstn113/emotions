@@ -1,3 +1,5 @@
+import { number } from 'yup';
+
 export interface User {
   id: string;
   username: string;
@@ -20,6 +22,15 @@ export interface Post {
   user: User;
   comments: Comment[];
   createdAt: string;
+  updatedAt: string;
+}
+
+export interface PostStats {
+  id: string;
+  likes: number;
+  commentsCount: number;
+  postId: string;
+  post: Post;
   updatedAt: string;
 }
 
