@@ -1,12 +1,18 @@
-import styled from '@emotion/styled';
-import { useQueryClient } from '@tanstack/react-query';
+// react
 import { useState } from 'react';
-import { Button } from '~/components/common';
-import useDeleteComment from '~/hooks/queries/comment/useDeleteComment';
-import { useGetPostComments } from '~/hooks/queries/post';
 import { Comment } from '~/types';
-import ReplyComment from './ReplyComment';
+
+// hooks
+import { useQueryClient } from '@tanstack/react-query';
+import { useDeleteComment } from '~/hooks/queries/comment';
+import { useGetPostComments } from '~/hooks/queries/post';
+import useUser from '~/hooks/useUser';
+
+// components
+import styled from '@emotion/styled';
 import SubCommentList from './SubCommentList';
+import ReplyComment from './ReplyComment';
+import { MenuDots } from '~/components/vectors';
 
 interface Props {
   comment: Comment;
@@ -15,7 +21,15 @@ interface Props {
 
 const CommentItem = ({ comment, isSubcomment }: Props) => {
   const queryClient = useQueryClient();
+  const user = useUser();
   const [isReplying, setIsReplying] = useState(false);
+
+  const isDeleted = comment.isDeleted;
+  const isMyComment = user?.id === comment.user.id;
+  const commentDate = new Intl.DateTimeFormat('ko-kr', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(new Date(comment.createdAt));
 
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
@@ -37,27 +51,46 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     setIsReplying(false);
   };
 
+  // if comment is deleted
+  if (isDeleted) {
+    return (
+      <Container>
+        <DeletedText>삭제된 댓글입니다.</DeletedText>
+        {!isSubcomment && comment.subcomments && (
+          <SubCommentList subcomments={comment.subcomments} />
+        )}
+      </Container>
+    );
+  }
+
   return (
     <Container>
-      <ContentsWrapper>
-        {comment.isDeleted ? (
-          <Text>삭제된 댓글입니다.</Text>
-        ) : (
-          <>
-            <User>{comment.user.username}</User>
-            <ButtonWrapper>
-              <Button shadow color="success" size="sm" onClick={handleOpenReply}>
-                Reply
-              </Button>
-              <Button shadow color="error" size="sm" onClick={handleDelete}>
-                Delete
-              </Button>
-            </ButtonWrapper>
-          </>
+      <CommentHeader>
+        <LeftWrapper>
+          <Username>{comment.user.username}</Username>
+          <Time>{commentDate}</Time>
+        </LeftWrapper>
+        {isMyComment && (
+          <MoreButton>
+            <MenuDots />
+          </MoreButton>
         )}
-      </ContentsWrapper>
-      <Text>{comment.text}</Text>
+      </CommentHeader>
+      <CommentBody>
+        <p>{comment.text}</p>
+      </CommentBody>
+      <CommentFooter>
+        <LikeWrapper>
+          <LikeButton>좋아요</LikeButton>
+          <LikeCount>0</LikeCount>
+        </LikeWrapper>
+        <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
+      </CommentFooter>
+
+      {/* if reply button is clicked, show ReplyComment component */}
       {isReplying && <ReplyComment parentcomment={comment} onClose={handleCloseReply} />}
+
+      {/* if subcomments exist, show SubCommentList component */}
       {!isSubcomment && comment.subcomments && <SubCommentList subcomments={comment.subcomments} />}
     </Container>
   );
@@ -66,32 +99,81 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
 `;
 
-const ContentsWrapper = styled.div`
-  width: 100%;
+const DeletedText = styled.div`
+  color: #999;
+`;
+
+const CommentHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
 `;
 
-const ButtonWrapper = styled.div`
+const CommentBody = styled.div`
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  p {
+    color: #000;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+`;
+const CommentFooter = styled.div`
   display: flex;
+  align-items: center;
+  flex-direction: row;
   gap: 0.5rem;
 `;
 
-const User = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
+const LeftWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;
 
-const Text = styled.div`
+const Username = styled.div`
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+`;
+
+const Time = styled.div`
   font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.2rem;
+  line-height: 1.5;
+  margin-left: 0.5rem;
+  color: #999;
+`;
+
+const MoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #000;
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const LikeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const LikeButton = styled.button`
+  padding: 0;
+`;
+
+const LikeCount = styled.div`
+  margin-left: 0.25rem;
+  padding: 0;
+`;
+
+const ReplyButton = styled.button`
+  padding: 0;
 `;
 
 export default CommentItem;

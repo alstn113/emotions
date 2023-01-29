@@ -1,2 +1,2 @@
-export { default as useCreateRoom } from './useCreateComment';
-export { default as useDeleteRoom } from './useDeleteComment';
+export { default as useCreateComment } from './useCreateComment';
+export { default as useDeleteComment } from './useDeleteComment';

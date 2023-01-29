@@ -58,7 +58,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 1rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
 `;
 
 const Input = styled.input`
