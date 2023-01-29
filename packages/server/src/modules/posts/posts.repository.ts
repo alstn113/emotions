@@ -8,14 +8,14 @@ export class PostsRepository {
 
   async findPosts() {
     return await this.prisma.post.findMany({
-      include: postSelector,
+      ...postSelector,
     });
   }
 
   async findPostById(id: string) {
     return await this.prisma.post.findUnique({
       where: { id },
-      include: postSelector,
+      ...postSelector,
     });
   }
 
@@ -37,7 +37,7 @@ export class PostsRepository {
         body: dto.body,
         userId,
       },
-      include: postSelector,
+      ...postSelector,
     });
   }
 
@@ -46,6 +46,7 @@ export class PostsRepository {
       data: {
         postId,
       },
+      ...postStatsSelector,
     });
   }
 
@@ -70,7 +71,7 @@ export class PostsRepository {
   async deletePost(id: string) {
     return await this.prisma.post.delete({
       where: { id },
-      include: postSelector,
+      ...postSelector,
     });
   }
 
@@ -93,11 +94,21 @@ export class PostsRepository {
 }
 
 const postSelector = {
-  user: {
-    select: {
-      id: true,
-      username: true,
-      displayName: true,
+  include: {
+    user: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
+      },
     },
+  },
+};
+
+const postStatsSelector = {
+  select: {
+    id: true,
+    likes: true,
+    commentsCount: true,
   },
 };

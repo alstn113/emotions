@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { Post, PostLike } from '@prisma/client';
 import { CommentsService } from '../comments/comments.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsRepository } from './posts.repository';
@@ -21,9 +22,18 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto, userId: string) {
     const post = await this.postRepository.createPost(dto, userId);
-    await this.postRepository.createPostStats(post.id);
+    const postStats = await this.postRepository.createPostStats(post.id);
 
-    return post;
+    const postWithStats = { ...post, postStats };
+
+    return this.serializePost(postWithStats);
+  }
+
+  private serializePost<T extends Post & { postlikes?: PostLike[] }>(post: T) {
+    return {
+      ...post,
+      isLiked: !!post.postlikes?.length,
+    };
   }
 
   async likePost(postId: string, userId: string) {

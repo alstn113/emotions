@@ -11,13 +11,13 @@ export class RoomsRepository {
       where: {
         id,
       },
-      include: roomSelector,
+      ...roomSelector,
     });
   }
 
   async findRooms() {
     return this.prisma.room.findMany({
-      include: roomSelector,
+      ...roomSelector,
     });
   }
 
@@ -27,7 +27,7 @@ export class RoomsRepository {
         ...dto,
         userId,
       },
-      include: roomSelector,
+      ...roomSelector,
     });
   }
 
@@ -36,17 +36,19 @@ export class RoomsRepository {
       where: {
         id,
       },
-      include: roomSelector,
+      ...roomSelector,
     });
   }
 }
 
 const roomSelector = {
-  user: {
-    select: {
-      id: true,
-      username: true,
-      displayName: true,
+  include: {
+    user: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
+      },
     },
   },
 };
