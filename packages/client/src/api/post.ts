@@ -1,5 +1,5 @@
 import { API } from '~/constants';
-import { Comment, CreatePostParams, Post } from '~/types';
+import { Comment, CreatePostParams, Post, PostStats, PostWithStats } from '~/types';
 import apiClient from './apiClient';
 
 const PostAPI = {
@@ -8,7 +8,7 @@ const PostAPI = {
     return data;
   },
 
-  getPost: async (id: string): Promise<Post> => {
+  getPost: async (id: string): Promise<PostWithStats> => {
     const { data } = await apiClient.get(`${API.POST}/${id}`);
     return data;
   },
@@ -18,13 +18,23 @@ const PostAPI = {
     return data;
   },
 
-  createPost: async (params: CreatePostParams): Promise<Post> => {
+  createPost: async (params: CreatePostParams): Promise<PostWithStats> => {
     const { data } = await apiClient.post(`${API.POST}`, params);
     return data;
   },
 
   deletePost: async (id: string): Promise<void> => {
     await apiClient.delete(`${API.POST}/${id}`);
+  },
+
+  likePost: async (id: string): Promise<PostStats> => {
+    const { data } = await apiClient.post(`${API.POST}/${id}/likes`);
+    return data;
+  },
+
+  unlikePost: async (id: string): Promise<PostStats> => {
+    const { data } = await apiClient.delete(`${API.POST}/${id}/likes`);
+    return data;
   },
 };
 

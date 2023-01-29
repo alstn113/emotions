@@ -9,6 +9,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @Public()
   @Get()
   async getPosts() {
     return await this.postsService.getPosts();
@@ -16,8 +17,8 @@ export class PostsController {
 
   @Public()
   @Get(':id')
-  async getPostById(@Param('id') id: string) {
-    return this.postsService.getPostById(id);
+  async getPost(@Param('id') id: string, @GetCurrentUser('userId') userId: string | null) {
+    return this.postsService.getPost(id, userId);
   }
 
   @Public()
@@ -29,6 +30,16 @@ export class PostsController {
   @Post()
   async createPost(@Body() dto: CreatePostDto, @GetCurrentUser('userId') userId: string) {
     return await this.postsService.createPost(dto, userId);
+  }
+
+  @Post(':id/likes')
+  async likePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+    return await this.postsService.likePost(id, userId);
+  }
+
+  @Delete(':id/likes')
+  async unlikePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
+    return await this.postsService.unlikePost(id, userId);
   }
 
   @Delete(':id')

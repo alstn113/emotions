@@ -7,43 +7,112 @@ export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findPosts() {
-    return this.prisma.post.findMany({
-      include: postSelector,
+    return await this.prisma.post.findMany({
+      ...postSelector(),
     });
   }
 
-  async findPostById(id: string) {
-    return this.prisma.post.findUnique({
+  async findPostById(id: string, userId: string | null = null) {
+    return await this.prisma.post.findUnique({
       where: { id },
-      include: postSelector,
+      ...postSelector(userId),
     });
   }
 
-  async createPost(dto: CreatePostDto, authorId: string) {
-    return this.prisma.post.create({
+  async findPostLike(postId: string, userId: string) {
+    return await this.prisma.postLike.findUnique({
+      where: {
+        postId_userId: {
+          postId,
+          userId,
+        },
+      },
+    });
+  }
+
+  async createPost(dto: CreatePostDto, userId: string) {
+    return await this.prisma.post.create({
       data: {
         title: dto.title,
         body: dto.body,
-        authorId,
+        userId,
       },
-      include: postSelector,
+      ...postSelector(),
+    });
+  }
+
+  async createPostStats(postId: string) {
+    return await this.prisma.postStats.create({
+      data: {
+        postId,
+      },
+      ...postStatsSelector,
+    });
+  }
+
+  async createPostLike(postId: string, userId: string) {
+    return await this.prisma.postLike.create({
+      data: {
+        postId,
+        userId,
+      },
+    });
+  }
+
+  async updatePostLikes(postId: string, likes: number) {
+    return await this.prisma.postStats.update({
+      where: { postId },
+      data: {
+        likes,
+      },
     });
   }
 
   async deletePost(id: string) {
-    return this.prisma.post.delete({
+    return await this.prisma.post.delete({
       where: { id },
-      include: postSelector,
+      ...postSelector(),
+    });
+  }
+
+  async deletePostLike(postId: string, userId: string) {
+    return await this.prisma.postLike.delete({
+      where: {
+        postId_userId: {
+          postId,
+          userId,
+        },
+      },
+    });
+  }
+
+  async countPostLikes(postId: string) {
+    return await this.prisma.postLike.count({
+      where: { postId },
     });
   }
 }
 
-const postSelector = {
-  author: {
-    select: {
-      id: true,
-      username: true,
-      displayName: true,
+const postSelector = (userId: string | null = null) => {
+  return {
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+        },
+      },
+      postStats: postStatsSelector,
+      postLikes: userId ? { where: { userId } } : false,
     },
+  };
+};
+
+const postStatsSelector = {
+  select: {
+    id: true,
+    likes: true,
+    commentsCount: true,
   },
 };

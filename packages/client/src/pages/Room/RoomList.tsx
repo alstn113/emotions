@@ -30,7 +30,7 @@ const RoomList = () => {
           <RoomCard key={room.id}>
             <Link to={`/room/${room.id}`}>Room: {room.id}</Link>
             <div>{room.name}</div>
-            <div>{room.hostId}</div>
+            <div>{room.userId}</div>
             <Spacer />
             <Button size="sm" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
               Delete
