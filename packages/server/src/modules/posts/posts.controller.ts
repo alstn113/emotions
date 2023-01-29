@@ -38,7 +38,7 @@ export class PostsController {
   }
 
   @Delete(':id/likes')
-  async unlikePost(@Param('id') id: string, @GetCurrentUser() userId: string) {
+  async unlikePost(@Param('id') id: string, @GetCurrentUser('userId') userId: string) {
     return await this.postsService.unlikePost(id, userId);
   }
 

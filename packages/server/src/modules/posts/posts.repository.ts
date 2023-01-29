@@ -8,7 +8,7 @@ export class PostsRepository {
 
   async findPosts() {
     return await this.prisma.post.findMany({
-      ...postSelector,
+      ...postSelector(),
     });
   }
 
@@ -37,7 +37,7 @@ export class PostsRepository {
         body: dto.body,
         userId,
       },
-      ...postSelector,
+      ...postSelector(),
     });
   }
 
@@ -71,7 +71,7 @@ export class PostsRepository {
   async deletePost(id: string) {
     return await this.prisma.post.delete({
       where: { id },
-      ...postSelector,
+      ...postSelector(),
     });
   }
 
@@ -93,7 +93,7 @@ export class PostsRepository {
   }
 }
 
-const postSelector = (userId: string | null) => {
+const postSelector = (userId: string | null = null) => {
   return {
     include: {
       user: {

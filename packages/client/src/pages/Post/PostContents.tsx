@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
+import { Button } from '~/components/common';
 import { useGetPost } from '~/hooks/queries/post';
+import usePostLikeManager from '~/hooks/usePostLikeManager';
+import useUser from '~/hooks/useUser';
 
 interface Props {
   postId: string;
@@ -7,6 +10,13 @@ interface Props {
 
 const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
+  const user = useUser();
+
+  const { isLiked, likeCount, toggleLike } = usePostLikeManager({
+    initialIsLiked: post?.isLiked!,
+    initialLikeCount: post?.postStats.likes!,
+    postId,
+  });
 
   return (
     <>
@@ -19,6 +29,11 @@ const PostContents = ({ postId }: Props) => {
         <div>{post?.body}</div>
       </Body>
       <Author>Authored by {post?.user.username}</Author>
+      {user && (
+        <Button shadow size="sm" onClick={toggleLike}>
+          {isLiked ? 'Unlike' : 'Like'} {likeCount}
+        </Button>
+      )}
     </>
   );
 };
