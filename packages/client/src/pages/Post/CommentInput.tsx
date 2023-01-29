@@ -51,7 +51,7 @@ const Form = styled.form`
 
 const FormTitle = styled.div`
   width: 100%;
-  padding: 0.5rem;
+  margin: 0.5rem 0;
   font-size: 1.2rem;
   font-weight: 700;
   display: flex;

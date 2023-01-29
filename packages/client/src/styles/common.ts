@@ -39,4 +39,5 @@ export const zIndexes = {
   Modal: 100,
   ChatInput: 20,
   DynamicIsland: 20,
+  popper: 20,
 };

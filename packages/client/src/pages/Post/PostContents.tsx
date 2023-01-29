@@ -30,7 +30,7 @@ const PostContents = ({ postId }: Props) => {
       </Body>
       <Author>Authored by {post?.user.username}</Author>
       {user && (
-        <Button shadow size="sm" onClick={toggleLike}>
+        <Button shadow size="sm" color="error" onClick={toggleLike}>
           {isLiked ? 'Unlike' : 'Like'} {likeCount}
         </Button>
       )}

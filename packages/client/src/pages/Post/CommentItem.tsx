@@ -12,7 +12,7 @@ import useUser from '~/hooks/useUser';
 import styled from '@emotion/styled';
 import SubCommentList from './SubCommentList';
 import ReplyComment from './ReplyComment';
-import { MenuDots } from '~/components/vectors';
+import MoreVertMenu from '~/components/MoreVertMenu';
 
 interface Props {
   comment: Comment;
@@ -70,11 +70,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
           <Username>{comment.user.username}</Username>
           <Time>{commentDate}</Time>
         </LeftWrapper>
-        {isMyComment && (
-          <MoreButton>
-            <MenuDots />
-          </MoreButton>
-        )}
+        {isMyComment && <MoreVertMenu />}
       </CommentHeader>
       <CommentBody>
         <p>{comment.text}</p>
@@ -134,7 +130,7 @@ const LeftWrapper = styled.div`
 
 const Username = styled.div`
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 900;
   line-height: 1.5;
 `;
 
@@ -143,19 +139,6 @@ const Time = styled.div`
   line-height: 1.5;
   margin-left: 0.5rem;
   color: #999;
-`;
-
-const MoreButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  color: #000;
-  svg {
-    width: 24px;
-    height: 24px;
-  }
 `;
 
 const LikeWrapper = styled.div`
