@@ -1,5 +1,5 @@
 // react
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Comment } from '~/types';
 
 // hooks
@@ -51,6 +51,20 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     setIsReplying(false);
   };
 
+  const items = useMemo(
+    () => [
+      {
+        name: '수정',
+        onClick: () => {},
+      },
+      {
+        name: '삭제',
+        onClick: handleDelete,
+      },
+    ],
+    [handleDelete, comment.id],
+  );
+
   // if comment is deleted
   if (isDeleted) {
     return (
@@ -70,7 +84,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
           <Username>{comment.user.username}</Username>
           <Time>{commentDate}</Time>
         </LeftWrapper>
-        {isMyComment && <MoreVertMenu />}
+        {isMyComment && <MoreVertMenu items={items} />}
       </CommentHeader>
       <CommentBody>
         <p>{comment.text}</p>

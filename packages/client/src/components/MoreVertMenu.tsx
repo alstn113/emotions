@@ -42,7 +42,7 @@ const MoreVertMenu = ({ items }: Props) => {
             >
               {items.map((item) => {
                 return (
-                  <MenuItem onClick={item.onClick}>
+                  <MenuItem key={item.name} onClick={item.onClick}>
                     <MenuItemText>{item.name}</MenuItemText>
                   </MenuItem>
                 );
