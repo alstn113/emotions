@@ -8,11 +8,14 @@ import { useDeleteComment } from '~/hooks/queries/comment';
 import { useGetPostComments } from '~/hooks/queries/post';
 import useUser from '~/hooks/useUser';
 
+// stores
+import useModalStore from '~/stores/useModalStore';
+
 // components
 import styled from '@emotion/styled';
 import SubCommentList from './SubCommentList';
 import ReplyComment from './ReplyComment';
-import MoreVertMenu from '~/components/MoreVertMenu';
+import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 
 interface Props {
   comment: Comment;
@@ -23,6 +26,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   const queryClient = useQueryClient();
   const user = useUser();
   const [isReplying, setIsReplying] = useState(false);
+  const { open } = useModalStore();
 
   const isDeleted = comment.isDeleted;
   const isMyComment = user?.id === comment.user.id;
@@ -59,7 +63,14 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       },
       {
         name: '삭제',
-        onClick: handleDelete,
+        onClick: () =>
+          open({
+            title: '댓글 삭제',
+            message: '정말로 댓글을 삭제하시겠습니까?',
+            confirmText: '확인',
+            cancelText: '취소',
+            onConfirm: handleDelete,
+          }),
       },
     ],
     [handleDelete, comment.id],
