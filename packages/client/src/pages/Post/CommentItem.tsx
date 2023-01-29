@@ -16,6 +16,7 @@ import styled from '@emotion/styled';
 import SubCommentList from './SubCommentList';
 import ReplyComment from './ReplyComment';
 import MoreVertMenu from '~/pages/Post/MoreVertMenu';
+import { Pencil, Trash } from '~/components/vectors';
 
 interface Props {
   comment: Comment;
@@ -58,10 +59,12 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   const items = useMemo(
     () => [
       {
+        icon: <Pencil />,
         name: '수정',
         onClick: () => {},
       },
       {
+        icon: <Trash />,
         name: '삭제',
         onClick: () =>
           open({
@@ -73,7 +76,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
           }),
       },
     ],
-    [handleDelete, comment.id],
+    [handleDelete, comment.id, open],
   );
 
   // if comment is deleted

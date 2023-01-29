@@ -12,6 +12,7 @@ import { zIndexes } from '~/styles';
 import { MenuDots } from '~/components/vectors';
 
 interface MoreVertMenuItem {
+  icon: React.ReactNode;
   name: string;
   onClick: () => void;
 }
@@ -43,7 +44,9 @@ const MoreVertMenu = ({ items }: Props) => {
               {items.map((item) => {
                 return (
                   <MenuItem key={item.name} onClick={item.onClick}>
-                    <MenuItemText>{item.name}</MenuItemText>
+                    <MenuItemText>
+                      {item.icon} {item.name}
+                    </MenuItemText>
                   </MenuItem>
                 );
               })}
@@ -100,6 +103,13 @@ const MenuItem = styled.div`
 `;
 
 const MenuItemText = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
   text-align: left;
   font-size: 0.8rem;
   line-height: 0.8rem;
