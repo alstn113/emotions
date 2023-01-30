@@ -6,6 +6,7 @@ const messageMap = {
   postLike: '게시글을 추천하기위해서는 로그인이 필요합니다.',
   commentLike: '댓글을 추천하기위해서는 로그인이 필요합니다.',
   comment: '댓글을 작성하기위해서는 로그인이 필요합니다.',
+  subcomment: '답글을 작성하기위해서는 로그인이 필요합니다.',
 };
 
 const useOpenLoginDialog = () => {
@@ -20,7 +21,8 @@ const useOpenLoginDialog = () => {
         message,
         confirmText: '로그인',
         cancelText: '취소',
-        onConfirm: () => navigate(`/login?next=${location.pathname}`),
+        // use next query to redirect after login
+        onConfirm: () => navigate(`/setting?next=${location.pathname}`),
       });
     },
     [open, navigate, location],

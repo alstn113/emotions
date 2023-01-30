@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Button } from '~/components/common';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import { useGetPostComments } from '~/hooks/queries/post';
+import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
+import useUser from '~/hooks/useUser';
 import { Comment } from '~/types';
 
 interface Props {
@@ -14,6 +16,8 @@ interface Props {
 const ReplyComment = ({ parentcomment, onClose }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
+  const user = useUser();
+  const openLoginDialog = useOpenLoginDialog();
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
@@ -31,6 +35,14 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
     onClose();
   };
 
+  const handleCommentInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!user) {
+      openLoginDialog('subcomment');
+      e.target.blur();
+      return;
+    }
+  };
+
   return (
     <Container>
       <Input
@@ -38,6 +50,7 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
         placeholder="Write Comment..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onFocus={handleCommentInputFocus}
       />
       <ButtonsWrapper>
         <Button shadow color="success" size="sm" onClick={handleSubmit}>
