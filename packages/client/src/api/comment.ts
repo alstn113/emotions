@@ -12,15 +12,15 @@ const CommentAPI = {
     await apiClient.delete(`${API.COMMENT}/${id}`);
   },
 
-  // likeComment: async (id: string) => {
-  //   const { data } = await apiClient.post(`${API.COMMENT}/${id}/likes`);
-  //   return data;
-  // },
+  likeComment: async (id: string) => {
+    const { data } = await apiClient.post(`${API.COMMENT}/${id}/likes`);
+    return data;
+  },
 
-  // unlikeComment: async (id: string) => {
-  //   const { data } = await apiClient.delete(`${API.COMMENT}/${id}/likes`);
-  //   return data;
-  // },
+  unlikeComment: async (id: string) => {
+    const { data } = await apiClient.delete(`${API.COMMENT}/${id}/likes`);
+    return data;
+  },
 };
 
 export default CommentAPI;
