@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Button } from '~/components/common';
+import LikeButton from '~/components/base/LikeButton';
 import { useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
@@ -20,20 +20,17 @@ const PostContents = ({ postId }: Props) => {
 
   return (
     <>
-      <Title>
-        <div>Title</div>
-        <div>{post?.title}</div>
-      </Title>
+      <Title>{post?.title}</Title>
       <Body>
-        <div>Content</div>
-        <div>{post?.body}</div>
+        <p>{post?.body}</p>
       </Body>
       <Author>Authored by {post?.user.username}</Author>
-      {user && (
-        <Button shadow size="sm" onClick={toggleLike}>
-          {isLiked ? 'Unlike' : 'Like'} {likeCount}
-        </Button>
-      )}
+
+      {/* @TODO: add comment count components and reload function */}
+      <LikeButtonWrapper>
+        <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
+        <span>좋아요 {likeCount.toLocaleString()}개</span>
+      </LikeButtonWrapper>
     </>
   );
 };
@@ -50,8 +47,20 @@ const Body = styled.div`
 const Author = styled.div`
   display: flex;
   justify-content: flex-end;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
+  color: #999;
+`;
+
+const LikeButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  span {
+    color: #999;
+    font-size: 0.8rem;
+  }
 `;
 
 export default PostContents;

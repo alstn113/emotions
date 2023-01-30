@@ -9,12 +9,12 @@ import useOnClickOutside from '~/hooks/useOnClickOutside';
 import useLogout from '~/hooks/useLogout';
 
 // components
-import { AnimatePresence, motion } from 'framer-motion';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { zIndexes } from '~/styles';
 import { Button } from '../common';
 import { User } from '../vectors';
-import { css } from '@emotion/react';
 
 const HeaderDropdown = () => {
   const user = useUser();
@@ -78,7 +78,7 @@ const DropdownMenu = styled(motion.div)`
   padding: 8px;
   background: #26292b;
   border-radius: 14px;
-  z-index: ${zIndexes.Header};
+  z-index: ${zIndexes.popper};
 `;
 
 const MenuItem = styled.button<{ red?: boolean }>`
@@ -107,7 +107,7 @@ const MenuItem = styled.button<{ red?: boolean }>`
     `}
 `;
 
-export const MenuItemText = styled.span`
+const MenuItemText = styled.span`
   flex: 1 1 0%;
   font-size: 16px;
   text-align: left;

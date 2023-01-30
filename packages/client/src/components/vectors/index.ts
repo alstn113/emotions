@@ -9,3 +9,6 @@ export { default as User } from './User';
 export { default as HeartFill } from './HeartFill';
 export { default as HeartOutline } from './HeartOutline';
 export { default as MenuDots } from './MenuDots';
+export { default as Pencil } from './Pencil';
+export { default as SpeechBubble } from './SpeechBubble';
+export { default as Trash } from './Trash';

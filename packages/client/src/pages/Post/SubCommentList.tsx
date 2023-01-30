@@ -7,6 +7,7 @@ interface Props {
 }
 
 const SubCommentList = ({ subcomments }: Props) => {
+  if (subcomments.length === 0) return null;
   return (
     <Container>
       {subcomments.map((subcomment) => {
@@ -17,9 +18,11 @@ const SubCommentList = ({ subcomments }: Props) => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
   padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  gap: 1.5rem;
 `;
 
 export default SubCommentList;
