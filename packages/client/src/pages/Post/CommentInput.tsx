@@ -3,14 +3,19 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import { useGetPostComments } from '~/hooks/queries/post';
+import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
+import useUser from '~/hooks/useUser';
 
 interface Props {
   postId: string;
 }
 
+//TODO: mutation loading ui
 const CommentInput = ({ postId }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
+  const user = useUser();
+  const openLoginDialog = useOpenLoginDialog();
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
@@ -28,6 +33,14 @@ const CommentInput = ({ postId }: Props) => {
     setText('');
   };
 
+  const handleCommentInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!user) {
+      openLoginDialog('comment');
+      e.target.blur();
+      return;
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <FormTitle>Comments</FormTitle>
@@ -36,6 +49,7 @@ const CommentInput = ({ postId }: Props) => {
         placeholder="Write Comment..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onFocus={handleCommentInputFocus}
       />
     </Form>
   );
