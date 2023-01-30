@@ -26,6 +26,7 @@
     "zustand": "^4.3.1"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.10.5",
     "@svgr/cli": "^6.5.1",
     "@tanstack/react-query-devtools": "^4.22.0",
     "@types/react": "^18.0.26",

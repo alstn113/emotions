@@ -13,7 +13,7 @@ const DesktopHeader = ({}: Props) => {
 
   return (
     <Container>
-      <Logo to="/">iChat</Logo>
+      <Logo to="/">Emotions</Logo>
       <HeaderItems>
         {user ? (
           <HeaderDropdown />

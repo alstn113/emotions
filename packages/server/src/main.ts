@@ -12,7 +12,7 @@ const bootstrap = async () => {
   const configService = app.get(ConfigService);
   const PORT = configService.get<number>('PORT');
   const ALLOWLIST = configService.get<string[]>('ALLOWLIST');
-  const logger = new Logger('iChatMain');
+  const logger = new Logger('Main');
 
   app.use(helmet());
   app.use(cookieParser());

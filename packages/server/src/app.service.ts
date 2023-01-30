@@ -6,8 +6,8 @@ export class AppService {
 
   hello(): string {
     if (!AppService.active) {
-      throw new ForbiddenException('iChat Server is shutting down');
+      throw new ForbiddenException('Emotions Server is shutting down');
     }
-    return 'This is iChat API Server. Hello!';
+    return 'This is Emotions API Server. Hello!';
   }
 }
