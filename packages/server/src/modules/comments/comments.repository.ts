@@ -88,6 +88,17 @@ export class CommentsRepository {
       },
     });
   }
+
+  async findCommentLikes(commentIds: string[], userId: string) {
+    return await this.prisma.commentLike.findMany({
+      where: {
+        commentId: {
+          in: commentIds,
+        },
+        userId,
+      },
+    });
+  }
 }
 
 const commentSelector = {

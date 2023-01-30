@@ -22,19 +22,19 @@ export class CommentsController {
     await this.commentsService.deleteComment(id, userId);
   }
 
-  @Post(':id/likes')
+  @Post(':commentId/likes')
   async likeComment(
-    @Param('id') id: string,
+    @Param('commentId') commentId: string,
     @GetCurrentUser('userId') userId: string,
   ): Promise<number> {
-    return await this.commentsService.likeComment(id, userId);
+    return await this.commentsService.likeComment({ commentId, userId });
   }
 
-  @Delete(':id/likes')
+  @Delete(':commentId/likes')
   async unlikeComment(
-    @Param('id') id: string,
+    @Param('commentId') commentId: string,
     @GetCurrentUser('userId') userId: string,
   ): Promise<number> {
-    return await this.commentsService.unlikeComment(id, userId);
+    return await this.commentsService.unlikeComment({ commentId, userId });
   }
 }

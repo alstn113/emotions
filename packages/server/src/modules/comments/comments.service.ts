@@ -13,10 +13,18 @@ export class CommentsService {
     return comment;
   }
 
-  async getComments(postId: string) {
+  async getComments(postId: string, userId: string | null) {
     const comments = await this.commentRepository.findComments(postId);
 
-    const hidedDeletedComments = this.hideDeletedComments(comments);
+    const commentLikeMap = userId
+      ? await this.getCommentLikeMap({ commentIds: comments.map((comment) => comment.id), userId })
+      : {};
+
+    const commentsWithIsLiked = comments.map((comment) => {
+      return { ...comment, isLiked: !!commentLikeMap[comment.id] };
+    });
+
+    const hidedDeletedComments = this.hideDeletedComments(commentsWithIsLiked);
     const groupedComments = this.groupSubcomments(hidedDeletedComments);
 
     return groupedComments;
@@ -53,6 +61,8 @@ export class CommentsService {
       const someDate = new Date(0);
       return {
         ...comment,
+        likes: 0,
+        subcommentsCount: 0,
         text: '',
         userId: '',
         user: {
@@ -69,7 +79,7 @@ export class CommentsService {
 
   async createComment(dto: CreateCommentDto, userId: string) {
     const comment = await this.commentRepository.createComment(dto, userId);
-    return { ...comment, isDeleted: false, subcomments: [] };
+    return { ...comment, isDeleted: false, subcomments: [], isLiked: false };
   }
 
   async deleteComment(id: string, userId: string) {
@@ -80,7 +90,7 @@ export class CommentsService {
     await this.commentRepository.deleteComment(id);
   }
 
-  async likeComment(commentId: string, userId: string) {
+  async likeComment({ commentId, userId }: CommentActionParams) {
     const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
     if (!alreadyLiked) {
       await this.commentRepository.createCommentLike(commentId, userId);
@@ -90,7 +100,7 @@ export class CommentsService {
     return likes;
   }
 
-  async unlikeComment(commentId: string, userId: string) {
+  async unlikeComment({ commentId, userId }: CommentActionParams) {
     const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
     if (alreadyLiked) {
       await this.commentRepository.deleteCommentLike(commentId, userId);
@@ -106,4 +116,23 @@ export class CommentsService {
 
     return likes;
   }
+
+  async getCommentLikeMap({ commentIds, userId }: GetCommentLikedParams) {
+    const list = await this.commentRepository.findCommentLikes(commentIds, userId);
+
+    return list.reduce((acc, { commentId, userId }) => {
+      acc[commentId] = userId;
+      return acc;
+    }, {} as Record<string, string>);
+  }
+}
+
+interface GetCommentLikedParams {
+  commentIds: string[];
+  userId: string;
+}
+
+interface CommentActionParams {
+  commentId: string;
+  userId: string;
 }

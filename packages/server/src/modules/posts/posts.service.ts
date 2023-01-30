@@ -71,7 +71,7 @@ export class PostsService {
     await this.postRepository.deletePost(id);
   }
 
-  async getPostComments(id: string) {
-    return await this.commentsService.getComments(id);
+  async getPostComments(id: string, userId: string | null) {
+    return await this.commentsService.getComments(id, userId);
   }
 }
