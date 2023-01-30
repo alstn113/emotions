@@ -33,8 +33,17 @@
 
 ## `임시 구현 이미지`
 
-<img height="400px" src="https://user-images.githubusercontent.com/75781414/215430956-f68c11a3-6866-42f7-87d7-b957d7646133.png">
+<table>
+  <tr>
+    <td align="center">
+      <img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/215435792-79b82058-36b1-4a14-93f7-936b2a2715d1.png">
+    </td>
+    <td align="center">
+      <img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/215431313-43e056e4-ef7d-48c9-b15b-58d4bc608ca9.png">
+    </td>
+    <td>
+      <img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/215431542-9677a6de-f09a-4265-a2cf-5a001a405ad8.png">
+    </td>
 
-<img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/215431313-43e056e4-ef7d-48c9-b15b-58d4bc608ca9.png">
-
-<img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/215431542-9677a6de-f09a-4265-a2cf-5a001a405ad8.png">
+  </tr>
+</table>
