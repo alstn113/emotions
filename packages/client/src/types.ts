@@ -1,5 +1,3 @@
-import { number } from 'yup';
-
 export interface User {
   id: string;
   username: string;
@@ -40,13 +38,16 @@ export interface Comment {
   id: string;
   text: string;
   userId: string;
-  user: User;
   postId: string;
+  subcommentsCount: number;
+  likes: number;
+  user: User;
   post: Post;
   subcomments?: Comment[];
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
+  isLiked: boolean;
   isDeleted: boolean;
 }
 

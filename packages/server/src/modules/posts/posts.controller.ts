@@ -23,8 +23,8 @@ export class PostsController {
 
   @Public()
   @Get(':id/comments')
-  async getPostComments(@Param('id') id: string) {
-    return await this.postsService.getPostComments(id);
+  async getPostComments(@Param('id') id: string, @GetCurrentUser('userId') userId: string | null) {
+    return await this.postsService.getPostComments(id, userId);
   }
 
   @Post()
