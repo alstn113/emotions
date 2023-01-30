@@ -79,4 +79,31 @@ export class CommentsService {
 
     await this.commentRepository.deleteComment(id);
   }
+
+  async likeComment(commentId: string, userId: string) {
+    const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
+    if (!alreadyLiked) {
+      await this.commentRepository.createCommentLike(commentId, userId);
+    }
+
+    const likes = await this.updateCommentLikes(commentId);
+    return likes;
+  }
+
+  async unlikeComment(commentId: string, userId: string) {
+    const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
+    if (alreadyLiked) {
+      await this.commentRepository.deleteCommentLike(commentId, userId);
+    }
+
+    const likes = await this.updateCommentLikes(commentId);
+    return likes;
+  }
+
+  async updateCommentLikes(commentId: string) {
+    const likes = await this.commentRepository.countCommentLikes(commentId);
+    await this.commentRepository.updateCommentLikes(commentId, likes);
+
+    return likes;
+  }
 }

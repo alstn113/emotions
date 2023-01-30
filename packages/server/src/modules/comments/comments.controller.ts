@@ -19,6 +19,22 @@ export class CommentsController {
     @Param('id') id: string,
     @GetCurrentUser('userId') userId: string,
   ): Promise<void> {
-    return await this.commentsService.deleteComment(id, userId);
+    await this.commentsService.deleteComment(id, userId);
+  }
+
+  @Post(':id/likes')
+  async likeComment(
+    @Param('id') id: string,
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<number> {
+    return await this.commentsService.likeComment(id, userId);
+  }
+
+  @Delete(':id/likes')
+  async unlikeComment(
+    @Param('id') id: string,
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<number> {
+    return await this.commentsService.unlikeComment(id, userId);
   }
 }

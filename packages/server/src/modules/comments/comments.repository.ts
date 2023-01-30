@@ -14,10 +14,27 @@ export class CommentsRepository {
     });
   }
 
+  async findCommentLike(commentId: string, userId: string) {
+    return await this.prisma.commentLike.findUnique({
+      where: {
+        commentId_userId: {
+          commentId,
+          userId,
+        },
+      },
+    });
+  }
+
   async findCommentById(id: string) {
     return await this.prisma.comment.findUnique({
       where: { id },
       ...commentSelector,
+    });
+  }
+
+  async countCommentLikes(commentId: string) {
+    return await this.prisma.commentLike.count({
+      where: { commentId },
     });
   }
 
@@ -33,12 +50,41 @@ export class CommentsRepository {
     });
   }
 
+  async createCommentLike(commentId: string, userId: string) {
+    return await this.prisma.commentLike.create({
+      data: {
+        commentId,
+        userId,
+      },
+    });
+  }
+
+  async deleteCommentLike(commentId: string, userId: string) {
+    return await this.prisma.commentLike.delete({
+      where: {
+        commentId_userId: {
+          commentId,
+          userId,
+        },
+      },
+    });
+  }
+
   async deleteComment(id: string) {
     return await this.prisma.comment.update({
       where: { id },
       ...commentSelector,
       data: {
         deletedAt: new Date(),
+      },
+    });
+  }
+
+  async updateCommentLikes(id: string, likes: number) {
+    return await this.prisma.comment.update({
+      where: { id },
+      data: {
+        likes,
       },
     });
   }
