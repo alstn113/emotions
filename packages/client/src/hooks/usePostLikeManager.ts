@@ -34,9 +34,9 @@ const usePostLikeManager = ({ initialIsLiked, initialLikeCount, postId }: Props)
           setLikeCount(postStats.likes);
           queryClient.setQueryData<PostWithStats | undefined>(
             useGetPost.getKey(postId),
-            (oldState) =>
-              oldState && {
-                ...oldState,
+            (oldData) =>
+              oldData && {
+                ...oldData,
                 postStats,
                 isLiked: true,
               },
@@ -52,9 +52,9 @@ const usePostLikeManager = ({ initialIsLiked, initialLikeCount, postId }: Props)
           setLikeCount(postStats.likes);
           queryClient.setQueryData<PostWithStats | undefined>(
             useGetPost.getKey(postId),
-            (oldState) =>
-              oldState && {
-                ...oldState,
+            (oldData) =>
+              oldData && {
+                ...oldData,
                 postStats,
                 isLiked: false,
               },
