@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import LikeButton from '~/components/base/LikeButton';
 import { useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
-import useUser from '~/hooks/useUser';
 
 interface Props {
   postId: string;
@@ -10,7 +9,6 @@ interface Props {
 
 const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
-  const user = useUser();
 
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,

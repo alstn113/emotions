@@ -18,6 +18,7 @@ import ReplyComment from './ReplyComment';
 import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
 import LikeButton from '~/components/base/LikeButton';
+import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
 
 interface Props {
   comment: Comment;
@@ -29,6 +30,12 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   const user = useUser();
   const [isReplying, setIsReplying] = useState(false);
   const { open } = useModalStore();
+  const { isLiked, likeCount, toggleLike } = useCommnetLikeManager({
+    commentId: comment.id,
+    initialIsLiked: comment.isLiked,
+    initialLikeCount: comment.likes,
+    postId: comment.postId,
+  });
 
   const isDeleted = comment.isDeleted;
   const isMyComment = user?.id === comment.user.id;
@@ -106,8 +113,8 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       </CommentBody>
       <CommentFooter>
         <LikeWrapper>
-          <LikeButton size="sm" />
-          <LikeCount>0</LikeCount>
+          <LikeButton size="sm" isLiked={isLiked} onClick={toggleLike} />
+          <LikeCount>{likeCount === 0 ? '' : likeCount.toLocaleString()}</LikeCount>
         </LikeWrapper>
         <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
       </CommentFooter>
