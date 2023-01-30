@@ -154,7 +154,8 @@ const CommentFooter = styled.div`
 
 const LeftWrapper = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Username = styled.div`
@@ -172,14 +173,13 @@ const Time = styled.div`
 
 const LikeWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
 `;
 
 const LikeCount = styled.div`
   margin-left: 8px;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 14px;
   padding: 0;
 `;
 

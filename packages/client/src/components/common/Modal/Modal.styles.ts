@@ -29,7 +29,7 @@ export const ModalBlock = styled(motion.div)`
   border-radius: 14px;
   box-shadow: rgb(0 0 0 / 9%) 0px 2px 12px 0px;
   ${mediaQuery.tablet} {
-    width: 25rem;
+    width: 22rem;
   }
 `;
 
@@ -38,7 +38,7 @@ export const Title = styled.h3`
   margin-bottom: 8px;
   font-size: 1.5rem;
   ${mediaQuery.tablet} {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   line-height: 1.5;
   font-weight: 700;

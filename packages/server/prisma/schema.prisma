@@ -108,12 +108,16 @@ model PostLike {
 }
 
 model Comment {
-  id              String        @id @default(uuid())
-  text            String
+  id               String @id @default(uuid())
+  text             String
+  likes            Int    @default(0)
+  subcommentsCount Int    @default(0)
+
   userId          String
   postId          String
   parentCommentId String?
-  commentLikes    CommentLike[]
+
+  commentLikes CommentLike[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)

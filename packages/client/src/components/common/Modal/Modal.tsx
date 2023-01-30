@@ -57,10 +57,10 @@ const Modal = ({
             />
             <S.Positioner>
               <S.ModalBlock
-                initial={{ y: '-30px', opacity: 0 }}
+                initial={{ y: '-15px', opacity: 0 }}
                 animate={{ y: '0vh', opacity: 1 }}
-                exit={{ y: '-30px', opacity: 0 }}
-                transition={{ duration: 0.3, ease: 'linear' }}
+                exit={{ y: '-15px', opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 <S.Title>{title}</S.Title>
                 <S.Message>{message}</S.Message>

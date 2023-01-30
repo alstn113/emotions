@@ -26,7 +26,7 @@ const PostContents = ({ postId }: Props) => {
       </Body>
       <Author>Authored by {post?.user.username}</Author>
 
-      {/* @TODO: add comment count components and reload function */}
+      {/* @TODO: add comment count components and reload query */}
       <LikeButtonWrapper>
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
         <span>좋아요 {likeCount.toLocaleString()}개</span>
@@ -56,7 +56,7 @@ const LikeButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   span {
     color: #999;
     font-size: 0.8rem;

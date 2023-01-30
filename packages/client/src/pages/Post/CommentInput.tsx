@@ -15,7 +15,6 @@ const CommentInput = ({ postId }: Props) => {
   const { mutate } = useCreateComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetPostComments.getKey(postId));
-      return;
     },
     onError: (e) => {
       alert(e.message);
