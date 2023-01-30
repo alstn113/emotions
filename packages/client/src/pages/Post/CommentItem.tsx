@@ -17,6 +17,7 @@ import SubCommentList from './SubCommentList';
 import ReplyComment from './ReplyComment';
 import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
+import LikeButton from '~/components/base/LikeButton';
 
 interface Props {
   comment: Comment;
@@ -105,7 +106,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       </CommentBody>
       <CommentFooter>
         <LikeWrapper>
-          <LikeButton>좋아요</LikeButton>
+          <LikeButton size="sm" />
           <LikeCount>0</LikeCount>
         </LikeWrapper>
         <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
@@ -172,14 +173,13 @@ const Time = styled.div`
 const LikeWrapper = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const LikeButton = styled.button`
-  padding: 0;
+  justify-content: center;
 `;
 
 const LikeCount = styled.div`
-  margin-left: 0.25rem;
+  margin-left: 8px;
+  font-size: 16px;
+  line-height: 16px;
   padding: 0;
 `;
 
