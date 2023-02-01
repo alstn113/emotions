@@ -53,24 +53,39 @@ const CardBody = styled(Link)`
     line-height: 16px;
     font-weight: 600;
     margin-bottom: 0.5rem;
+
+    // 3줄까지만 보이게
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; // 라인수
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    line-height: 1.2rem;
+    height: 1.2rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 1 = 1.2rem
   }
   p {
     margin: 0px 0px 1.5rem;
-    word-break: break-word;
-    overflow-wrap: break-word;
     font-size: 0.875rem;
     line-height: 1.5;
     height: 3.9375rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+
+    // 3줄까지만 보이게
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; // 라인수
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    line-height: 1.2rem;
+    height: 3.6rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 3 = 3.6
   }
 `;
 
 const CardFooter = styled.div`
+  border-top: 1px solid #f1f3f5;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   padding: 1rem;
 `;
