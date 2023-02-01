@@ -1,12 +1,10 @@
-// react
-import { Link } from 'react-router-dom';
-
 // hooks
 import { useGetPosts } from '~/hooks/queries/post';
 
 // components
 import styled from '@emotion/styled';
-import { glassmorphism, mediaQuery } from '~/styles';
+import { mediaQuery } from '~/styles';
+import PostCard from './PostCard';
 
 const PostList = () => {
   const { data: posts } = useGetPosts({ suspense: true });
@@ -14,14 +12,7 @@ const PostList = () => {
   return (
     <Container>
       {posts?.map((post) => {
-        return (
-          <PostCard key={post.id}>
-            <Link to={`/post/${post.id}`}>
-              <Title>{post.title}</Title>
-              <Author>Authored By {post.user.username}</Author>
-            </Link>
-          </PostCard>
-        );
+        return <PostCard key={post.id} post={post}></PostCard>;
       })}
     </Container>
   );
@@ -39,29 +30,6 @@ const Container = styled.div`
     margin-right: auto;
   }
   gap: 24px;
-`;
-
-const PostCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1rem;
-  ${glassmorphism}
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  font-size: 1rem;
-`;
-
-const Author = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 0.7rem;
 `;
 
 export default PostList;

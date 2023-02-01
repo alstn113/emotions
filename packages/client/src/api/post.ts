@@ -9,7 +9,7 @@ import {
 import apiClient from './apiClient';
 
 const PostAPI = {
-  getPosts: async (): Promise<Post[]> => {
+  getPosts: async (): Promise<PostWithStats[]> => {
     const { data } = await apiClient.get(`${API.POST}`);
     return data;
   },
