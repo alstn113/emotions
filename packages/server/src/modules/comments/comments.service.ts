@@ -2,10 +2,14 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { CommentsRepository } from './comments.repository';
 import { Comment } from '@prisma/client';
+import { PostsRepository } from '../posts/posts.repository';
 
 @Injectable()
 export class CommentsService {
-  constructor(private readonly commentRepository: CommentsRepository) {}
+  constructor(
+    private readonly commentRepository: CommentsRepository,
+    private readonly postRepository: PostsRepository,
+  ) {}
 
   async getComment(id: string) {
     const comment = await this.commentRepository.findCommentById(id);
@@ -83,6 +87,21 @@ export class CommentsService {
 
   async createComment(dto: CreateCommentDto, userId: string) {
     const comment = await this.commentRepository.createComment(dto, userId);
+
+    // update parent comment's subcomment count if it has parent
+    if (dto.parentCommentId) {
+      const subcommentsCount = await this.commentRepository.countSubcomments(
+        dto.parentCommentId,
+      );
+
+      await this.commentRepository.updateSubcommentCount(
+        dto.parentCommentId,
+        subcommentsCount,
+      );
+    }
+
+    await this.countAndSyncComments(dto.postId);
+
     return { ...comment, isDeleted: false, subcomments: [], isLiked: false };
   }
 
@@ -92,6 +111,8 @@ export class CommentsService {
       throw new HttpException('You are not the author of this comment', 403);
 
     await this.commentRepository.deleteComment(id);
+
+    this.countAndSyncComments(comment.postId);
   }
 
   async likeComment({ commentId, userId }: CommentActionParams) {
@@ -137,6 +158,13 @@ export class CommentsService {
       acc[commentId] = userId;
       return acc;
     }, {} as Record<string, string>);
+  }
+
+  async countAndSyncComments(postId: string) {
+    const commentsCount = await this.commentRepository.countComments(postId);
+    await this.postRepository.updatePostCommentsCount(postId, commentsCount);
+
+    return commentsCount;
   }
 }
 

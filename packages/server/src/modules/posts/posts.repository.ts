@@ -91,6 +91,15 @@ export class PostsRepository {
       where: { postId },
     });
   }
+
+  async updatePostCommentsCount(postId: string, commentsCount: number) {
+    return await this.prisma.postStats.update({
+      where: { postId },
+      data: {
+        commentsCount,
+      },
+    });
+  }
 }
 
 const postSelector = (userId: string | null = null) => {

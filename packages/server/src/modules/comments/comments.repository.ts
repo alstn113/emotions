@@ -99,6 +99,29 @@ export class CommentsRepository {
       },
     });
   }
+  async countComments(postId: string) {
+    return await this.prisma.comment.count({
+      where: { postId, deletedAt: null },
+    });
+  }
+
+  async countSubcomments(parentCommentId: string) {
+    return await this.prisma.comment.count({
+      where: { parentCommentId },
+    });
+  }
+
+  async updateSubcommentCount(
+    parentCommentId: string,
+    subcommentsCount: number,
+  ) {
+    return await this.prisma.comment.update({
+      where: { id: parentCommentId },
+      data: {
+        subcommentsCount,
+      },
+    });
+  }
 }
 
 const commentSelector = {
