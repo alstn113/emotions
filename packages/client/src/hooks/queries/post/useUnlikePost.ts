@@ -2,7 +2,9 @@ import PostAPI from '~/api/post';
 import { useMutation } from '@tanstack/react-query';
 import { UseMutationOptionsOf } from '~/hooks/queries/types';
 
-const useUnlikePost = (options: UseMutationOptionsOf<typeof PostAPI.unlikePost> = {}) => {
+const useUnlikePost = (
+  options: UseMutationOptionsOf<typeof PostAPI.unlikePost> = {},
+) => {
   return useMutation(PostAPI.unlikePost, options);
 };
 

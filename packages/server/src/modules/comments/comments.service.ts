@@ -9,7 +9,8 @@ export class CommentsService {
 
   async getComment(id: string) {
     const comment = await this.commentRepository.findCommentById(id);
-    if (!comment || comment.deletedAt) throw new HttpException('Comment not found', 404);
+    if (!comment || comment.deletedAt)
+      throw new HttpException('Comment not found', 404);
     return comment;
   }
 
@@ -17,7 +18,10 @@ export class CommentsService {
     const comments = await this.commentRepository.findComments(postId);
 
     const commentLikeMap = userId
-      ? await this.getCommentLikeMap({ commentIds: comments.map((comment) => comment.id), userId })
+      ? await this.getCommentLikeMap({
+          commentIds: comments.map((comment) => comment.id),
+          userId,
+        })
       : {};
 
     const commentsWithIsLiked = comments.map((comment) => {
@@ -91,7 +95,10 @@ export class CommentsService {
   }
 
   async likeComment({ commentId, userId }: CommentActionParams) {
-    const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
+    const alreadyLiked = await this.commentRepository.findCommentLike(
+      commentId,
+      userId,
+    );
     if (!alreadyLiked) {
       await this.commentRepository.createCommentLike(commentId, userId);
     }
@@ -101,7 +108,10 @@ export class CommentsService {
   }
 
   async unlikeComment({ commentId, userId }: CommentActionParams) {
-    const alreadyLiked = await this.commentRepository.findCommentLike(commentId, userId);
+    const alreadyLiked = await this.commentRepository.findCommentLike(
+      commentId,
+      userId,
+    );
     if (alreadyLiked) {
       await this.commentRepository.deleteCommentLike(commentId, userId);
     }
@@ -118,7 +128,10 @@ export class CommentsService {
   }
 
   async getCommentLikeMap({ commentIds, userId }: GetCommentLikedParams) {
-    const list = await this.commentRepository.findCommentLikes(commentIds, userId);
+    const list = await this.commentRepository.findCommentLikes(
+      commentIds,
+      userId,
+    );
 
     return list.reduce((acc, { commentId, userId }) => {
       acc[commentId] = userId;

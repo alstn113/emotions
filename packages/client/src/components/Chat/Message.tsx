@@ -12,7 +12,14 @@ interface Props {
   onChooseQuestion?: () => void;
 }
 
-const Message = ({ uid, username, message, isMyMessage, isHost, onChooseQuestion }: Props) => {
+const Message = ({
+  uid,
+  username,
+  message,
+  isMyMessage,
+  isHost,
+  onChooseQuestion,
+}: Props) => {
   return (
     <MessageWrapper isMyMessage={isMyMessage} onClick={onChooseQuestion}>
       <AnimatePresence>

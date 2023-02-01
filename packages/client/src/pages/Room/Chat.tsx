@@ -27,9 +27,9 @@ const Chat = () => {
   const user = useUser();
   const isHost: boolean = room?.userId === user?.id;
 
-  const [messages, setMessages] = useState<{ uid: string; username: string; message: string }[]>(
-    [],
-  );
+  const [messages, setMessages] = useState<
+    { uid: string; username: string; message: string }[]
+  >([]);
   const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const [question, setQuestion] = useState<{
     uid: string;
@@ -42,12 +42,19 @@ const Chat = () => {
     roomSocket.socket?.on(
       SOCKET_EVENT.CHAT_MESSAGE,
       ({ uid, username, message }: MessagePayload) => {
-        setMessages((prevMessages) => [...prevMessages, { uid, username, message }]);
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { uid, username, message },
+        ]);
       },
     );
   };
 
-  const handleChooseQuestion = (uid: string, username: string, message: string) => {
+  const handleChooseQuestion = (
+    uid: string,
+    username: string,
+    message: string,
+  ) => {
     roomSocket.socket?.emit(SOCKET_EVENT.CHOOSE_QUESTION, {
       roomId,
       uid,
@@ -71,22 +78,35 @@ const Chat = () => {
         setMessages((prev) => [...prev, { uid, username, message }]);
       },
     );
-    roomSocket.socket?.on(SOCKET_EVENT.LEFT_ROOM, ({ uid, username, message }: MessagePayload) => {
-      setMessages((prev) => [...prev, { uid, username, message }]);
-    });
+    roomSocket.socket?.on(
+      SOCKET_EVENT.LEFT_ROOM,
+      ({ uid, username, message }: MessagePayload) => {
+        setMessages((prev) => [...prev, { uid, username, message }]);
+      },
+    );
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
       ({ uid, username, isTyping }: TypingStatusPayload) => {
         if (isTyping) {
           setTypingUsers((prev) => [...prev, username]);
         } else {
-          setTypingUsers((prev) => prev.filter((username) => username !== username));
+          setTypingUsers((prev) =>
+            prev.filter((username) => username !== username),
+          );
         }
       },
     );
     roomSocket.socket?.on(
       SOCKET_EVENT.QUESTION_CHOSEN,
-      ({ uid, username, message }: { uid: string; username: string; message: string }) => {
+      ({
+        uid,
+        username,
+        message,
+      }: {
+        uid: string;
+        username: string;
+        message: string;
+      }) => {
         setQuestion({ uid, username, message });
       },
     );
@@ -111,7 +131,10 @@ const Chat = () => {
   return (
     <AsyncBoundary
       rejectedFallback={
-        <ErrorFallback queryKey={useGetRoom.getKey(roomId)} message={MESSAGE.ERROR.LOAD_DATA} />
+        <ErrorFallback
+          queryKey={useGetRoom.getKey(roomId)}
+          message={MESSAGE.ERROR.LOAD_DATA}
+        />
       }
     >
       <BaseLayout>
@@ -138,7 +161,11 @@ const Chat = () => {
                     isHost={isHost}
                     {...(isHost && {
                       onChooseQuestion: () =>
-                        handleChooseQuestion(message.uid, message.username, message.message),
+                        handleChooseQuestion(
+                          message.uid,
+                          message.username,
+                          message.message,
+                        ),
                     })}
                   />
                 );

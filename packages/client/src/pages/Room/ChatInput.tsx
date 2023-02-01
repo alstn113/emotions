@@ -14,11 +14,17 @@ const ChatInput = ({ roomId }: Props) => {
   const { isTyping, startTyping, stopTyping, cancelTyping } = useTyping();
 
   const startTypingMessage = () => {
-    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: true });
+    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, {
+      roomId,
+      isTyping: true,
+    });
   };
 
   const stopTypingMessage = () => {
-    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, { roomId, isTyping: false });
+    roomSocket.socket?.emit(SOCKET_EVENT.TYPING_STATUS, {
+      roomId,
+      isTyping: false,
+    });
   };
 
   const handleSubmitMessage = (e: React.FormEvent<HTMLFormElement>) => {

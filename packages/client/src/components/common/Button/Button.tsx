@@ -15,7 +15,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   ref,
 ) {
   return (
-    <S.Container size={size} color={color} shadow={shadow} {...options} ref={ref}>
+    <S.Container
+      size={size}
+      color={color}
+      shadow={shadow}
+      {...options}
+      ref={ref}
+    >
       <Ripple />
       {children}
     </S.Container>

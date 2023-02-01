@@ -12,7 +12,13 @@ interface Props {
 
 type Size = 'sm' | 'md';
 
-const IconToggleButton = ({ inactiveIcon, activeIcon, isActive, onClick, size = 'md' }: Props) => {
+const IconToggleButton = ({
+  inactiveIcon,
+  activeIcon,
+  isActive,
+  onClick,
+  size = 'md',
+}: Props) => {
   return (
     <IconButton size={size} onClick={onClick}>
       <AnimatePresence initial={false}>

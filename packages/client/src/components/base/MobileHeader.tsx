@@ -8,7 +8,11 @@ interface Props {
   headerRight?: React.ReactNode;
 }
 
-const MobileHeader = ({ title = 'Emotions', backButton = true, headerRight }: Props) => {
+const MobileHeader = ({
+  title = 'Emotions',
+  backButton = true,
+  headerRight,
+}: Props) => {
   return (
     <Container>
       {backButton && (

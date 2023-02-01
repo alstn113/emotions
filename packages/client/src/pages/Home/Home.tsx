@@ -16,7 +16,10 @@ const Post = () => {
       <Container>
         <AsyncBoundary
           rejectedFallback={
-            <ErrorFallback message={MESSAGE.ERROR.LOAD_DATA} queryKey={useGetPosts.getKey()} />
+            <ErrorFallback
+              message={MESSAGE.ERROR.LOAD_DATA}
+              queryKey={useGetPosts.getKey()}
+            />
           }
         >
           <PostList />

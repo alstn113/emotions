@@ -28,7 +28,12 @@ const Setting = () => {
           <Text>Not Logged In</Text>
         )}
 
-        <StyledButton size="auto" shadow color="secondary" onClick={handleGithubLogin}>
+        <StyledButton
+          size="auto"
+          shadow
+          color="secondary"
+          onClick={handleGithubLogin}
+        >
           <GithubIcon />
           <span>Login With Github</span>
         </StyledButton>

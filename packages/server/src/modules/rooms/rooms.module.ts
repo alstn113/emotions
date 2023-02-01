@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { RoomsController } from './rooms.controller';
 import { RoomsService, ChatsService } from './services';
-import { RoomsRepository, ChatsRepository, VotesRepository } from './repositories';
+import {
+  RoomsRepository,
+  ChatsRepository,
+  VotesRepository,
+} from './repositories';
 
 @Module({
   imports: [],

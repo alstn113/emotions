@@ -10,7 +10,10 @@ export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  async createComment(@Body() dto: CreateCommentDto, @GetCurrentUser('userId') userId: string) {
+  async createComment(
+    @Body() dto: CreateCommentDto,
+    @GetCurrentUser('userId') userId: string,
+  ) {
     return await this.commentsService.createComment(dto, userId);
   }
 

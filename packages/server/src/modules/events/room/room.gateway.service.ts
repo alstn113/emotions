@@ -32,7 +32,10 @@ export class RoomGatewayService {
 
   async onConnection(client: Socket) {
     try {
-      const token = parseCookie(client.handshake.headers.cookie, 'access_token');
+      const token = parseCookie(
+        client.handshake.headers.cookie,
+        'access_token',
+      );
       const decoded = await this.authService.verifyToken(token);
       const user = await this.usersService.getUserById(decoded.userId);
 
@@ -55,7 +58,9 @@ export class RoomGatewayService {
 
   private onDisconnecting(client: Socket) {
     // user가 참여하고 있는 room을 가져온다.
-    const roomsToLeave: Set<string> = this.server.adapter['sids'].get(client.id);
+    const roomsToLeave: Set<string> = this.server.adapter['sids'].get(
+      client.id,
+    );
 
     if (!roomsToLeave) {
       return;

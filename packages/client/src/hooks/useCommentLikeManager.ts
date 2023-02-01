@@ -14,7 +14,12 @@ interface Props {
   commentId: string;
 }
 
-const useCommnetLikeManager = ({ initialIsLiked, initialLikeCount, postId, commentId }: Props) => {
+const useCommnetLikeManager = ({
+  initialIsLiked,
+  initialLikeCount,
+  postId,
+  commentId,
+}: Props) => {
   const queryClient = useQueryClient();
   const user = useUser();
   const openLoginDialog = useOpenLoginDialog();

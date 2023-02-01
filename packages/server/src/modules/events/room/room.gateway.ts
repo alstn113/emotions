@@ -25,7 +25,9 @@ import {
   transports: ['websocket', 'polling'],
   namespace: 'socket/room',
 })
-export class RoomGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class RoomGateway
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
   constructor(private readonly roomGatewayService: RoomGatewayService) {}
 
   /** Default Setting */

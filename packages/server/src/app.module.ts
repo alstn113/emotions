@@ -1,5 +1,10 @@
 // nest config
-import { MiddlewareConsumer, Module, NestModule, ValidationPipe } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { PrismaModule } from './prisma/prisma.module';

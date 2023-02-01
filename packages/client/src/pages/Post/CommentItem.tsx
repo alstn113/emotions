@@ -25,6 +25,7 @@ interface Props {
   isSubcomment?: boolean;
 }
 
+//TODO:  adjust textarea height
 const CommentItem = ({ comment, isSubcomment }: Props) => {
   const queryClient = useQueryClient();
   const user = useUser();
@@ -46,7 +47,9 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetPostComments.getKey(comment.postId));
+      await queryClient.refetchQueries(
+        useGetPostComments.getKey(comment.postId),
+      );
     },
     onError: (e) => {
       alert(e);
@@ -114,16 +117,22 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       <CommentFooter>
         <LikeWrapper>
           <LikeButton size="sm" isLiked={isLiked} onClick={toggleLike} />
-          <LikeCount>{likeCount === 0 ? '' : likeCount.toLocaleString()}</LikeCount>
+          <LikeCount>
+            {likeCount === 0 ? '' : likeCount.toLocaleString()}
+          </LikeCount>
         </LikeWrapper>
         <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
       </CommentFooter>
 
       {/* if reply button is clicked, show ReplyComment component */}
-      {isReplying && <ReplyComment parentcomment={comment} onClose={handleCloseReply} />}
+      {isReplying && (
+        <ReplyComment parentcomment={comment} onClose={handleCloseReply} />
+      )}
 
       {/* if subcomments exist, show SubCommentList component */}
-      {!isSubcomment && comment.subcomments && <SubCommentList subcomments={comment.subcomments} />}
+      {!isSubcomment && comment.subcomments && (
+        <SubCommentList subcomments={comment.subcomments} />
+      )}
     </Container>
   );
 };

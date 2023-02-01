@@ -1,4 +1,5 @@
-const BASE_URL: string = import.meta.env.VITE_APP_BASE_URL || 'http://localhost:8080';
+const BASE_URL: string =
+  import.meta.env.VITE_APP_BASE_URL || 'http://localhost:8080';
 const AUTH = 'auth';
 const USER = 'users';
 const ROOM = 'rooms';

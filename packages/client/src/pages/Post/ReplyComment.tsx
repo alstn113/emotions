@@ -21,7 +21,9 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetPostComments.getKey(parentcomment.postId));
+      await queryClient.refetchQueries(
+        useGetPostComments.getKey(parentcomment.postId),
+      );
       return;
     },
     onError: (e) => {
@@ -31,7 +33,11 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
 
   const handleSubmit = () => {
     if (!text) return;
-    mutate({ postId: parentcomment.postId, text, parentCommentId: parentcomment.id });
+    mutate({
+      postId: parentcomment.postId,
+      text,
+      parentCommentId: parentcomment.id,
+    });
     onClose();
   };
 

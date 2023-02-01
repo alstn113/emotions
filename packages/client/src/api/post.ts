@@ -1,5 +1,11 @@
 import { API } from '~/constants';
-import { Comment, CreatePostParams, Post, PostStats, PostWithStats } from '~/types';
+import {
+  Comment,
+  CreatePostParams,
+  Post,
+  PostStats,
+  PostWithStats,
+} from '~/types';
 import apiClient from './apiClient';
 
 const PostAPI = {

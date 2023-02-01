@@ -6,7 +6,10 @@ import { parseCookie } from '~/utils/parseCookie';
 
 @Injectable()
 export class WsJwtGuard implements CanActivate {
-  constructor(private readonly authService: AuthService, private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly prisma: PrismaService,
+  ) {}
   public async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
     req.user = null;

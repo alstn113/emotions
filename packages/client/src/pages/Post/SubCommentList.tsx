@@ -11,7 +11,9 @@ const SubCommentList = ({ subcomments }: Props) => {
   return (
     <Container>
       {subcomments.map((subcomment) => {
-        return <CommentItem key={subcomment.id} isSubcomment comment={subcomment} />;
+        return (
+          <CommentItem key={subcomment.id} isSubcomment comment={subcomment} />
+        );
       })}
     </Container>
   );

@@ -7,10 +7,17 @@ import { GithubProfileType } from '../types';
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
-  constructor(readonly configService: ConfigService, private readonly prisma: PrismaService) {
+  constructor(
+    readonly configService: ConfigService,
+    private readonly prisma: PrismaService,
+  ) {
     const GITHUB_CLIENT_ID = configService.get<string>('GITHUB.CLIENT_ID');
-    const GITHUB_CLIENT_SECRET = configService.get<string>('GITHUB.CLIENT_SECRET');
-    const GITHUB_CALLBACK_URL = configService.get<string>('GITHUB.CALLBACK_URL');
+    const GITHUB_CLIENT_SECRET = configService.get<string>(
+      'GITHUB.CLIENT_SECRET',
+    );
+    const GITHUB_CALLBACK_URL = configService.get<string>(
+      'GITHUB.CALLBACK_URL',
+    );
 
     super({
       clientID: GITHUB_CLIENT_ID,
@@ -20,7 +27,12 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
     });
   }
 
-  async validate(_accessToken: string, _refreshToken: string, profile: any, done: any) {
+  async validate(
+    _accessToken: string,
+    _refreshToken: string,
+    profile: any,
+    done: any,
+  ) {
     const { login, name }: GithubProfileType = profile._json;
     try {
       const exUser = await this.prisma.user.findUnique({

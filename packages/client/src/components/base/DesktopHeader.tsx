@@ -18,7 +18,12 @@ const DesktopHeader = ({}: Props) => {
         {user ? (
           <HeaderDropdown />
         ) : (
-          <Button shadow color="primary" size="sm" onClick={() => navigate('/setting')}>
+          <Button
+            shadow
+            color="primary"
+            size="sm"
+            onClick={() => navigate('/setting')}
+          >
             Login
           </Button>
         )}

@@ -36,7 +36,10 @@ const Room = () => {
         <Spacer />
         <AsyncBoundary
           rejectedFallback={
-            <ErrorFallback message={MESSAGE.ERROR.LOAD_DATA} queryKey={useGetRooms.getKey()} />
+            <ErrorFallback
+              message={MESSAGE.ERROR.LOAD_DATA}
+              queryKey={useGetRooms.getKey()}
+            />
           }
         >
           <RoomList />

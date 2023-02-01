@@ -2,7 +2,10 @@ import PostAPI from '~/api/post';
 import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 
-const useGetPost = (postId: string, options: UseQueryOptionsOf<typeof PostAPI.getPost> = {}) => {
+const useGetPost = (
+  postId: string,
+  options: UseQueryOptionsOf<typeof PostAPI.getPost> = {},
+) => {
   return useQuery(getKey(postId), fetcher(postId), options);
 };
 

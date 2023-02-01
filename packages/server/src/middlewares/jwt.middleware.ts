@@ -5,7 +5,10 @@ import { PrismaService } from '~/prisma/prisma.service';
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
-  constructor(private readonly authService: AuthService, private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     req.user = null;

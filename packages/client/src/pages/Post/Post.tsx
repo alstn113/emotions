@@ -18,7 +18,10 @@ const Post = () => {
       <Container>
         <AsyncBoundary
           rejectedFallback={
-            <ErrorFallback queryKey={useGetPost.getKey(postId)} message={MESSAGE.ERROR.LOAD_DATA} />
+            <ErrorFallback
+              queryKey={useGetPost.getKey(postId)}
+              message={MESSAGE.ERROR.LOAD_DATA}
+            />
           }
         >
           <PostContents postId={postId} />
@@ -42,7 +45,7 @@ const Post = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 2rem 1rem;
   gap: 1rem;
   ${mediaQuery.tablet} {
     width: 736px;

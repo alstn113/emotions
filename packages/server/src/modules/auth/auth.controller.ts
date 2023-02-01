@@ -28,7 +28,10 @@ export class AuthController {
     @GetCurrentUser() user: { userId: string; username: string },
   ) {
     const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
-    const token = await this.authService.generateToken(user.userId, user.username);
+    const token = await this.authService.generateToken(
+      user.userId,
+      user.username,
+    );
     this.authService.setTokenCookie(res, token);
     return res.redirect(`${FRONTEND_URL}`);
   }

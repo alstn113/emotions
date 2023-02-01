@@ -13,7 +13,11 @@ interface Props {
   postId: string;
 }
 
-const usePostLikeManager = ({ initialIsLiked, initialLikeCount, postId }: Props) => {
+const usePostLikeManager = ({
+  initialIsLiked,
+  initialLikeCount,
+  postId,
+}: Props) => {
   const queryClient = useQueryClient();
   const user = useUser();
   const openLoginDialog = useOpenLoginDialog();

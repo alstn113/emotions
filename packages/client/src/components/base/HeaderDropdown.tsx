@@ -27,7 +27,13 @@ const HeaderDropdown = () => {
 
   return (
     <>
-      <DropdownButton shadow color="success" size="sm" ref={triggerRef} onClick={onToggle}>
+      <DropdownButton
+        shadow
+        color="success"
+        size="sm"
+        ref={triggerRef}
+        onClick={onToggle}
+      >
         <User />
         {user?.username}
       </DropdownButton>

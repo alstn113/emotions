@@ -32,7 +32,12 @@ const RoomList = () => {
             <div>{room.name}</div>
             <div>{room.userId}</div>
             <Spacer />
-            <Button size="sm" shadow color="error" onClick={() => handleDeleteRoom(room.id)}>
+            <Button
+              size="sm"
+              shadow
+              color="error"
+              onClick={() => handleDeleteRoom(room.id)}
+            >
               Delete
             </Button>
           </RoomCard>

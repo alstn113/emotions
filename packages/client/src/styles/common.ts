@@ -20,7 +20,12 @@ export const mediaQuery = {
   desktop: customMediaQuery(1200),
 } as const;
 
-export type NormalColorType = 'primary' | 'success' | 'secondary' | 'warning' | 'error';
+export type NormalColorType =
+  | 'primary'
+  | 'success'
+  | 'secondary'
+  | 'warning'
+  | 'error';
 
 export const palette = {
   white: '#ffffff',

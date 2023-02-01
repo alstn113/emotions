@@ -6,6 +6,12 @@ import { UsersService } from '../users/users.service';
 import { RoomGateway, RoomGatewayService } from './room';
 @Module({
   imports: [JwtModule.register({})],
-  providers: [RoomGateway, RoomGatewayService, AuthService, UsersService, UsersRepository],
+  providers: [
+    RoomGateway,
+    RoomGatewayService,
+    AuthService,
+    UsersService,
+    UsersRepository,
+  ],
 })
 export class EventsModule {}
