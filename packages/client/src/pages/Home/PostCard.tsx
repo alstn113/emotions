@@ -18,6 +18,10 @@ const PostCard = ({ post }: Props) => {
         <p>{post.body}</p>
       </CardBody>
       <CardFooter>
+        <PostStatsWrapper>
+          <div>좋아요 {post.postStats.likes.toLocaleString()}개</div>
+          <div>댓글 {post.postStats.commentsCount.toLocaleString()}개 </div>
+        </PostStatsWrapper>
         <Author>Authored By {post.user.username}</Author>
       </CardFooter>
     </Card>
@@ -58,7 +62,7 @@ const CardBody = styled(Link)`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 1; // 라인수
+    -webkit-line-clamp: 1; // 라인수 1
     -webkit-box-orient: vertical;
     word-wrap: break-word;
     line-height: 1.2rem;
@@ -74,7 +78,7 @@ const CardBody = styled(Link)`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; // 라인수
+    -webkit-line-clamp: 3; // 라인수 3
     -webkit-box-orient: vertical;
     word-wrap: break-word;
     line-height: 1.2rem;
@@ -86,8 +90,19 @@ const CardFooter = styled.div`
   border-top: 1px solid #f1f3f5;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 1rem;
+`;
+
+const PostStatsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  div {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #999;
+  }
 `;
 
 const Author = styled.div`
