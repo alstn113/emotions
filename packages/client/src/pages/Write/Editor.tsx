@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import useWriteStore from '~/stores/useWriteStore';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useNavigate } from 'react-router-dom';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
     useWriteStore();
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -25,7 +27,10 @@ const Editor = () => {
         />
       </EditorBody>
       <EditorFooter>
-        <Button shadow onClick={openPublishScreen}>
+        <Button shadow color="error" onClick={() => navigate('/')}>
+          Exit
+        </Button>
+        <Button shadow color="success" onClick={openPublishScreen}>
           Publish
         </Button>
       </EditorFooter>
@@ -88,6 +93,17 @@ const PostBody = styled.textarea`
   }
 `;
 
-const EditorFooter = styled.div``;
+const EditorFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 4rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+`;
 
 export default Editor;
