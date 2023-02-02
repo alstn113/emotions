@@ -1,7 +1,18 @@
 import styled from '@emotion/styled';
+import { Button } from '~/components/common';
 
-const Editor = () => {
-  return <Container>Editor</Container>;
+interface Props {
+  openPublishScreen: () => void;
+}
+
+const Editor = ({ openPublishScreen }: Props) => {
+  return (
+    <Container>
+      <Button shadow onClick={openPublishScreen}>
+        Publish
+      </Button>
+    </Container>
+  );
 };
 
 const Container = styled.div`
