@@ -9,6 +9,7 @@ import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/styles';
+import PostListSkeleton from './PostListSkeleton';
 
 const Post = () => {
   return (
@@ -21,6 +22,7 @@ const Post = () => {
               queryKey={useGetPosts.getKey()}
             />
           }
+          pendingFallback={<PostListSkeleton />}
         >
           <PostList />
         </AsyncBoundary>
