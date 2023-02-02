@@ -1,25 +1,20 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '~/components/common';
-import useDisclosure from '~/hooks/useDisclosure';
+import useWriteStore from '~/stores/useWriteStore';
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const PublishScreen = ({ isOpen, onClose }: Props) => {
+const PublishScreen = () => {
+  const { isPublishScreenOpen, closePublishScreen } = useWriteStore();
   return (
     <AnimatePresence initial={false}>
-      {isOpen && (
+      {isPublishScreenOpen && (
         <Container
           initial={{ y: '100%' }}
           animate={{ y: '0%' }}
           exit={{ y: '100%' }}
           transition={{ duration: 0.3, ease: 'linear' }}
         >
-          <Button shadow onClick={onClose}>
+          <Button shadow onClick={closePublishScreen}>
             닫기
           </Button>
         </Container>
