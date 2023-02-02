@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
-import BaseLayout from '~/components/layouts/BaseLayout';
+import { useEffect } from 'react';
+import useWriteStore from '~/stores/useWriteStore';
 import Editor from './Editor';
 import Preview from './Preview';
 import PublishScreen from './PublishScreen';
 
 const Write = () => {
+  const { reset } = useWriteStore();
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, []);
+
   return (
     <Container>
       <Editor />

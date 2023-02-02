@@ -20,12 +20,10 @@ const PublishScreen = () => {
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());
+          navigate('/');
         },
         onError: (e) => {
           console.log(e);
-        },
-        onSettled: () => {
-          navigate('/');
         },
       },
     );

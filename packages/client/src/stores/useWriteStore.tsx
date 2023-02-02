@@ -11,6 +11,8 @@ type States = {
 };
 
 type Actions = {
+  reset: () => void;
+
   // write form
   changeTitle: (title: string) => void;
   changeBody: (body: string) => void;
@@ -20,10 +22,18 @@ type Actions = {
   closePublishScreen: () => void;
 };
 
-const useWriteStore = create<States & Actions>((set) => ({
-  // write form
+const initialState: States = {
   title: '',
   body: '',
+  isPublishScreenOpen: false,
+};
+
+const useWriteStore = create<States & Actions>((set) => ({
+  ...initialState,
+
+  reset: () => set(initialState),
+
+  // write form
   changeTitle: (title: string) =>
     set(
       produce((draft) => {
@@ -38,7 +48,6 @@ const useWriteStore = create<States & Actions>((set) => ({
     ),
 
   // publish modal
-  isPublishScreenOpen: false,
   openPublishScreen: () =>
     set(
       produce((draft) => {

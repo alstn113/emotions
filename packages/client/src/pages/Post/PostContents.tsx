@@ -34,7 +34,9 @@ const PostContents = ({ postId }: Props) => {
 };
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: 900;
 `;
 
 const Body = styled.div`

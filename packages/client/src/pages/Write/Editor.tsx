@@ -6,6 +6,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
     useWriteStore();
+
   return (
     <Container>
       <EditorHeader>
@@ -38,7 +39,7 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #fff;
 `;
 
@@ -65,9 +66,27 @@ const PostTitle = styled(TextareaAutosize)`
   }
 `;
 
-const EditorBody = styled.div``;
+const EditorBody = styled.div`
+  flex: 1;
+  width: 100%;
+`;
 
-const PostBody = styled.textarea``;
+const PostBody = styled.textarea`
+  padding: 3rem;
+  background: transparent;
+  display: block;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  line-height: 1.5;
+  outline: none;
+  border: none;
+  color: #000;
+  &::placeholder {
+    color: #999;
+  }
+`;
 
 const EditorFooter = styled.div``;
 
