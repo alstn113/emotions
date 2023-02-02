@@ -6,13 +6,11 @@ import PublishScreen from './PublishScreen';
 
 const Write = () => {
   return (
-    <BaseLayout>
-      <Container>
-        <Editor />
-        <Preview />
-        <PublishScreen />
-      </Container>
-    </BaseLayout>
+    <Container>
+      <Editor />
+      <Preview />
+      <PublishScreen />
+    </Container>
   );
 };
 

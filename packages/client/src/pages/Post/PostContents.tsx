@@ -20,7 +20,7 @@ const PostContents = ({ postId }: Props) => {
     <>
       <Title>{post?.title}</Title>
       <Body>
-        <p>{post?.body}</p>
+        <pre>{post?.body}</pre>
       </Body>
       <Author>Authored by {post?.user.username}</Author>
 
@@ -40,6 +40,10 @@ const Title = styled.div`
 const Body = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
+
+  pre {
+    white-space: pre-wrap;
+  }
 `;
 
 const Author = styled.div`
