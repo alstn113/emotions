@@ -45,11 +45,14 @@ const HeaderDropdown = () => {
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', bounce: 0.3, duration: 0.3 }}
           >
+            <MenuItem onClick={() => naviagate('/')}>
+              <MenuItemText>Posts</MenuItemText>
+            </MenuItem>
             <MenuItem onClick={() => naviagate('/write')}>
               <MenuItemText>Write Post</MenuItemText>
             </MenuItem>
             <MenuItem onClick={() => naviagate('/room')}>
-              <MenuItemText>Room</MenuItemText>
+              <MenuItemText>Rooms</MenuItemText>
             </MenuItem>
             <MenuItem onClick={() => naviagate('/setting')}>
               <MenuItemText>Setting</MenuItemText>

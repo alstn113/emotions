@@ -1,5 +1,11 @@
+import BaseLayout from '~/components/layouts/BaseLayout';
+
 const Write = () => {
-  return <div></div>;
+  return (
+    <BaseLayout>
+      <div></div>
+    </BaseLayout>
+  );
 };
 
 export default Write;
