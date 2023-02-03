@@ -23,7 +23,7 @@ export class PostsController {
     @Query('cursor') cursor: string | null,
     @GetCurrentUser('userId') userId: string | null,
   ) {
-    return await this.postsService.getPosts(cursor, userId);
+    return await this.postsService.getPosts(cursor ?? null, userId ?? null);
   }
 
   @Public()

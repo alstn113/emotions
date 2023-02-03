@@ -6,16 +6,30 @@ import { CreatePostDto } from './dto/create-post.dto';
 export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findPosts(cursor?: string | null, userId?: string | null) {
-    return await this.prisma.post.findMany({
-      orderBy: { createdAt: 'desc' },
-      where: {
-        id: {
-          lt: cursor,
-        },
-      },
-      ...postSelector(),
-    });
+  async findPosts(cursor: string | null, userId: string | null) {
+    const [totalCount, list] = await Promise.all([
+      this.prisma.post.count(),
+      this.prisma.post.findMany({
+        take: 12,
+        skip: cursor ? 1 : 0,
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: { createdAt: 'desc' },
+        ...postSelector(userId),
+      }),
+    ]);
+
+    const endCursor = list[list.length - 1]?.id ?? null; // last item in the list
+    // prisma.post.count cause error when using orderBy createdAt
+    const hasNextPage =
+      (
+        await this.prisma.post.findMany({
+          skip: endCursor ? 1 : 0,
+          cursor: endCursor ? { id: endCursor } : undefined,
+          orderBy: { createdAt: 'desc' },
+        })
+      ).length > 0;
+
+    return { totalCount, endCursor, hasNextPage, list };
   }
 
   async findPostById(id: string, userId: string | null = null) {

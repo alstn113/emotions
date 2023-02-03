@@ -10,8 +10,20 @@ export class PostsService {
     private readonly postRepository: PostsRepository,
     private readonly commentsService: CommentsService,
   ) {}
-  async getPosts(cursor?: string | null, userId?: string | null) {
-    return await this.postRepository.findPosts(cursor, userId);
+  async getPosts(cursor: string | null, userId: string | null) {
+    const { totalCount, endCursor, hasNextPage, list } =
+      await this.postRepository.findPosts(cursor, userId);
+
+    const serializedList = list.map((post) => this.serializePost(post));
+
+    return {
+      list: serializedList,
+      totalCount,
+      pageInfo: {
+        endCursor: hasNextPage ? endCursor : null,
+        hasNextPage,
+      },
+    };
   }
 
   async getPost(id: string, userId: string | null = null) {
