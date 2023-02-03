@@ -3,6 +3,7 @@ import { Button } from '~/components/common';
 import useWriteStore from '~/stores/useWriteStore';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
@@ -10,7 +11,7 @@ const Editor = () => {
   const navigate = useNavigate();
 
   return (
-    <Container>
+    <Container initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <EditorHeader>
         <PostTitle
           placeholder="제목을 입력하세요"
@@ -38,7 +39,7 @@ const Editor = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   position: relative;
   display: flex;
   flex: 1;
