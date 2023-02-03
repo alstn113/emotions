@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
@@ -11,8 +19,11 @@ export class PostsController {
 
   @Public()
   @Get()
-  async getPosts() {
-    return await this.postsService.getPosts();
+  async getPosts(
+    @Query('cursor') cursor: string | null,
+    @GetCurrentUser('userId') userId: string | null,
+  ) {
+    return await this.postsService.getPosts(cursor ?? null, userId ?? null);
   }
 
   @Public()
