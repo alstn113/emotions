@@ -4,12 +4,13 @@ import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 
 const useGetPosts = (
   options: UseQueryOptionsOf<typeof PostAPI.getPosts> = {},
+  cursor?: string,
 ) => {
-  return useQuery(getKey(), fetcher(), options);
+  return useQuery(getKey(cursor), fetcher(cursor), options);
 };
 
-const getKey = () => ['useGetPosts'];
-const fetcher = () => () => PostAPI.getPosts();
+const getKey = (cursor?: string) => ['useGetPosts', cursor ? cursor : ''];
+const fetcher = (cursor?: string) => () => PostAPI.getPosts(cursor);
 
 useGetPosts.getKey = getKey;
 useGetPosts.fetcher = fetcher;

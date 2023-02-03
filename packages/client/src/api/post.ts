@@ -3,14 +3,18 @@ import {
   Comment,
   CreatePostParams,
   Post,
+  PostList,
   PostStats,
   PostWithStats,
 } from '~/types';
 import apiClient from './apiClient';
+import qs from 'qs';
 
 const PostAPI = {
-  getPosts: async (): Promise<PostWithStats[]> => {
-    const { data } = await apiClient.get(`${API.POST}`);
+  getPosts: async (cursor?: string): Promise<PostList> => {
+    const { data } = await apiClient.get(
+      `${API.POST}`.concat(qs.stringify({ cursor }, { addQueryPrefix: true })),
+    );
     return data;
   },
 

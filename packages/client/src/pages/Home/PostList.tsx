@@ -8,10 +8,9 @@ import PostCard from './PostCard';
 
 const PostList = () => {
   const { data: posts } = useGetPosts({ suspense: true });
-
   return (
     <Container>
-      {posts?.map((post) => {
+      {posts?.list.map((post) => {
         return <PostCard key={post.id} post={post}></PostCard>;
       })}
     </Container>
