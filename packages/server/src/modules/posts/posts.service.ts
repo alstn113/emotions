@@ -10,8 +10,8 @@ export class PostsService {
     private readonly postRepository: PostsRepository,
     private readonly commentsService: CommentsService,
   ) {}
-  async getPosts() {
-    return await this.postRepository.findPosts();
+  async getPosts(cursor?: string | null, userId?: string | null) {
+    return await this.postRepository.findPosts(cursor, userId);
   }
 
   async getPost(id: string, userId: string | null = null) {

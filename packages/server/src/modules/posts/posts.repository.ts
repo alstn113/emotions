@@ -6,8 +6,14 @@ import { CreatePostDto } from './dto/create-post.dto';
 export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findPosts() {
+  async findPosts(cursor?: string | null, userId?: string | null) {
     return await this.prisma.post.findMany({
+      orderBy: { createdAt: 'desc' },
+      where: {
+        id: {
+          lt: cursor,
+        },
+      },
       ...postSelector(),
     });
   }

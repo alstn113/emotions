@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "displayName" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -11,9 +11,9 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Room" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Room_pkey" PRIMARY KEY ("id")
@@ -21,10 +21,10 @@ CREATE TABLE "Room" (
 
 -- CreateTable
 CREATE TABLE "Chat" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "message" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "roomId" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "roomId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Chat_pkey" PRIMARY KEY ("id")
@@ -32,9 +32,9 @@ CREATE TABLE "Chat" (
 
 -- CreateTable
 CREATE TABLE "Vote" (
-    "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "roomId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "roomId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Vote_pkey" PRIMARY KEY ("id")
@@ -42,10 +42,10 @@ CREATE TABLE "Vote" (
 
 -- CreateTable
 CREATE TABLE "Post" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "body" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -54,10 +54,10 @@ CREATE TABLE "Post" (
 
 -- CreateTable
 CREATE TABLE "PostStats" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "likes" INTEGER NOT NULL DEFAULT 0,
     "commentsCount" INTEGER NOT NULL DEFAULT 0,
-    "postId" TEXT NOT NULL,
+    "postId" INTEGER NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "PostStats_pkey" PRIMARY KEY ("id")
@@ -65,9 +65,9 @@ CREATE TABLE "PostStats" (
 
 -- CreateTable
 CREATE TABLE "PostLike" (
-    "id" TEXT NOT NULL,
-    "postId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "postId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -76,11 +76,13 @@ CREATE TABLE "PostLike" (
 
 -- CreateTable
 CREATE TABLE "Comment" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "text" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "postId" TEXT NOT NULL,
-    "parentCommentId" TEXT,
+    "likes" INTEGER NOT NULL DEFAULT 0,
+    "subcommentsCount" INTEGER NOT NULL DEFAULT 0,
+    "userId" INTEGER NOT NULL,
+    "postId" INTEGER NOT NULL,
+    "parentCommentId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deletedAt" TIMESTAMP(3),
@@ -90,9 +92,9 @@ CREATE TABLE "Comment" (
 
 -- CreateTable
 CREATE TABLE "CommentLike" (
-    "id" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "commentId" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

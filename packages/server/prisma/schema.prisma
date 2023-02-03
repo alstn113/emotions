@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id          String @id() @default(uuid())
+  id          Int    @id() @default(autoincrement())
   username    String @unique
   displayName String
 
@@ -32,9 +32,9 @@ model User {
 }
 
 model Room {
-  id     String @id() @default(uuid())
+  id     Int    @id() @default(autoincrement())
   name   String
-  userId String
+  userId Int
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,10 +45,10 @@ model Room {
 }
 
 model Chat {
-  id      String @id() @default(uuid())
+  id      Int    @id() @default(autoincrement())
   message String
-  userId  String
-  roomId  String
+  userId  Int
+  roomId  Int
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
@@ -56,9 +56,9 @@ model Chat {
 }
 
 model Vote {
-  id     String @id() @default(uuid())
-  userId String
-  roomId String
+  id     Int @id() @default(autoincrement())
+  userId Int
+  roomId Int
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
@@ -67,11 +67,12 @@ model Vote {
 }
 
 model Post {
-  id     String @id @default(uuid())
+  id     Int    @id() @default(autoincrement())
   title  String
   body   String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
+  userId Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now()) @updatedAt
@@ -81,11 +82,11 @@ model Post {
 }
 
 model PostStats {
-  id            String @id @default(uuid())
-  likes         Int    @default(0)
-  commentsCount Int    @default(0)
+  id            Int @id() @default(autoincrement())
+  likes         Int @default(0)
+  commentsCount Int @default(0)
 
-  postId String @unique
+  postId Int @unique
 
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
@@ -93,10 +94,10 @@ model PostStats {
 }
 
 model PostLike {
-  id String @id @default(uuid())
+  id Int @id() @default(autoincrement())
 
-  postId String
-  userId String
+  postId Int
+  userId Int
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -108,14 +109,14 @@ model PostLike {
 }
 
 model Comment {
-  id               String @id @default(uuid())
+  id               Int    @id() @default(autoincrement())
   text             String
   likes            Int    @default(0)
   subcommentsCount Int    @default(0)
 
-  userId          String
-  postId          String
-  parentCommentId String?
+  userId          Int
+  postId          Int
+  parentCommentId Int?
 
   commentLikes CommentLike[]
 
@@ -128,10 +129,10 @@ model Comment {
 }
 
 model CommentLike {
-  id String @id @default(uuid())
+  id Int @id() @default(autoincrement())
 
-  commentId String
-  userId    String
+  commentId Int
+  userId    Int
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
