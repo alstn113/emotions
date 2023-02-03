@@ -12,6 +12,15 @@ export interface Room {
   updatedAt: string;
 }
 
+export interface PostList {
+  list: PostWithStats[];
+  totalCount: number;
+  pageInfo: {
+    endCursor: string | null;
+    hasNextPage: boolean;
+  };
+}
+
 export interface Post {
   id: string;
   title: string;
