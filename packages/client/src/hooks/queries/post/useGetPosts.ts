@@ -1,16 +1,22 @@
 import PostAPI from '~/api/post';
-import { useQuery } from '@tanstack/react-query';
-import type { UseQueryOptionsOf } from '~/hooks/queries/types';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import type { UseInfiniteQueryOptionsOf } from '~/hooks/queries/types';
 
 const useGetPosts = (
-  options: UseQueryOptionsOf<typeof PostAPI.getPosts> = {},
-  cursor?: string,
+  options: UseInfiniteQueryOptionsOf<typeof PostAPI.getPosts> = {},
 ) => {
-  return useQuery(getKey(cursor), fetcher(cursor), options);
+  return useInfiniteQuery(getKey(), fetcher(), {
+    getNextPageParam: ({ pageInfo }) => pageInfo.endCursor,
+    suspense: false,
+    ...options,
+  });
 };
 
-const getKey = (cursor?: string) => ['useGetPosts', cursor ? cursor : ''];
-const fetcher = (cursor?: string) => () => PostAPI.getPosts(cursor);
+const getKey = () => ['useGetPosts'];
+const fetcher =
+  () =>
+  async ({ pageParam }: any) =>
+    await PostAPI.getPosts(pageParam);
 
 useGetPosts.getKey = getKey;
 useGetPosts.fetcher = fetcher;

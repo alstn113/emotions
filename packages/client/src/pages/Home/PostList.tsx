@@ -7,12 +7,12 @@ import { mediaQuery } from '~/styles';
 import PostCard from './PostCard';
 
 const PostList = () => {
-  const { data: posts } = useGetPosts({ suspense: true });
+  const { data: posts, hasNextPage, fetchNextPage, isFetching } = useGetPosts();
   return (
     <Container>
-      {posts?.list.map((post) => {
-        return <PostCard key={post.id} post={post}></PostCard>;
-      })}
+      {posts?.pages.map((page) =>
+        page.list.map((post) => <PostCard key={post.id} post={post} />),
+      )}
     </Container>
   );
 };
