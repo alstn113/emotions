@@ -6,6 +6,7 @@ import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
 import useModalStore from '~/stores/useModalStore';
+import { mediaQuery } from '~/styles';
 
 interface Props {
   postId: string;
@@ -14,6 +15,7 @@ interface Props {
 const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
   const user = useUser();
+  const isMyPost = user?.id === post?.user.id;
   const navigate = useNavigate();
   const { open } = useModalStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
@@ -52,18 +54,18 @@ const PostContents = ({ postId }: Props) => {
       </Body>
       <Group>
         <Author>Authored by {post?.user.username}</Author>
-        <ButtonsWrapper>
-          {user?.id === post?.user.id && (
-            <>
-              <Button shadow color="warning" size="sm">
-                수정
-              </Button>
-              <Button shadow color="error" size="sm" onClick={handleDeletePost}>
-                삭제
-              </Button>
-            </>
-          )}
-        </ButtonsWrapper>
+        {isMyPost ? (
+          <ButtonsWrapper>
+            <Button shadow color="warning" size="sm">
+              수정
+            </Button>
+            <Button shadow color="error" size="sm" onClick={handleDeletePost}>
+              삭제
+            </Button>
+          </ButtonsWrapper>
+        ) : (
+          <></>
+        )}
       </Group>
       {/* @TODO: add comment count components and reload query */}
       <LikeButtonWrapper>
@@ -101,8 +103,12 @@ const Group = styled.div`
   justify-content: space-between;
 `;
 const ButtonsWrapper = styled.div`
-  display: flex;
+  display: none;
   gap: 0.5rem;
+
+  ${mediaQuery.mobile} {
+    display: flex;
+  }
 `;
 
 const LikeButtonWrapper = styled.div`
