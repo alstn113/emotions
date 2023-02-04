@@ -32,9 +32,7 @@ export class PostsController {
   async getPost(
     @GetCurrentUser('userId') userId: string | null,
     @Param('id') id: string,
-    @Param('tags', ParseArrayPipe) tags?: string[],
   ) {
-    console.log(tags);
     return this.postsService.getPost(id, userId);
   }
 
