@@ -16,19 +16,19 @@ const queryClient = new QueryClient({
     queries: {
       // suspense: true,
       // -- react-query default config --
-      retry: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-      refetchInterval: false,
-      staleTime: 1000 * 60 * 3, // 3m
+      // retry: false,
+      // refetchOnMount: false,
+      // refetchOnReconnect: false,
+      // refetchOnWindowFocus: false,
+      // refetchInterval: false,
+      // staleTime: 1000 * 60 * 3, // 3m
     },
   },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    <ReactQueryDevtools initialIsOpen={false} />
     <MyThemeProvider>
       <ModalProvider />
       <BottomSheetProvider />

@@ -35,7 +35,6 @@ const PostContents = ({ postId }: Props) => {
       onConfirm: () => {
         deletePost(postId, {
           onSuccess: () => {
-            //TODO: query cache를 업데이트하고, navigate
             navigate('/');
           },
           onError: (e) => {

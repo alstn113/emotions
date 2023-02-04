@@ -17,6 +17,7 @@ import useUser from '~/hooks/useUser';
 import { MenuDots, Pencil, Trash } from '~/components/vectors';
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import useModalStore from '~/stores/useModalStore';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Post = () => {
   const { postId } = useParams() as { postId: string };
@@ -26,12 +27,12 @@ const Post = () => {
   const { openBottomSheet } = useBottomSheetStore();
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
+  const queryClient = useQueryClient();
   const { mutate: deletePost } = useDeletePost();
 
   const handleDelete = async () => {
     deletePost(postId, {
       onSuccess: () => {
-        //TODO: update query cache
         navigate('/');
       },
       onError: (e) => {
