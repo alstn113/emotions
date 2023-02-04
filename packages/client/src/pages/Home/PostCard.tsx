@@ -16,6 +16,11 @@ const PostCard = ({ post }: Props) => {
       <CardBody to={`/post/${post.id}`}>
         <h3>{post.title}</h3>
         <p>{post.body}</p>
+        <TagList>
+          {post.tags.map((tag) => (
+            <div key={tag}>{tag}</div>
+          ))}
+        </TagList>
       </CardBody>
       <CardFooter>
         <PostStatsWrapper>
@@ -46,7 +51,7 @@ const CardHeader = styled(Link)``;
 
 const Thumbnail = styled.div`
   width: 100%;
-  height: 250px;
+  height: 200px;
   background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
 `;
 
@@ -69,7 +74,7 @@ const CardBody = styled(Link)`
     height: 1.2rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 1 = 1.2rem
   }
   p {
-    margin: 0px 0px 1.5rem;
+    margin-bottom: 1rem;
     font-size: 0.875rem;
     line-height: 1.5;
     height: 3.9375rem;
@@ -83,6 +88,33 @@ const CardBody = styled(Link)`
     word-wrap: break-word;
     line-height: 1.2rem;
     height: 3.6rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 3 = 3.6
+  }
+`;
+
+const TagList = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    border-radius: 0.8rem;
+    background: linear-gradient(to bottom right, #f6d365, #ffc9ba);
+    color: #000;
   }
 `;
 
