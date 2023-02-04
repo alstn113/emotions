@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import LikeButton from '~/components/base/LikeButton';
-import { useGetPost } from '~/hooks/queries/post';
+import { Button } from '~/components/common';
+import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
+import useUser from '~/hooks/useUser';
+import useModalStore from '~/stores/useModalStore';
 
 interface Props {
   postId: string;
@@ -9,12 +13,36 @@ interface Props {
 
 const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
-
+  const user = useUser();
+  const navigate = useNavigate();
+  const { open } = useModalStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
     initialLikeCount: post?.postStats.likes!,
     postId,
   });
+
+  const { mutate: deletePost } = useDeletePost();
+
+  const handleDeletePost = () => {
+    open({
+      title: '게시글 삭제',
+      message: '정말로 게시글을 삭제하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      onConfirm: () => {
+        deletePost(postId, {
+          onSuccess: () => {
+            //TODO: query cache를 업데이트하고, navigate
+            navigate('/');
+          },
+          onError: (e) => {
+            console.log(e);
+          },
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -22,8 +50,21 @@ const PostContents = ({ postId }: Props) => {
       <Body>
         <pre>{post?.body}</pre>
       </Body>
-      <Author>Authored by {post?.user.username}</Author>
-
+      <Group>
+        <Author>Authored by {post?.user.username}</Author>
+        <ButtonsWrapper>
+          {user?.id === post?.user.id && (
+            <>
+              <Button shadow color="warning" size="sm">
+                수정
+              </Button>
+              <Button shadow color="error" size="sm" onClick={handleDeletePost}>
+                삭제
+              </Button>
+            </>
+          )}
+        </ButtonsWrapper>
+      </Group>
       {/* @TODO: add comment count components and reload query */}
       <LikeButtonWrapper>
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
@@ -50,21 +91,29 @@ const Body = styled.div`
 
 const Author = styled.div`
   display: flex;
-  justify-content: flex-end;
   font-size: 0.8rem;
   font-weight: 500;
   color: #999;
 `;
+const Group = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
 
 const LikeButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
   span {
     color: #999;
     font-size: 0.8rem;
   }
+  margin-bottom: 1rem;
 `;
 
 export default PostContents;
