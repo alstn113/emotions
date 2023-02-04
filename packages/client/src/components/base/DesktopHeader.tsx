@@ -16,7 +16,12 @@ const DesktopHeader = ({}: Props) => {
       <Logo to="/">Emotions</Logo>
       <HeaderItems>
         {user ? (
-          <HeaderDropdown />
+          <>
+            <Button shadow size="sm" onClick={() => navigate('/write')}>
+              Write Post
+            </Button>
+            <HeaderDropdown />
+          </>
         ) : (
           <Button
             shadow
@@ -57,6 +62,7 @@ const Logo = styled(Link)`
 const HeaderItems = styled.div`
   flex: 1;
   display: flex;
+  gap: 1rem;
   justify-content: flex-end;
   align-items: center;
 `;

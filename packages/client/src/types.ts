@@ -28,6 +28,7 @@ export interface Post {
   userId: string;
   user: User;
   comments: Comment[];
+  tags: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -67,6 +68,7 @@ export interface CreateRoomParams {
 export interface CreatePostParams {
   title: string;
   body: string;
+  tags?: string[];
 }
 
 export interface CreateCommentParams {

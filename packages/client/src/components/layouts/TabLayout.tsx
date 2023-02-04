@@ -5,7 +5,7 @@ import Footer from '~/components/base/Footer';
 import DesktopHeader from '../base/DesktopHeader';
 
 interface Props {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const TabLayout = ({ children }: Props) => {

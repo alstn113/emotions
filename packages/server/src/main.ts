@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from '~/app.module';
@@ -21,7 +21,14 @@ const bootstrap = async () => {
     credentials: true,
   });
   app.useWebSocketAdapter(new SocketIoAdapter(app));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // request에서 dto에 없는 값 제거
+      whitelist: true,
+      // dto에 있는 타입으로 변환
+      transform: true,
+    }),
+  );
   createDocumnet(app);
   await app.listen(PORT);
 

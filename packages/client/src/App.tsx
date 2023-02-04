@@ -1,5 +1,10 @@
 // react-router-dom
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
 
 // hooks
 import { useGetMe } from './hooks/queries/user';

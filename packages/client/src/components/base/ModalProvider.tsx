@@ -3,17 +3,17 @@ import useModalStore from '~/stores/useModalStore';
 import Modal from '~/components/common/Modal/Modal';
 
 const ModalProvider = () => {
-  const { config, close, visible } = useModalStore();
+  const { config, closeModal, visible } = useModalStore();
 
   const onCancel = useCallback(() => {
     config?.onCancel?.();
-    close();
-  }, [config, close]);
+    closeModal();
+  }, [config, closeModal]);
 
   const onConfirm = useCallback(() => {
     config?.onConfirm();
-    close();
-  }, [config, close]);
+    closeModal();
+  }, [config, closeModal]);
 
   return (
     <Modal

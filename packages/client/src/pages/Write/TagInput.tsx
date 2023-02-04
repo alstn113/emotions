@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
+import useWriteStore from '~/stores/useWriteStore';
 
 interface Props {}
 
 const TagInput = ({}: Props) => {
-  const [tags, setTags] = useState<string[]>([]);
+  const { tags, changeTags } = useWriteStore();
   const [value, setValue] = useState<string>('');
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,29 +15,35 @@ const TagInput = ({}: Props) => {
   const addTag = (tag: string) => {
     const trimedTag = tag.trim();
     if (trimedTag === '' || tags.includes(trimedTag)) return;
-    setTags([...tags, trimedTag]);
+    changeTags([...tags, trimedTag]);
     setValue('');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // 한글 이중 입력 무시
-    if (e.nativeEvent.isComposing) return;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      // 한글 이중 입력 무시
+      if (e.nativeEvent.isComposing) return;
 
-    if (e.key === 'Backspace' && value === '') {
-      setTags(tags.slice(0, -1)); // remove last tag
-      return;
-    }
+      if (e.key === 'Backspace' && value === '') {
+        changeTags(tags.slice(0, -1)); // remove last tag
+        return;
+      }
 
-    if (['Enter', ','].includes(e.key)) {
-      e.preventDefault();
-      addTag(value);
-    }
-  };
+      if (['Enter', ','].includes(e.key)) {
+        e.preventDefault();
+        addTag(value);
+      }
+    },
+    [addTag, changeTags, tags, value],
+  );
 
-  const handleRemoveTag = (tag: string) => {
-    const nextTags = tags.filter((t) => t !== tag);
-    setTags(nextTags);
-  };
+  const handleRemoveTag = useCallback(
+    (tag: string) => {
+      const nextTags = tags.filter((t) => t !== tag);
+      changeTags(nextTags);
+    },
+    [changeTags, tags],
+  );
 
   return (
     <Container>

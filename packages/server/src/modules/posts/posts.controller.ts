@@ -29,8 +29,8 @@ export class PostsController {
   @Public()
   @Get(':id')
   async getPost(
-    @Param('id') id: string,
     @GetCurrentUser('userId') userId: string | null,
+    @Param('id') id: string,
   ) {
     return this.postsService.getPost(id, userId);
   }

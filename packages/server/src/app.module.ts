@@ -1,10 +1,5 @@
 // nest config
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  ValidationPipe,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { PrismaModule } from './prisma/prisma.module';
@@ -16,7 +11,7 @@ import { AppService } from './app.service';
 import { JwtMiddleware } from './middlewares';
 
 // providers
-import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './common/guards';
 
 // main modules
@@ -26,6 +21,7 @@ import { EventsModule } from './modules/events/events.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 @Module({
   imports: [
@@ -43,14 +39,11 @@ import { CommentsModule } from './modules/comments/comments.module';
     RoomsModule,
     PostsModule,
     CommentsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_PIPE,
-      useClass: ValidationPipe,
-    },
     {
       provide: APP_GUARD,
       useClass: JwtGuard,

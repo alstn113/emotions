@@ -7,7 +7,7 @@ import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 
 const PublishScreen = () => {
-  const { title, body, isPublishScreenOpen, closePublishScreen } =
+  const { title, body, tags, isPublishScreenOpen, closePublishScreen } =
     useWriteStore();
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const PublishScreen = () => {
   const handleCreatePost = () => {
     if (!title || !body) return alert('제목과 내용을 입력해주세요');
     mutate(
-      { title, body },
+      { title, body, tags },
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());

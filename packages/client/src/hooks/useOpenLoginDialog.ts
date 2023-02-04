@@ -12,11 +12,11 @@ const messageMap = {
 const useOpenLoginDialog = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { open } = useModalStore();
+  const { openModal } = useModalStore();
   const openLoginDialog = useCallback(
     (type: keyof typeof messageMap) => {
       const message = messageMap[type];
-      open({
+      openModal({
         title: '로그인 후 이용해주세요.',
         message,
         confirmText: '로그인',
@@ -25,7 +25,7 @@ const useOpenLoginDialog = () => {
         onConfirm: () => navigate(`/setting?next=${location.pathname}`),
       });
     },
-    [open, navigate, location],
+    [openModal, navigate, location],
   );
 
   return openLoginDialog;

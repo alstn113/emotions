@@ -1,5 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @ApiTags('/posts')
 export class CreatePostDto {
@@ -12,4 +12,9 @@ export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
   body: string;
+
+  @ApiProperty({ nullable: true })
+  @IsArray()
+  @IsOptional()
+  tags?: string[];
 }

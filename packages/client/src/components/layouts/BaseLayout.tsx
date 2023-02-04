@@ -4,13 +4,20 @@ import MobileHeader from '~/components/base/MobileHeader';
 import DesktopHeader from '~/components/base/DesktopHeader';
 
 interface Props {
-  children: React.ReactNode;
+  backButton?: boolean;
+  title?: string;
+  headerRight?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const BaseLayout = ({ children }: Props) => {
+const BaseLayout = ({ children, backButton, headerRight, title }: Props) => {
   return (
     <FullHeightScreen>
-      <MobileHeader />
+      <MobileHeader
+        backButton={backButton}
+        headerRight={headerRight}
+        title={title}
+      />
       <DesktopHeader />
       <Content>{children}</Content>
     </FullHeightScreen>

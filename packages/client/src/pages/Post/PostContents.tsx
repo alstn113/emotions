@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import LikeButton from '~/components/base/LikeButton';
-import { useGetPost } from '~/hooks/queries/post';
+import { Button } from '~/components/common';
+import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
+import useUser from '~/hooks/useUser';
+import useModalStore from '~/stores/useModalStore';
+import { mediaQuery } from '~/styles';
 
 interface Props {
   postId: string;
@@ -9,21 +14,64 @@ interface Props {
 
 const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
-
+  const user = useUser();
+  const isMyPost = user?.id === post?.user.id;
+  const navigate = useNavigate();
+  const { openModal } = useModalStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
     initialLikeCount: post?.postStats.likes!,
     postId,
   });
 
+  const { mutate: deletePost } = useDeletePost();
+
+  const handleDeletePost = () => {
+    openModal({
+      title: '게시글 삭제',
+      message: '정말로 게시글을 삭제하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      onConfirm: () => {
+        deletePost(postId, {
+          onSuccess: () => {
+            //TODO: query cache를 업데이트하고, navigate
+            navigate('/');
+          },
+          onError: (e) => {
+            console.log(e);
+          },
+        });
+      },
+    });
+  };
+
   return (
     <>
       <Title>{post?.title}</Title>
+      <TagList>
+        {post?.tags.map((tag) => {
+          return <div key={tag}>{tag}</div>;
+        })}
+      </TagList>
       <Body>
         <pre>{post?.body}</pre>
       </Body>
-      <Author>Authored by {post?.user.username}</Author>
-
+      <Group>
+        <Author>Authored by {post?.user.username}</Author>
+        {isMyPost ? (
+          <ButtonsWrapper>
+            <Button shadow color="warning" size="sm">
+              수정
+            </Button>
+            <Button shadow color="error" size="sm" onClick={handleDeletePost}>
+              삭제
+            </Button>
+          </ButtonsWrapper>
+        ) : (
+          <></>
+        )}
+      </Group>
       {/* @TODO: add comment count components and reload query */}
       <LikeButtonWrapper>
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
@@ -39,6 +87,23 @@ const Title = styled.div`
   font-weight: 900;
 `;
 
+const TagList = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    border-radius: 0.8rem;
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+  }
+`;
+
 const Body = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
@@ -50,21 +115,33 @@ const Body = styled.div`
 
 const Author = styled.div`
   display: flex;
-  justify-content: flex-end;
   font-size: 0.8rem;
   font-weight: 500;
   color: #999;
 `;
+const Group = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+const ButtonsWrapper = styled.div`
+  display: none;
+  gap: 0.5rem;
+
+  ${mediaQuery.mobile} {
+    display: flex;
+  }
+`;
 
 const LikeButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
   span {
     color: #999;
     font-size: 0.8rem;
   }
+  margin-bottom: 1rem;
 `;
 
 export default PostContents;

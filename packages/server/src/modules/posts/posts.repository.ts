@@ -55,6 +55,17 @@ export class PostsRepository {
       data: {
         title: dto.title,
         body: dto.body,
+        // connectOrCreate: if tag exists, connect to it, otherwise create it
+        tags: {
+          create: dto.tags?.map((tag) => ({
+            tag: {
+              connectOrCreate: {
+                where: { name: tag },
+                create: { name: tag },
+              },
+            },
+          })),
+        },
         userId,
       },
       ...postSelector(),
@@ -130,6 +141,15 @@ const postSelector = (userId: string | null = null) => {
           id: true,
           username: true,
           displayName: true,
+        },
+      },
+      tags: {
+        select: {
+          tag: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
       postStats: postStatsSelector,
