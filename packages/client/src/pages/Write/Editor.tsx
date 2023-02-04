@@ -4,6 +4,7 @@ import useWriteStore from '~/stores/useWriteStore';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import TagInput from './TagInput';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
@@ -19,6 +20,7 @@ const Editor = () => {
           onChange={(e) => changeTitle(e.target.value)}
           maxRows={2}
         />
+        <TagInput />
       </EditorHeader>
       <EditorBody>
         <PostBody
@@ -78,7 +80,7 @@ const EditorBody = styled.div`
 `;
 
 const PostBody = styled.textarea`
-  padding: 3rem;
+  padding: 1rem 3rem;
   background: transparent;
   display: block;
   font-size: 1.2rem;
