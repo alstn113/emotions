@@ -49,6 +49,11 @@ const PostContents = ({ postId }: Props) => {
   return (
     <>
       <Title>{post?.title}</Title>
+      <TagList>
+        {post?.tags.map((tag) => {
+          return <div key={tag}>{tag}</div>;
+        })}
+      </TagList>
       <Body>
         <pre>{post?.body}</pre>
       </Body>
@@ -80,6 +85,23 @@ const Title = styled.div`
   font-size: 2rem;
   line-height: 1.5;
   font-weight: 900;
+`;
+
+const TagList = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    border-radius: 0.8rem;
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+  }
 `;
 
 const Body = styled.div`
