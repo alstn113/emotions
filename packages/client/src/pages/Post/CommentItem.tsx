@@ -30,7 +30,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   const queryClient = useQueryClient();
   const user = useUser();
   const [isReplying, setIsReplying] = useState(false);
-  const { open } = useModalStore();
+  const { openModal } = useModalStore();
   const { isLiked, likeCount, toggleLike } = useCommnetLikeManager({
     commentId: comment.id,
     initialIsLiked: comment.isLiked,
@@ -78,7 +78,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
         icon: <Trash />,
         name: '삭제',
         onClick: () =>
-          open({
+          openModal({
             title: '댓글 삭제',
             message: '정말로 댓글을 삭제하시겠습니까?',
             confirmText: '확인',
@@ -87,7 +87,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
           }),
       },
     ],
-    [handleDelete, comment.id, open],
+    [handleDelete, comment.id, openModal],
   );
 
   // if comment is deleted

@@ -24,7 +24,7 @@ interface Props {
 
 const MoreVertMenu = ({ items }: Props) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { open } = useBottomSheetStore();
+  const { openBottomSheet } = useBottomSheetStore();
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useOnClickOutside(triggerRef, onClose);
@@ -35,7 +35,7 @@ const MoreVertMenu = ({ items }: Props) => {
 
   const handleButtonClick = () => {
     if (isOpen) return onClose();
-    if (isMobile()) return open(items);
+    if (isMobile()) return openBottomSheet(items);
     return onOpen();
   };
 

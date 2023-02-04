@@ -16,20 +16,20 @@ type States = {
 };
 
 type Actions = {
-  close: () => void;
-  open: (config: ModalConfig) => void;
+  closeModal: () => void;
+  openModal: (config: ModalConfig) => void;
 };
 
 const useModalStore = create<States & Actions>((set) => ({
   visible: false,
   config: null,
-  close: () =>
+  closeModal: () =>
     set(
       produce((draft: States) => {
         draft.visible = false;
       }),
     ),
-  open: (config) =>
+  openModal: (config) =>
     set(
       produce((draft: States) => {
         draft.visible = true;

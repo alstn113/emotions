@@ -17,7 +17,7 @@ const PostContents = ({ postId }: Props) => {
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
   const navigate = useNavigate();
-  const { open } = useModalStore();
+  const { openModal } = useModalStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
     initialLikeCount: post?.postStats.likes!,
@@ -27,7 +27,7 @@ const PostContents = ({ postId }: Props) => {
   const { mutate: deletePost } = useDeletePost();
 
   const handleDeletePost = () => {
-    open({
+    openModal({
       title: '게시글 삭제',
       message: '정말로 게시글을 삭제하시겠습니까?',
       confirmText: '확인',

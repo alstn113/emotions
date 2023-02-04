@@ -13,21 +13,21 @@ type States = {
 };
 
 type Actions = {
-  open: (items: item[]) => void;
-  onCancel: () => void;
+  openBottomSheet: (items: item[]) => void;
+  closeBottomSheet: () => void;
 };
 
 const useBottomSheetStore = create<States & Actions>((set) => ({
   visible: false,
   items: [],
-  open: (items) =>
+  openBottomSheet: (items) =>
     set(
       produce((draft: States) => {
         draft.visible = true;
         draft.items = items;
       }),
     ),
-  onCancel: () =>
+  closeBottomSheet: () =>
     set(
       produce((draft: States) => {
         draft.visible = false;
