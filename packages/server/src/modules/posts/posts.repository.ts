@@ -143,6 +143,15 @@ const postSelector = (userId: string | null = null) => {
           displayName: true,
         },
       },
+      tags: {
+        select: {
+          tag: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
       postStats: postStatsSelector,
       postLikes: userId ? { where: { userId } } : false,
     },

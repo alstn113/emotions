@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   Query,
-  ParseArrayPipe,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';

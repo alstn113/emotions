@@ -28,6 +28,7 @@ export interface Post {
   userId: string;
   user: User;
   comments: Comment[];
+  tags: string[];
   createdAt: string;
   updatedAt: string;
 }

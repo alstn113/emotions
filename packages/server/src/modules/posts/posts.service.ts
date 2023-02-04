@@ -34,6 +34,7 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto, userId: string) {
     const post = await this.postRepository.createPost(dto, userId);
+    typeof post;
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };
@@ -41,11 +42,22 @@ export class PostsService {
     return this.serializePost(postWithStats);
   }
 
-  private serializePost<T extends Post & { postLikes?: PostLike[] }>(post: T) {
+  private serializePost<
+    T extends Post & {
+      postLikes?: PostLike[];
+      tags: {
+        tag: {
+          name: string;
+        };
+      }[];
+    },
+  >(post: T) {
     const serializedPost = {
       ...post,
       isLiked: !!post.postLikes?.length,
+      tags: post.tags.map((t) => t.tag.name),
     };
+
     delete serializedPost.postLikes;
 
     return serializedPost;
