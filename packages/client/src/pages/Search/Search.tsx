@@ -1,19 +1,10 @@
 import styled from '@emotion/styled';
 import TabLayout from '~/components/layouts/TabLayout';
-import { Button } from '~/components/common';
-import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 
 const Search = () => {
-  const openLoginDialog = useOpenLoginDialog();
-
   return (
     <TabLayout>
-      <Container>
-        Search
-        <Button shadow onClick={openLoginDialog}>
-          Dialog
-        </Button>
-      </Container>
+      <Container>Search</Container>
     </TabLayout>
   );
 };
