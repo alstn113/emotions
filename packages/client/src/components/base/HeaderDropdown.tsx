@@ -48,9 +48,6 @@ const HeaderDropdown = () => {
             <MenuItem onClick={() => naviagate('/')}>
               <MenuItemText>Posts</MenuItemText>
             </MenuItem>
-            <MenuItem onClick={() => naviagate('/write')}>
-              <MenuItemText>Write Post</MenuItemText>
-            </MenuItem>
             <MenuItem onClick={() => naviagate('/room')}>
               <MenuItemText>Rooms</MenuItemText>
             </MenuItem>
