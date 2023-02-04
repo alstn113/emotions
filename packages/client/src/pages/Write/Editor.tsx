@@ -64,7 +64,7 @@ const PostTitle = styled(TextareaAutosize)`
   font-size: 2.5rem;
   width: 100%;
   resize: none;
-  line-height: 1.5;
+  line-height: 1.2;
   outline: none;
   border: none;
   font-weight: bold;

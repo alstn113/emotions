@@ -38,6 +38,7 @@ const Title = styled.h1`
   display: flex;
   align-items: center;
   font-size: 2.5em;
+  line-height: 1.2;
   font-weight: 800;
   margin-bottom: 3rem;
 `;
