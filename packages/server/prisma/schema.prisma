@@ -74,10 +74,11 @@ model Post {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
   comments  Comment[]
   postLikes PostLike[]
+  tags      PostsOnTags[]
   postStats PostStats?
 }
 
@@ -141,4 +142,20 @@ model CommentLike {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@unique([commentId, userId])
+}
+
+model Tag {
+  id    String        @id() @default(uuid())
+  name  String        @unique
+  posts PostsOnTags[]
+}
+
+model PostsOnTags {
+  postId String
+  tagId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
 }
