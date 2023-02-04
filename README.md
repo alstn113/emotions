@@ -25,7 +25,7 @@
 - Client: React(Vite)
 - Server: Nest
 
-## `배포 주소` (예정 / 지금은 다른 거 있음)
+## `배포 주소`
 
 - client: <https://wap-dev.store>
 - server: <https://api.wap-dev.store>
