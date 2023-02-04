@@ -53,7 +53,7 @@
   </tr>
   <tr>
     <td colspan="2"> 
-      <img width="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/216763457-b649b3c1-34bf-48d3-9e90-f1c19932f49f.png">
+      <img height="400px" alt="image" src="https://user-images.githubusercontent.com/75781414/216763457-b649b3c1-34bf-48d3-9e90-f1c19932f49f.png">
     </td>
   </tr>
 </table>
