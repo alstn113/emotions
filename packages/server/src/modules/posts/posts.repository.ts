@@ -57,7 +57,7 @@ export class PostsRepository {
         body: dto.body,
         // connectOrCreate: if tag exists, connect to it, otherwise create it
         tags: {
-          create: dto.tags.map((tag) => ({
+          create: dto.tags?.map((tag) => ({
             tag: {
               connectOrCreate: {
                 where: { name: tag },
