@@ -26,6 +26,7 @@ import { EventsModule } from './modules/events/events.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { CommentsModule } from './modules/comments/comments.module';
     RoomsModule,
     PostsModule,
     CommentsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [

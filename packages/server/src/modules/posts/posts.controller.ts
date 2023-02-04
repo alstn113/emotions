@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Query,
+  ParseArrayPipe,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -29,9 +30,11 @@ export class PostsController {
   @Public()
   @Get(':id')
   async getPost(
-    @Param('id') id: string,
     @GetCurrentUser('userId') userId: string | null,
+    @Param('id') id: string,
+    @Param('tags', ParseArrayPipe) tags?: string[],
   ) {
+    console.log(tags);
     return this.postsService.getPost(id, userId);
   }
 

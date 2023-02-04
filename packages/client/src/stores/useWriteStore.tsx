@@ -5,6 +5,7 @@ type States = {
   // write form
   title: string;
   body: string;
+  tags: string[];
 
   // publish modal
   isPublishScreenOpen: boolean;
@@ -16,6 +17,7 @@ type Actions = {
   // write form
   changeTitle: (title: string) => void;
   changeBody: (body: string) => void;
+  changeTags: (tags: string[]) => void;
 
   // publish modal
   openPublishScreen: () => void;
@@ -25,6 +27,7 @@ type Actions = {
 const initialState: States = {
   title: '',
   body: '',
+  tags: [],
   isPublishScreenOpen: false,
 };
 
@@ -44,6 +47,12 @@ const useWriteStore = create<States & Actions>((set) => ({
     set(
       produce((draft) => {
         draft.body = body;
+      }),
+    ),
+  changeTags: (tags: string[]) =>
+    set(
+      produce((draft) => {
+        draft.tags = tags;
       }),
     ),
 

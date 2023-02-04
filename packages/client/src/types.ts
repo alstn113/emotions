@@ -67,6 +67,7 @@ export interface CreateRoomParams {
 export interface CreatePostParams {
   title: string;
   body: string;
+  tags?: string[];
 }
 
 export interface CreateCommentParams {
