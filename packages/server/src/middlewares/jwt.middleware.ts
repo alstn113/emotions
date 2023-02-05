@@ -42,11 +42,11 @@ export class JwtMiddleware implements NestMiddleware {
   }
 }
 
-declare module 'Express' {
-  interface Request {
-    user: {
-      userId: string;
-      username: string;
-    } | null;
-  }
-}
+// declare module 'Express' {
+//   interface Request {
+//     user: {
+//       userId: string;
+//       username: string;
+//     } | null;
+//   }
+// }
