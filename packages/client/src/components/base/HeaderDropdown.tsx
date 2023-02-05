@@ -11,7 +11,7 @@ import useLogout from '~/hooks/useLogout';
 // components
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { zIndexes } from '~/styles';
 import { Button } from '../common';
 import { User } from '../vectors';
@@ -24,9 +24,17 @@ const HeaderDropdown = () => {
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   useOnClickOutside(triggerRef, onClose);
+  const itemVariants: Variants = {
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 300, damping: 24 },
+    },
+    closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+  };
 
   return (
-    <>
+    <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'}>
       <DropdownButton
         shadow
         color="success"
@@ -37,30 +45,42 @@ const HeaderDropdown = () => {
         <User />
         {user?.username}
       </DropdownButton>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <DropdownMenu
-            initial={{ scale: 0.9, opacity: 0.2 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: 'spring', bounce: 0.3, duration: 0.3 }}
-          >
-            <MenuItem onClick={() => naviagate('/')}>
-              <MenuItemText>Posts</MenuItemText>
-            </MenuItem>
-            <MenuItem onClick={() => naviagate('/room')}>
-              <MenuItemText>Rooms</MenuItemText>
-            </MenuItem>
-            <MenuItem onClick={() => naviagate('/setting')}>
-              <MenuItemText>Setting</MenuItemText>
-            </MenuItem>
-            <MenuItem onClick={logout} red>
-              <MenuItemText>Logout</MenuItemText>
-            </MenuItem>
-          </DropdownMenu>
-        )}
-      </AnimatePresence>
-    </>
+      <DropdownMenu
+        variants={{
+          open: {
+            scale: 1,
+            transition: {
+              type: 'spring',
+              bounce: 0,
+              duration: 0.7,
+              delayChildren: 0.3,
+              staggerChildren: 0.05,
+            },
+          },
+          closed: {
+            scale: 0,
+            transition: {
+              type: 'spring',
+              bounce: 0,
+              duration: 0.3,
+            },
+          },
+        }}
+      >
+        <MenuItem variants={itemVariants} onClick={() => naviagate('/')}>
+          <MenuItemText>Posts</MenuItemText>
+        </MenuItem>
+        <MenuItem variants={itemVariants} onClick={() => naviagate('/room')}>
+          <MenuItemText>Rooms</MenuItemText>
+        </MenuItem>
+        <MenuItem variants={itemVariants} onClick={() => naviagate('/setting')}>
+          <MenuItemText>Setting</MenuItemText>
+        </MenuItem>
+        <MenuItem variants={itemVariants} onClick={logout} red>
+          <MenuItemText>Logout</MenuItemText>
+        </MenuItem>
+      </DropdownMenu>
+    </motion.nav>
   );
 };
 
@@ -79,7 +99,7 @@ const DropdownMenu = styled(motion.div)`
   top: 60px;
   right: 10px;
   // 기준점
-  transform-origin: right top;
+  transform-origin: 70% top;
   margin-top: 0.5rem;
   padding: 8px;
   background: #26292b;
@@ -87,7 +107,7 @@ const DropdownMenu = styled(motion.div)`
   z-index: ${zIndexes.popper};
 `;
 
-const MenuItem = styled.button<{ red?: boolean }>`
+const MenuItem = styled(motion.button)<{ red?: boolean }>`
   display: flex;
   flex-direction: column;
   min-width: 200px;
