@@ -9,30 +9,35 @@ const PostCardSkeleton = () => {
         <Thumbnail />
       </CardHeader>
       <CardBody>
-        <h3>aaa</h3>
-        <p>aaa</p>
+        <h3></h3>
+        <p></p>
+        <TagList>
+          {[1, 2, 3].map((tag) => (
+            <div key={tag}></div>
+          ))}
+        </TagList>
       </CardBody>
       <CardFooter>
         <PostStatsWrapper>
-          <div>aaa</div>
-          <div>aaa</div>
+          <div></div>
+          <div></div>
         </PostStatsWrapper>
-        <Author>aaa</Author>
+        <Author></Author>
       </CardFooter>
     </Card>
   );
 };
 
-const shine = keyframes`  
-    0% {
-      opacity: 0.4;    
-    }
-    50% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 0.4;
-    }
+const shine = keyframes`
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
 `;
 
 const Card = styled.div`
@@ -42,55 +47,52 @@ const Card = styled.div`
   background: #fff;
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-  transition: all 0.2s ease 0s;
-  &:hover {
-    box-shadow: rgb(0 0 0 / 12%) 0px 8px 32px 0px;
-    transform: translateY(-6px);
-  }
 `;
 
 const CardHeader = styled.div``;
 
 const Thumbnail = styled.div`
   width: 100%;
-  height: 250px;
-  animation: ${shine} 1.2s infinite ease-in-out;
-  background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
+  height: 200px;
+  background: rgba(0, 0, 0, 0.1);
+  animation: ${shine} 1.5s infinite;
 `;
 
 const CardBody = styled.div`
   padding: 1rem;
   h3 {
-    font-size: 16px;
-    line-height: 16px;
-    font-weight: 600;
     margin-bottom: 0.5rem;
-
-    // 3줄까지만 보이게
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1; // 라인수 1
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    line-height: 1.2rem;
-    height: 1.2rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 1 = 1.2rem
+    height: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    animation: ${shine} 1.5s infinite;
   }
   p {
-    margin: 0px 0px 1.5rem;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    height: 3.9375rem;
+    margin-bottom: 1rem;
+    height: 3.6rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    animation: ${shine} 1.5s infinite;
+  }
+`;
 
-    // 3줄까지만 보이게
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; // 라인수 3
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    line-height: 1.2rem;
-    height: 3.6rem; // line-height 가 1.2rem 이고 3라인을 자르기 때문에 height는 1.2rem * 3 = 3.6
+const TagList = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  height: 2rem;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    height: 2rem;
+    width: 4rem;
+    border-radius: 0.8rem;
+    background: rgba(0, 0, 0, 0.1);
+    animation: ${shine} 1.5s infinite;
   }
 `;
 
@@ -107,9 +109,11 @@ const PostStatsWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
   div {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: #999;
+    height: 0.7rem;
+    width: 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    animation: ${shine} 1.5s infinite;
   }
 `;
 
@@ -117,8 +121,11 @@ const Author = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  font-size: 0.7rem;
-  line-height: 0.7rem;
+  height: 0.7rem;
+  width: 3rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  animation: ${shine} 1.5s infinite;
 `;
 
 export default PostCardSkeleton;

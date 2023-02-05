@@ -36,6 +36,9 @@ export const GlobalStyle = () => {
           body {
             font-family: 'Roboto', sans-serif;
           }
+          * {
+            -webkit-tap-highlight-color: transparent !important;
+          }
         `}
       />
     </>

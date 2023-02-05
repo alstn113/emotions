@@ -77,7 +77,6 @@ const CardBody = styled(Link)`
     margin-bottom: 1rem;
     font-size: 0.875rem;
     line-height: 1.5;
-    height: 3.9375rem;
 
     // 3줄까지만 보이게
     overflow: hidden;
@@ -98,6 +97,7 @@ const TagList = styled.div`
   gap: 0.5rem;
   white-space: nowrap;
   overflow-y: scroll;
+  height: 2rem;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
