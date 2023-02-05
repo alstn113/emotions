@@ -71,7 +71,6 @@ const PostContents = ({ postId }: Props) => {
           <></>
         )}
       </Group>
-      {/* @TODO: add comment count components and reload query */}
       <LikeButtonWrapper>
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
         <span>좋아요 {likeCount.toLocaleString()}개</span>

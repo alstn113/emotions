@@ -17,6 +17,8 @@ import useUser from '~/hooks/useUser';
 import { MenuDots, Pencil, Trash } from '~/components/vectors';
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import useModalStore from '~/stores/useModalStore';
+import PostContentsSkeleton from './PostContentsSkeleton';
+import CommentListSkeleton from './CommentListSkeleton';
 
 const Post = () => {
   const { postId } = useParams() as { postId: string };
@@ -79,6 +81,7 @@ const Post = () => {
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }
+          pendingFallback={<PostContentsSkeleton />}
         >
           <PostContents postId={postId} />
         </AsyncBoundary>
@@ -90,6 +93,7 @@ const Post = () => {
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }
+          pendingFallback={<CommentListSkeleton />}
         >
           <CommentList postId={postId} />
         </AsyncBoundary>
