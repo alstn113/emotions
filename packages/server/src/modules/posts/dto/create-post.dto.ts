@@ -13,6 +13,11 @@ export class CreatePostDto {
   @IsNotEmpty()
   body: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  thumbnail?: string;
+
   @ApiProperty({ nullable: true })
   @IsOptional()
   @IsArray()

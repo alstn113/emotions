@@ -1,16 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '~/prisma/prisma.service';
-import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsRepository {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly s3Service: S3Service,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findPosts(cursor: string | null, userId: string | null) {
     const [totalCount, list] = await Promise.all([
@@ -56,18 +50,12 @@ export class PostsRepository {
     });
   }
 
-  async createPost(
-    dto: CreatePostDto,
-    userId: string,
-    file?: Express.Multer.File,
-  ) {
-    const thumbnail = file ? await this.createImage(file) : null;
+  async createPost(dto: CreatePostDto, userId: string) {
     return await this.prisma.post.create({
       data: {
         title: dto.title,
         body: dto.body,
-        // thumbnail url: if file exists, create image, otherwise null
-        thumbnail,
+        thumbnail: dto.thumbnail,
         // connectOrCreate: if tag exists, connect to it, otherwise create it
         tags: {
           create: dto.tags?.map((tag) => ({
@@ -83,13 +71,6 @@ export class PostsRepository {
       },
       ...postSelector(),
     });
-  }
-
-  async createImage(file: Express.Multer.File) {
-    const filename = `${Date.now()}-${file.originalname}`;
-    const bucket = this.configService.get<string>('AWS_S3_BUCKET');
-    await this.s3Service.pubObject(file, filename);
-    return `https://${bucket}.s3.amazonaws.com/${filename}`;
   }
 
   async createPostStats(postId: string) {
@@ -124,16 +105,6 @@ export class PostsRepository {
       where: { id },
       ...postSelector(),
     });
-  }
-
-  async deleteImage(thumbnail: string) {
-    const bucket = this.configService.get<string>('AWS_S3_BUCKET');
-    const filename = thumbnail.replace(
-      `https://${bucket}.s3.amazonaws.com/`,
-      '',
-    );
-
-    await this.s3Service.deleteObject(filename);
   }
 
   async deletePostLike(postId: string, userId: string) {

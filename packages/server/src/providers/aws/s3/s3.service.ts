@@ -20,7 +20,7 @@ export class S3Service {
     this.bucket = this.configService.get<string>('AWS_S3_BUCKET');
   }
 
-  async pubObject(file: Express.Multer.File, filename: string) {
+  async pubObject(filename: string, file: Express.Multer.File) {
     const command = new PutObjectCommand({
       Bucket: this.bucket,
       Key: filename,
