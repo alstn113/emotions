@@ -109,6 +109,7 @@ importers:
       '@prisma/client': ^4.8.1
       '@types/cookie-parser': ^1.4.3
       '@types/express': ^4.17.13
+      '@types/multer': ^1.4.7
       '@types/node': ^16.0.0
       '@types/passport-github2': ^1.2.5
       '@types/passport-jwt': ^3.0.8
@@ -161,6 +162,7 @@ importers:
       '@nestjs/schematics': 9.0.4
       '@nestjs/testing': 9.2.1_wdbvfsxfdwzlwdfiyh2gynjl4m
       '@types/express': 4.17.15
+      '@types/multer': 1.4.7
       '@types/node': 16.18.11
       '@types/passport-github2': 1.2.5
       '@types/passport-jwt': 3.0.8
@@ -3293,6 +3295,12 @@ packages:
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/multer/1.4.7:
+    resolution: {integrity: sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==}
+    dependencies:
+      '@types/express': 4.17.15
     dev: true
 
   /@types/node/16.18.11:
