@@ -25,6 +25,7 @@ export interface Post {
   id: string;
   title: string;
   body: string;
+  thumbnail?: string;
   userId: string;
   user: User;
   comments: Comment[];
@@ -68,6 +69,7 @@ export interface CreateRoomParams {
 export interface CreatePostParams {
   title: string;
   body: string;
+  thumbnail?: string;
   tags?: string[];
 }
 
