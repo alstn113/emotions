@@ -32,9 +32,12 @@ export class PostsService {
     return this.serializePost(post);
   }
 
-  async createPost(dto: CreatePostDto, userId: string) {
-    const post = await this.postRepository.createPost(dto, userId);
-    typeof post;
+  async createPost(
+    dto: CreatePostDto,
+    userId: string,
+    file?: Express.Multer.File,
+  ) {
+    const post = await this.postRepository.createPost(dto, userId, file);
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };
@@ -93,6 +96,8 @@ export class PostsService {
     const post = await this.getPost(id);
     if (post.userId !== userId)
       throw new HttpException('You are not the author of this post', 403);
+
+    await this.postRepository.deleteImage(post.thumbnail);
     await this.postRepository.deletePost(id);
   }
 
