@@ -53,6 +53,7 @@ const PostContents = ({ postId }: Props) => {
           return <div key={tag}>{tag}</div>;
         })}
       </TagList>
+      {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
       <Body>
         <pre>{post?.body}</pre>
       </Body>
@@ -100,6 +101,14 @@ const TagList = styled.div`
     background: rgba(0, 0, 0, 0.1);
     color: #000;
   }
+`;
+
+const Thumbnail = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
 `;
 
 const Body = styled.div`
