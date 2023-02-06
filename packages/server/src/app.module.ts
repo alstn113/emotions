@@ -15,13 +15,17 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtGuard } from './common/guards';
 
 // main modules
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
-import { EventsModule } from './modules/events/events.module';
-import { RoomsModule } from './modules/rooms/rooms.module';
-import { PostsModule } from './modules/posts/posts.module';
-import { CommentsModule } from './modules/comments/comments.module';
-import { TagsModule } from './modules/tags/tags.module';
+import {
+  AuthModule,
+  UsersModule,
+  EventsModule,
+  RoomsModule,
+  PostsModule,
+  CommentsModule,
+  TagsModule,
+} from './modules';
+// provider modules
+import { S3Module } from './providers';
 
 @Module({
   imports: [
@@ -40,6 +44,8 @@ import { TagsModule } from './modules/tags/tags.module';
     PostsModule,
     CommentsModule,
     TagsModule,
+    // provider modules
+    S3Module,
   ],
   controllers: [AppController],
   providers: [
