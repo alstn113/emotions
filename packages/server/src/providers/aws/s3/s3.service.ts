@@ -11,28 +11,28 @@ export class S3Service {
   bucket: string;
   constructor(private readonly configService: ConfigService) {
     this.s3Client = new S3Client({
-      region: this.configService.get<string>('S3_REGION'),
+      region: this.configService.get<string>('AWS_S3_REGION'),
       credentials: {
-        accessKeyId: this.configService.get<string>('S3_ACCESS_KEY'),
-        secretAccessKey: this.configService.get<string>('S3_SECRET_KEY'),
+        accessKeyId: this.configService.get<string>('AWS_S3_ACCESS_KEY'),
+        secretAccessKey: this.configService.get<string>('AWS_S3_SECRET_KEY'),
       },
     });
-    this.bucket = this.configService.get<string>('S3_BUCKET');
+    this.bucket = this.configService.get<string>('AWS_S3_BUCKET');
   }
 
-  async pubObject(file: Express.Multer.File, key: string) {
+  async pubObject(file: Express.Multer.File, filename: string) {
     const command = new PutObjectCommand({
       Bucket: this.bucket,
-      Key: key,
+      Key: filename,
       Body: file.buffer,
     });
     return await this.s3Client.send(command);
   }
 
-  async deleteObject(key: string) {
+  async deleteObject(filename: string) {
     const command = new DeleteObjectCommand({
       Bucket: this.bucket,
-      Key: key,
+      Key: filename,
     });
     return await this.s3Client.send(command);
   }

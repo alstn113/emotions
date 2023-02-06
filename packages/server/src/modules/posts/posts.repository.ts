@@ -132,6 +132,7 @@ export class PostsRepository {
       `https://${bucket}.s3.amazonaws.com/`,
       '',
     );
+
     await this.s3Service.deleteObject(filename);
   }
 

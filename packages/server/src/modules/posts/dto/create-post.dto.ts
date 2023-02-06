@@ -14,7 +14,7 @@ export class CreatePostDto {
   body: string;
 
   @ApiProperty({ nullable: true })
-  @IsArray()
   @IsOptional()
+  @IsArray()
   tags?: string[];
 }

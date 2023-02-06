@@ -4,6 +4,7 @@ import { PostsController } from './posts.controller';
 import { PostsRepository } from './posts.repository';
 import { CommentsRepository } from '../comments/comments.repository';
 import { CommentsService } from '../comments/comments.service';
+import { S3Service } from '~/providers/aws/s3/s3.service';
 
 @Module({
   controllers: [PostsController],
@@ -12,6 +13,7 @@ import { CommentsService } from '../comments/comments.service';
     PostsRepository,
     CommentsService,
     CommentsRepository,
+    S3Service,
   ],
 })
 export class PostsModule {}

@@ -12,7 +12,7 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multerOptions from '~/utils/multerOptions';
 import { GetPostsQueryDto } from './dto/get-post-query.dto';
@@ -50,13 +50,28 @@ export class PostsController {
   }
 
   @Post()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        body: { type: 'string' },
+        tags: { type: 'array', items: { type: 'string' } },
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createPost(
     @Body() dto: CreatePostDto,
     @GetCurrentUser('userId') userId: string,
-    @UploadedFile() thumbnail?: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ) {
-    return await this.postsService.createPost(dto, userId, thumbnail);
+    return await this.postsService.createPost(dto, userId, file);
   }
 
   @Post(':id/likes')
