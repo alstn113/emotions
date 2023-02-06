@@ -55,6 +55,7 @@ export class PostsRepository {
       data: {
         title: dto.title,
         body: dto.body,
+        thumbnail: dto.thumbnail,
         // connectOrCreate: if tag exists, connect to it, otherwise create it
         tags: {
           create: dto.tags?.map((tag) => ({

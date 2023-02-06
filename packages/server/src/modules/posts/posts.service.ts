@@ -1,5 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Post, PostLike } from '@prisma/client';
+import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsRepository } from './posts.repository';
@@ -9,6 +11,8 @@ export class PostsService {
   constructor(
     private readonly postRepository: PostsRepository,
     private readonly commentsService: CommentsService,
+    private readonly configService: ConfigService,
+    private readonly s3Service: S3Service,
   ) {}
   async getPosts(cursor: string | null, userId: string | null) {
     const { totalCount, endCursor, hasNextPage, list } =
@@ -34,7 +38,6 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto, userId: string) {
     const post = await this.postRepository.createPost(dto, userId);
-    typeof post;
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };
@@ -93,10 +96,29 @@ export class PostsService {
     const post = await this.getPost(id);
     if (post.userId !== userId)
       throw new HttpException('You are not the author of this post', 403);
+
+    await this.deleteImage(post.thumbnail);
     await this.postRepository.deletePost(id);
   }
 
   async getPostComments(id: string, userId: string | null) {
     return await this.commentsService.getComments(id, userId);
+  }
+
+  async uploadImage(file: Express.Multer.File) {
+    const filename = `${Date.now()}-${file.originalname}`;
+    const bucket = this.configService.get<string>('AWS_S3_BUCKET');
+    await this.s3Service.pubObject(filename, file);
+    return `https://${bucket}.s3.amazonaws.com/${filename}`;
+  }
+
+  async deleteImage(thumbnail: string) {
+    const bucket = this.configService.get<string>('AWS_S3_BUCKET');
+    const filename = thumbnail.replace(
+      `https://${bucket}.s3.amazonaws.com/`,
+      '',
+    );
+    await this.s3Service.deleteObject(filename);
+    return filename;
   }
 }

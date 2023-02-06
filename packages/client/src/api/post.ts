@@ -46,6 +46,18 @@ const PostAPI = {
     const { data } = await apiClient.delete(`${API.POST}/${id}/likes`);
     return data;
   },
+
+  uploadImage: async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const { data } = await apiClient.post(`${API.POST}/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return data;
+  },
 };
 
 export default PostAPI;

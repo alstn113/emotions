@@ -11,7 +11,7 @@ const PostCard = ({ post }: Props) => {
   return (
     <Card>
       <CardHeader to={`/post/${post.id}`}>
-        <Thumbnail />
+        <Thumbnail src={post.thumbnail} />
       </CardHeader>
       <CardBody to={`/post/${post.id}`}>
         <h3>{post.title}</h3>
@@ -49,9 +49,10 @@ const Card = styled.div`
 
 const CardHeader = styled(Link)``;
 
-const Thumbnail = styled.div`
+const Thumbnail = styled.img`
   width: 100%;
   height: 200px;
+  object-fit: cover;
   background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
 `;
 

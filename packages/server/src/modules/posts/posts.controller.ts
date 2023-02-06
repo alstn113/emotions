@@ -6,11 +6,16 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerOptions from '~/utils/multerOptions';
+import { GetPostsQueryDto } from './dto/get-post-query.dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -20,10 +25,10 @@ export class PostsController {
   @Public()
   @Get()
   async getPosts(
-    @Query('cursor') cursor: string | null,
+    @Query() dto: GetPostsQueryDto,
     @GetCurrentUser('userId') userId: string | null,
   ) {
-    return await this.postsService.getPosts(cursor ?? null, userId ?? null);
+    return await this.postsService.getPosts(dto.cursor ?? null, userId ?? null);
   }
 
   @Public()
@@ -45,6 +50,7 @@ export class PostsController {
   }
 
   @Post()
+  @UseInterceptors(FileInterceptor('file', multerOptions))
   async createPost(
     @Body() dto: CreatePostDto,
     @GetCurrentUser('userId') userId: string,
@@ -74,5 +80,11 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<void> {
     return await this.postsService.deletePost(id, userId);
+  }
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+    return await this.postsService.uploadImage(file);
   }
 }
