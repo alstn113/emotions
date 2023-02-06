@@ -6,11 +6,14 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerOptions from '~/utils/multerOptions';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -45,6 +48,7 @@ export class PostsController {
   }
 
   @Post()
+  // @UseInterceptors(FileInterceptor('file', multerOptions))
   async createPost(
     @Body() dto: CreatePostDto,
     @GetCurrentUser('userId') userId: string,
