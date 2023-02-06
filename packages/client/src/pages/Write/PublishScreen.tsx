@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/common';
 import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
+import PublishPreview from './PublishPreview';
 
 const PublishScreen = () => {
   const { title, body, tags, isPublishScreenOpen, closePublishScreen } =
@@ -36,17 +37,26 @@ const PublishScreen = () => {
           initial={{ y: '100%' }}
           animate={{ y: '0%' }}
           exit={{ y: '100%' }}
-          transition={{ duration: 0.3, ease: 'linear' }}
+          transition={{ stiffness: 500, damping: 100, type: 'spring' }}
         >
           <Contents>
-            <Item>{title}</Item>
-            <Item>{body}</Item>
+            <PublishPreview />
             <ButtonWrapper>
-              <Button shadow onClick={closePublishScreen}>
-                닫기
-              </Button>
-              <Button shadow onClick={handleCreatePost}>
+              <Button
+                color="success"
+                size="auto"
+                shadow
+                onClick={handleCreatePost}
+              >
                 등록
+              </Button>
+              <Button
+                color="error"
+                size="auto"
+                shadow
+                onClick={closePublishScreen}
+              >
+                닫기
               </Button>
             </ButtonWrapper>
           </Contents>
@@ -62,9 +72,8 @@ const Container = styled(motion.div)`
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(to bottom right, #ff00ff, #00ffff);
+  background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
 
-  //
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,31 +81,21 @@ const Container = styled(motion.div)`
 
 const Contents = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  width: 300px;
-  height: 200px;
-  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 350px;
+  width: 100%;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
-  gap: 1rem;
-`;
-
-const Item = styled.div`
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-
-  width: 100px;
-  height: 30px;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  border-radius: 10px;
-
-  overflow-y: scroll;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
 `;
 
 export default PublishScreen;
