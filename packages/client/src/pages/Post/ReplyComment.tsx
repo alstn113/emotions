@@ -9,11 +9,11 @@ import useUser from '~/hooks/useUser';
 import { Comment } from '~/types';
 
 interface Props {
-  parentcomment: Comment;
+  parentComment: Comment;
   onClose: () => void;
 }
 
-const ReplyComment = ({ parentcomment, onClose }: Props) => {
+const ReplyComment = ({ parentComment, onClose }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
@@ -22,7 +22,7 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
   const { mutate } = useCreateComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(
-        useGetPostComments.getKey(parentcomment.postId),
+        useGetPostComments.getKey(parentComment.postId),
       );
       return;
     },
@@ -34,9 +34,9 @@ const ReplyComment = ({ parentcomment, onClose }: Props) => {
   const handleSubmit = () => {
     if (!text) return;
     mutate({
-      postId: parentcomment.postId,
+      postId: parentComment.postId,
       text,
-      parentCommentId: parentcomment.id,
+      parentCommentId: parentComment.id,
     });
     onClose();
   };

@@ -1,5 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
 @ApiTags('comments')
 export class CreateCommentDto {
@@ -14,5 +14,7 @@ export class CreateCommentDto {
   postId: string;
 
   @ApiProperty({ nullable: true })
+  @IsString()
+  @IsOptional()
   parentCommentId?: string;
 }

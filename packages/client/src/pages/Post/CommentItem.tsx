@@ -126,7 +126,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
       {/* if reply button is clicked, show ReplyComment component */}
       {isReplying && (
-        <ReplyComment parentcomment={comment} onClose={handleCloseReply} />
+        <ReplyComment parentComment={comment} onClose={handleCloseReply} />
       )}
 
       {/* if subcomments exist, show SubCommentList component */}
