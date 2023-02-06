@@ -107,8 +107,9 @@ export class PostsService {
 
   async uploadImage(file: Express.Multer.File) {
     const filename = `${Date.now()}-${file.originalname}`;
+    const bucket = this.configService.get<string>('AWS_S3_BUCKET');
     await this.s3Service.pubObject(filename, file);
-    return filename;
+    return `https://${bucket}.s3.amazonaws.com/${filename}`;
   }
 
   async deleteImage(thumbnail: string) {

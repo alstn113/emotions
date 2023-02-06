@@ -8,8 +8,14 @@ import useWriteStore from '~/stores/useWriteStore';
 import PublishPreview from './PublishPreview';
 
 const PublishScreen = () => {
-  const { title, body, tags, isPublishScreenOpen, closePublishScreen } =
-    useWriteStore();
+  const {
+    title,
+    body,
+    thumbnail,
+    tags,
+    isPublishScreenOpen,
+    closePublishScreen,
+  } = useWriteStore();
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -17,7 +23,7 @@ const PublishScreen = () => {
   const handleCreatePost = () => {
     if (!title || !body) return alert('제목과 내용을 입력해주세요');
     mutate(
-      { title, body, tags },
+      { title, body, thumbnail, tags },
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());

@@ -69,7 +69,7 @@ export interface CreateRoomParams {
 export interface CreatePostParams {
   title: string;
   body: string;
-  thumbnail?: string;
+  thumbnail: string | null;
   tags?: string[];
 }
 
