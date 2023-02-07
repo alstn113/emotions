@@ -98,7 +98,7 @@ const TagList = styled.div`
     padding: 0.6rem 0.8rem;
     font-size: 0.8rem;
     border-radius: 0.8rem;
-    background: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
     color: #000;
   }
 `;
