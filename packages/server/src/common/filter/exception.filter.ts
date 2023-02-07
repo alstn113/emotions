@@ -4,7 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
 } from '@nestjs/common';
-import { AppErrorException, errors } from '../exceptions';
+import { AppErrorException } from '../exceptions';
 
 @Catch(HttpException)
 export class AppErrorExceptionFilter implements ExceptionFilter {
@@ -17,13 +17,10 @@ export class AppErrorExceptionFilter implements ExceptionFilter {
       return response.status(status).json(exception.getResponse());
     }
 
-    const errorName = 'Unknown';
-    const errorInfo = errors[errorName];
-
-    response.status(status).json({
-      statusCode: status,
-      name: errorName,
-      message: errorInfo.message,
+    response.status(500).json({
+      name: 'Unknown',
+      statusCode: 500,
+      message: 'Unknown error',
     });
   }
 }
