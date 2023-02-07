@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
 
-export const erros = {
+export const errors = {
   BadRequest: {
     statusCode: 400,
     message: 'Bad Request',
@@ -24,11 +24,11 @@ export const erros = {
   },
 };
 
-type ErrorName = keyof typeof erros;
+type ErrorName = keyof typeof errors;
 
 export class AppErrorException extends HttpException {
   constructor(name: ErrorName, message?: string) {
-    const errorInfo = erros[name];
+    const errorInfo = errors[name];
     super(
       {
         statusCode: errorInfo.statusCode,
