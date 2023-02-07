@@ -49,7 +49,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
       const newUser = await this.prisma.user.create({
         data: {
           username: login,
-          displayName: name,
+          displayName: name ?? login,
         },
       });
 
