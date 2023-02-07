@@ -1,8 +1,9 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { CommentsRepository } from './comments.repository';
 import { Comment } from '@prisma/client';
 import { PostsRepository } from '../posts/posts.repository';
+import { AppErrorException } from '~/common/exceptions';
 
 @Injectable()
 export class CommentsService {
@@ -14,7 +15,7 @@ export class CommentsService {
   async getComment(id: string) {
     const comment = await this.commentRepository.findCommentById(id);
     if (!comment || comment.deletedAt)
-      throw new HttpException('Comment not found', 404);
+      throw new AppErrorException('NotFound', 'Comment not found');
     return comment;
   }
 
@@ -108,7 +109,7 @@ export class CommentsService {
   async deleteComment(id: string, userId: string) {
     const comment = await this.getComment(id);
     if (comment.userId !== userId)
-      throw new HttpException('You are not the author of this comment', 403);
+      throw new AppErrorException('Forbidden', "Can't delete other's comment");
 
     await this.commentRepository.deleteComment(id);
 

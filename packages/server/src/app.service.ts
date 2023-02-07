@@ -1,4 +1,5 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { AppErrorException } from './common/exceptions';
 
 @Injectable()
 export class AppService {
@@ -6,7 +7,10 @@ export class AppService {
 
   hello(): string {
     if (!AppService.active) {
-      throw new ForbiddenException('Emotions Server is shutting down');
+      throw new AppErrorException(
+        'Forbidden',
+        'Emotions Server is shutting down',
+      );
     }
     return 'This is Emotions API Server. Hello!';
   }
