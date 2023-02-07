@@ -19,6 +19,7 @@ import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
 import LikeButton from '~/components/base/LikeButton';
 import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
+import { extractError } from '~/error';
 
 interface Props {
   comment: Comment;
@@ -52,7 +53,8 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       );
     },
     onError: (e) => {
-      alert(e);
+      const error = extractError(e);
+      alert(error.message);
     },
   });
 

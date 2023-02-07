@@ -4,6 +4,7 @@ import { Loader } from '~/components/common';
 import { useUploadImage } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 import UploadImageSvg from '~/assets/vectors/upload-image.svg';
+import { extractError } from '~/error';
 
 const PublishPreview = () => {
   const { changeThumbnail } = useWriteStore();
@@ -18,8 +19,9 @@ const PublishPreview = () => {
         changeThumbnail(thumbnail);
         setPreviewImage(thumbnail);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (e) => {
+        const error = extractError(e);
+        alert(error.message);
         changeThumbnail(null);
         setPreviewImage(UploadImageSvg);
       },
