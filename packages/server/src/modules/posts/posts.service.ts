@@ -1,6 +1,7 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Post, PostLike } from '@prisma/client';
+import { AppErrorException } from '~/common/exceptions';
 import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -32,7 +33,7 @@ export class PostsService {
 
   async getPost(id: string, userId: string | null = null) {
     const post = await this.postRepository.findPostById(id, userId);
-    if (!post) throw new HttpException('Post not found', 404);
+    if (!post) throw new AppErrorException('NotFound', 'Post not found');
     return this.serializePost(post);
   }
 
@@ -95,7 +96,7 @@ export class PostsService {
   async deletePost(id: string, userId: string) {
     const post = await this.getPost(id);
     if (post.userId !== userId)
-      throw new HttpException('You are not the author of this post', 403);
+      throw new AppErrorException('Forbidden', 'You are not the author');
 
     await this.deleteImage(post.thumbnail);
     await this.postRepository.deletePost(id);

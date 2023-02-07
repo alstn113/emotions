@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
+import { extractError } from '~/error';
 import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
@@ -38,7 +39,8 @@ const PostContents = ({ postId }: Props) => {
             navigate('/');
           },
           onError: (e) => {
-            console.log(e);
+            const error = extractError(e);
+            alert(error.message);
           },
         });
       },
@@ -98,7 +100,7 @@ const TagList = styled.div`
     padding: 0.6rem 0.8rem;
     font-size: 0.8rem;
     border-radius: 0.8rem;
-    background: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right bottom, #f6d365, #ffc9ba);
     color: #000;
   }
 `;

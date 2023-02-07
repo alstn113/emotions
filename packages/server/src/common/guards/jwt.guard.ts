@@ -1,10 +1,6 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  HttpException,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { AppErrorException } from '../exceptions';
 
 @Injectable()
 export class JwtGuard implements CanActivate {
@@ -17,7 +13,7 @@ export class JwtGuard implements CanActivate {
     if (isPublic) return true;
 
     const req = context.switchToHttp().getRequest();
-    if (!req.user) throw new HttpException('Unauthorized', 401);
+    if (!req.user) throw new AppErrorException('Unauthorized');
     return true;
   }
 }

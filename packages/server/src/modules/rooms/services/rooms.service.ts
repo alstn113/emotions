@@ -1,4 +1,5 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { AppErrorException } from '~/common/exceptions';
 import { CreateRoomDto } from '../dto';
 import { RoomsRepository } from '../repositories/rooms.repository';
 
@@ -8,7 +9,7 @@ export class RoomsService {
 
   async getRoomById(id: string) {
     const room = await this.roomsRepository.findRoomById(id);
-    if (!room) throw new HttpException('Room not found', 404);
+    if (!room) throw new AppErrorException('NotFound', 'Room not found');
     return room;
   }
 
@@ -23,7 +24,7 @@ export class RoomsService {
   async deleteRoomById(id: string, userId: string) {
     const room = await this.getRoomById(id);
     if (room.userId !== userId)
-      throw new HttpException('You are not the host of this room', 403);
+      throw new AppErrorException('Forbidden', "you are not the room's host");
 
     return await this.roomsRepository.deleteRoomById(id);
   }

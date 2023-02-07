@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
+import { extractError } from '~/error';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import { useGetPostComments } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
@@ -27,7 +28,8 @@ const ReplyComment = ({ parentComment, onClose }: Props) => {
       return;
     },
     onError: (e) => {
-      alert(e.message);
+      const error = extractError(e);
+      alert(error.message);
     },
   });
 
