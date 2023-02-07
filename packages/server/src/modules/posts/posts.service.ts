@@ -97,8 +97,7 @@ export class PostsService {
     const post = await this.getPost(id);
     if (post.userId !== userId)
       throw new AppErrorException('Forbidden', 'You are not the author');
-
-    await this.deleteImage(post.thumbnail);
+    if (post.thumbnail) await this.deleteImage(post.thumbnail);
     await this.postRepository.deletePost(id);
   }
 
