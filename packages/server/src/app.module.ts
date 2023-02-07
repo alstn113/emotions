@@ -11,7 +11,8 @@ import { AppService } from './app.service';
 import { JwtMiddleware } from './middlewares';
 
 // providers
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { AppErrorExceptionFilter } from './common/filter';
 import { JwtGuard } from './common/guards';
 
 // main modules
@@ -24,6 +25,7 @@ import {
   CommentsModule,
   TagsModule,
 } from './modules';
+
 // provider modules
 import { S3Module } from './providers';
 
@@ -49,6 +51,10 @@ import { S3Module } from './providers';
   ],
   controllers: [AppController],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppErrorExceptionFilter,
+    },
     AppService,
     {
       provide: APP_GUARD,
