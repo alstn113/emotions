@@ -20,6 +20,7 @@ const bootstrap = async () => {
     origin: ALLOWLIST,
     credentials: true,
   });
+
   app.useWebSocketAdapter(new SocketIoAdapter(app));
   app.useGlobalPipes(
     new ValidationPipe({
@@ -29,7 +30,11 @@ const bootstrap = async () => {
       transform: true,
     }),
   );
-  createDocumnet(app);
+
+  if (process.env.NODE_ENV !== 'production') {
+    createDocumnet(app);
+  }
+
   await app.listen(PORT);
 
   logger.log(`Server is running on port ${PORT}`);
