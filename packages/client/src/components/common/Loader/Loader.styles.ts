@@ -1,6 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { palette, type NormalColorType } from '~/styles';
+import { palette, type NormalColorType } from '~/lib/styles';
 
 const BarKeyframes = keyframes`
   0% {

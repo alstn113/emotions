@@ -8,7 +8,7 @@ import { useGetRooms, useDeleteRoom } from '~/hooks/queries/room';
 // components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
-import { glassmorphism, mediaQuery } from '~/styles';
+import { glassmorphism, mediaQuery } from '~/lib/styles';
 
 const RoomList = () => {
   const queryClient = useQueryClient();

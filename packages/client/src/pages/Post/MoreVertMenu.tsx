@@ -8,7 +8,7 @@ import useOnClickOutside from '~/hooks/useOnClickOutside';
 // components
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
-import { zIndexes } from '~/styles';
+import { zIndexes } from '~/lib/styles';
 import { MenuDots } from '~/components/vectors';
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
 

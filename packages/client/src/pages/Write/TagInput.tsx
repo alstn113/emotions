@@ -2,9 +2,7 @@ import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
 import useWriteStore from '~/stores/useWriteStore';
 
-interface Props {}
-
-const TagInput = ({}: Props) => {
+const TagInput = () => {
   const { tags, changeTags } = useWriteStore();
   const [value, setValue] = useState<string>('');
 
@@ -12,12 +10,15 @@ const TagInput = ({}: Props) => {
     setValue(e.target.value);
   };
 
-  const addTag = (tag: string) => {
-    const trimedTag = tag.trim();
-    if (trimedTag === '' || tags.includes(trimedTag)) return;
-    changeTags([...tags, trimedTag]);
-    setValue('');
-  };
+  const addTag = useCallback(
+    (tag: string) => {
+      const trimedTag = tag.trim();
+      if (trimedTag === '' || tags.includes(trimedTag)) return;
+      changeTags([...tags, trimedTag]);
+      setValue('');
+    },
+    [changeTags, tags],
+  );
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {

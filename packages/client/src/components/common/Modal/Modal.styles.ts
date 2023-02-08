@@ -1,4 +1,4 @@
-import { mediaQuery, zIndexes } from '~/styles';
+import { mediaQuery, zIndexes } from '~/lib/styles';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 

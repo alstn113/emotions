@@ -121,7 +121,7 @@ const Chat = () => {
       });
       leaveRoom();
     };
-  }, []);
+  }, [roomId]);
 
   //TODO: 스크롤이 바닥에 있을 경우에만 따라가게 하기
   useEffect(() => {

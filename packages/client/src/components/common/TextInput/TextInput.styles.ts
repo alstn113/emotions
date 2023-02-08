@@ -1,4 +1,4 @@
-import { palette, NormalColorType } from '~/styles';
+import { palette, NormalColorType } from '~/lib/styles';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { InputVariantType } from './TextInput';

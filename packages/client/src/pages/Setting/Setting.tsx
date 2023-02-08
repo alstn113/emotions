@@ -5,7 +5,7 @@ import { GithubIcon } from '~/components/vectors';
 import { API } from '~/constants';
 import useLogout from '~/hooks/useLogout';
 import useUser from '~/hooks/useUser';
-import { glassmorphism } from '~/styles';
+import { glassmorphism } from '~/lib/styles';
 
 const Setting = () => {
   const user = useUser();

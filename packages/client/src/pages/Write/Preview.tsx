@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import useWriteStore from '~/stores/useWriteStore';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 
 const Preview = () => {
   const { title, body } = useWriteStore();

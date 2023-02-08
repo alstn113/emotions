@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
-import { zIndexes } from '~/styles';
+import { zIndexes } from '~/lib/styles';
 import Portal from './Portal';
 
 interface item {

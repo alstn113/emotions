@@ -11,7 +11,7 @@ const Write = () => {
     return () => {
       reset();
     };
-  }, []);
+  }, [reset]);
 
   return (
     <Container>

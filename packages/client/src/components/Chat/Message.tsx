@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
-import { glassmorphism } from '~/styles';
+import { glassmorphism } from '~/lib/styles/shared';
 
 interface Props {
   uid: string;

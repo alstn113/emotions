@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import useTyping from '~/hooks/useTyping';
 import { SOCKET_EVENT } from '~/constants';
 import roomSocket from '~/sockets/roomSocket';
-import { zIndexes } from '~/styles';
+import { zIndexes } from '~/lib/styles';
 
 interface Props {
   roomId: string;
