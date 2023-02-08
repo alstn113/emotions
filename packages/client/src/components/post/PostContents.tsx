@@ -1,12 +1,19 @@
-import styled from '@emotion/styled';
+// react
 import { useNavigate } from 'react-router-dom';
-import LikeButton from '~/components/base/LikeButton';
-import { Button } from '~/components/common';
 import { extractError } from '~/lib/error';
-import { useDeletePost, useGetPost } from '~/hooks/queries/post';
+
+// hooks
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
+import { useDeletePost, useGetPost } from '~/hooks/queries/post';
+
+// stores
 import useModalStore from '~/stores/useModalStore';
+
+// components
+import styled from '@emotion/styled';
+import LikeButton from '~/components/base/LikeButton';
+import { Button } from '~/components/common';
 import { mediaQuery } from '~/lib/styles';
 
 interface Props {

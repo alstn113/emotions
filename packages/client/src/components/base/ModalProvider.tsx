@@ -1,5 +1,10 @@
+// react
 import { useCallback } from 'react';
+
+// stores
 import useModalStore from '~/stores/useModalStore';
+
+// components
 import Modal from '~/components/common/Modal/Modal';
 
 const ModalProvider = () => {

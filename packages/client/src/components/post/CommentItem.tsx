@@ -1,25 +1,25 @@
 // react
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Comment } from '~/lib/types';
+import { extractError } from '~/lib/error';
 
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
 import { useDeleteComment } from '~/hooks/queries/comment';
 import { useGetPostComments } from '~/hooks/queries/post';
 import useUser from '~/hooks/useUser';
+import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
 
 // stores
 import useModalStore from '~/stores/useModalStore';
 
 // components
 import styled from '@emotion/styled';
-import SubCommentList from './SubCommentList';
-import ReplyComment from './ReplyComment';
-import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
+import SubCommentList from '~/components/post/SubCommentList';
+import ReplyComment from '~/components/post/ReplyComment';
+import MoreVertMenu from '~/components/post/MoreVertMenu';
 import LikeButton from '~/components/base/LikeButton';
-import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
-import { extractError } from '~/lib/error';
 
 interface Props {
   comment: Comment;
@@ -69,28 +69,27 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     setIsReplying(false);
   };
 
-  const items = useMemo(
-    () => [
-      {
-        icon: <Pencil />,
-        name: '수정',
-        onClick: () => {},
+  const items = [
+    {
+      icon: <Pencil />,
+      name: '수정',
+      onClick: () => {
+        //TODO: open edit modal
       },
-      {
-        icon: <Trash />,
-        name: '삭제',
-        onClick: () =>
-          openModal({
-            title: '댓글 삭제',
-            message: '정말로 댓글을 삭제하시겠습니까?',
-            confirmText: '확인',
-            cancelText: '취소',
-            onConfirm: handleDelete,
-          }),
-      },
-    ],
-    [handleDelete, comment.id, openModal],
-  );
+    },
+    {
+      icon: <Trash />,
+      name: '삭제',
+      onClick: () =>
+        openModal({
+          title: '댓글 삭제',
+          message: '정말로 댓글을 삭제하시겠습니까?',
+          confirmText: '확인',
+          cancelText: '취소',
+          onConfirm: handleDelete,
+        }),
+    },
+  ];
 
   // if comment is deleted
   if (isDeleted) {

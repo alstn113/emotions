@@ -7,20 +7,20 @@ import { MessagePayload, TypingStatusPayload } from '~/lib/types';
 import { useGetRoom } from '~/hooks/queries/room';
 import useUser from '~/hooks/useUser';
 
-// components
-import styled from '@emotion/styled';
-import ChatInput from './ChatInput';
-import Message from '~/components/Chat/Message';
-import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
-import AsyncBoundary from '~/components/base/AsyncBoundary';
-import ErrorFallback from '~/components/base/ErrorFallback';
-
 // sockets
 import { MESSAGE, SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
-import BaseLayout from '~/components/layouts/BaseLayout';
 
-const Chat = () => {
+// components
+import styled from '@emotion/styled';
+import BaseLayout from '~/components/layouts/BaseLayout';
+import ChatInput from '~/components/chat/ChatInput';
+import Message from '~/components/chat/Message';
+import DynamicIsland from '~/components/dynamicIsland/DynamicIsland';
+import AsyncBoundary from '~/components/base/AsyncBoundary';
+import ErrorFallback from '~/components/base/ErrorFallback';
+
+const ChatPage = () => {
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoom(roomId);
 
@@ -86,7 +86,7 @@ const Chat = () => {
     );
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
-      ({ uid, username, isTyping }: TypingStatusPayload) => {
+      ({ username, isTyping }: TypingStatusPayload) => {
         if (isTyping) {
           setTypingUsers((prev) => [...prev, username]);
         } else {
@@ -182,8 +182,6 @@ const Chat = () => {
   );
 };
 
-export default Chat;
-
 const Container = styled.div`
   position: relative;
   display: flex;
@@ -205,3 +203,5 @@ const Contents = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+
+export default ChatPage;

@@ -1,3 +1,4 @@
+// components
 import styled from '@emotion/styled';
 import FullHeightScreen from '~/components/base/FullHeightScreen';
 import MobileHeader from '~/components/base/MobileHeader';

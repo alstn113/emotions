@@ -1,5 +1,8 @@
-import BottomSheet from './BottomSheet';
+// stores
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
+
+// components
+import BottomSheet from './BottomSheet';
 
 const BottomSheetProvider = () => {
   const { visible, closeBottomSheet, items } = useBottomSheetStore();

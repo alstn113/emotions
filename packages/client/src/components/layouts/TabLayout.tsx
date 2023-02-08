@@ -1,8 +1,9 @@
+// components
 import styled from '@emotion/styled';
 import FullHeightScreen from '~/components/base/FullHeightScreen';
 import MobileHeader from '~/components/base/MobileHeader';
 import Footer from '~/components/base/Footer';
-import DesktopHeader from '../base/DesktopHeader';
+import DesktopHeader from '~/components/base/DesktopHeader';
 
 interface Props {
   children?: React.ReactNode;

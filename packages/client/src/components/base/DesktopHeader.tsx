@@ -1,9 +1,14 @@
-import styled from '@emotion/styled';
+// react
 import { Link, useNavigate } from 'react-router-dom';
+
+// hookes
 import useUser from '~/hooks/useUser';
+
+// components
+import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles/mediaQuery';
-import { Button } from '../common';
-import HeaderDropdown from './HeaderDropdown';
+import { Button } from '~/components/common';
+import HeaderDropdown from '~/components/base/HeaderDropdown';
 
 const DesktopHeader = () => {
   const user = useUser();

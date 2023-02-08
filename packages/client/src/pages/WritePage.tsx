@@ -1,11 +1,16 @@
-import styled from '@emotion/styled';
+// react
 import { useEffect } from 'react';
-import useWriteStore from '~/stores/useWriteStore';
-import Editor from './Editor';
-import Preview from './Preview';
-import PublishScreen from './PublishScreen';
 
-const Write = () => {
+// stores
+import useWriteStore from '~/stores/useWriteStore';
+
+// components
+import styled from '@emotion/styled';
+import Editor from '~/components/write/Editor';
+import Preview from '~/components/write/Preview';
+import PublishScreen from '~/components/write/PublishScreen';
+
+const WritePage = () => {
   const { reset } = useWriteStore();
   useEffect(() => {
     return () => {
@@ -28,4 +33,4 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default Write;
+export default WritePage;

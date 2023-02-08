@@ -1,6 +1,9 @@
-import styled from '@emotion/styled';
+// hooks
 import { useGoBack } from '~/hooks/useGoBack';
-import { ArrowLeft } from '../vectors';
+
+// components
+import styled from '@emotion/styled';
+import { ArrowLeft } from '~/components/vectors';
 
 const HeaderBackButton = () => {
   const goBack = useGoBack();

@@ -6,13 +6,13 @@ import { useCreateRoom, useGetRooms } from '~/hooks/queries/room';
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
-import RoomList from './RoomList';
+import RoomList from '~/components/room/RoomList';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/lib/styles';
 
-const Room = () => {
+const RoomPage = () => {
   const queryClient = useQueryClient();
 
   const { mutate: createRoom } = useCreateRoom({
@@ -61,4 +61,4 @@ const Spacer = styled.div`
   margin: 1rem;
 `;
 
-export default Room;
+export default RoomPage;

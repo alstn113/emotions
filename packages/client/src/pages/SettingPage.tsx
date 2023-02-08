@@ -1,13 +1,18 @@
+// react
+import { API } from '~/constants';
+
+// hooks
+import useLogout from '~/hooks/useLogout';
+import useUser from '~/hooks/useUser';
+
+// components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
-import { API } from '~/constants';
-import useLogout from '~/hooks/useLogout';
-import useUser from '~/hooks/useUser';
 import { glassmorphism } from '~/lib/styles';
 
-const Setting = () => {
+const SettingPage = () => {
   const user = useUser();
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
@@ -17,30 +22,29 @@ const Setting = () => {
 
   return (
     <TabLayout>
-      <Container>
-        {user ? (
-          <>
-            <Text>My Account</Text>
-            <Text>Username: {user?.username}</Text>
-            <Text>Displayname: {user?.displayName}</Text>
-          </>
-        ) : (
+      {user ? (
+        <Container>
+          <Text>My Account</Text>
+          <Text>Username: {user?.username}</Text>
+          <Text>Displayname: {user?.displayName}</Text>
+          <Button size="auto" shadow color="error" onClick={logout}>
+            Logout
+          </Button>
+        </Container>
+      ) : (
+        <Container>
           <Text>Not Logged In</Text>
-        )}
-
-        <StyledButton
-          size="auto"
-          shadow
-          color="secondary"
-          onClick={handleGithubLogin}
-        >
-          <GithubIcon />
-          <span>Login With Github</span>
-        </StyledButton>
-        <Button size="auto" shadow color="error" onClick={logout}>
-          Logout
-        </Button>
-      </Container>
+          <StyledButton
+            size="auto"
+            shadow
+            color="secondary"
+            onClick={handleGithubLogin}
+          >
+            <GithubIcon />
+            <span>Login With Github</span>
+          </StyledButton>
+        </Container>
+      )}
     </TabLayout>
   );
 };
@@ -82,4 +86,4 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default Setting;
+export default SettingPage;

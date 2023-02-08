@@ -1,27 +1,34 @@
-import styled from '@emotion/styled';
+// react
 import { useNavigate, useParams } from 'react-router-dom';
-import AsyncBoundary from '~/components/base/AsyncBoundary';
-import ErrorFallback from '~/components/base/ErrorFallback';
-import BaseLayout from '~/components/layouts/BaseLayout';
 import { MESSAGE } from '~/constants';
+import { extractError } from '~/lib/error';
+
+// hooks
 import {
   useDeletePost,
   useGetPost,
   useGetPostComments,
 } from '~/hooks/queries/post';
-import CommentList from './CommentList';
-import PostContents from './PostContents';
-import CommentInput from './CommentInput';
-import { mediaQuery } from '~/lib/styles';
 import useUser from '~/hooks/useUser';
-import { MenuDots, Pencil, Trash } from '~/components/vectors';
+
+// stores
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import useModalStore from '~/stores/useModalStore';
-import PostContentsSkeleton from './PostContentsSkeleton';
-import CommentListSkeleton from './CommentListSkeleton';
-import { extractError } from '~/lib/error';
 
-const Post = () => {
+// components
+import styled from '@emotion/styled';
+import AsyncBoundary from '~/components/base/AsyncBoundary';
+import ErrorFallback from '~/components/base/ErrorFallback';
+import { mediaQuery } from '~/lib/styles';
+import { MenuDots, Pencil, Trash } from '~/components/vectors';
+import BaseLayout from '~/components/layouts/BaseLayout';
+import PostContents from '~/components/post/PostContents';
+import CommentList from '~/components/post/CommentList';
+import CommentInput from '~/components/post//CommentInput';
+import PostContentsSkeleton from '~/components/post/skeleton/PostContentsSkeleton';
+import CommentListSkeleton from '~/components/post/skeleton/CommentListSkeleton';
+
+const PostPage = () => {
   const { postId } = useParams() as { postId: string };
   const { data: post } = useGetPost(postId);
   const navigate = useNavigate();
@@ -48,7 +55,9 @@ const Post = () => {
       {
         icon: <Pencil />,
         name: '수정',
-        onClick: () => {},
+        onClick: () => {
+          //TODO: 수정
+        },
       },
       {
         icon: <Trash />,
@@ -128,4 +137,4 @@ const MoreButton = styled.button`
   }
 `;
 
-export default Post;
+export default PostPage;
