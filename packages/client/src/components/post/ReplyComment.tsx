@@ -1,12 +1,17 @@
-import styled from '@emotion/styled';
-import { useQueryClient } from '@tanstack/react-query';
+// react
 import { useState } from 'react';
-import { Button } from '~/components/common';
 import { extractError } from '~/lib/error';
+
+// hooks
+import { useQueryClient } from '@tanstack/react-query';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import { useGetPostComments } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
+
+// components
+import styled from '@emotion/styled';
+import { Button } from '~/components/common';
 import { Comment } from '~/lib/types';
 
 interface Props {

@@ -1,7 +1,10 @@
+// react
 import React, { Suspense } from 'react';
+
+// components
+import styled from '@emotion/styled';
 import { Loader } from '~/components/common';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
-import styled from '@emotion/styled';
 
 interface Props {
   pendingFallback?: React.ReactNode;

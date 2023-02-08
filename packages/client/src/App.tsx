@@ -1,21 +1,21 @@
 // react
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ErrorBoundary from './components/base/ErrorBoundary';
-import ErrorFallback from './components/base/ErrorFallback';
-import { MESSAGE } from './constants';
+import ErrorBoundary from '~/components/base/ErrorBoundary';
+import ErrorFallback from '~/components/base/ErrorFallback';
+import { MESSAGE } from '~/constants';
 
 // hooks
-import { useGetMe } from './hooks/queries/user';
+import { useGetMe } from '~/hooks/queries/user';
 
 // pages
-import HomePage from './pages/home/HomePage';
-import SearchPage from './pages/SearchPage';
-import SettingPage from './pages/SettingPage';
-import PostPage from './pages/post/PostPage';
-import WritePage from './pages/write/WritePage';
-import RoomPage from './pages/room/RoomPage';
-import ChatPage from './pages/room/ChatPage';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage from '~/pages/HomePage';
+import SearchPage from '~/pages/SearchPage';
+import SettingPage from '~/pages/SettingPage';
+import PostPage from '~/pages/PostPage';
+import WritePage from '~/pages/WritePage';
+import RoomPage from '~/pages/RoomPage';
+import ChatPage from '~/pages/ChatPage';
+import NotFoundPage from '~/pages/NotFoundPage';
 
 const App = () => {
   useGetMe();

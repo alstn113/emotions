@@ -3,13 +3,13 @@ import { useGetPosts } from '~/hooks/queries/post';
 
 // components
 import styled from '@emotion/styled';
-import TabLayout from '~/components/layouts/TabLayout';
-import PostList from './PostList';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/lib/styles';
-import PostListSkeleton from './PostListSkeleton';
+import TabLayout from '~/components/layouts/TabLayout';
+import PostList from '~/components/home/PostList';
+import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
 
 const HomePage = () => {
   return (

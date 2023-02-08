@@ -1,6 +1,9 @@
-import styled from '@emotion/styled';
+// hooks
 import { useGetPostComments } from '~/hooks/queries/post';
-import CommentItem from './CommentItem';
+
+// components
+import styled from '@emotion/styled';
+import CommentItem from '~/components/post/CommentItem';
 
 interface Props {
   postId: string;

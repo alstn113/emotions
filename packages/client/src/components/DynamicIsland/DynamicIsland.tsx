@@ -1,3 +1,4 @@
+// components
 import styled from '@emotion/styled';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { glassmorphism, zIndexes } from '~/lib/styles';

@@ -7,8 +7,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // provider
-import ModalProvider from './components/base/ModalProvider';
-import BottomSheetProvider from './components/base/BottomSheetProvider';
+import ModalProvider from '~/components/base/ModalProvider';
+import BottomSheetProvider from '~/components/base/BottomSheetProvider';
 import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '~/lib/styles/themes';
 import { GlobalStyle } from '~/GlobalStyle';

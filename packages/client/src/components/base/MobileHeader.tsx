@@ -1,6 +1,7 @@
+// components
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
-import HeaderBackButton from './HeaderBackButton';
+import HeaderBackButton from '~/components/base/HeaderBackButton';
 
 interface Props {
   title?: React.ReactNode;

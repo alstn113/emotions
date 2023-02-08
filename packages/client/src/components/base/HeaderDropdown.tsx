@@ -13,8 +13,8 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion, Variants } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
-import { Button } from '../common';
-import { User } from '../vectors';
+import { Button } from '~/components/common';
+import { User } from '~/components/vectors';
 
 const HeaderDropdown = () => {
   const user = useUser();

@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
 import PostCard from './PostCard';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
-import PostListSkeleton from './PostListSkeleton';
+import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
 
 const PostList = () => {
   const { data: posts, hasNextPage, fetchNextPage, isFetching } = useGetPosts();

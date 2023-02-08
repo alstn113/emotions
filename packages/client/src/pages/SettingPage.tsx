@@ -1,10 +1,15 @@
+// react
+import { API } from '~/constants';
+
+// hooks
+import useLogout from '~/hooks/useLogout';
+import useUser from '~/hooks/useUser';
+
+// components
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
-import { API } from '~/constants';
-import useLogout from '~/hooks/useLogout';
-import useUser from '~/hooks/useUser';
 import { glassmorphism } from '~/lib/styles';
 
 const SettingPage = () => {

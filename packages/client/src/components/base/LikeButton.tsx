@@ -1,6 +1,7 @@
+// components
 import styled from '@emotion/styled';
-import { HeartFill, HeartOutline } from '../vectors';
-import IconToggleButton from './IconToggleButton';
+import { HeartFill, HeartOutline } from '~/components/vectors';
+import IconToggleButton from '~/components/base/IconToggleButton';
 
 interface Props {
   onClick?: () => void;

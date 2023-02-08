@@ -1,6 +1,9 @@
-import styled from '@emotion/styled';
+// react
 import { Comment } from '~/lib/types';
-import CommentItem from './CommentItem';
+
+// components
+import styled from '@emotion/styled';
+import CommentItem from '~/components/post/CommentItem';
 
 interface Props {
   subcomments: Comment[];

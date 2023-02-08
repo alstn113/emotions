@@ -9,7 +9,7 @@ import useUser from '~/hooks/useUser';
 
 // components
 import styled from '@emotion/styled';
-import ChatInput from './ChatInput';
+import ChatInput from '~/components/chat/ChatInput';
 import Message from '~/components/chat/Message';
 import DynamicIsland from '~/components/dynamicIsland/DynamicIsland';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
@@ -86,7 +86,7 @@ const ChatPage = () => {
     );
     roomSocket.socket?.on(
       SOCKET_EVENT.TYPING_STATUS,
-      ({ uid, username, isTyping }: TypingStatusPayload) => {
+      ({ username, isTyping }: TypingStatusPayload) => {
         if (isTyping) {
           setTypingUsers((prev) => [...prev, username]);
         } else {
