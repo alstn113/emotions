@@ -7,9 +7,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // provider
-import MyThemeProvider from './styles/MyThemeProvider';
 import ModalProvider from './components/base/ModalProvider';
 import BottomSheetProvider from './components/base/BottomSheetProvider';
+import { ThemeProvider } from '@emotion/react';
+import { lightTheme } from '~/lib/styles/themes';
+import { GlobalStyle } from '~/GlobalStyle';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,10 +31,11 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <ReactQueryDevtools initialIsOpen={false} />
-    <MyThemeProvider>
+    <ThemeProvider theme={lightTheme}>
+      <GlobalStyle />
       <ModalProvider />
       <BottomSheetProvider />
       <App />
-    </MyThemeProvider>
+    </ThemeProvider>
   </QueryClientProvider>,
 );

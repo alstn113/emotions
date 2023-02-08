@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 import { Home, Create, Search, Settings, Comment } from '../vectors';
 
 const Footer = () => {

@@ -10,7 +10,7 @@ import RoomList from './RoomList';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 
 const Room = () => {
   const queryClient = useQueryClient();

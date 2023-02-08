@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import useUser from '~/hooks/useUser';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles/mediaQuery';
 import { Button } from '../common';
 import HeaderDropdown from './HeaderDropdown';
 
-interface Props {}
-
-const DesktopHeader = ({}: Props) => {
+const DesktopHeader = () => {
   const user = useUser();
   const navigate = useNavigate();
 

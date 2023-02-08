@@ -3,7 +3,7 @@ import { useGetPosts } from '~/hooks/queries/post';
 
 // components
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 import PostCard from './PostCard';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import PostListSkeleton from './PostListSkeleton';

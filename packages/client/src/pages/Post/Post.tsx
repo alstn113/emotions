@@ -12,7 +12,7 @@ import {
 import CommentList from './CommentList';
 import PostContents from './PostContents';
 import CommentInput from './CommentInput';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 import useUser from '~/hooks/useUser';
 import { MenuDots, Pencil, Trash } from '~/components/vectors';
 import useBottomSheetStore from '~/stores/useBottomSheetStore';

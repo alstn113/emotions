@@ -2,7 +2,6 @@ import { API } from '~/constants';
 import {
   Comment,
   CreatePostParams,
-  Post,
   PostList,
   PostStats,
   PostWithStats,

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 import HeaderBackButton from './HeaderBackButton';
 
 interface Props {

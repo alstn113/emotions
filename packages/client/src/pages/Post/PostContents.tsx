@@ -7,7 +7,7 @@ import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
 import useModalStore from '~/stores/useModalStore';
-import { mediaQuery } from '~/styles';
+import { mediaQuery } from '~/lib/styles';
 
 interface Props {
   postId: string;

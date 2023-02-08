@@ -12,7 +12,7 @@ import useLogout from '~/hooks/useLogout';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion, Variants } from 'framer-motion';
-import { zIndexes } from '~/styles';
+import { zIndexes } from '~/lib/styles';
 import { Button } from '../common';
 import { User } from '../vectors';
 

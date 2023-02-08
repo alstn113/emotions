@@ -7,8 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "format": "prettier \"src/**/*.ts\" --write",
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:prod": "NODE_ENV=production nest start",
     "start:pm2": "pnpm pm2 start ecosystem.config.js",
