@@ -1,4 +1,4 @@
-import CommentAPI from '~/api/comment';
+import CommentAPI from '~/lib/api/comment';
 import { useMutation } from '@tanstack/react-query';
 import type { UseMutationOptionsOf } from '~/hooks/queries/types';
 

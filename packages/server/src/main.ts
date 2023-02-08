@@ -5,7 +5,7 @@ import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from '~/app.module';
 import { SocketIoAdapter } from './adapter';
-import { createDocumnet } from './utils';
+import { createDocumnet } from '~/lib/swagger';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);

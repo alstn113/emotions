@@ -19,7 +19,7 @@ import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import useModalStore from '~/stores/useModalStore';
 import PostContentsSkeleton from './PostContentsSkeleton';
 import CommentListSkeleton from './CommentListSkeleton';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 
 const Post = () => {
   const { postId } = useParams() as { postId: string };

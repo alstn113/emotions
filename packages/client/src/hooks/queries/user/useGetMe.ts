@@ -1,4 +1,4 @@
-import UserAPI from '~/api/user';
+import UserAPI from '~/lib/api/user';
 import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 

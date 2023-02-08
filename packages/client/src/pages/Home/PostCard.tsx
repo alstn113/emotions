@@ -1,7 +1,7 @@
 // react
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { PostWithStats } from '~/types';
+import { PostWithStats } from '~/lib/types';
 
 interface Props {
   post: PostWithStats;

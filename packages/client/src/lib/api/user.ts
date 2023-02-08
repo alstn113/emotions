@@ -1,5 +1,5 @@
 import { API } from '~/constants';
-import { User } from '~/types';
+import { User } from '~/lib/types';
 import apiClient from './apiClient';
 
 const UserAPI = {

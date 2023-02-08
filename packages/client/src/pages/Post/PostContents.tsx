@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 import { useDeletePost, useGetPost } from '~/hooks/queries/post';
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';

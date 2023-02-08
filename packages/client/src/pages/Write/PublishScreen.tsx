@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/common';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 import PublishPreview from './PublishPreview';

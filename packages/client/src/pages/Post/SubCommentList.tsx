@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Comment } from '~/types';
+import { Comment } from '~/lib/types';
 import CommentItem from './CommentItem';
 
 interface Props {

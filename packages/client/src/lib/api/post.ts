@@ -6,7 +6,7 @@ import {
   PostList,
   PostStats,
   PostWithStats,
-} from '~/types';
+} from '~/lib/types';
 import apiClient from './apiClient';
 import qs from 'qs';
 

@@ -1,6 +1,6 @@
 // react
 import { useMemo, useState } from 'react';
-import { Comment } from '~/types';
+import { Comment } from '~/lib/types';
 
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ import MoreVertMenu from '~/pages/Post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
 import LikeButton from '~/components/base/LikeButton';
 import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 
 interface Props {
   comment: Comment;

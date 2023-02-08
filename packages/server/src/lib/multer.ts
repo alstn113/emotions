@@ -1,5 +1,5 @@
-import { HttpException } from '@nestjs/common';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
+import { AppErrorException } from '~/common/exceptions';
 
 const multerOptions: MulterOptions = {
   /** 5mb로 제한 */
@@ -13,7 +13,7 @@ const multerOptions: MulterOptions = {
     ) {
       callback(null, true);
     } else {
-      callback(new HttpException('Unvalid Type', 422), false);
+      callback(new AppErrorException('BadRequest', 'Unvalid Type'), false);
     }
   },
 };

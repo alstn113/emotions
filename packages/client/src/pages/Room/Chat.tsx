@@ -1,7 +1,7 @@
 // react
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MessagePayload, TypingStatusPayload } from '~/types';
+import { MessagePayload, TypingStatusPayload } from '~/lib/types';
 
 // hooks
 import { useGetRoom } from '~/hooks/queries/room';
