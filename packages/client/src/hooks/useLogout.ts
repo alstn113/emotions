@@ -4,7 +4,9 @@ const useLogout = () => {
   const logout = async () => {
     try {
       await AuthAPI.logout();
-    } catch (error) {}
+    } catch (error) {
+      /* empty */
+    }
     window.location.href = '/';
   };
 
