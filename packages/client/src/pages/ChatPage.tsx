@@ -7,18 +7,18 @@ import { MessagePayload, TypingStatusPayload } from '~/lib/types';
 import { useGetRoom } from '~/hooks/queries/room';
 import useUser from '~/hooks/useUser';
 
+// sockets
+import { MESSAGE, SOCKET_EVENT } from '~/constants';
+import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
+
 // components
 import styled from '@emotion/styled';
+import BaseLayout from '~/components/layouts/BaseLayout';
 import ChatInput from '~/components/chat/ChatInput';
 import Message from '~/components/chat/Message';
 import DynamicIsland from '~/components/dynamicIsland/DynamicIsland';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
-
-// sockets
-import { MESSAGE, SOCKET_EVENT } from '~/constants';
-import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
-import BaseLayout from '~/components/layouts/BaseLayout';
 
 const ChatPage = () => {
   const { roomId } = useParams() as { roomId: string };

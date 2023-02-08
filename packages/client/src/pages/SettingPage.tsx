@@ -22,30 +22,29 @@ const SettingPage = () => {
 
   return (
     <TabLayout>
-      <Container>
-        {user ? (
-          <>
-            <Text>My Account</Text>
-            <Text>Username: {user?.username}</Text>
-            <Text>Displayname: {user?.displayName}</Text>
-          </>
-        ) : (
+      {user ? (
+        <Container>
+          <Text>My Account</Text>
+          <Text>Username: {user?.username}</Text>
+          <Text>Displayname: {user?.displayName}</Text>
+          <Button size="auto" shadow color="error" onClick={logout}>
+            Logout
+          </Button>
+        </Container>
+      ) : (
+        <Container>
           <Text>Not Logged In</Text>
-        )}
-
-        <StyledButton
-          size="auto"
-          shadow
-          color="secondary"
-          onClick={handleGithubLogin}
-        >
-          <GithubIcon />
-          <span>Login With Github</span>
-        </StyledButton>
-        <Button size="auto" shadow color="error" onClick={logout}>
-          Logout
-        </Button>
-      </Container>
+          <StyledButton
+            size="auto"
+            shadow
+            color="secondary"
+            onClick={handleGithubLogin}
+          >
+            <GithubIcon />
+            <span>Login With Github</span>
+          </StyledButton>
+        </Container>
+      )}
     </TabLayout>
   );
 };
