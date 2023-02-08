@@ -1,4 +1,4 @@
-import { NormalColorType } from '~/styles';
+import { NormalColorType } from '~/lib/styles';
 import * as S from './Loader.styles';
 
 export interface LoaderProps {
