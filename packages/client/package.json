@@ -2,13 +2,12 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "transform:svg": "pnpm svgr --typescript --out-dir src/components/vectors src/assets/vectors",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
-    "format": "prettier \"src/**/*.{ts,tsx}\" --write"
+    "transform:svg": "pnpm svgr --typescript --out-dir src/components/vectors src/assets/vectors"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
