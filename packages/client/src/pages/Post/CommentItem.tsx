@@ -15,7 +15,7 @@ import useModalStore from '~/stores/useModalStore';
 import styled from '@emotion/styled';
 import SubCommentList from './SubCommentList';
 import ReplyComment from './ReplyComment';
-import MoreVertMenu from '~/pages/Post/MoreVertMenu';
+import MoreVertMenu from '~/pages/post/MoreVertMenu';
 import { Pencil, Trash } from '~/components/vectors';
 import LikeButton from '~/components/base/LikeButton';
 import useCommnetLikeManager from '~/hooks/useCommentLikeManager';

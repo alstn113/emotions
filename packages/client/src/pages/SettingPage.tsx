@@ -7,7 +7,7 @@ import useLogout from '~/hooks/useLogout';
 import useUser from '~/hooks/useUser';
 import { glassmorphism } from '~/lib/styles';
 
-const Setting = () => {
+const SettingPage = () => {
   const user = useUser();
   const handleGithubLogin = () => {
     window.location.href = API.GITHUB_AUTH;
@@ -82,4 +82,4 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export default Setting;
+export default SettingPage;

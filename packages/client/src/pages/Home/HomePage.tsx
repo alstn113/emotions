@@ -11,7 +11,7 @@ import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/lib/styles';
 import PostListSkeleton from './PostListSkeleton';
 
-const Post = () => {
+const HomePage = () => {
   return (
     <TabLayout>
       <Container>
@@ -39,4 +39,4 @@ const Container = styled.div`
   }
 `;
 
-export default Post;
+export default HomePage;

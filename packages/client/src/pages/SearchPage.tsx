@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import TabLayout from '~/components/layouts/TabLayout';
 
-const Search = () => {
+const SearchPage = () => {
   return (
     <TabLayout>
-      <Container>Search</Container>
+      <Container>SearchPage</Container>
     </TabLayout>
   );
 };
@@ -20,4 +20,4 @@ const Container = styled.div`
   font-weight: 700;
 `;
 
-export default Search;
+export default SearchPage;

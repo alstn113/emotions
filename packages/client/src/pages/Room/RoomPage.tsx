@@ -12,7 +12,7 @@ import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/lib/styles';
 
-const Room = () => {
+const RoomPage = () => {
   const queryClient = useQueryClient();
 
   const { mutate: createRoom } = useCreateRoom({
@@ -61,4 +61,4 @@ const Spacer = styled.div`
   margin: 1rem;
 `;
 
-export default Room;
+export default RoomPage;

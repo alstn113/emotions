@@ -21,7 +21,7 @@ import PostContentsSkeleton from './PostContentsSkeleton';
 import CommentListSkeleton from './CommentListSkeleton';
 import { extractError } from '~/lib/error';
 
-const Post = () => {
+const PostPage = () => {
   const { postId } = useParams() as { postId: string };
   const { data: post } = useGetPost(postId);
   const navigate = useNavigate();
@@ -128,4 +128,4 @@ const MoreButton = styled.button`
   }
 `;
 
-export default Post;
+export default PostPage;

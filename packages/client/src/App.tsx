@@ -1,21 +1,21 @@
-// react-router-dom
+// react
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './components/base/ErrorBoundary';
+import ErrorFallback from './components/base/ErrorFallback';
+import { MESSAGE } from './constants';
 
 // hooks
 import { useGetMe } from './hooks/queries/user';
 
 // pages
-import Home from './pages/Home/Home';
-import Search from './pages/Search/Search';
-import Write from './pages/Write/Write';
-import Room from './pages/Room/Room';
-import Setting from './pages/Setting/Setting';
-import Chat from './pages/Room/Chat';
-import NotFound from './pages/NotFound/NotFound';
-import ErrorBoundary from './components/base/ErrorBoundary';
-import ErrorFallback from './components/base/ErrorFallback';
-import { MESSAGE } from './constants';
-import Post from './pages/Post/Post';
+import HomePage from './pages/home/HomePage';
+import SearchPage from './pages/SearchPage';
+import SettingPage from './pages/SettingPage';
+import PostPage from './pages/post/PostPage';
+import WritePage from './pages/write/WritePage';
+import RoomPage from './pages/room/RoomPage';
+import ChatPage from './pages/room/ChatPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => {
   useGetMe();
@@ -25,17 +25,17 @@ const App = () => {
       <Router>
         <Routes>
           {/* public routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/write" element={<Write />} />
-          <Route path="/room" element={<Room />} />
-          <Route path="/setting" element={<Setting />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/write" element={<WritePage />} />
+          <Route path="/room" element={<RoomPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/setting" element={<SettingPage />} />
 
-          <Route path="/post/:postId" element={<Post />} />
-          <Route path="/room/:roomId" element={<Chat />} />
+          <Route path="/post/:postId" element={<PostPage />} />
+          <Route path="/room/:roomId" element={<ChatPage />} />
 
           {/* catch all */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </ErrorBoundary>

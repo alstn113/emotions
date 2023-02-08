@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import TabLayout from '~/components/layouts/TabLayout';
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <TabLayout>
       <Container>
@@ -33,4 +33,4 @@ const Container = styled.div`
   -webkit-text-fill-color: transparent;
 `;
 
-export default NotFound;
+export default NotFoundPage;

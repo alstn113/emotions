@@ -10,8 +10,8 @@ import useUser from '~/hooks/useUser';
 // components
 import styled from '@emotion/styled';
 import ChatInput from './ChatInput';
-import Message from '~/components/Chat/Message';
-import DynamicIsland from '~/components/DynamicIsland/DynamicIsland';
+import Message from '~/components/chat/Message';
+import DynamicIsland from '~/components/dynamicIsland/DynamicIsland';
 import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 
@@ -20,7 +20,7 @@ import { MESSAGE, SOCKET_EVENT } from '~/constants';
 import roomSocket, { initRoomSocket, leaveRoom } from '~/sockets/roomSocket';
 import BaseLayout from '~/components/layouts/BaseLayout';
 
-const Chat = () => {
+const ChatPage = () => {
   const { roomId } = useParams() as { roomId: string };
   const { data: room } = useGetRoom(roomId);
 
@@ -182,8 +182,6 @@ const Chat = () => {
   );
 };
 
-export default Chat;
-
 const Container = styled.div`
   position: relative;
   display: flex;
@@ -205,3 +203,5 @@ const Contents = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
+
+export default ChatPage;
