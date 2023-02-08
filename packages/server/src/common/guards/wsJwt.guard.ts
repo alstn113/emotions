@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Socket } from 'socket.io';
 import { AuthService } from '~/modules/auth/auth.service';
 import { PrismaService } from '~/prisma/prisma.service';
-import { parseCookie } from '~/utils/parseCookie';
+import { parseCookie } from '~/lib/cookies';
 
 @Injectable()
 export class WsJwtGuard implements CanActivate {

@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AppErrorException } from '~/common/exceptions';
+import { clearTokenCookie } from '~/lib/cookies';
 import { AuthService } from '~/modules/auth/auth.service';
 import { PrismaService } from '~/prisma/prisma.service';
 
@@ -35,7 +36,7 @@ export class JwtMiddleware implements NestMiddleware {
         username: decoded.username,
       };
     } catch (error) {
-      this.authService.clearTokenCookie(res);
+      clearTokenCookie(res);
       console.log(error);
     }
 

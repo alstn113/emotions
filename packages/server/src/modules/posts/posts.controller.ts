@@ -14,7 +14,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import multerOptions from '~/utils/multerOptions';
+import multerOptions from '~/lib/multer';
 import { GetPostsQueryDto } from './dto/get-post-query.dto';
 
 @ApiTags('posts')

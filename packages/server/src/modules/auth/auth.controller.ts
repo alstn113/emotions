@@ -4,6 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { GithubGuard } from '~/common/guards';
+import { clearTokenCookie, setTokenCookie } from '~/lib/cookies';
 import { AuthService } from './auth.service';
 
 @Public()
@@ -32,13 +33,13 @@ export class AuthController {
       user.userId,
       user.username,
     );
-    this.authService.setTokenCookie(res, token);
+    setTokenCookie(res, token);
     return res.redirect(`${FRONTEND_URL}`);
   }
 
   @Delete('logout')
   logout(@Res() res: Response) {
-    this.authService.clearTokenCookie(res);
+    clearTokenCookie(res);
     return res.status(200).json({ message: 'Logout success' });
   }
 }

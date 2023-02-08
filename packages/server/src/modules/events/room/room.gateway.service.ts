@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENT } from '~/common/constants';
 import { AuthService } from '~/modules/auth/auth.service';
-import { parseCookie } from '~/utils/parseCookie';
+import { parseCookie } from '~/lib/cookies';
 import {
   AnswerQuestionDto,
   ChooseQuestionDto,
