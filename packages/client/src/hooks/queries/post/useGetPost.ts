@@ -1,4 +1,4 @@
-import PostAPI from '~/api/post';
+import PostAPI from '~/lib/api/post';
 import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 

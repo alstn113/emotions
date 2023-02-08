@@ -1,5 +1,5 @@
 import { API } from '~/constants';
-import { CreateCommentParams, Comment } from '~/types';
+import { CreateCommentParams, Comment } from '~/lib/types';
 import apiClient from './apiClient';
 
 const CommentAPI = {

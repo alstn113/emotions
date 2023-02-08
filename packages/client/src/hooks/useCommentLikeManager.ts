@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Comment } from '~/types';
+import { Comment } from '~/lib/types';
 import useLikeComment from './queries/comment/useLikeComment';
 import useUnlikeComment from './queries/comment/useUnlikeComment';
 import { useGetPostComments } from './queries/post';

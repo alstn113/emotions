@@ -1,5 +1,5 @@
 import { API } from '~/constants';
-import { CreateRoomParams, Room } from '~/types';
+import { CreateRoomParams, Room } from '~/lib/types';
 import apiClient from './apiClient';
 
 const RoomAPI = {

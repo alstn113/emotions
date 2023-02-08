@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 import useCreateComment from '~/hooks/queries/comment/useCreateComment';
 import { useGetPostComments } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
-import { Comment } from '~/types';
+import { Comment } from '~/lib/types';
 
 interface Props {
   parentComment: Comment;

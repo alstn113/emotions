@@ -4,7 +4,7 @@ import { Loader } from '~/components/common';
 import { useUploadImage } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 import UploadImageSvg from '~/assets/vectors/upload-image.svg';
-import { extractError } from '~/error';
+import { extractError } from '~/lib/error';
 
 const PublishPreview = () => {
   const { changeThumbnail } = useWriteStore();
