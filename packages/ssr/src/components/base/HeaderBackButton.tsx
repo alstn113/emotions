@@ -1,5 +1,5 @@
 // hooks
-import { useGoBack } from '~/hooks/useGoBack';
+import useGoBack from '~/hooks/useGoBack';
 
 // components
 import styled from '@emotion/styled';

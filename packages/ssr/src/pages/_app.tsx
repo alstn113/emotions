@@ -16,7 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 1000 * 60 * 5, // 5 minutes
+            retry: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            staleTime: 1000 * 60 * 3, // 3m
           },
         },
       }),
