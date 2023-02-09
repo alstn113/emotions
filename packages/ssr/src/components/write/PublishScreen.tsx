@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '~/components/common';
 import { extractError } from '~/lib/error';
 import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 import PublishPreview from './PublishPreview';
+import { useRouter } from 'next/router';
 
 const PublishScreen = () => {
   const {
@@ -18,7 +18,7 @@ const PublishScreen = () => {
     closePublishScreen,
   } = useWriteStore();
   const { mutate } = useCreatePost();
-  const navigate = useNavigate();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const handleCreatePost = () => {
@@ -28,7 +28,7 @@ const PublishScreen = () => {
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());
-          navigate('/');
+          router.push('/');
         },
         onError: (e) => {
           const error = extractError(e);

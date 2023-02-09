@@ -1,5 +1,5 @@
 // react
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { extractError } from '~/lib/error';
 
 // hooks
@@ -24,7 +24,7 @@ const PostContents = ({ postId }: Props) => {
   const { data: post } = useGetPost(postId, { suspense: true });
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
-  const navigate = useNavigate();
+  const router = useRouter();
   const { openModal } = useModalStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
@@ -43,7 +43,7 @@ const PostContents = ({ postId }: Props) => {
       onConfirm: () => {
         deletePost(postId, {
           onSuccess: () => {
-            navigate('/');
+            router.push('/');
           },
           onError: (e) => {
             const error = extractError(e);

@@ -1,5 +1,5 @@
 // react
-import { Link, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 // hookes
 import useUser from '~/hooks/useUser';
@@ -9,18 +9,19 @@ import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles/mediaQuery';
 import { Button } from '~/components/common';
 import HeaderDropdown from '~/components/base/HeaderDropdown';
+import Link from 'next/link';
 
 const DesktopHeader = () => {
   const user = useUser();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <Container>
-      <Logo to="/">Emotions</Logo>
+      <Logo href="/">Emotions</Logo>
       <HeaderItems>
         {user ? (
           <>
-            <Button shadow size="sm" onClick={() => navigate('/write')}>
+            <Button shadow size="sm" onClick={() => router.push('/write')}>
               Write Post
             </Button>
             <HeaderDropdown />
@@ -30,7 +31,7 @@ const DesktopHeader = () => {
             shadow
             color="primary"
             size="sm"
-            onClick={() => navigate('/setting')}
+            onClick={() => router.push('/setting')}
           >
             Login
           </Button>

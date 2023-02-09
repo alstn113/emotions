@@ -1,6 +1,6 @@
 import useModalStore from '~/stores/useModalStore';
 import { useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const messageMap = {
   postLike: '게시글을 추천하기위해서는 로그인이 필요합니다.',
@@ -10,8 +10,7 @@ const messageMap = {
 };
 
 const useOpenLoginDialog = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
   const { openModal } = useModalStore();
   const openLoginDialog = useCallback(
     (type: keyof typeof messageMap) => {
@@ -22,10 +21,10 @@ const useOpenLoginDialog = () => {
         confirmText: '로그인',
         cancelText: '취소',
         // use next query to redirect after login
-        onConfirm: () => navigate(`/setting?next=${location.pathname}`),
+        onConfirm: () => router.push(`/setting?next=${router.pathname}`),
       });
     },
-    [openModal, navigate, location],
+    [openModal, router],
   );
 
   return openLoginDialog;

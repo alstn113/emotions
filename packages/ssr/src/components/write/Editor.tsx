@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import useWriteStore from '~/stores/useWriteStore';
 import TextareaAutosize from 'react-textarea-autosize';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import TagInput from './TagInput';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
     useWriteStore();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <Container initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -30,7 +30,7 @@ const Editor = () => {
         />
       </EditorBody>
       <EditorFooter>
-        <Button shadow color="error" onClick={() => navigate('/')}>
+        <Button shadow color="error" onClick={() => router.push('/')}>
           Exit
         </Button>
         <Button shadow color="success" onClick={openPublishScreen}>

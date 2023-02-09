@@ -1,5 +1,5 @@
 // react
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 
 // components
 import styled from '@emotion/styled';
@@ -9,26 +9,26 @@ import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
 const Footer = () => {
   return (
     <Container>
-      <TabItem to="/">
+      <TabItem href="/">
         <Home width={24} height={24} />
       </TabItem>
-      <TabItem to="/search">
+      <TabItem href="/search">
         <Search width={24} height={24} />
       </TabItem>
-      <TabItem to="/write">
+      <TabItem href="/write">
         <Create width={24} height={24} />
       </TabItem>
-      <TabItem to="/room">
+      <TabItem href="/room">
         <Comment width={24} height={24} />
       </TabItem>
-      <TabItem to="/setting">
+      <TabItem href="/setting">
         <Settings width={24} height={24} />
       </TabItem>
     </Container>
   );
 };
 
-const TabItem = styled(NavLink)`
+const TabItem = styled(Link)`
   flex: 1;
   display: flex;
   align-items: center;

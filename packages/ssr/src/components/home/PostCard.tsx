@@ -1,6 +1,6 @@
 // react
 import { PostWithStats } from '~/lib/types';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 // components
 import styled from '@emotion/styled';

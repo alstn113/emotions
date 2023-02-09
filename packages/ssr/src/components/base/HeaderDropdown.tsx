@@ -1,6 +1,6 @@
 // react
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 // hooks
 import useUser from '~/hooks/useUser';
@@ -19,7 +19,7 @@ import { User } from '~/components/vectors';
 const HeaderDropdown = () => {
   const user = useUser();
   const logout = useLogout();
-  const naviagate = useNavigate();
+  const router = useRouter();
   const { isOpen, onClose, onToggle } = useDisclosure();
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -67,13 +67,16 @@ const HeaderDropdown = () => {
           },
         }}
       >
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/')}>
+        <MenuItem variants={itemVariants} onClick={() => router.push('/')}>
           <MenuItemText>Posts</MenuItemText>
         </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/room')}>
+        <MenuItem variants={itemVariants} onClick={() => router.push('/room')}>
           <MenuItemText>Rooms</MenuItemText>
         </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/setting')}>
+        <MenuItem
+          variants={itemVariants}
+          onClick={() => router.push('/setting')}
+        >
           <MenuItemText>Setting</MenuItemText>
         </MenuItem>
         <MenuItem variants={itemVariants} onClick={logout} red>
