@@ -104,18 +104,31 @@ export const getServerSideProps: GetServerSideProps = async ({
   const queryClient = new QueryClient();
   const postId = params?.postId as string;
 
-  await Promise.all([
-    queryClient.prefetchQuery(
-      useGetPost.getKey(postId),
-      useGetPost.fetcher(postId),
-    ),
-    queryClient.prefetchQuery(
-      useGetPostComments.getKey(postId),
-      useGetPostComments.fetcher(postId),
-    ),
-  ]);
+  try {
+    await Promise.all([
+      queryClient.fetchQuery(
+        useGetPost.getKey(postId),
+        useGetPost.fetcher(postId),
+      ),
+      queryClient.fetchQuery(
+        useGetPostComments.getKey(postId),
+        useGetPostComments.fetcher(postId),
+      ),
+    ]);
 
-  return { props: { dehydratedState: dehydrate(queryClient), postId } };
+    return { props: { dehydratedState: dehydrate(queryClient), postId } };
+  } catch (e) {
+    const error = extractError(e);
+    if (error.name === 'NotFound')
+      return {
+        notFound: true,
+      };
+    return {
+      notFound: true,
+    };
+  } finally {
+    queryClient.clear();
+  }
 };
 
 const Container = styled.div`

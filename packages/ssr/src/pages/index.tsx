@@ -11,6 +11,7 @@ import {
 import { useGetPosts } from '~/hooks/queries/post';
 import PostList from '~/components/home/PostList';
 import { PostListResponse } from '~/lib/types';
+import { extractError } from '~/lib/error';
 
 export default function Home() {
   return (
@@ -36,18 +37,25 @@ export const getServerSideProps: GetServerSideProps = async (): Promise<
   }>
 > => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery(
-    useGetPosts.getKey(),
-    useGetPosts.fetcher(),
-  );
+  try {
+    await queryClient.fetchInfiniteQuery(
+      useGetPosts.getKey(),
+      useGetPosts.fetcher(),
+    );
 
-  const pages = queryClient.getQueryData<InfiniteData<PostListResponse>>(
-    useGetPosts.getKey(),
-  )?.pages;
-  queryClient.setQueryData(useGetPosts.getKey(), {
-    pages,
-    pageParams: [null],
-  });
+    const pages = queryClient.getQueryData<InfiniteData<PostListResponse>>(
+      useGetPosts.getKey(),
+    )?.pages;
+    queryClient.setQueryData(useGetPosts.getKey(), {
+      pages,
+      pageParams: [null],
+    });
 
-  return { props: { dehydratedState: dehydrate(queryClient) } };
+    return { props: { dehydratedState: dehydrate(queryClient) } };
+  } catch (e) {
+    queryClient.resetQueries({ queryKey: useGetPosts.getKey() });
+    return { props: { dehydratedState: dehydrate(queryClient) } };
+  } finally {
+    queryClient.clear();
+  }
 };

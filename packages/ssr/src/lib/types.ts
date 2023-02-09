@@ -3,6 +3,14 @@ export interface User {
   username: string;
   displayName: string;
 }
+export interface Room {
+  id: string;
+  name: string;
+  user: User;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface PostListResponse {
   list: PostWithStats[];
@@ -69,4 +77,16 @@ export interface CreateCommentParams {
   text: string;
   postId: string;
   parentCommentId?: string;
+}
+
+export interface MessagePayload {
+  uid: string;
+  username: string;
+  message: string;
+}
+
+export interface TypingStatusPayload {
+  uid: string;
+  username: string;
+  isTyping: boolean;
 }

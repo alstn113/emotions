@@ -197,6 +197,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-textarea-autosize: ^8.4.0
+      socket.io-client: ^4.5.4
       zustand: ^4.3.1
     dependencies:
       '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
@@ -211,6 +212,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-textarea-autosize: 8.4.0_kzbn2opkn2327fwg5yzwzya5o4
+      socket.io-client: 4.5.4
       zustand: 4.3.2_immer@9.0.18+react@18.2.0
     devDependencies:
       '@svgr/cli': 6.5.1
