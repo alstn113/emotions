@@ -4,7 +4,7 @@ export interface User {
   displayName: string;
 }
 
-export interface PostList {
+export interface PostListResponse {
   list: PostWithStats[];
   totalCount: number;
   pageInfo: {

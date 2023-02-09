@@ -2,7 +2,7 @@ import { API } from '~/constants';
 import {
   Comment,
   CreatePostParams,
-  PostList,
+  PostListResponse,
   PostStats,
   PostWithStats,
 } from '~/lib/types';
@@ -10,7 +10,7 @@ import apiClient from './apiClient';
 import qs from 'qs';
 
 const PostAPI = {
-  getPosts: async (cursor?: string): Promise<PostList> => {
+  getPosts: async (cursor?: string): Promise<PostListResponse> => {
     const { data } = await apiClient.get(
       `${API.POST}`.concat(qs.stringify({ cursor }, { addQueryPrefix: true })),
     );

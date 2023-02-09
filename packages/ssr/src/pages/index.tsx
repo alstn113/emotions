@@ -1,7 +1,16 @@
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
 import TabLayout from '~/components/layouts/TabLayout';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import {
+  dehydrate,
+  DehydratedState,
+  InfiniteData,
+  QueryClient,
+} from '@tanstack/react-query';
+import { useGetPosts } from '~/hooks/queries/post';
 import PostList from '~/components/home/PostList';
+import { PostListResponse } from '~/lib/types';
 
 export default function Home() {
   return (
@@ -20,3 +29,25 @@ const Container = styled.div`
     margin: 0 auto;
   }
 `;
+
+export const getServerSideProps: GetServerSideProps = async (): Promise<
+  GetServerSidePropsResult<{
+    dehydratedState: DehydratedState;
+  }>
+> => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchInfiniteQuery(
+    useGetPosts.getKey(),
+    useGetPosts.fetcher(),
+  );
+
+  const pages = queryClient.getQueryData<InfiniteData<PostListResponse>>(
+    useGetPosts.getKey(),
+  )?.pages;
+  queryClient.setQueryData(useGetPosts.getKey(), {
+    pages,
+    pageParams: [null],
+  });
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
+};
