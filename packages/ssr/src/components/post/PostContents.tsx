@@ -21,7 +21,7 @@ interface Props {
 }
 
 const PostContents = ({ postId }: Props) => {
-  const { data: post } = useGetPost(postId, { suspense: true });
+  const { data: post } = useGetPost(postId);
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
   const router = useRouter();
@@ -83,7 +83,7 @@ const PostContents = ({ postId }: Props) => {
       </Group>
       <LikeButtonWrapper>
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
-        <span>좋아요 {likeCount.toLocaleString()}개</span>
+        <span>좋아요 {likeCount?.toLocaleString()}개</span>
       </LikeButtonWrapper>
     </>
   );

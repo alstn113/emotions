@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CommentList = ({ postId }: Props) => {
-  const { data: comments } = useGetPostComments(postId, { suspense: true });
+  const { data: comments } = useGetPostComments(postId);
   return (
     <Container>
       {comments?.map((comment) => {
