@@ -90,3 +90,28 @@ export interface TypingStatusPayload {
   username: string;
   isTyping: boolean;
 }
+
+export interface CreateSeriesParams {
+  name: string;
+}
+
+export type SeriesList = Series[];
+
+export interface Series {
+  id: string;
+  name: string;
+  posts_count: 0;
+  user: User;
+  userId: string;
+  seriesPosts: SeriesPost[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SeriesPost {
+  id: string;
+  index: number;
+  post: Post;
+  createdAt: string;
+  updatedAt: string;
+}
