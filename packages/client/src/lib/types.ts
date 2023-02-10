@@ -34,6 +34,10 @@ export interface Post {
   updatedAt: string;
 }
 
+export interface SinglePostReponse extends PostWithStats {
+  series: Series | null;
+}
+
 export interface PostStats {
   id: string;
   likes: number;
@@ -89,4 +93,33 @@ export interface TypingStatusPayload {
   uid: string;
   username: string;
   isTyping: boolean;
+}
+
+export interface CreateSeriesParams {
+  name: string;
+}
+
+export type SeriesList = Series[];
+
+export interface Series {
+  id: string;
+  name: string;
+  postsCount: 0;
+  userId: string;
+  seriesPosts: SeriesPost[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SeriesPost {
+  id: string;
+  index: number;
+  post: Post;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AppendToPostSeriesParams {
+  seriesId: string;
+  postId: string;
 }

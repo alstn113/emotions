@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file,
 
 // pnpm dlx prisma migrate dev --name init
 // pnpm dlx prisma generate
@@ -29,6 +29,7 @@ model User {
   postLikes    PostLike[]
   comments     Comment[]
   commentLikes CommentLike[]
+  Series       Series[]
 }
 
 model Room {
@@ -75,12 +76,40 @@ model Post {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @default(now()) @updatedAt
-  comments  Comment[]
-  postLikes PostLike[]
-  tags      PostsOnTags[]
-  postStats PostStats?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  comments   Comment[]
+  postLikes  PostLike[]
+  tags       PostsOnTags[]
+  postStats  PostStats?
+  seriesPost SeriesPost?
+}
+
+model Series {
+  id          String       @id() @default(uuid())
+  name        String       @unique
+  postsCount  Int          @default(0)
+  userId      String
+  seriesPosts SeriesPost[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([name, userId])
+  @@unique([id, userId])
+}
+
+model SeriesPost {
+  id       String @id() @default(uuid())
+  index    Int
+  seriesId String
+  postId   String @unique
+
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  series Series @relation(fields: [seriesId], references: [id], onDelete: Cascade)
 }
 
 model PostStats {

@@ -4,6 +4,7 @@ import { Post, PostLike } from '@prisma/client';
 import { AppErrorException } from '~/common/exceptions';
 import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
+import { SeriesService } from '../series/series.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsRepository } from './posts.repository';
 
@@ -12,6 +13,7 @@ export class PostsService {
   constructor(
     private readonly postRepository: PostsRepository,
     private readonly commentsService: CommentsService,
+    private readonly seriesService: SeriesService,
     private readonly configService: ConfigService,
     private readonly s3Service: S3Service,
   ) {}
@@ -34,7 +36,10 @@ export class PostsService {
   async getPost(id: string, userId: string | null = null) {
     const post = await this.postRepository.findPostById(id, userId);
     if (!post) throw new AppErrorException('NotFound', 'Post not found');
-    return this.serializePost(post);
+
+    const series = await this.seriesService.getSeriesByPostId(id);
+
+    return this.serializePost({ ...post, series });
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
