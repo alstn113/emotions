@@ -1,4 +1,4 @@
-import type { AppProps } from 'next/app';
+import type { AppContext, AppProps } from 'next/app';
 import { useState } from 'react';
 import {
   Hydrate,
@@ -9,6 +9,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from '@emotion/react';
 import { GlobalStyle } from '~/GlobalStyle';
 import { lightTheme } from '~/lib/styles';
+import ModalProvider from '~/components/base/ModalProvider';
+import BottomSheetProvider from '~/components/base/BottomSheetProvider';
+import { setClientCookie } from '~/lib/api/apiClient';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -33,9 +36,31 @@ export default function App({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={lightTheme}>
           <GlobalStyle />
           <Component {...pageProps} />
+          <ModalProvider />
+          <BottomSheetProvider />
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
+
+App.getInitialProps = async (context: AppContext) => {
+  const { ctx, Component } = context; // next에서 넣어주는 context
+  let pageProps = {};
+  const cookie = ctx.req ? ctx.req.headers.cookie : '';
+  setClientCookie('');
+  if (ctx.req && cookie) {
+    setClientCookie(cookie);
+  }
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  pageProps = {
+    pageProps,
+  };
+
+  return { pageProps };
+};

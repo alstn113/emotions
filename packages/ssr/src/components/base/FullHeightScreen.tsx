@@ -13,7 +13,7 @@ const FullHeightScreen = ({ children }: Props) => {
         styles={css`
           html,
           body,
-          #next {
+          #__next {
             height: 100%;
           }
         `}

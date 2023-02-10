@@ -116,7 +116,9 @@ export const getServerSideProps: GetServerSideProps = async ({
       ),
     ]);
 
-    return { props: { dehydratedState: dehydrate(queryClient), postId } };
+    return {
+      props: { dehydratedState: dehydrate(queryClient), postId },
+    };
   } catch (e) {
     const error = extractError(e);
     if (error.name === 'NotFound')

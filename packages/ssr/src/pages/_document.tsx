@@ -39,9 +39,9 @@ export default function Document() {
       </Head>
       <body>
         <Main />
-        <NextScript />
         <div id="modal"></div>
         <div id="bottom-sheet"></div>
+        <NextScript />
       </body>
     </Html>
   );

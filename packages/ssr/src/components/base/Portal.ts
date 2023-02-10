@@ -11,7 +11,9 @@ const Portal = ({ children, id }: PortalProps) => {
     return typeof window === 'undefined' || typeof document === 'undefined';
   };
 
-  const element = isSSR() ? null : (document.getElementById(id) as HTMLElement);
+  if (isSSR()) return null;
+
+  const element = document.getElementById(id) as HTMLElement;
 
   if (!element) {
     console.warn(`Portal: element with id ${id} not found`);
