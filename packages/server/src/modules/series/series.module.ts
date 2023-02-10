@@ -6,5 +6,6 @@ import { SeriesRepository } from './series.repository';
 @Module({
   controllers: [SeriesController],
   providers: [SeriesService, SeriesRepository],
+  exports: [SeriesService],
 })
 export class SeriesModule {}

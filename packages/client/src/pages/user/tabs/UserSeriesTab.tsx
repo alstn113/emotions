@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
 
 const UserSeriesTab = () => {
@@ -10,9 +10,9 @@ const UserSeriesTab = () => {
       UserSeriesTab {username}
       <SeriesContainer>
         {seriesList?.map((series) => (
-          <SeriesItem key={series.id}>
+          <SeriesItem key={series.id} to={series.name}>
             <div>{series.name}</div>
-            <div>{series.posts_count}</div>
+            <div>{series.postsCount}</div>
           </SeriesItem>
         ))}
       </SeriesContainer>
@@ -29,7 +29,7 @@ const SeriesContainer = styled.div`
   gap: 2rem;
 `;
 
-const SeriesItem = styled.div`
+const SeriesItem = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;

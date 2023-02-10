@@ -14,7 +14,9 @@ export class PostsRepository {
         skip: cursor ? 1 : 0,
         cursor: cursor ? { id: cursor } : undefined,
         orderBy: { createdAt: 'desc' },
-        ...postSelector(userId),
+        include: {
+          ...postSelector(userId),
+        },
       }),
     ]);
 
@@ -35,7 +37,9 @@ export class PostsRepository {
   async findPostById(id: string, userId: string | null = null) {
     return await this.prisma.post.findUnique({
       where: { id },
-      ...postSelector(userId),
+      include: {
+        ...postSelector(userId),
+      },
     });
   }
 
@@ -69,7 +73,9 @@ export class PostsRepository {
         },
         userId,
       },
-      ...postSelector(),
+      include: {
+        ...postSelector(),
+      },
     });
   }
 
@@ -103,7 +109,9 @@ export class PostsRepository {
   async deletePost(id: string) {
     return await this.prisma.post.delete({
       where: { id },
-      ...postSelector(),
+      include: {
+        ...postSelector(),
+      },
     });
   }
 
@@ -136,26 +144,24 @@ export class PostsRepository {
 
 const postSelector = (userId: string | null = null) => {
   return {
-    include: {
-      user: {
-        select: {
-          id: true,
-          username: true,
-          displayName: true,
-        },
+    user: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
       },
-      tags: {
-        select: {
-          tag: {
-            select: {
-              name: true,
-            },
+    },
+    tags: {
+      select: {
+        tag: {
+          select: {
+            name: true,
           },
         },
       },
-      postStats: postStatsSelector,
-      postLikes: userId ? { where: { userId } } : false,
     },
+    postStats: postStatsSelector,
+    postLikes: userId ? { where: { userId } } : false,
   };
 };
 

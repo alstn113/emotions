@@ -83,15 +83,15 @@ model Post {
   postLikes  PostLike[]
   tags       PostsOnTags[]
   postStats  PostStats?
-  SeriesPost SeriesPost?
+  seriesPost SeriesPost?
 }
 
 model Series {
-  id           String       @id() @default(uuid())
-  name         String       @unique
-  posts_count  Int          @default(0)
-  userId       String
-  series_posts SeriesPost[]
+  id          String       @id() @default(uuid())
+  name        String       @unique
+  postsCount  Int          @default(0)
+  userId      String
+  seriesPosts SeriesPost[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

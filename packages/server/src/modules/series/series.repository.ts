@@ -23,6 +23,25 @@ export class SeriesRepository {
           userId: user.id,
         },
       },
+      include: {
+        seriesPosts: {
+          include: {
+            post: {
+              select: {
+                id: true,
+                title: true,
+                thumbnail: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
     });
   }
 
@@ -33,6 +52,21 @@ export class SeriesRepository {
           id: series,
           userId,
         },
+      },
+    });
+  }
+
+  async findSeriesByPostId(postId: string) {
+    return await this.prisma.series.findFirst({
+      where: {
+        seriesPosts: {
+          some: {
+            postId,
+          },
+        },
+      },
+      include: {
+        seriesPosts: true,
       },
     });
   }
@@ -72,7 +106,7 @@ export class SeriesRepository {
         id: seriesId,
       },
       data: {
-        posts_count: count,
+        postsCount: count,
       },
     });
   }

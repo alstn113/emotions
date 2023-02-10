@@ -26,11 +26,13 @@ export class SeriesService {
     return series;
   }
 
+  async getSeriesByPostId(postId: string) {
+    const series = await this.seriesRepository.findSeriesByPostId(postId);
+    return series;
+  }
+
   async createSeries(dto: CreateSeriestDto, userId: string) {
-    const exists = await this.seriesRepository.findSeriesByName(
-      userId,
-      dto.name,
-    );
+    const exists = await this.seriesRepository.findSeriesById(userId, dto.name);
     if (exists)
       throw new AppErrorException(
         'BadRequest',
@@ -51,7 +53,7 @@ export class SeriesService {
     const seriesPost = await this.seriesRepository.createSeriesPost(
       series.id,
       postId,
-      series.posts_count + 1,
+      series.postsCount + 1,
     );
 
     await this.seriesRepository.updateSeriesCount(seriesId);

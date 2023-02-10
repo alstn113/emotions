@@ -5,6 +5,7 @@ import {
   PostList,
   PostStats,
   PostWithStats,
+  SinglePostReponse,
 } from '~/lib/types';
 import apiClient from './apiClient';
 import qs from 'qs';
@@ -17,7 +18,7 @@ const PostAPI = {
     return data;
   },
 
-  getPost: async (id: string): Promise<PostWithStats> => {
+  getPost: async (id: string): Promise<SinglePostReponse> => {
     const { data } = await apiClient.get(`${API.POST}/${id}`);
     return data;
   },

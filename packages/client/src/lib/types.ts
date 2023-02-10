@@ -34,6 +34,10 @@ export interface Post {
   updatedAt: string;
 }
 
+export interface SinglePostReponse extends PostWithStats {
+  series: Series | null;
+}
+
 export interface PostStats {
   id: string;
   likes: number;
@@ -100,8 +104,7 @@ export type SeriesList = Series[];
 export interface Series {
   id: string;
   name: string;
-  posts_count: 0;
-  user: User;
+  postsCount: 0;
   userId: string;
   seriesPosts: SeriesPost[];
   createdAt: string;
