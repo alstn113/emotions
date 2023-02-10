@@ -115,3 +115,8 @@ export interface SeriesPost {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface AppendToPostSeriesParams {
+  seriesId: string;
+  postId: string;
+}

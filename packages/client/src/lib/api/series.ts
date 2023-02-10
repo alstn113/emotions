@@ -1,5 +1,10 @@
 import { API } from '~/constants';
-import { CreateSeriesParams, Series, SeriesList } from '../types';
+import {
+  AppendToPostSeriesParams,
+  CreateSeriesParams,
+  Series,
+  SeriesList,
+} from '../types';
 import apiClient from './apiClient';
 
 const SeriesAPI = {
@@ -24,7 +29,8 @@ const SeriesAPI = {
     const { data } = await apiClient.delete(`${API.SERIES}/${seriesId}`);
     return data;
   },
-  appendPostToSeries: async (seriesId: string, postId: string) => {
+  appendPostToSeries: async (params: AppendToPostSeriesParams) => {
+    const { seriesId, postId } = params;
     const { data } = await apiClient.post(
       `${API.SERIES}/${seriesId}/post/${postId}`,
     );
