@@ -66,7 +66,16 @@ export class SeriesRepository {
         },
       },
       include: {
-        seriesPosts: true,
+        seriesPosts: {
+          include: {
+            post: {
+              select: {
+                id: true,
+                title: true,
+              },
+            },
+          },
+        },
       },
     });
   }

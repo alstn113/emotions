@@ -15,6 +15,7 @@ import styled from '@emotion/styled';
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
 import { mediaQuery } from '~/lib/styles';
+import PostSeriesViewer from './PostSeriesViewer';
 
 interface Props {
   postId: string;
@@ -62,6 +63,7 @@ const PostContents = ({ postId }: Props) => {
           return <div key={tag}>{tag}</div>;
         })}
       </TagList>
+      {post?.series && <PostSeriesViewer series={post?.series} />}
       {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
       <Body>
         <pre>{post?.body}</pre>
