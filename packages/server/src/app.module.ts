@@ -15,6 +15,9 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AppErrorExceptionFilter } from './common/filter';
 import { JwtGuard } from './common/guards';
 
+// provider modules
+import { S3Module } from './providers';
+
 // main modules
 import {
   AuthModule,
@@ -24,10 +27,8 @@ import {
   PostsModule,
   CommentsModule,
   TagsModule,
+  SeriesModule,
 } from './modules';
-
-// provider modules
-import { S3Module } from './providers';
 
 @Module({
   imports: [
@@ -46,16 +47,17 @@ import { S3Module } from './providers';
     PostsModule,
     CommentsModule,
     TagsModule,
+    SeriesModule,
     // provider modules
     S3Module,
   ],
   controllers: [AppController],
   providers: [
+    AppService,
     {
       provide: APP_FILTER,
       useClass: AppErrorExceptionFilter,
     },
-    AppService,
     {
       provide: APP_GUARD,
       useClass: JwtGuard,
