@@ -46,13 +46,34 @@ export class SeriesRepository {
     });
   }
 
+  async createSeriesPost(seriesId: string, postId: string, index: number) {
+    return await this.prisma.seriesPost.create({
+      data: {
+        seriesId,
+        postId,
+        index,
+      },
+    });
+  }
+
   async deleteSeries(seriesId: string) {
     return await this.prisma.series.delete({
       where: { id: seriesId },
     });
   }
 
-  async appendPostToSeries(seriesId: string, postId: string, userId: string) {
-    return;
+  async updateSeriesCount(seriesId: string) {
+    const count = await this.prisma.seriesPost.count({
+      where: { seriesId },
+    });
+
+    return await this.prisma.series.update({
+      where: {
+        id: seriesId,
+      },
+      data: {
+        posts_count: count,
+      },
+    });
   }
 }

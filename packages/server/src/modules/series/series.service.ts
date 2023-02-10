@@ -39,6 +39,7 @@ export class SeriesService {
     return await this.seriesRepository.createSeries(dto, userId);
   }
 
+  //TODO: check post exists
   async appendPostToSeries(seriesId: string, postId: string, userId: string) {
     const series = await this.getSeriesById(userId, seriesId);
     if (series.userId !== userId)
@@ -46,13 +47,19 @@ export class SeriesService {
         'Forbidden',
         "You don't have permission to append post this series",
       );
-    return await this.seriesRepository.appendPostToSeries(
-      seriesId,
+
+    const seriesPost = await this.seriesRepository.createSeriesPost(
+      series.id,
       postId,
-      userId,
+      series.posts_count + 1,
     );
+
+    await this.seriesRepository.updateSeriesCount(seriesId);
+
+    return seriesPost;
   }
 
+  // TODO: remove post from series
   async deleteSeries(seriesId: string, userId: string) {
     const series = await this.getSeriesById(userId, seriesId);
     if (series.userId !== userId)
