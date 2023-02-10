@@ -6,18 +6,21 @@ import { CreateSeriestDto } from './dto/create-series.dto';
 export class SeriesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findUserSeriesList(userId: string) {
+  async findUserSeriesList(username: string) {
     return await this.prisma.series.findMany({
-      where: { userId },
+      where: { user: { username } },
     });
   }
 
-  async findSeriesByName(userId: string, seriesName: string) {
+  async findSeriesByName(username: string, seriesName: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { username },
+    });
     return await this.prisma.series.findUnique({
       where: {
         name_userId: {
           name: seriesName,
-          userId,
+          userId: user.id,
         },
       },
     });

@@ -11,19 +11,19 @@ export class SeriesController {
 
   // Get a specific user's series list.
   @Public()
-  @Get('user/:userId')
-  async getUserSeriesList(@Param('userId') userId: string) {
-    return await this.seriesService.getUserSeriesList(userId);
+  @Get('user/:username')
+  async getUserSeriesList(@Param('username') username: string) {
+    return await this.seriesService.getUserSeriesList(username);
   }
 
   // Get a specific series by name.
   @Public()
-  @Get('user/:userId/name/:seriesName')
+  @Get('user/:username/name/:seriesName')
   async getUserSeriesByName(
-    @Param('userId') userId: string,
+    @Param('username') username: string,
     @Param('seriesName') seriesName: string,
   ) {
-    return await this.seriesService.getSeriesByName(userId, seriesName);
+    return await this.seriesService.getSeriesByName(username, seriesName);
   }
 
   @Post()

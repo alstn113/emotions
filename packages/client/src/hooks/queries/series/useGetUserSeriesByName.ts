@@ -3,24 +3,24 @@ import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 
 const useGetUserSeriesByName = (
-  userId: string,
+  username: string,
   seriesName: string,
   options: UseQueryOptionsOf<typeof SeriesAPI.getUserSeriesByName> = {},
 ) => {
   return useQuery(
-    getKey(userId, seriesName),
-    fetcher(userId, seriesName),
+    getKey(username, seriesName),
+    fetcher(username, seriesName),
     options,
   );
 };
 
-const getKey = (userId: string, seriesName: string) => [
+const getKey = (username: string, seriesName: string) => [
   'useGetUserSeriesByName',
-  userId,
+  username,
   seriesName,
 ];
-const fetcher = (userId: string, seriesName: string) => () =>
-  SeriesAPI.getUserSeriesByName(userId, seriesName);
+const fetcher = (username: string, seriesName: string) => () =>
+  SeriesAPI.getUserSeriesByName(username, seriesName);
 
 useGetUserSeriesByName.getKey = getKey;
 useGetUserSeriesByName.fetcher = fetcher;

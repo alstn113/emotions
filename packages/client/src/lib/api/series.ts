@@ -8,16 +8,16 @@ import {
 import apiClient from './apiClient';
 
 const SeriesAPI = {
-  getUserSeries: async (userId: string): Promise<SeriesList> => {
-    const { data } = await apiClient.post(`${API.SERIES}/user/${userId}`);
+  getUserSeries: async (username: string): Promise<SeriesList> => {
+    const { data } = await apiClient.post(`${API.SERIES}/user/${username}`);
     return data;
   },
   getUserSeriesByName: async (
-    userId: string,
+    username: string,
     seriesName: string,
   ): Promise<Series> => {
     const { data } = await apiClient.post(
-      `${API.SERIES}/user/${userId}/name/${seriesName}`,
+      `${API.SERIES}/user/${username}/name/${seriesName}`,
     );
     return data;
   },

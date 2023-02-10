@@ -7,13 +7,13 @@ import { SeriesRepository } from './series.repository';
 export class SeriesService {
   constructor(private readonly seriesRepository: SeriesRepository) {}
 
-  async getUserSeriesList(userId: string) {
-    return await this.seriesRepository.findUserSeriesList(userId);
+  async getUserSeriesList(username: string) {
+    return await this.seriesRepository.findUserSeriesList(username);
   }
 
-  async getSeriesByName(userId: string, seriesName: string) {
+  async getSeriesByName(username: string, seriesName: string) {
     const series = await this.seriesRepository.findSeriesByName(
-      userId,
+      username,
       seriesName,
     );
     if (!series) throw new AppErrorException('NotFound', 'Series not found');
