@@ -23,7 +23,7 @@ export class SeriesController {
     @Param('userId') userId: string,
     @Param('seriesName') seriesName: string,
   ) {
-    return await this.seriesService.getSeriesById(userId, seriesName);
+    return await this.seriesService.getSeriesByName(userId, seriesName);
   }
 
   @Post()

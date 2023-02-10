@@ -11,22 +11,32 @@ export class SeriesService {
     return await this.seriesRepository.findUserSeriesList(userId);
   }
 
-  async getSeriesById(userId: string, seriesName: string) {
-    return await this.seriesRepository.findSeriesById(userId, seriesName);
+  async getSeriesByName(userId: string, seriesName: string) {
+    const series = await this.seriesRepository.findSeriesByName(
+      userId,
+      seriesName,
+    );
+    if (!series) throw new AppErrorException('NotFound', 'Series not found');
+    return series;
+  }
+
+  async getSeriesById(userId: string, seriesId: string) {
+    const series = await this.seriesRepository.findSeriesById(userId, seriesId);
+    if (!series) throw new AppErrorException('NotFound', 'Series not found');
+    return series;
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
-    return await this.seriesRepository.createSeries(dto, userId);
-  }
-
-  async deleteSeries(seriesId: string, userId: string) {
-    const series = await this.getSeriesById(userId, seriesId);
-    if (series.userId !== userId)
+    const exists = await this.seriesRepository.findSeriesByName(
+      userId,
+      dto.name,
+    );
+    if (exists)
       throw new AppErrorException(
-        'Forbidden',
-        "You don't have permission to delete this series",
+        'BadRequest',
+        'Series with this name already exists',
       );
-    return await this.seriesRepository.deleteSeries(seriesId);
+    return await this.seriesRepository.createSeries(dto, userId);
   }
 
   async appendPostToSeries(seriesId: string, postId: string, userId: string) {
@@ -41,5 +51,15 @@ export class SeriesService {
       postId,
       userId,
     );
+  }
+
+  async deleteSeries(seriesId: string, userId: string) {
+    const series = await this.getSeriesById(userId, seriesId);
+    if (series.userId !== userId)
+      throw new AppErrorException(
+        'Forbidden',
+        "You don't have permission to delete this series",
+      );
+    return await this.seriesRepository.deleteSeries(seriesId);
   }
 }

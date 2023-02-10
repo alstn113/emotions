@@ -99,6 +99,7 @@ model Series {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@unique([name, userId])
+  @@unique([id, userId])
 }
 
 model SeriesPost {
