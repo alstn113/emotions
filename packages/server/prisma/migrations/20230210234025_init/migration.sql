@@ -44,12 +44,35 @@ CREATE TABLE "Vote" (
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "thumbnail" TEXT,
     "body" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Series" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "postsCount" INTEGER NOT NULL DEFAULT 0,
+    "userId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Series_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "SeriesPost" (
+    "id" TEXT NOT NULL,
+    "index" INTEGER NOT NULL,
+    "seriesId" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+
+    CONSTRAINT "SeriesPost_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -121,6 +144,18 @@ CREATE TABLE "PostsOnTags" (
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Series_name_key" ON "Series"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Series_name_userId_key" ON "Series"("name", "userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Series_id_userId_key" ON "Series"("id", "userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SeriesPost_postId_key" ON "SeriesPost"("postId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "PostStats_postId_key" ON "PostStats"("postId");
 
 -- CreateIndex
@@ -149,6 +184,15 @@ ALTER TABLE "Vote" ADD CONSTRAINT "Vote_roomId_fkey" FOREIGN KEY ("roomId") REFE
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Series" ADD CONSTRAINT "Series_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SeriesPost" ADD CONSTRAINT "SeriesPost_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SeriesPost" ADD CONSTRAINT "SeriesPost_seriesId_fkey" FOREIGN KEY ("seriesId") REFERENCES "Series"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostStats" ADD CONSTRAINT "PostStats_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE CASCADE ON UPDATE CASCADE;
