@@ -48,5 +48,5 @@ export class SeriesController {
     );
   }
 
-  //TODO: edit series controller
+  //TODO: add edit series controller
 }
