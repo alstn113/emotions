@@ -5,6 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import TagInput from './TagInput';
+import { mediaQuery } from '~/lib/styles';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
@@ -61,7 +62,7 @@ const PostTitle = styled(TextareaAutosize)`
   background: transparent;
   display: block;
   padding: 0;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   width: 100%;
   resize: none;
   line-height: 1.2;
@@ -71,6 +72,10 @@ const PostTitle = styled(TextareaAutosize)`
   color: #000;
   &::placeholder {
     color: #999;
+  }
+
+  ${mediaQuery.tablet} {
+    font-size: 2.5rem;
   }
 `;
 
@@ -83,7 +88,7 @@ const PostBody = styled.textarea`
   padding: 1rem 3rem;
   background: transparent;
   display: block;
-  font-size: 1.2rem;
+  font-size: 1rem;
   width: 100%;
   height: 100%;
   resize: none;
@@ -93,6 +98,9 @@ const PostBody = styled.textarea`
   color: #000;
   &::placeholder {
     color: #999;
+  }
+  ${mediaQuery.tablet} {
+    font-size: 1.2rem;
   }
 `;
 

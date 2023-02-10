@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
+import { mediaQuery } from '~/lib/styles';
 import useWriteStore from '~/stores/useWriteStore';
 
 const TagInput = () => {
@@ -74,7 +75,7 @@ const Container = styled.div`
 `;
 
 const TagItem = styled.div`
-  font-size: 1rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,12 +92,20 @@ const TagItem = styled.div`
     opacity: 0.6;
   }
   margin-bottom: 0.75rem;
+
+  ${mediaQuery.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledInput = styled.input`
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 0.75rem;
+
+  ${mediaQuery.tablet} {
+    font-size: 1.2rem;
+  }
 `;
 
 export default TagInput;

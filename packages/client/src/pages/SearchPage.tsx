@@ -17,7 +17,7 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: 5rem;
+  font-size: 2rem;
   font-weight: 700;
 `;
 
