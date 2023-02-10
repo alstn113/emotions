@@ -16,6 +16,7 @@ import WritePage from '~/pages/WritePage';
 import RoomPage from '~/pages/RoomPage';
 import ChatPage from '~/pages/ChatPage';
 import NotFoundPage from '~/pages/NotFoundPage';
+import UserPage from './pages/UserPage';
 
 const App = () => {
   useGetMe();
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/setting" element={<SettingPage />} />
 
+          <Route path="/profile/:username" element={<UserPage />} />
           <Route path="/post/:postId" element={<PostPage />} />
           <Route path="/room/:roomId" element={<ChatPage />} />
 
