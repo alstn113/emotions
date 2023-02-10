@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AppErrorException } from '~/common/exceptions';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesRepository } from './series.repository';
 
@@ -6,12 +7,12 @@ import { SeriesRepository } from './series.repository';
 export class SeriesService {
   constructor(private readonly seriesRepository: SeriesRepository) {}
 
-  async getSeriesById(seriesId: string) {
-    return await this.seriesRepository.findSeriesById(seriesId);
+  async getUserSeriesList(userId: string) {
+    return await this.seriesRepository.findUserSeriesList(userId);
   }
 
-  async getUserSeries(userId: string) {
-    return await this.seriesRepository.findUserSeries(userId);
+  async getSeriesById(userId: string, seriesName: string) {
+    return await this.seriesRepository.findSeriesById(userId, seriesName);
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
@@ -19,10 +20,22 @@ export class SeriesService {
   }
 
   async deleteSeries(seriesId: string, userId: string) {
-    return await this.seriesRepository.deleteSeries(seriesId, userId);
+    const series = await this.getSeriesById(userId, seriesId);
+    if (series.userId !== userId)
+      throw new AppErrorException(
+        'Forbidden',
+        "You don't have permission to delete this series",
+      );
+    return await this.seriesRepository.deleteSeries(seriesId);
   }
 
   async appendPostToSeries(seriesId: string, postId: string, userId: string) {
+    const series = await this.getSeriesById(userId, seriesId);
+    if (series.userId !== userId)
+      throw new AppErrorException(
+        'Forbidden',
+        "You don't have permission to append post this series",
+      );
     return await this.seriesRepository.appendPostToSeries(
       seriesId,
       postId,

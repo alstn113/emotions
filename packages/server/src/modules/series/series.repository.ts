@@ -6,20 +6,36 @@ import { CreateSeriestDto } from './dto/create-series.dto';
 export class SeriesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findSeriesById(seriesId: string) {
-    return;
+  async findUserSeriesList(userId: string) {
+    return await this.prisma.series.findMany({
+      where: { userId },
+    });
   }
 
-  async findUserSeries(userId: string) {
-    return;
+  async findSeriesById(userId: string, seriesName: string) {
+    return await this.prisma.series.findUnique({
+      where: {
+        name_userId: {
+          name: seriesName,
+          userId,
+        },
+      },
+    });
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
-    return;
+    return await this.prisma.series.create({
+      data: {
+        name: dto.name,
+        userId,
+      },
+    });
   }
 
-  async deleteSeries(seriesId: string, userId: string) {
-    return;
+  async deleteSeries(seriesId: string) {
+    return await this.prisma.series.delete({
+      where: { id: seriesId },
+    });
   }
 
   async appendPostToSeries(seriesId: string, postId: string, userId: string) {

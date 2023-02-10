@@ -1,22 +1,29 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesService } from './series.service';
 
+@ApiTags('series')
 @Controller('series')
 export class SeriesController {
   constructor(private readonly seriesService: SeriesService) {}
 
+  // Get a specific user's series list.
   @Public()
-  @Get(':seriesId')
-  async getSeriesById(@Param('seriesId') seriesId: string) {
-    return await this.seriesService.getSeriesById(seriesId);
+  @Get('user/:userId')
+  async getUserSeriesList(@Param('userId') userId: string) {
+    return await this.seriesService.getUserSeriesList(userId);
   }
 
-  // Get a specific user's series.
-  @Get('user')
-  async getUserSeries(@GetCurrentUser('userId') userId: string) {
-    return await this.seriesService.getUserSeries(userId);
+  // Get a specific series by name.
+  @Public()
+  @Get('user/:userId/name/:seriesName')
+  async getUserSeriesByName(
+    @Param('userId') userId: string,
+    @Param('seriesName') seriesName: string,
+  ) {
+    return await this.seriesService.getSeriesById(userId, seriesName);
   }
 
   @Post()
