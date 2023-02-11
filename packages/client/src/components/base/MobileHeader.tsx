@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
 import HeaderBackButton from '~/components/base/HeaderBackButton';
+import { Link } from 'react-router-dom';
 
 interface Props {
   title?: React.ReactNode;
@@ -21,7 +22,7 @@ const MobileHeader = ({
           <HeaderBackButton />
         </HeaderSide>
       )}
-      <Title>{title}</Title>
+      <Title to="/">{title}</Title>
       {headerRight && <HeaderSide position="right">{headerRight}</HeaderSide>}
     </Container>
   );
@@ -41,7 +42,7 @@ const Container = styled.header`
   }
 `;
 
-const Title = styled.div`
+const Title = styled(Link)`
   font-family: 'PyeongChangPeace-Bold', sans-serif;
   font-size: 1.5rem;
   color: #fff;
