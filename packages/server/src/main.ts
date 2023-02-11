@@ -31,9 +31,11 @@ const bootstrap = async () => {
     }),
   );
 
-  if (process.env.NODE_ENV !== 'production') {
-    createDocumnet(app);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   createDocumnet(app);
+  // }
+  //TODO: 임시 사용
+  createDocumnet(app);
 
   await app.listen(PORT);
 
