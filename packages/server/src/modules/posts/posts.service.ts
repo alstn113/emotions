@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Post, PostLike } from '@prisma/client';
 import { AppErrorException } from '~/common/exceptions';
+import { generateId, slugify } from '~/lib/slugify';
 import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { SeriesService } from '../series/series.service';
@@ -53,6 +54,15 @@ export class PostsService {
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
+    // slug duplicate check
+    let slug = slugify(dto.slug);
+    const isSameSlugExists = await this.postRepository.findPostBySlug(slug);
+    if (isSameSlugExists) {
+      slug += `-${generateId()}`;
+    }
+    dto.slug = slug;
+
+    // create post
     const post = await this.postRepository.createPost(dto, userId);
     const postStats = await this.postRepository.createPostStats(post.id);
 

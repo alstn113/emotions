@@ -43,7 +43,7 @@ export class PostsRepository {
     });
   }
 
-  async findPostBySlug(slug: string, userId: string | null) {
+  async findPostBySlug(slug: string, userId: string | null = null) {
     return await this.prisma.post.findUnique({
       where: { slug },
       include: {
@@ -67,8 +67,7 @@ export class PostsRepository {
     return await this.prisma.post.create({
       data: {
         title: dto.title,
-        //TODO: slug should be unique
-        slug: 'slug',
+        slug: dto.slug,
         body: dto.body,
         thumbnail: dto.thumbnail,
         // connectOrCreate: if tag exists, connect to it, otherwise create it
