@@ -28,7 +28,7 @@ export class PostsController {
     @Query() dto: GetPostsQueryDto,
     @GetCurrentUser('userId') userId: string | null,
   ) {
-    return await this.postsService.getPosts(dto.cursor ?? null, userId ?? null);
+    return await this.postsService.getPosts(dto, userId);
   }
 
   @Public()
@@ -37,7 +37,7 @@ export class PostsController {
     @Param('slug') slug: string,
     @GetCurrentUser('userId') userId: string | null,
   ) {
-    return await this.postsService.getPostBySlug(slug, userId);
+    return await this.postsService.getPostBySlug({ slug, userId });
   }
 
   @Public()
@@ -67,28 +67,28 @@ export class PostsController {
     return await this.postsService.createPost(dto, userId);
   }
 
-  @Post(':id/likes')
+  @Post(':postId/likes')
   async likePost(
-    @Param('id') id: string,
+    @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,
   ) {
-    return await this.postsService.likePost(id, userId);
+    return await this.postsService.likePost({ postId, userId });
   }
 
-  @Delete(':id/likes')
+  @Delete(':postId/likes')
   async unlikePost(
-    @Param('id') id: string,
+    @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,
   ) {
-    return await this.postsService.unlikePost(id, userId);
+    return await this.postsService.unlikePost({ postId, userId });
   }
 
-  @Delete(':id')
+  @Delete(':postId')
   async deletePost(
-    @Param('id') id: string,
+    @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,
   ): Promise<void> {
-    return await this.postsService.deletePost(id, userId);
+    return await this.postsService.deletePost({ postId, userId });
   }
 
   @Post('upload')
