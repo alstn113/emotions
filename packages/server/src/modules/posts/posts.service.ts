@@ -62,8 +62,12 @@ export class PostsService {
     }
     dto.slug = slug;
 
+    // description
+    const description =
+      dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
+
     // create post
-    const post = await this.postRepository.createPost(dto, userId);
+    const post = await this.postRepository.createPost(dto, desciption, userId);
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };

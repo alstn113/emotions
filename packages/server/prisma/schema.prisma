@@ -68,12 +68,13 @@ model Vote {
 }
 
 model Post {
-  id        String  @id() @default(uuid())
-  title     String
-  slug      String  @unique
-  thumbnail String?
-  body      String
-  userId    String
+  id          String  @id() @default(uuid())
+  title       String
+  slug        String  @unique
+  description String
+  body        String
+  userId      String
+  thumbnail   String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
