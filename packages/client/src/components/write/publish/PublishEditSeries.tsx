@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { Button } from '~/components/common';
 import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
 import useUser from '~/hooks/useUser';
@@ -6,10 +7,23 @@ import useWriteStore from '~/stores/useWriteStore';
 
 const PublishEditSeries = () => {
   const user = useUser();
-  const { changeEditSeries } = useWriteStore();
-  const { data: series } = useGetUserSeries(user?.username!);
+  const { changeEditSeries, changeSeries, series } = useWriteStore();
+  const [selected, setSelected] = useState<{
+    id: string;
+    name: string;
+  } | null>(series);
+  const { data: seriesList } = useGetUserSeries(user?.username!);
 
   const handleCloseEditSeries = () => {
+    changeEditSeries(false);
+  };
+
+  const handleSeriesClick = (id: string, name: string) => {
+    setSelected({ id, name });
+  };
+
+  const handleSeriesChange = () => {
+    changeSeries(selected);
     changeEditSeries(false);
   };
   return (
@@ -17,8 +31,16 @@ const PublishEditSeries = () => {
       <div>
         <Title>Edit Series</Title>
         <SeriesList>
-          {series?.map((s) => {
-            return <SeriesItem key={s.id}>{s.name}</SeriesItem>;
+          {seriesList?.map((s) => {
+            return (
+              <SeriesItem
+                key={s.id}
+                onClick={() => handleSeriesClick(s.id, s.name)}
+                checked={selected?.id === s.id}
+              >
+                {s.name}
+              </SeriesItem>
+            );
           })}
         </SeriesList>
       </div>
@@ -26,7 +48,7 @@ const PublishEditSeries = () => {
         <Button color="error" shadow onClick={handleCloseEditSeries}>
           Cancel
         </Button>
-        <Button color="success" shadow onClick={() => {}}>
+        <Button color="success" shadow onClick={handleSeriesChange}>
           Select
         </Button>
       </ButtonsWrapper>
@@ -55,17 +77,18 @@ const SeriesList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 250px;
+  height: 200px;
   overflow-y: auto;
 `;
 
-const SeriesItem = styled.li`
+const SeriesItem = styled.li<{ checked: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
+  background-color: ${({ checked }) => (checked ? '#f1f3f5' : 'transparent')};
 `;
 
 const ButtonsWrapper = styled.div`

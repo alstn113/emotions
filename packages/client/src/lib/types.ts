@@ -67,6 +67,7 @@ export interface CreatePostParams {
   description?: string;
   thumbnail: string | null;
   tags?: string[];
+  seriesId?: string;
 }
 
 export interface CreateCommentParams {

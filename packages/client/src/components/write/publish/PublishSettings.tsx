@@ -10,8 +10,17 @@ import PublishSeriesSetting from './PublishSeriesSetting';
 import PublishURLSetting from './PublishURLSetting';
 
 const PublishSettings = () => {
-  const { title, body, thumbnail, tags, editSeries, closePublishScreen } =
-    useWriteStore();
+  const {
+    title,
+    body,
+    thumbnail,
+    tags,
+    description,
+    slug,
+    series,
+    editSeries,
+    closePublishScreen,
+  } = useWriteStore();
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -19,7 +28,7 @@ const PublishSettings = () => {
   const handleCreatePost = () => {
     if (!title || !body) return alert('제목과 내용을 입력해주세요');
     mutate(
-      { title, body, thumbnail, tags },
+      { title, body, thumbnail, tags, description, slug, seriesId: series?.id },
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());

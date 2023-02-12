@@ -28,6 +28,7 @@ export class SeriesRepository {
                 id: true,
                 title: true,
                 thumbnail: true,
+                slug: true,
               },
             },
           },
@@ -69,6 +70,8 @@ export class SeriesRepository {
               select: {
                 id: true,
                 title: true,
+                thumbnail: true,
+                slug: true,
               },
             },
           },

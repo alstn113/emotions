@@ -72,6 +72,16 @@ export class PostsService {
       description,
       userId,
     );
+
+    // if seriesId is provided, add post to series
+    if (dto.seriesId) {
+      await this.seriesService.appendPostToSeries(
+        dto.seriesId,
+        post.id,
+        userId,
+      );
+    }
+
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };

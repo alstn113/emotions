@@ -32,4 +32,9 @@ export class CreatePostDto {
   @IsOptional()
   @IsArray()
   tags?: string[];
+
+  @ApiProperty({ nullable: true })
+  @IsOptional()
+  @IsString()
+  seriesId?: string;
 }
