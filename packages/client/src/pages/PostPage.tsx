@@ -7,6 +7,7 @@ import { extractError } from '~/lib/error';
 import {
   useDeletePost,
   useGetPost,
+  useGetPostBySlug,
   useGetPostComments,
 } from '~/hooks/queries/post';
 import useUser from '~/hooks/useUser';
@@ -29,8 +30,8 @@ import PostContentsSkeleton from '~/components/post/skeleton/PostContentsSkeleto
 import CommentListSkeleton from '~/components/post/skeleton/CommentListSkeleton';
 
 const PostPage = () => {
-  const { postId } = useParams() as { postId: string };
-  const { data: post } = useGetPost(postId);
+  const { slug } = useParams() as { slug: string };
+  const { data: post } = useGetPostBySlug(slug);
   const navigate = useNavigate();
   const { openModal } = useModalStore();
   const { openBottomSheet } = useBottomSheetStore();
@@ -39,7 +40,7 @@ const PostPage = () => {
   const { mutate: deletePost } = useDeletePost();
 
   const handleDelete = async () => {
-    deletePost(postId, {
+    deletePost(post?.id, {
       onSuccess: () => {
         navigate('/');
       },
@@ -88,25 +89,25 @@ const PostPage = () => {
         <AsyncBoundary
           rejectedFallback={
             <ErrorFallback
-              queryKey={useGetPost.getKey(postId)}
+              queryKey={useGetPostBySlug.getKey(slug)}
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }
           pendingFallback={<PostContentsSkeleton />}
         >
-          <PostContents postId={postId} />
+          <PostContents slug={slug} />
         </AsyncBoundary>
-        <CommentInput postId={postId} />
+        <CommentInput postId={post?.id} />
         <AsyncBoundary
           rejectedFallback={
             <ErrorFallback
-              queryKey={useGetPostComments.getKey(postId)}
+              queryKey={useGetPostComments.getKey(post?.id)}
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }
           pendingFallback={<CommentListSkeleton />}
         >
-          <CommentList postId={postId} />
+          <CommentList postId={post?.id} />
         </AsyncBoundary>
       </Container>
     </BaseLayout>

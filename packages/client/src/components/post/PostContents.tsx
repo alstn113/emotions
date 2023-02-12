@@ -5,7 +5,11 @@ import { extractError } from '~/lib/error';
 // hooks
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
-import { useDeletePost, useGetPost } from '~/hooks/queries/post';
+import {
+  useDeletePost,
+  useGetPost,
+  useGetPostBySlug,
+} from '~/hooks/queries/post';
 
 // stores
 import useModalStore from '~/stores/useModalStore';
@@ -18,11 +22,11 @@ import { mediaQuery } from '~/lib/styles';
 import PostSeriesViewer from './PostSeriesViewer';
 
 interface Props {
-  postId: string;
+  slug: string;
 }
 
-const PostContents = ({ postId }: Props) => {
-  const { data: post } = useGetPost(postId, { suspense: true });
+const PostContents = ({ slug }: Props) => {
+  const { data: post } = useGetPostBySlug(slug, { suspense: true });
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
   const navigate = useNavigate();
@@ -30,7 +34,7 @@ const PostContents = ({ postId }: Props) => {
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
     initialLikeCount: post?.postStats.likes!,
-    postId,
+    postId: post?.id!,
   });
 
   const { mutate: deletePost } = useDeletePost();
@@ -42,7 +46,7 @@ const PostContents = ({ postId }: Props) => {
       confirmText: '확인',
       cancelText: '취소',
       onConfirm: () => {
-        deletePost(postId, {
+        deletePost(post?.id, {
           onSuccess: () => {
             navigate('/');
           },

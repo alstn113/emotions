@@ -44,7 +44,7 @@ const App = () => {
           </Route>
           <Route path="/@/:username/series/:name" element={<SeriesPage />} />
 
-          <Route path="/post/:postId" element={<PostPage />} />
+          <Route path="/post/:slug" element={<PostPage />} />
           <Route path="/room/:roomId" element={<ChatPage />} />
 
           {/* catch all */}
