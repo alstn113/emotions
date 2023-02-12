@@ -63,6 +63,8 @@ export interface Comment {
 export interface CreatePostParams {
   title: string;
   body: string;
+  slug?: string;
+  description?: string;
   thumbnail: string | null;
   tags?: string[];
 }
