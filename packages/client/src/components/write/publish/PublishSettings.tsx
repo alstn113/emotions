@@ -4,20 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import { extractError } from '~/lib/error';
 import useWriteStore from '~/stores/useWriteStore';
-import { Button } from '../common';
+import { Button } from '../../common';
+import PublishSeriesSetting from './PublishSeriesSetting';
+import PublishURLSetting from './PublishURLSetting';
 
 const PublishSettings = () => {
-  const {
-    title,
-    slug,
-    body,
-    description,
-    thumbnail,
-    tags,
-    closePublishScreen,
-    changeSlug,
-    changeDescription,
-  } = useWriteStore();
+  const { title, slug, body, thumbnail, tags, closePublishScreen, changeSlug } =
+    useWriteStore();
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -41,12 +34,16 @@ const PublishSettings = () => {
 
   return (
     <Container>
+      <SettingsWrapper>
+        <PublishURLSetting />
+        <PublishSeriesSetting />
+      </SettingsWrapper>
       <ButtonWrapper>
-        <Button color="success" size="auto" shadow onClick={handleCreatePost}>
-          등록
+        <Button color="success" shadow onClick={handleCreatePost}>
+          Publish
         </Button>
-        <Button color="error" size="auto" shadow onClick={closePublishScreen}>
-          닫기
+        <Button color="error" shadow onClick={closePublishScreen}>
+          Cancel
         </Button>
       </ButtonWrapper>
     </Container>
@@ -58,14 +55,19 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  height: 100%;
+  justify-content: space-between;
+`;
+
+const SettingsWrapper = styled.div`
+  width: 100%;
 `;
 
 const ButtonWrapper = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
   gap: 1rem;
 `;

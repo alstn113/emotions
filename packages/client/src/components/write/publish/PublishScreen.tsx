@@ -18,6 +18,7 @@ const PublishScreen = () => {
         >
           <Contents>
             <PublishPreview />
+            <Separator />
             <PublishSettings />
           </Contents>
         </Container>
@@ -46,11 +47,23 @@ const Contents = styled.div`
   justify-content: center;
   gap: 1rem;
   max-width: 800px;
+  height: 500px;
   width: 100%;
   padding: 1rem;
 
   ${mediaQuery.tablet} {
     flex-direction: row;
+  }
+`;
+
+const Separator = styled.div`
+  display: none;
+  width: 2px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 0 2rem;
+  ${mediaQuery.tablet} {
+    display: flex;
   }
 `;
 

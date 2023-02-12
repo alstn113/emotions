@@ -43,7 +43,7 @@ const PublishPreview = () => {
 
   return (
     <Container>
-      <Title>미리보기</Title>
+      <Title>Post Preview</Title>
       <InageWrapper>
         {isLoading ? (
           <Loader size="lg" color="success" />
@@ -75,14 +75,15 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const Title = styled.span`
   width: 100%;
   text-align: left;
-  padding: 0.5rem 1rem;
-  font-size: 1.4rem;
-  font-weight: 500;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 
 const ThumbnailImage = styled.img`
