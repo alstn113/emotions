@@ -33,6 +33,7 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "helmet": "^6.0.1",
+    "nanoid": "^4.0.1",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
     "prisma": "^4.10.1",
