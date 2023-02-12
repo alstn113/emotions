@@ -23,6 +23,11 @@ const PostAPI = {
     return data;
   },
 
+  getPostBySlug: async (slug: string): Promise<SinglePostReponse> => {
+    const { data } = await apiClient.get(`${API.POST}/slug/${slug}`);
+    return data;
+  },
+
   getPostComments: async (id: string): Promise<Comment[]> => {
     const { data } = await apiClient.get(`${API.POST}/${id}/comments`);
     return data;

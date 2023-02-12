@@ -32,7 +32,7 @@ export class PostsController {
   }
 
   @Public()
-  @Get(':slug')
+  @Get('slug/:slug')
   async getPostBySlug(
     @Param('slug') slug: string,
     @GetCurrentUser('userId') userId: string | null,
