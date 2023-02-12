@@ -27,6 +27,9 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    // non-null assertion
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
   },
   ignorePatterns: ['.eslintrc.js'],
   settings: {

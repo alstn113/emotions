@@ -32,6 +32,7 @@ import CommentListSkeleton from '~/components/post/skeleton/CommentListSkeleton'
 const PostPage = () => {
   const { slug } = useParams() as { slug: string };
   const { data: post } = useGetPostBySlug(slug);
+
   const navigate = useNavigate();
   const { openModal } = useModalStore();
   const { openBottomSheet } = useBottomSheetStore();
@@ -40,7 +41,7 @@ const PostPage = () => {
   const { mutate: deletePost } = useDeletePost();
 
   const handleDelete = async () => {
-    deletePost(post?.id, {
+    deletePost(post?.id!, {
       onSuccess: () => {
         navigate('/');
       },
@@ -97,17 +98,17 @@ const PostPage = () => {
         >
           <PostContents slug={slug} />
         </AsyncBoundary>
-        <CommentInput postId={post?.id} />
+        <CommentInput postId={post?.id!} />
         <AsyncBoundary
           rejectedFallback={
             <ErrorFallback
-              queryKey={useGetPostComments.getKey(post?.id)}
+              queryKey={useGetPostComments.getKey(post?.id!)}
               message={MESSAGE.ERROR.LOAD_DATA}
             />
           }
           pendingFallback={<CommentListSkeleton />}
         >
-          <CommentList postId={post?.id} />
+          <CommentList postId={post?.id!} />
         </AsyncBoundary>
       </Container>
     </BaseLayout>
