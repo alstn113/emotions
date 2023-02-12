@@ -3,14 +3,6 @@ export interface User {
   username: string;
   displayName: string;
 }
-export interface Room {
-  id: string;
-  name: string;
-  user: User;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export interface PostList {
   list: PostWithStats[];
@@ -24,6 +16,8 @@ export interface PostList {
 export interface Post {
   id: string;
   title: string;
+  slug: string;
+  description: string;
   body: string;
   thumbnail?: string;
   userId: string;
@@ -66,10 +60,6 @@ export interface Comment {
   isDeleted: boolean;
 }
 
-export interface CreateRoomParams {
-  name: string;
-}
-
 export interface CreatePostParams {
   title: string;
   body: string;
@@ -81,18 +71,6 @@ export interface CreateCommentParams {
   text: string;
   postId: string;
   parentCommentId?: string;
-}
-
-export interface MessagePayload {
-  uid: string;
-  username: string;
-  message: string;
-}
-
-export interface TypingStatusPayload {
-  uid: string;
-  username: string;
-  isTyping: boolean;
 }
 
 export interface CreateSeriesParams {
@@ -122,4 +100,31 @@ export interface SeriesPost {
 export interface AppendToPostSeriesParams {
   seriesId: string;
   postId: string;
+}
+
+// not important things
+
+export interface MessagePayload {
+  uid: string;
+  username: string;
+  message: string;
+}
+
+export interface TypingStatusPayload {
+  uid: string;
+  username: string;
+  isTyping: boolean;
+}
+
+export interface Room {
+  id: string;
+  name: string;
+  user: User;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateRoomParams {
+  name: string;
 }

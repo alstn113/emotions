@@ -44,6 +44,7 @@ CREATE TABLE "Vote" (
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "thumbnail" TEXT,
     "body" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -142,6 +143,9 @@ CREATE TABLE "PostsOnTags" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Post_slug_key" ON "Post"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Series_name_key" ON "Series"("name");

@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Post, PostLike } from '@prisma/client';
 import { AppErrorException } from '~/common/exceptions';
+import { generateId, slugify } from '~/lib/slugify';
 import { S3Service } from '~/providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { SeriesService } from '../series/series.service';
 import { CreatePostDto } from './dto/create-post.dto';
+import { GetPostsQueryDto } from './dto/get-post-query.dto';
 import { PostsRepository } from './posts.repository';
 
 @Injectable()
@@ -17,9 +19,9 @@ export class PostsService {
     private readonly configService: ConfigService,
     private readonly s3Service: S3Service,
   ) {}
-  async getPosts(cursor: string | null, userId: string | null) {
+  async getPosts(dto: GetPostsQueryDto, userId: string | null) {
     const { totalCount, endCursor, hasNextPage, list } =
-      await this.postRepository.findPosts(cursor, userId);
+      await this.postRepository.findPosts(dto.cursor, userId);
 
     const serializedList = list.map((post) => this.serializePost(post));
 
@@ -33,6 +35,15 @@ export class PostsService {
     };
   }
 
+  async getPostBySlug({ slug, userId }: GetPostParams) {
+    const post = await this.postRepository.findPostBySlug(slug, userId);
+    if (!post) throw new AppErrorException('NotFound', 'Post not found');
+
+    const series = await this.seriesService.getSeriesByPostId(post.id);
+
+    return this.serializePost({ ...post, series });
+  }
+
   async getPost(id: string, userId: string | null = null) {
     const post = await this.postRepository.findPostById(id, userId);
     if (!post) throw new AppErrorException('NotFound', 'Post not found');
@@ -43,7 +54,24 @@ export class PostsService {
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
-    const post = await this.postRepository.createPost(dto, userId);
+    // slug duplicate check
+    let slug = slugify(dto.title);
+    const isSameSlugExists = await this.postRepository.findPostBySlug(slug);
+    if (isSameSlugExists) {
+      slug += `-${generateId()}`;
+    }
+
+    // description
+    const description =
+      dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
+
+    // create post
+    const post = await this.postRepository.createPost(
+      dto,
+      slug,
+      description,
+      userId,
+    );
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };
@@ -72,7 +100,7 @@ export class PostsService {
     return serializedPost;
   }
 
-  async likePost(postId: string, userId: string) {
+  async likePost({ userId, postId }: PostActionParams) {
     const alreadyLiked = await this.postRepository.findPostLike(postId, userId);
     if (!alreadyLiked) {
       await this.postRepository.createPostLike(postId, userId);
@@ -81,7 +109,7 @@ export class PostsService {
     return postStats;
   }
 
-  async unlikePost(postId: string, userId: string) {
+  async unlikePost({ userId, postId }: PostActionParams) {
     const alreadyLiked = await this.postRepository.findPostLike(postId, userId);
     if (alreadyLiked) {
       await this.postRepository.deletePostLike(postId, userId);
@@ -98,12 +126,12 @@ export class PostsService {
     return postStats;
   }
 
-  async deletePost(id: string, userId: string) {
-    const post = await this.getPost(id);
+  async deletePost({ userId, postId }: PostActionParams) {
+    const post = await this.getPost(postId);
     if (post.userId !== userId)
       throw new AppErrorException('Forbidden', 'You are not the author');
     if (post.thumbnail) await this.deleteImage(post.thumbnail);
-    await this.postRepository.deletePost(id);
+    await this.postRepository.deletePost(postId);
   }
 
   async getPostComments(id: string, userId: string | null) {
@@ -126,4 +154,14 @@ export class PostsService {
     await this.s3Service.deleteObject(filename);
     return filename;
   }
+}
+
+interface GetPostParams {
+  slug: string;
+  userId: string | null;
+}
+
+interface PostActionParams {
+  userId: string;
+  postId: string;
 }

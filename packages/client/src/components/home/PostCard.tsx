@@ -12,10 +12,10 @@ interface Props {
 const PostCard = ({ post }: Props) => {
   return (
     <Card>
-      <CardHeader to={`/post/${post.id}`}>
+      <CardHeader to={`/post/${post.slug}`}>
         <Thumbnail src={post.thumbnail} />
       </CardHeader>
-      <CardBody to={`/post/${post.id}`}>
+      <CardBody to={`/post/${post.slug}`}>
         <h3>{post.title}</h3>
         <p>{post.body}</p>
         <TagList>
