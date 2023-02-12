@@ -8,14 +8,24 @@ export class CreatePostDto {
   @IsNotEmpty()
   title: string;
 
+  @ApiProperty({ nullable: true })
+  @IsString()
+  @IsOptional()
+  slug?: string;
+
+  @ApiProperty({ nullable: true })
+  @IsOptional()
+  @IsString()
+  description?: string;
+
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
   body: string;
 
   @ApiProperty()
-  @IsString()
   @IsOptional()
+  @IsString()
   thumbnail?: string;
 
   @ApiProperty({ nullable: true })

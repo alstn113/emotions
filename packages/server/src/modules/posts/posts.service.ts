@@ -55,15 +55,15 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto, userId: string) {
     // slug duplicate check
-    let slug = slugify(dto.title);
+    let slug = dto.slug ? slugify(dto.slug) : slugify(dto.title);
     const isSameSlugExists = await this.postRepository.findPostBySlug(slug);
     if (isSameSlugExists) {
       slug += `-${generateId()}`;
     }
 
     // description
-    const description =
-      dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
+    let description = dto.description ? dto.description : dto.body;
+    description = dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
 
     // create post
     const post = await this.postRepository.createPost(

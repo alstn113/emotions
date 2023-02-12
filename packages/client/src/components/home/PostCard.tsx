@@ -17,7 +17,7 @@ const PostCard = ({ post }: Props) => {
       </CardHeader>
       <CardBody to={`/post/${post.slug}`}>
         <h3>{post.title}</h3>
-        <p>{post.body}</p>
+        <p>{post.description}</p>
         <TagList>
           {post.tags.map((tag) => (
             <div key={tag}>{tag}</div>
