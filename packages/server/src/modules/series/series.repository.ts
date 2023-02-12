@@ -12,15 +12,12 @@ export class SeriesRepository {
     });
   }
 
-  async findSeriesByName(username: string, seriesName: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { username },
-    });
+  async findSeriesByName(userId: string, seriesName: string) {
     return await this.prisma.series.findUnique({
       where: {
         name_userId: {
           name: seriesName,
-          userId: user.id,
+          userId,
         },
       },
       include: {

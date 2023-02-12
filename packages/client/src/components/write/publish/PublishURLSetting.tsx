@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
 import useWriteStore from '~/stores/useWriteStore';
 
 const PublishURLSetting = () => {
-  const { slug, changeSlug } = useWriteStore();
+  const { title, slug, changeSlug } = useWriteStore();
+
+  useEffect(() => {
+    if (!title) return;
+    changeSlug(title);
+  }, [changeSlug, title]);
+
   return (
     <Container>
       <Title>URL Setting</Title>

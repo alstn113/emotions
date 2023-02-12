@@ -9,6 +9,11 @@ type States = {
   description: string;
   thumbnail: string | null;
   tags: string[];
+  editSeries: boolean;
+  series: {
+    id: string;
+    name: string;
+  } | null;
 
   // publish modal
   isPublishScreenOpen: boolean;
@@ -24,6 +29,8 @@ type Actions = {
   changeDescription: (description: string) => void;
   changeThumbnail: (thumbnail: string | null) => void;
   changeTags: (tags: string[]) => void;
+  changeEditSeries: (state: boolean) => void;
+  changeSeries: (series: { id: string; name: string } | null) => void;
 
   // publish modal
   openPublishScreen: () => void;
@@ -31,12 +38,17 @@ type Actions = {
 };
 
 const initialState: States = {
+  // write form
   title: '',
   slug: '',
   body: '',
   description: '',
   thumbnail: null,
   tags: [],
+  editSeries: false,
+  series: null,
+
+  // publish modal
   isPublishScreenOpen: false,
 };
 
@@ -80,6 +92,18 @@ const useWriteStore = create<States & Actions>((set) => ({
     set(
       produce((draft) => {
         draft.tags = tags;
+      }),
+    ),
+  changeEditSeries: (state) =>
+    set(
+      produce((draft) => {
+        draft.editSeries = state;
+      }),
+    ),
+  changeSeries: (series) =>
+    set(
+      produce((draft) => {
+        draft.series = series;
       }),
     ),
 

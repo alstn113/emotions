@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Loader } from '~/components/common';
 import { useUploadImage } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
@@ -8,7 +8,8 @@ import { extractError } from '~/lib/error';
 import { css } from '@emotion/react';
 
 const PublishPreview = () => {
-  const { description, changeThumbnail, changeDescription } = useWriteStore();
+  const { description, body, changeThumbnail, changeDescription } =
+    useWriteStore();
   const { mutate, isLoading } = useUploadImage();
   const [previewImage, setPreviewImage] = useState<string>(UploadImageSvg);
   const inputEl = useRef<HTMLInputElement>(null);
@@ -40,6 +41,11 @@ const PublishPreview = () => {
       e.preventDefault();
     }
   };
+
+  useEffect(() => {
+    if (!body) return;
+    changeDescription(body);
+  }, [body, changeDescription]);
 
   return (
     <Container>

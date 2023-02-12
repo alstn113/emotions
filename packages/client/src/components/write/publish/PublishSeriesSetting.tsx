@@ -1,11 +1,18 @@
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
+import useWriteStore from '~/stores/useWriteStore';
 
 const PublishSeriesSetting = () => {
+  const { changeEditSeries } = useWriteStore();
+
+  const handleEditSeries = () => {
+    changeEditSeries(true);
+  };
+
   return (
     <Container>
       <Title>Series Setting</Title>
-      <Button shadow size="auto" color="warning" onClick={() => {}}>
+      <Button shadow size="auto" color="warning" onClick={handleEditSeries}>
         Add To Series
       </Button>
     </Container>

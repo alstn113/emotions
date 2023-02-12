@@ -5,11 +5,12 @@ import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
 import { extractError } from '~/lib/error';
 import useWriteStore from '~/stores/useWriteStore';
 import { Button } from '../../common';
+import PublishEditSeries from './PublishEditSeries';
 import PublishSeriesSetting from './PublishSeriesSetting';
 import PublishURLSetting from './PublishURLSetting';
 
 const PublishSettings = () => {
-  const { title, slug, body, thumbnail, tags, closePublishScreen, changeSlug } =
+  const { title, body, thumbnail, tags, editSeries, closePublishScreen } =
     useWriteStore();
   const { mutate } = useCreatePost();
   const navigate = useNavigate();
@@ -34,18 +35,24 @@ const PublishSettings = () => {
 
   return (
     <Container>
-      <SettingsWrapper>
-        <PublishURLSetting />
-        <PublishSeriesSetting />
-      </SettingsWrapper>
-      <ButtonWrapper>
-        <Button color="success" shadow onClick={handleCreatePost}>
-          Publish
-        </Button>
-        <Button color="error" shadow onClick={closePublishScreen}>
-          Cancel
-        </Button>
-      </ButtonWrapper>
+      {editSeries ? (
+        <PublishEditSeries />
+      ) : (
+        <>
+          <SettingsWrapper>
+            <PublishURLSetting />
+            <PublishSeriesSetting />
+          </SettingsWrapper>
+          <ButtonsWrapper>
+            <Button color="error" shadow onClick={closePublishScreen}>
+              Cancel
+            </Button>
+            <Button color="success" shadow onClick={handleCreatePost}>
+              Publish
+            </Button>
+          </ButtonsWrapper>
+        </>
+      )}
     </Container>
   );
 };
@@ -63,7 +70,7 @@ const SettingsWrapper = styled.div`
   width: 100%;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonsWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
