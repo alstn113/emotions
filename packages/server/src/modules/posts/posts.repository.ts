@@ -63,11 +63,16 @@ export class PostsRepository {
     });
   }
 
-  async createPost(dto: CreatePostDto, description: string, userId: string) {
+  async createPost(
+    dto: CreatePostDto,
+    slug: string,
+    description: string,
+    userId: string,
+  ) {
     return await this.prisma.post.create({
       data: {
         title: dto.title,
-        slug: dto.slug,
+        slug,
         description,
         body: dto.body,
         thumbnail: dto.thumbnail,

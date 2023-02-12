@@ -55,19 +55,23 @@ export class PostsService {
 
   async createPost(dto: CreatePostDto, userId: string) {
     // slug duplicate check
-    let slug = slugify(dto.slug);
+    let slug = slugify(dto.title);
     const isSameSlugExists = await this.postRepository.findPostBySlug(slug);
     if (isSameSlugExists) {
       slug += `-${generateId()}`;
     }
-    dto.slug = slug;
 
     // description
     const description =
       dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
 
     // create post
-    const post = await this.postRepository.createPost(dto, desciption, userId);
+    const post = await this.postRepository.createPost(
+      dto,
+      slug,
+      description,
+      userId,
+    );
     const postStats = await this.postRepository.createPostStats(post.id);
 
     const postWithStats = { ...post, postStats };
@@ -156,6 +160,7 @@ interface GetPostParams {
   slug: string;
   userId: string | null;
 }
+
 interface PostActionParams {
   userId: string;
   postId: string;
