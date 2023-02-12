@@ -4,7 +4,9 @@ import { create } from 'zustand';
 type States = {
   // write form
   title: string;
+  slug: string | null;
   body: string;
+  description: string | null;
   thumbnail: string | null;
   tags: string[];
 
@@ -17,7 +19,9 @@ type Actions = {
 
   // write form
   changeTitle: (title: string) => void;
+  changeSlug: (slug: string | null) => void;
   changeBody: (body: string) => void;
+  changeDescription: (description: string | null) => void;
   changeThumbnail: (thumbnail: string | null) => void;
   changeTags: (tags: string[]) => void;
 
@@ -28,7 +32,9 @@ type Actions = {
 
 const initialState: States = {
   title: '',
+  slug: null,
   body: '',
+  description: null,
   thumbnail: null,
   tags: [],
   isPublishScreenOpen: false,
@@ -40,16 +46,28 @@ const useWriteStore = create<States & Actions>((set) => ({
   reset: () => set(initialState),
 
   // write form
-  changeTitle: (title: string) =>
+  changeTitle: (title) =>
     set(
       produce((draft) => {
         draft.title = title;
       }),
     ),
-  changeBody: (body: string) =>
+  changeSlug: (slug) =>
+    set(
+      produce((draft) => {
+        draft.slug = slug;
+      }),
+    ),
+  changeBody: (body) =>
     set(
       produce((draft) => {
         draft.body = body;
+      }),
+    ),
+  changeDescription: (description) =>
+    set(
+      produce((draft) => {
+        draft.description = description;
       }),
     ),
   changeThumbnail: (thumbnail) =>
@@ -58,7 +76,7 @@ const useWriteStore = create<States & Actions>((set) => ({
         draft.thumbnail = thumbnail;
       }),
     ),
-  changeTags: (tags: string[]) =>
+  changeTags: (tags) =>
     set(
       produce((draft) => {
         draft.tags = tags;
