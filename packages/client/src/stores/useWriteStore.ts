@@ -4,9 +4,9 @@ import { create } from 'zustand';
 type States = {
   // write form
   title: string;
-  slug: string | null;
+  slug: string;
   body: string;
-  description: string | null;
+  description: string;
   thumbnail: string | null;
   tags: string[];
 
@@ -19,9 +19,9 @@ type Actions = {
 
   // write form
   changeTitle: (title: string) => void;
-  changeSlug: (slug: string | null) => void;
+  changeSlug: (slug: string) => void;
   changeBody: (body: string) => void;
-  changeDescription: (description: string | null) => void;
+  changeDescription: (description: string) => void;
   changeThumbnail: (thumbnail: string | null) => void;
   changeTags: (tags: string[]) => void;
 
@@ -32,9 +32,9 @@ type Actions = {
 
 const initialState: States = {
   title: '',
-  slug: null,
+  slug: '',
   body: '',
-  description: null,
+  description: '',
   thumbnail: null,
   tags: [],
   isPublishScreenOpen: false,
@@ -67,7 +67,7 @@ const useWriteStore = create<States & Actions>((set) => ({
   changeDescription: (description) =>
     set(
       produce((draft) => {
-        draft.description = description;
+        draft.description = description.slice(0, 200);
       }),
     ),
   changeThumbnail: (thumbnail) =>
