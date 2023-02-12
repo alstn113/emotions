@@ -6,7 +6,6 @@ import { extractError } from '~/lib/error';
 // hooks
 import {
   useDeletePost,
-  useGetPost,
   useGetPostBySlug,
   useGetPostComments,
 } from '~/hooks/queries/post';

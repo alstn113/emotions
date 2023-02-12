@@ -32,12 +32,17 @@ export class SeriesService {
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
-    const exists = await this.seriesRepository.findSeriesById(userId, dto.name);
-    if (exists)
+    const exists = await this.seriesRepository.findSeriesByName(
+      userId,
+      dto.name,
+    );
+
+    if (exists) {
       throw new AppErrorException(
         'BadRequest',
         'Series with this name already exists',
       );
+    }
     return await this.seriesRepository.createSeries(dto, userId);
   }
 

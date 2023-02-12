@@ -9,18 +9,18 @@ export class SeriesRepository {
   async findUserSeriesList(username: string) {
     return await this.prisma.series.findMany({
       where: { user: { username } },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
   }
 
-  async findSeriesByName(username: string, seriesName: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { username },
-    });
+  async findSeriesByName(userId: string, seriesName: string) {
     return await this.prisma.series.findUnique({
       where: {
         name_userId: {
           name: seriesName,
-          userId: user.id,
+          userId,
         },
       },
       include: {
@@ -31,6 +31,7 @@ export class SeriesRepository {
                 id: true,
                 title: true,
                 thumbnail: true,
+                slug: true,
               },
             },
           },
@@ -72,6 +73,8 @@ export class SeriesRepository {
               select: {
                 id: true,
                 title: true,
+                thumbnail: true,
+                slug: true,
               },
             },
           },
