@@ -33,6 +33,15 @@ export class PostsService {
     };
   }
 
+  async getPostBySlug(slug: string, userId: string | null) {
+    const post = await this.postRepository.findPostBySlug(slug, userId);
+    if (!post) throw new AppErrorException('NotFound', 'Post not found');
+
+    const series = await this.seriesService.getSeriesByPostId(post.id);
+
+    return this.serializePost({ ...post, series });
+  }
+
   async getPost(id: string, userId: string | null = null) {
     const post = await this.postRepository.findPostById(id, userId);
     if (!post) throw new AppErrorException('NotFound', 'Post not found');

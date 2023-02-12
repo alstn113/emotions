@@ -11,6 +11,11 @@ export class CreatePostDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  slug: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   body: string;
 
   @ApiProperty()

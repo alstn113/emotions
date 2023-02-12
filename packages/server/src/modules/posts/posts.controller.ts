@@ -32,6 +32,15 @@ export class PostsController {
   }
 
   @Public()
+  @Get(':slug')
+  async getPostBySlug(
+    @Param('slug') slug: string,
+    @GetCurrentUser('userId') userId: string | null,
+  ) {
+    return await this.postsService.getPostBySlug(slug, userId);
+  }
+
+  @Public()
   @Get(':id')
   async getPost(
     @GetCurrentUser('userId') userId: string | null,
