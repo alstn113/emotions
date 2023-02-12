@@ -66,7 +66,7 @@ const PostSeriesViewer = ({ series }: Props) => {
             {series.seriesPosts.map((seriesPost) => {
               return (
                 <motion.div key={seriesPost.id} variants={itemVariants}>
-                  <CollapseItem to={`/post/${seriesPost.post.id}`}>
+                  <CollapseItem to={`/post/${seriesPost.post.slug}`}>
                     {seriesPost.index}. {seriesPost.post.title}
                   </CollapseItem>
                 </motion.div>
