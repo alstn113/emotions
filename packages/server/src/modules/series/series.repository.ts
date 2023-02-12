@@ -9,6 +9,9 @@ export class SeriesRepository {
   async findUserSeriesList(username: string) {
     return await this.prisma.series.findMany({
       where: { user: { username } },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
   }
 
