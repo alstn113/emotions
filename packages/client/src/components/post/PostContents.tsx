@@ -46,7 +46,7 @@ const PostContents = ({ slug }: Props) => {
       confirmText: '확인',
       cancelText: '취소',
       onConfirm: () => {
-        deletePost(post?.id, {
+        deletePost(post?.id!, {
           onSuccess: () => {
             navigate('/');
           },
