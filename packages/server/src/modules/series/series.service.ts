@@ -32,7 +32,7 @@ export class SeriesService {
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
-    const exists = await this.seriesRepository.findSeriesByName(
+    const exists = await this.seriesRepository.findSeriesByUserId(
       userId,
       dto.name,
     );
