@@ -33,7 +33,7 @@ jobs:
             chmod +x ./deploy.sh
             chmod +x ./deploy-client.sh
             chmod +x ./deploy-server.sh
-            .deploy.sh
+            ./deploy.sh
           # ls -al Emotions
           # cd ~/Emotions/ && git stash && git pull
           # pnpm install
