@@ -18,5 +18,5 @@ jobs:
           password: ${{ secrets.REMOTE_SSH_KEY }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
-            cd ~/Emotions
+            cd ~/Emotions && git pull
             ./deploy.sh
