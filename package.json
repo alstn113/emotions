@@ -9,12 +9,22 @@
   "scripts": {
     "ssr": "pnpm --filter ssr dev",
     "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server start:dev\"",
-    "dev:client": "pnpm --filter client dev",
-    "dev:server": " pnpm --filter server start:dev",
+    "build:client": "pnpm --filter client build",
+    "build:server": "pnpm --filter server build",
     "prisma:generate": "pnpm --filter server prisma:generate",
     "prisma:migrate": "pnpm --filter server prisma:migrate",
     "prisma:studio": "pnpm --filter server prisma:studio",
     "prepare": "husky install"
+  },
+  "lint-staged": {
+    "packages/client/**/*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --config ./packages/client/.eslintrc.js --fix"
+    ],
+    "packages/server/**/*.ts": [
+      "prettier --write",
+      "eslint --config ./packages/server/.eslintrc.js --fix"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
@@ -27,6 +37,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.0",
     "jest": "28.1.3",
+    "lint-staged": "^13.1.2",
     "prettier": "^2.3.2",
     "typescript": "^4.6.4"
   }
