@@ -29,8 +29,13 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh 
-            ls -al Emotions
             cd ~/Emotions/ && git stash && git pull
-            pnpm install
-            cd ~/Emotions/packages/client && pnpm build
-            cd ~/Emotions/packages/server && pnpm build && pnpm start:pm2
+            chmod +x ./deploy.sh
+            chmod +x ./deploy-client.sh
+            chmod +x ./deploy-server.sh
+            .deploy.sh
+          # ls -al Emotions
+          # cd ~/Emotions/ && git stash && git pull
+          # pnpm install
+          # cd ~/Emotions/packages/client && pnpm build
+          # cd ~/Emotions/packages/server && pnpm build && pnpm start:pm2
