@@ -9,6 +9,7 @@ const UserPage = () => {
     <TabLayout>
       <Container>
         <UserProfileWrapper>{username}</UserProfileWrapper>
+        <div>공사 중 입니다...</div>
         <TabsWrapper>
           <TabItem to="">Posts</TabItem>
           <TabItem to="series">Series</TabItem>
