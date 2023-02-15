@@ -30,10 +30,10 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh 
             cd ~/Emotions/ && git stash && git pull
-            chmod +x ./deploy.sh
-            chmod +x ./deploy-client.sh
-            chmod +x ./deploy-server.sh
             ./deploy.sh
+          # chmod +x ./deploy.sh
+          # chmod +x ./deploy-client.sh
+          # chmod +x ./deploy-server.sh
           # ls -al Emotions
           # cd ~/Emotions/ && git stash && git pull
           # pnpm install
