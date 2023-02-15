@@ -11,12 +11,16 @@
     "format": "prettier \"src/**/*.{ts,tsx}\" --write"
   },
   "dependencies": {
+    "@codemirror/commands": "^6.2.1",
+    "@codemirror/lang-markdown": "^6.0.5",
+    "@codemirror/view": "^6.9.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
     "@tanstack/react-query": "^4.22.0",
     "@types/qs": "^6.9.7",
     "axios": "^1.2.2",
+    "codemirror": "^6.0.1",
     "framer-motion": "^8.4.2",
     "immer": "^9.0.17",
     "qs": "^6.11.0",
