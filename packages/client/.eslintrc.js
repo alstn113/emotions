@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  // recommend는 eslint의 기본 규칙을 사용하겠다는 의미한다.
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -19,6 +20,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  // custom으로 사용하고 싶을 경우 plugins에 추가 후 rules에 추가헌다.
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
