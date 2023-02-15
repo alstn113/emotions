@@ -6,12 +6,11 @@ import { codeMirrorExtensions } from '~/lib/codemirror';
 import { css } from '@emotion/react';
 
 interface Props {
-  className?: string;
   onChangeText(text: string): void;
   defaultValue?: string;
 }
 
-const MarkdownEditor = ({ className, onChangeText, defaultValue }: Props) => {
+const MarkdownEditor = ({ onChangeText, defaultValue }: Props) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [height, setHeight] = useState(0);
@@ -53,12 +52,7 @@ const MarkdownEditor = ({ className, onChangeText, defaultValue }: Props) => {
   }, []);
 
   return (
-    <EditorWrapper
-      ref={wrapperRef}
-      isVisible={ready}
-      className={className}
-      $height={height}
-    >
+    <EditorWrapper ref={wrapperRef} isVisible={ready} $height={height}>
       <div ref={editorRef} />
     </EditorWrapper>
   );

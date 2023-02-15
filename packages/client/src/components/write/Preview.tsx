@@ -1,14 +1,23 @@
 import styled from '@emotion/styled';
 import useWriteStore from '~/stores/useWriteStore';
-import { mediaQuery } from '~/lib/styles';
+import { markdownStyles, mediaQuery } from '~/lib/styles';
+import MarkdownIt from 'markdown-it';
+import { useMemo } from 'react';
 
 const Preview = () => {
   const { title, body } = useWriteStore();
+
+  const html = useMemo(() => {
+    console.log(body);
+
+    return MarkdownIt().render(body);
+  }, [body]);
+
   return (
     <Container>
       <ContentsWrapper>
         <Title>{title}</Title>
-        <MarkdownBody>{body}</MarkdownBody>
+        <MarkdownBody dangerouslySetInnerHTML={{ __html: html }} />
       </ContentsWrapper>
     </Container>
   );
@@ -47,6 +56,8 @@ const MarkdownBody = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   flex: 1;
+
+  ${markdownStyles}
 `;
 
 export default Preview;

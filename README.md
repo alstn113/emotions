@@ -25,6 +25,7 @@
   - @codemirror/commands
   - @codemirror/lang-markdown
   - @codemirror/view
+  - markdown-it, @types/markdown-it
 
 ## `구조`
 
