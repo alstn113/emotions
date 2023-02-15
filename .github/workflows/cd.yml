@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout source code.
-      #   uses: actions/checkout@v3
-
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -20,22 +17,6 @@ jobs:
           username: ${{ secrets.REMOTE_SSH_ID }}
           password: ${{ secrets.REMOTE_SSH_KEY }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
-          # 이거 없으면 pnpm 명령어가 인식이 안됨
-          # export NVM_DIR=~/.nvm 의 뜻은 nvm을 설치한 경로를 지정해주는 것이다.
-          # source ~/.nvm/nvm.sh 의 뜻은 nvm을 실행시키는 것이다.
-
-          # deploy.sh 파일을 만들어서 여기에 명령어를 넣어도 된다.
-          # 근데 이상하게 permission denied가 뜨는데 이유를 모르겠다.
           script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh 
-            cd ~/Emotions/ && git stash && git pull
+            cd ~/Emotions/ && git stash && git pull origin main
             ./deploy.sh
-          # chmod +x ./deploy.sh
-          # chmod +x ./deploy-client.sh
-          # chmod +x ./deploy-server.sh
-          # ls -al Emotions
-          # cd ~/Emotions/ && git stash && git pull
-          # pnpm install
-          # cd ~/Emotions/packages/client && pnpm build
-          # cd ~/Emotions/packages/server && pnpm build && pnpm start:pm2
