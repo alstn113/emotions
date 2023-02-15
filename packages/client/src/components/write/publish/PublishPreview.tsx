@@ -8,10 +8,12 @@ import { extractError } from '~/lib/error';
 import { css } from '@emotion/react';
 
 const PublishPreview = () => {
-  const { description, body, changeThumbnail, changeDescription } =
+  const { description, body, changeThumbnail, changeDescription, thumbnail } =
     useWriteStore();
   const { mutate, isLoading } = useUploadImage();
-  const [previewImage, setPreviewImage] = useState<string>(UploadImageSvg);
+  const [previewImage, setPreviewImage] = useState<string>(
+    thumbnail ?? UploadImageSvg,
+  );
   const inputEl = useRef<HTMLInputElement>(null);
 
   const handleUploadImage = () => {
