@@ -1,5 +1,10 @@
 // react
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
@@ -27,31 +32,35 @@ const App = () => {
 
   const queryClient = useQueryClient();
 
-  const router = createBrowserRouter([
-    { path: '/', element: <HomePage /> },
-    { path: '/write', element: <WritePage /> },
-    { path: '/search', element: <SearchPage /> },
-    { path: '/setting', element: <SettingPage /> },
-    {
-      path: '/user/:username',
-      element: <UserPage />,
-      loader: userLoader(queryClient),
-      errorElement: <ErrorPage />,
-      children: [
-        { path: '', element: <UserPostsTab /> },
-        { path: 'about', element: <UserAboutTab /> },
-        { path: 'series', element: <UserSeriesTab /> },
-      ],
-    },
-    { path: '/user/:username/series/:seriesName', element: <SeriesPage /> },
-    {
-      path: '/user/:username/post/:slug',
-      element: <PostPage />,
-      loader: postLoader(queryClient),
-      errorElement: <ErrorPage />,
-    },
-    { path: '*', element: <NotFoundPage /> },
-  ]);
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" errorElement={<ErrorPage />}>
+        <Route index element={<HomePage />} />
+        <Route path="write" element={<WritePage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="setting" element={<SettingPage />} />
+        <Route
+          path="user/:username"
+          element={<UserPage />}
+          loader={userLoader(queryClient)}
+        >
+          <Route index element={<UserPostsTab />} />
+          <Route path="about" element={<UserAboutTab />} />
+          <Route path="series" element={<UserSeriesTab />} />
+        </Route>
+        <Route
+          path="user/:username/series/:seriesName"
+          element={<SeriesPage />}
+        />
+        <Route
+          path="user/:username/post/:slug"
+          element={<PostPage />}
+          loader={postLoader(queryClient)}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>,
+    ),
+  );
 
   return (
     <ErrorBoundary fallback={<ErrorFallback message={MESSAGE.ERROR.UNKNOWN} />}>
