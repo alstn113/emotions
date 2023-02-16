@@ -1,9 +1,7 @@
 import { EditorView } from 'codemirror';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
 import { codeMirrorExtensions } from '~/lib/codemirror';
-import { css } from '@emotion/react';
 
 interface Props {
   onChangeText(text: string): void;
@@ -12,8 +10,6 @@ interface Props {
 
 const MarkdownEditor = ({ onChangeText, defaultValue }: Props) => {
   const editorRef = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
-  const [height, setHeight] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const onChangeTextRef = useRef(onChangeText);
 
@@ -22,62 +18,38 @@ const MarkdownEditor = ({ onChangeText, defaultValue }: Props) => {
   }, [onChangeText]);
 
   useEffect(() => {
-    if (editorRef.current) {
-      const view = new EditorView({
-        extensions: [
-          ...codeMirrorExtensions,
-          EditorView.updateListener.of((update) => {
-            onChangeTextRef.current(update.state.doc.toString());
-          }),
-        ],
-        parent: editorRef.current,
-        doc: defaultValue,
-      });
+    if (!editorRef.current) return;
 
-      setReady(true);
+    const view = new EditorView({
+      extensions: [
+        ...codeMirrorExtensions,
+        EditorView.updateListener.of((update) => {
+          onChangeTextRef.current(update.state.doc.toString());
+        }),
+      ],
+      parent: editorRef.current,
+      doc: defaultValue,
+    });
 
-      setHeight(wrapperRef.current?.clientHeight || 0);
-      const onResize = () => {
-        setHeight(wrapperRef.current?.clientHeight || 0);
-      };
-
-      window.addEventListener('resize', onResize);
-
-      return () => {
-        setReady(false);
-        view.destroy();
-        window.removeEventListener('resize', onResize);
-      };
-    }
+    return () => {
+      view.destroy();
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <EditorWrapper ref={wrapperRef} isVisible={ready} $height={height}>
+    <EditorWrapper ref={wrapperRef}>
       <div ref={editorRef} />
     </EditorWrapper>
   );
 };
 
-const EditorWrapper = styled.div<{
-  isVisible: boolean;
-  $height: number;
-}>`
-  border: 1px solid #c7c7c7;
-  border-radius: 4px;
-  outline: none;
-  min-height: 150px;
-  ${(props) =>
-    props.isVisible
-      ? css`
-          opacity: 1;
-        `
-      : css`
-          opacity: 0;
-        `}
-
-  .cm-content, .cm-gutter {
+// editor css not preview
+const EditorWrapper = styled.div`
+  height: 100%;
+  .cm-content,
+  .cm-gutter {
     min-height: 150px;
   }
   .cm-gutters {
@@ -104,11 +76,6 @@ const EditorWrapper = styled.div<{
   }
 
   .cm-editor {
-    height: ${(props) => props.$height}px;
-    ${mediaQuery.mobile} {
-      height: auto;
-      max-height: calc(100vh - 374px);
-    }
   }
 `;
 

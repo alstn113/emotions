@@ -2,30 +2,34 @@ import { markdown } from '@codemirror/lang-markdown';
 import { keymap } from '@codemirror/view';
 import { EditorView, minimalSetup } from 'codemirror';
 import { indentWithTab } from '@codemirror/commands';
-import { palette } from './styles';
 
 const customTheme = EditorView.theme({
+  // paper
   '&': {
     fontSize: '16px',
-    padding: '16px',
-    paddingRight: 0,
-    borderRadius: '4px',
+    paddingLeft: '48px',
+    paddingRight: '48px',
     cursor: 'text',
   },
+  // cursor
+  '&.cm-focused .cm-cursor': {
+    border: '1.5px solid #4c6ef5',
+  },
+  // selection
   '.cm-content': {
-    fontFamily: `Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;`,
+    fontFamily: 'Roboto, sans-serif',
   },
+  // # [] () ** __ ~~
   '.ͼ5': {
-    // special characters like - # [] () etc
-    color: palette.primary,
+    color: '#4c6ef5',
   },
+  // headers
   '.ͼ7': {
-    // headings
     textDecoration: 'none',
   },
+  // link
   '.ͼc': {
-    // link
-    color: '#9a9a9a',
+    color: '#4c6ef5',
   },
 });
 
