@@ -6,6 +6,7 @@ import useWriteStore from '~/stores/useWriteStore';
 import UploadImageSvg from '~/assets/vectors/upload-image.svg';
 import { extractError } from '~/lib/error';
 import { css } from '@emotion/react';
+import removeMarkdown from 'remove-markdown';
 
 const PublishPreview = () => {
   const { description, body, changeThumbnail, changeDescription, thumbnail } =
@@ -15,6 +16,7 @@ const PublishPreview = () => {
     thumbnail ?? UploadImageSvg,
   );
   const inputEl = useRef<HTMLInputElement>(null);
+  const mounted = useRef(false);
 
   const handleUploadImage = () => {
     const image = (inputEl.current?.files as FileList)[0];
@@ -44,10 +46,17 @@ const PublishPreview = () => {
     }
   };
 
+  // 처음에 한 번만 description이 없을 때 body를 description으로 설정
   useEffect(() => {
-    if (!body) return;
-    changeDescription(body);
-  }, [body, changeDescription]);
+    if (mounted.current) return;
+
+    if (!description) {
+      const bodyWithoutMd = removeMarkdown(body);
+      changeDescription(bodyWithoutMd);
+    }
+
+    mounted.current = true;
+  }, [changeDescription, body, description]);
 
   return (
     <Container>

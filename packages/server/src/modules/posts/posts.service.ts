@@ -9,6 +9,7 @@ import { SeriesService } from '../series/series.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsQueryDto } from './dto/get-post-query.dto';
 import { PostsRepository } from './posts.repository';
+import removeMarkdown from 'remove-markdown';
 
 @Injectable()
 export class PostsService {
@@ -62,8 +63,13 @@ export class PostsService {
     }
 
     // description
-    let description = dto.description ? dto.description : dto.body;
-    description = dto.body.slice(0, 200) + (dto.body.length > 200 ? '...' : '');
+    let description = dto.description;
+    if (!dto.description) {
+      description = removeMarkdown(dto.body);
+    }
+
+    description =
+      description.slice(0, 200) + (description.length > 200 ? '...' : '');
 
     // create post
     const post = await this.postRepository.createPost(

@@ -62,7 +62,7 @@ export const markdownStyles = css`
       font-weight: 400;
     }
     code {
-      background: ${palette.gray};
+      background: #e9ecef;
       padding: 0.2em 0.4em;
       font-size: 85%;
       border-radius: 3px;
@@ -86,17 +86,16 @@ export const markdownStyles = css`
     border: none;
     height: 1px;
     width: 100%;
-    background: ${palette.gray};
+    background: #e9ecef;
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
 
   blockquote {
     margin: 1rem 0px;
-    border-left: 4px solid ${palette.primary};
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background: ${palette.gray};
+    border-left: 8px solid #fab005;
+    border-radius: 8px;
+    background: #e9ecef;
     padding: 1rem 1rem 1rem 2rem;
     color: ${palette.black};
   }
@@ -108,7 +107,7 @@ export const markdownStyles = css`
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;
+    padding-inline-start: 20px;
     line-height: 1;
   }
 
@@ -116,5 +115,15 @@ export const markdownStyles = css`
     list-style-type: circle;
     margin-block-start: 0px;
     margin-block-end: 0px;
+  }
+
+  pre {
+    font-size: 0.875rem;
+    padding: 1rem;
+    border-radius: 4px;
+    line-height: 1.5;
+    overflow-x: auto;
+    letter-spacing: 0px;
+    background-color: #e9ecef;
   }
 `;
