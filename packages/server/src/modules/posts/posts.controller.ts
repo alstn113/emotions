@@ -16,6 +16,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multerOptions from '~/lib/multer';
 import { GetPostsQueryDto } from './dto/get-post-query.dto';
+import { plainToInstance } from 'class-transformer';
+import { PaginatedPostsDto, PostDto, PostStatsDto } from './dto';
+import { CommentDto } from '../comments/dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -27,8 +30,11 @@ export class PostsController {
   async getPosts(
     @Query() dto: GetPostsQueryDto,
     @GetCurrentUser('userId') userId: string | null,
-  ) {
-    return await this.postsService.getPosts(dto, userId);
+  ): Promise<PaginatedPostsDto> {
+    const paginatedPosts = await this.postsService.getPosts(dto, userId);
+    return plainToInstance(PaginatedPostsDto, paginatedPosts, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Public()
@@ -36,8 +42,11 @@ export class PostsController {
   async getPostBySlug(
     @Param('slug') slug: string,
     @GetCurrentUser('userId') userId: string | null,
-  ) {
-    return await this.postsService.getPostBySlug({ slug, userId });
+  ): Promise<PostDto> {
+    const post = await this.postsService.getPostBySlug({ slug, userId });
+    return plainToInstance(PostDto, post, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Public()
@@ -46,7 +55,10 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string | null,
     @Param('id') id: string,
   ) {
-    return this.postsService.getPost(id, userId);
+    const post = await this.postsService.getPost(id, userId);
+    return plainToInstance(PostDto, post, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Public()
@@ -54,8 +66,11 @@ export class PostsController {
   async getPostComments(
     @Param('id') id: string,
     @GetCurrentUser('userId') userId: string | null,
-  ) {
-    return await this.postsService.getPostComments(id, userId);
+  ): Promise<CommentDto[]> {
+    const postComments = await this.postsService.getPostComments(id, userId);
+    return plainToInstance(CommentDto, postComments, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Post()
@@ -63,24 +78,33 @@ export class PostsController {
   async createPost(
     @Body() dto: CreatePostDto,
     @GetCurrentUser('userId') userId: string,
-  ) {
-    return await this.postsService.createPost(dto, userId);
+  ): Promise<PostDto> {
+    const post = await this.postsService.createPost(dto, userId);
+    return plainToInstance(PostDto, post, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Post(':postId/likes')
   async likePost(
     @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,
-  ) {
-    return await this.postsService.likePost({ postId, userId });
+  ): Promise<PostStatsDto> {
+    const postStats = await this.postsService.likePost({ postId, userId });
+    return plainToInstance(PostStatsDto, postStats, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Delete(':postId/likes')
   async unlikePost(
     @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,
-  ) {
-    return await this.postsService.unlikePost({ postId, userId });
+  ): Promise<PostStatsDto> {
+    const postStats = await this.postsService.unlikePost({ postId, userId });
+    return plainToInstance(PostStatsDto, postStats, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Delete(':postId')
@@ -93,7 +117,9 @@ export class PostsController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', multerOptions))
-  async uploadImage(@UploadedFile() file: Express.Multer.File) {
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<string> {
     return await this.postsService.uploadImage(file);
   }
 }

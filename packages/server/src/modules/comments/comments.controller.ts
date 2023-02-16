@@ -1,8 +1,9 @@
 import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
 import { CommentsService } from './comments.service';
-import { CreateCommentDto } from './dto/create-comment.dto';
 import { GetCurrentUser } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
+import { CommentDto, CreateCommentDto } from './dto';
+import { plainToInstance } from 'class-transformer';
 
 @ApiTags('comments')
 @Controller('comments')
@@ -13,8 +14,11 @@ export class CommentsController {
   async createComment(
     @Body() dto: CreateCommentDto,
     @GetCurrentUser('userId') userId: string,
-  ) {
-    return await this.commentsService.createComment(dto, userId);
+  ): Promise<CommentDto> {
+    const comment = await this.commentsService.createComment(dto, userId);
+    return plainToInstance(CommentDto, comment, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Delete(':id')

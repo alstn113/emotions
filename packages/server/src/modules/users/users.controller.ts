@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { User } from '@prisma/client';
+import { plainToInstance } from 'class-transformer';
 import { GetCurrentUser, Public } from '~/common/decorators';
+import { UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -12,11 +13,14 @@ export class UsersController {
   @Public()
   @Get('me')
   async getCurrentUser(
-    @GetCurrentUser() user: { userId: string; username: string },
-  ): Promise<User | null> {
-    if (!user) {
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<UserDto> | null {
+    if (!userId) {
       return null;
     }
-    return await this.usersService.getUserById(user.userId);
+    const user = await this.usersService.getUserById(userId);
+    return plainToInstance(UserDto, user, {
+      excludeExtraneousValues: true,
+    });
   }
 }

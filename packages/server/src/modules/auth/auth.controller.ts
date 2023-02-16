@@ -18,7 +18,7 @@ export class AuthController {
 
   @Get('github')
   @UseGuards(GithubGuard)
-  loginWithGithub() {
+  loginWithGithub(): string {
     return 'login with github';
   }
 
@@ -27,7 +27,7 @@ export class AuthController {
   async githubCallback(
     @Res() res: Response,
     @GetCurrentUser() user: { userId: string; username: string },
-  ) {
+  ): Promise<void> {
     const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
     const token = await this.authService.generateToken(
       user.userId,
