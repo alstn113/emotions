@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { GetCurrentUser, Public } from '~/common/decorators';
@@ -19,6 +19,17 @@ export class UsersController {
       return null;
     }
     const user = await this.usersService.getUserById(userId);
+    return plainToInstance(UserDto, user, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  @Public()
+  @Get(':username')
+  async getUserByUsername(
+    @Param('username') username: string,
+  ): Promise<UserDto> {
+    const user = await this.usersService.getUserByUsername(username);
     return plainToInstance(UserDto, user, {
       excludeExtraneousValues: true,
     });

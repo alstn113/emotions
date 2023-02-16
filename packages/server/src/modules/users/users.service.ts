@@ -10,4 +10,10 @@ export class UsersService {
     if (!user) throw new AppErrorException('NotFound', 'User not found');
     return user;
   }
+
+  async getUserByUsername(username: string) {
+    const user = await this.usersRepository.findUserByUsername(username);
+    if (!user) throw new AppErrorException('NotFound', 'User not found');
+    return user;
+  }
 }

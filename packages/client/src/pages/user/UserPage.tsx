@@ -3,6 +3,17 @@ import { Link, Outlet, useParams } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
 import { mediaQuery } from '~/lib/styles';
 
+// export const loader =
+//   (queryCelint) =>
+//   async ({ params }) => {
+//     const query = useget(params.contactId);
+//     // ⬇️ return data or fetch it
+//     return (
+//       queryClient.getQueryData(query.queryKey) ??
+//       (await queryClient.fetchQuery(query))
+//     );
+//   };
+
 const UserPage = () => {
   const { _username } = useParams();
   const username = _username?.replace('@', '') as string;

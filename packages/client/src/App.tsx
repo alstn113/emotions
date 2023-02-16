@@ -21,9 +21,12 @@ import UserPostsTab from './pages/user/tabs/UserPostsTab';
 import UserAboutTab from './pages/user/tabs/UserAboutTab';
 import UserSeriesTab from './pages/user/tabs/UserSeriesTab';
 import SeriesPage from './pages/user/SeriesPage';
+import { useQueryClient } from '@tanstack/react-query';
 
 const App = () => {
   useGetMe();
+
+  const queryClient = useQueryClient();
 
   return (
     <ErrorBoundary fallback={<ErrorFallback message={MESSAGE.ERROR.UNKNOWN} />}>
@@ -37,7 +40,7 @@ const App = () => {
           <Route path="/setting" element={<SettingPage />} />
 
           {/* user page */}
-          <Route path="/:_username" element={<UserPage />}>
+          <Route path="/:_username" element={<UserPage />} loader={{ p }}>
             <Route index element={<UserPostsTab />} />
             <Route path="about" element={<UserAboutTab />} />
             <Route path="series" element={<UserSeriesTab />} />
