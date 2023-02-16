@@ -19,7 +19,7 @@ import { User } from '~/components/vectors';
 const HeaderDropdown = () => {
   const user = useUser();
   const logout = useLogout();
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
   const { isOpen, onClose, onToggle } = useDisclosure();
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -69,17 +69,14 @@ const HeaderDropdown = () => {
       >
         <MenuItem
           variants={itemVariants}
-          onClick={() => naviagate(`/@${user?.username}`)}
+          onClick={() => navigate(`/user/${user?.username}`)}
         >
           <MenuItemText>My Page</MenuItemText>
         </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/')}>
+        <MenuItem variants={itemVariants} onClick={() => navigate('/')}>
           <MenuItemText>Posts</MenuItemText>
         </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/room')}>
-          <MenuItemText>Rooms</MenuItemText>
-        </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => naviagate('/setting')}>
+        <MenuItem variants={itemVariants} onClick={() => navigate('/setting')}>
           <MenuItemText>Setting</MenuItemText>
         </MenuItem>
         <MenuItem variants={itemVariants} onClick={logout} red>

@@ -5,13 +5,12 @@ import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByNam
 import { mediaQuery } from '~/lib/styles';
 
 const SeriesPage = () => {
-  const { _username, name } = useParams() as {
-    _username: string;
-    name: string;
+  const { username, seriesName } = useParams() as {
+    username: string;
+    seriesName: string;
   };
-  const username = _username?.replace('@', '') as string;
 
-  const { data: series } = useGetUserSeriesByName(username, name);
+  const { data: series } = useGetUserSeriesByName(username, seriesName);
   return (
     <TabLayout>
       <Container>

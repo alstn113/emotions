@@ -9,7 +9,7 @@ import { User } from '~/lib/types';
 export const loader =
   (queryClient: QueryClient) =>
   async ({ params }: any) => {
-    const username = params?._username?.replace('@', '') as string;
+    const username = params?.username;
     return (
       queryClient.getQueryData<User>(useGetUserByUsername.getKey(username)) ??
       (await queryClient.fetchQuery(
@@ -23,8 +23,7 @@ const UserPage = () => {
   const initialData = useLoaderData() as Awaited<
     ReturnType<ReturnType<typeof loader>>
   >;
-  const { _username } = useParams();
-  const username = _username?.replace('@', '') as string;
+  const { username } = useParams() as { username: string };
   const { data: user } = useGetUserByUsername(username, {
     initialData,
   });

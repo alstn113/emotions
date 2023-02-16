@@ -29,7 +29,7 @@ import PostContentsSkeleton from '~/components/post/skeleton/PostContentsSkeleto
 import CommentListSkeleton from '~/components/post/skeleton/CommentListSkeleton';
 
 const PostPage = () => {
-  const { slug } = useParams() as { slug: string };
+  const { username, slug } = useParams() as { username: string; slug: string };
   const { data: post } = useGetPostBySlug(slug);
 
   const navigate = useNavigate();

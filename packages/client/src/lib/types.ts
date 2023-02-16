@@ -104,30 +104,3 @@ export interface AppendToPostSeriesParams {
   seriesId: string;
   postId: string;
 }
-
-// not important things
-
-export interface MessagePayload {
-  uid: string;
-  username: string;
-  message: string;
-}
-
-export interface TypingStatusPayload {
-  uid: string;
-  username: string;
-  isTyping: boolean;
-}
-
-export interface Room {
-  id: string;
-  name: string;
-  user: User;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface CreateRoomParams {
-  name: string;
-}
