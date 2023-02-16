@@ -34,6 +34,7 @@ export class AppErrorException extends HttpException {
     const errorInfo = errors[name];
     super(
       {
+        name: name,
         statusCode: errorInfo.statusCode,
         message: message || errorInfo.message,
       },

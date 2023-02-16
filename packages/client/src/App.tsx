@@ -1,5 +1,12 @@
 // react
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
@@ -16,44 +23,44 @@ import WritePage from '~/pages/WritePage';
 import RoomPage from '~/pages/RoomPage';
 import ChatPage from '~/pages/ChatPage';
 import NotFoundPage from '~/pages/NotFoundPage';
-import UserPage from './pages/user/UserPage';
+import UserPage, { loader as userPageLoader } from './pages/user/UserPage';
 import UserPostsTab from './pages/user/tabs/UserPostsTab';
 import UserAboutTab from './pages/user/tabs/UserAboutTab';
 import UserSeriesTab from './pages/user/tabs/UserSeriesTab';
 import SeriesPage from './pages/user/SeriesPage';
-import { useQueryClient } from '@tanstack/react-query';
+import UserErrorBoundary from './pages/UserErrorBoundary';
 
 const App = () => {
   useGetMe();
 
   const queryClient = useQueryClient();
 
+  const router = createBrowserRouter([
+    { path: '/', element: <HomePage /> },
+    { path: '/write', element: <WritePage /> },
+    { path: '/room', element: <RoomPage /> },
+    { path: '/search', element: <SearchPage /> },
+    { path: '/setting', element: <SettingPage /> },
+    {
+      path: '/:_username',
+      element: <UserPage />,
+      loader: userPageLoader(queryClient),
+      errorElement: <UserErrorBoundary />,
+      children: [
+        { path: '', element: <UserPostsTab /> },
+        { path: 'about', element: <UserAboutTab /> },
+        { path: 'series', element: <UserSeriesTab /> },
+      ],
+    },
+    { path: '/:_username/series/:name', element: <SeriesPage /> },
+    { path: '/post/:slug', element: <PostPage /> },
+    { path: '/room/:roomId', element: <ChatPage /> },
+    { path: '*', element: <NotFoundPage /> },
+  ]);
+
   return (
     <ErrorBoundary fallback={<ErrorFallback message={MESSAGE.ERROR.UNKNOWN} />}>
-      <Router>
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/write" element={<WritePage />} />
-          <Route path="/room" element={<RoomPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/setting" element={<SettingPage />} />
-
-          {/* user page */}
-          <Route path="/:_username" element={<UserPage />} loader={{ p }}>
-            <Route index element={<UserPostsTab />} />
-            <Route path="about" element={<UserAboutTab />} />
-            <Route path="series" element={<UserSeriesTab />} />
-          </Route>
-          <Route path="/_:username/series/:name" element={<SeriesPage />} />
-
-          <Route path="/post/:slug" element={<PostPage />} />
-          <Route path="/room/:roomId" element={<ChatPage />} />
-
-          {/* catch all */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
+      <RouterProvider router={router} />
     </ErrorBoundary>
   );
 };

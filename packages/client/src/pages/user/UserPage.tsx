@@ -1,27 +1,40 @@
 import styled from '@emotion/styled';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { QueryClient } from '@tanstack/react-query';
+import { Link, Outlet, useLoaderData, useParams } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
+import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
+import { User } from '~/lib/types';
 
-// export const loader =
-//   (queryCelint) =>
-//   async ({ params }) => {
-//     const query = useget(params.contactId);
-//     // ⬇️ return data or fetch it
-//     return (
-//       queryClient.getQueryData(query.queryKey) ??
-//       (await queryClient.fetchQuery(query))
-//     );
-//   };
+export const loader =
+  (queryClient: QueryClient) =>
+  async ({ params }: any) => {
+    const username = params?._username?.replace('@', '') as string;
+    return (
+      queryClient.getQueryData<User>(useGetUserByUsername.getKey(username)) ??
+      (await queryClient.fetchQuery(
+        useGetUserByUsername.getKey(username),
+        useGetUserByUsername.fetcher(username),
+      ))
+    );
+  };
 
 const UserPage = () => {
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >;
   const { _username } = useParams();
   const username = _username?.replace('@', '') as string;
+  const { data: user } = useGetUserByUsername(username, {
+    initialData,
+  });
 
   return (
     <TabLayout>
       <Container>
-        <UserProfileWrapper>{username}</UserProfileWrapper>
+        <UserProfileWrapper>
+          {user?.id} {user?.username}
+        </UserProfileWrapper>
         <div>공사 중 입니다...</div>
         <TabsWrapper>
           <TabItem to="">Posts</TabItem>
