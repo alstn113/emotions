@@ -12,6 +12,7 @@ import BottomSheetProvider from '~/components/base/BottomSheetProvider';
 import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '~/lib/styles/themes';
 import { GlobalStyle } from '~/GlobalStyle';
+import ScrollToTop from './components/base/ScrollToTop';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,9 +34,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ReactQueryDevtools initialIsOpen={false} />
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
+      <ScrollToTop />
+      <App />
       <ModalProvider />
       <BottomSheetProvider />
-      <App />
     </ThemeProvider>
   </QueryClientProvider>,
 );
