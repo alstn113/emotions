@@ -37,12 +37,12 @@ const App = () => {
           <Route path="/setting" element={<SettingPage />} />
 
           {/* user page */}
-          <Route path="/@/:username" element={<UserPage />}>
+          <Route path="/:_username" element={<UserPage />}>
             <Route index element={<UserPostsTab />} />
             <Route path="about" element={<UserAboutTab />} />
             <Route path="series" element={<UserSeriesTab />} />
           </Route>
-          <Route path="/@/:username/series/:name" element={<SeriesPage />} />
+          <Route path="/_:username/series/:name" element={<SeriesPage />} />
 
           <Route path="/post/:slug" element={<PostPage />} />
           <Route path="/room/:roomId" element={<ChatPage />} />

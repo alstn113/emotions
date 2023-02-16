@@ -4,7 +4,9 @@ import TabLayout from '~/components/layouts/TabLayout';
 import { mediaQuery } from '~/lib/styles';
 
 const UserPage = () => {
-  const { username } = useParams() as { username: string };
+  const { _username } = useParams();
+  const username = _username?.replace('@', '') as string;
+
   return (
     <TabLayout>
       <Container>

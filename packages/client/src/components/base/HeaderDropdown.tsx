@@ -69,7 +69,7 @@ const HeaderDropdown = () => {
       >
         <MenuItem
           variants={itemVariants}
-          onClick={() => naviagate(`/@/${user?.username}`)}
+          onClick={() => naviagate(`/@${user?.username}`)}
         >
           <MenuItemText>My Page</MenuItemText>
         </MenuItem>
