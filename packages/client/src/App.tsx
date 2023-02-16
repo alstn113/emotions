@@ -1,11 +1,5 @@
 // react
-import {
-  BrowserRouter as Router,
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';

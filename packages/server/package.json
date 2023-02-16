@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "lint": "eslint \"src/**/*.ts\" --fix",
+    "lint": "eslint \"src/**/*.ts\" --config ./.eslintrc.js --fix",
     "format": "prettier \"src/**/*.ts\" --write",
     "start:dev": "NODE_ENV=development nest start --watch",
     "start:prod": "NODE_ENV=production nest start",
@@ -24,9 +24,7 @@
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/platform-socket.io": "^9.2.1",
     "@nestjs/swagger": "^6.1.4",
-    "@nestjs/websockets": "^9.2.1",
     "@prisma/client": "^4.10.1",
     "@types/cookie-parser": "^1.4.3",
     "class-transformer": "^0.5.1",
@@ -40,7 +38,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "socket.io": "^4.5.4",
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {

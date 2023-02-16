@@ -22,8 +22,6 @@ import { S3Module } from './providers';
 import {
   AuthModule,
   UsersModule,
-  EventsModule,
-  RoomsModule,
   PostsModule,
   CommentsModule,
   TagsModule,
@@ -42,8 +40,6 @@ import {
     // main modules
     AuthModule,
     UsersModule,
-    EventsModule,
-    RoomsModule,
     PostsModule,
     CommentsModule,
     TagsModule,

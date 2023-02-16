@@ -3,8 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
 
 const UserSeriesTab = () => {
-  const { _username } = useParams();
-  const username = _username?.replace('@', '') as string;
+  const { username } = useParams() as { username: string };
   const { data: seriesList } = useGetUserSeries(username);
   return (
     <div>

@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "transform:svg": "pnpm svgr --typescript --out-dir src/components/vectors src/assets/vectors",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --config ./.eslintrc.js --fix",
     "format": "prettier \"src/**/*.{ts,tsx}\" --write"
   },
   "dependencies": {

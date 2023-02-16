@@ -49,6 +49,8 @@ const MarkdownEditor = ({ onChangeText, defaultValue }: Props) => {
         window.removeEventListener('resize', onResize);
       };
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

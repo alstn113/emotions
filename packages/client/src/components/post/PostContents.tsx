@@ -69,7 +69,7 @@ const PostContents = ({ slug }: Props) => {
           return <div key={tag}>{tag}</div>;
         })}
       </TagList>
-      {post?.series && <PostSeriesViewer series={post?.series} />}
+      {post?.series && <PostSeriesViewer post={post} series={post?.series} />}
       {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
       <Body dangerouslySetInnerHTML={{ __html: html }} />
       <Group>
