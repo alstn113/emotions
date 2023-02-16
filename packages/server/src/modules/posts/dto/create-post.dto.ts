@@ -8,12 +8,12 @@ export class CreatePostDto {
   @IsNotEmpty()
   title: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   slug?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   description?: string;
@@ -28,12 +28,12 @@ export class CreatePostDto {
   @IsString()
   thumbnail?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsArray()
   tags?: string[];
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsOptional()
   @IsString()
   seriesId?: string;

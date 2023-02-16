@@ -13,7 +13,7 @@ export class CreateCommentDto {
   @IsNotEmpty()
   postId: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   parentCommentId?: string;
