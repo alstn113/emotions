@@ -12,15 +12,15 @@ import { useGetMe } from '~/hooks/queries/user';
 import HomePage from '~/pages/HomePage';
 import SearchPage from '~/pages/SearchPage';
 import SettingPage from '~/pages/SettingPage';
-import PostPage from '~/pages/PostPage';
+import PostPage, { loader as postLoader } from '~/pages/PostPage';
 import WritePage from '~/pages/WritePage';
 import NotFoundPage from '~/pages/NotFoundPage';
-import UserPage, { loader as userPageLoader } from './pages/user/UserPage';
+import UserPage, { loader as userLoader } from './pages/user/UserPage';
 import UserPostsTab from './pages/user/tabs/UserPostsTab';
 import UserAboutTab from './pages/user/tabs/UserAboutTab';
 import UserSeriesTab from './pages/user/tabs/UserSeriesTab';
 import SeriesPage from './pages/user/SeriesPage';
-import UserErrorBoundary from './pages/user/UserErrorBoundary';
+import ErrorPage from './pages/ErrorPage';
 
 const App = () => {
   useGetMe();
@@ -35,8 +35,8 @@ const App = () => {
     {
       path: '/user/:username',
       element: <UserPage />,
-      loader: userPageLoader(queryClient),
-      errorElement: <UserErrorBoundary />,
+      loader: userLoader(queryClient),
+      errorElement: <ErrorPage />,
       children: [
         { path: '', element: <UserPostsTab /> },
         { path: 'about', element: <UserAboutTab /> },
@@ -44,7 +44,12 @@ const App = () => {
       ],
     },
     { path: '/user/:username/series/:seriesName', element: <SeriesPage /> },
-    { path: '/user/:username/post/:slug', element: <PostPage /> },
+    {
+      path: '/user/:username/post/:slug',
+      element: <PostPage />,
+      loader: postLoader(queryClient),
+      errorElement: <ErrorPage />,
+    },
     { path: '*', element: <NotFoundPage /> },
   ]);
 

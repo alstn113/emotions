@@ -1,7 +1,8 @@
 // react
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { MESSAGE } from '~/constants';
 import { extractError } from '~/lib/error';
+import { QueryClient } from '@tanstack/react-query';
 
 // hooks
 import {
@@ -27,10 +28,32 @@ import CommentList from '~/components/post/CommentList';
 import CommentInput from '~/components/post//CommentInput';
 import PostContentsSkeleton from '~/components/post/skeleton/PostContentsSkeleton';
 import CommentListSkeleton from '~/components/post/skeleton/CommentListSkeleton';
+import { SinglePostReponse } from '~/lib/types';
+
+//TODO: username_slug가 unique여야하는데 현재 slug가 unique
+export const loader =
+  (queryClient: QueryClient) =>
+  async ({ params }: any) => {
+    const { username, slug } = params;
+    return (
+      queryClient.getQueryData<SinglePostReponse>(
+        useGetPostBySlug.getKey(slug),
+      ) ??
+      (await queryClient.fetchQuery(
+        useGetPostBySlug.getKey(slug),
+        useGetPostBySlug.fetcher(slug),
+      ))
+    );
+  };
 
 const PostPage = () => {
   const { username, slug } = useParams() as { username: string; slug: string };
-  const { data: post } = useGetPostBySlug(slug);
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >;
+  const { data: post } = useGetPostBySlug(slug, {
+    initialData,
+  });
 
   const navigate = useNavigate();
   const { openModal } = useModalStore();

@@ -9,7 +9,7 @@ import { User } from '~/lib/types';
 export const loader =
   (queryClient: QueryClient) =>
   async ({ params }: any) => {
-    const username = params?.username;
+    const { username } = params;
     return (
       queryClient.getQueryData<User>(useGetUserByUsername.getKey(username)) ??
       (await queryClient.fetchQuery(
