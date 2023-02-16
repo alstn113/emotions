@@ -19,8 +19,8 @@ const PostSeriesViewer = ({ post, series }: Props) => {
       transition: {
         type: 'spring',
         bounce: 0,
-        duration: 0.7,
-        delayChildren: 0.3,
+        duration: 0.3,
+        delayChildren: 0.05,
         staggerChildren: 0.05,
       },
     },

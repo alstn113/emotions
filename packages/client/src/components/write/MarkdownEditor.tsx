@@ -48,19 +48,6 @@ const MarkdownEditor = ({ onChangeText, defaultValue }: Props) => {
 // editor css not preview
 const EditorWrapper = styled.div`
   height: 100%;
-  .cm-content,
-  .cm-gutter {
-    min-height: 150px;
-  }
-  .cm-gutters {
-    margin: 1px;
-  }
-  .cm-scroller {
-    overflow: auto;
-  }
-  .cm-wrap {
-    border: 1px solid silver;
-  }
 
   .cm-focused {
     outline: none !important;
@@ -72,10 +59,7 @@ const EditorWrapper = styled.div`
   }
 
   .cm-scroller {
-    overflow: 'auto';
-  }
-
-  .cm-editor {
+    overflow: auto;
   }
 `;
 
