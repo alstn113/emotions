@@ -98,6 +98,7 @@ export const markdownStyles = css`
     background: #e9ecef;
     padding: 1rem 1rem 1rem 2rem;
     color: ${palette.black};
+    overflow: hidden;
   }
 
   ul {
