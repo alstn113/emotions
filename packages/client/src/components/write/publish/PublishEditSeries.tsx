@@ -101,6 +101,7 @@ const EditSeriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const Title = styled.div`

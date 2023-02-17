@@ -3,7 +3,7 @@ import { IsOptional, IsString } from 'class-validator';
 
 @ApiTags('/posts')
 export class GetPostsQueryDto {
-  @ApiProperty({ nullable: true })
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   cursor?: string;

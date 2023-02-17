@@ -5,11 +5,7 @@ import { extractError } from '~/lib/error';
 // hooks
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
-import {
-  useDeletePost,
-  useGetPost,
-  useGetPostBySlug,
-} from '~/hooks/queries/post';
+import { useDeletePost, useGetPostBySlug } from '~/hooks/queries/post';
 
 // stores
 import useModalStore from '~/stores/useModalStore';
@@ -18,8 +14,10 @@ import useModalStore from '~/stores/useModalStore';
 import styled from '@emotion/styled';
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
-import { mediaQuery } from '~/lib/styles';
+import { markdownStyles, mediaQuery } from '~/lib/styles';
 import PostSeriesViewer from './PostSeriesViewer';
+import { useMemo } from 'react';
+import MarkdownIt from 'markdown-it';
 
 interface Props {
   slug: string;
@@ -36,6 +34,10 @@ const PostContents = ({ slug }: Props) => {
     initialLikeCount: post?.postStats.likes!,
     postId: post?.id!,
   });
+
+  const html = useMemo(() => {
+    return MarkdownIt().render(post?.body!);
+  }, [post?.body]);
 
   const { mutate: deletePost } = useDeletePost();
 
@@ -67,11 +69,9 @@ const PostContents = ({ slug }: Props) => {
           return <div key={tag}>{tag}</div>;
         })}
       </TagList>
-      {post?.series && <PostSeriesViewer series={post?.series} />}
+      {post?.series && <PostSeriesViewer post={post} series={post?.series} />}
       {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
-      <Body>
-        <pre>{post?.body}</pre>
-      </Body>
+      <Body dangerouslySetInnerHTML={{ __html: html }} />
       <Group>
         <Author>Authored by {post?.user.username}</Author>
         {isMyPost ? (
@@ -130,9 +130,7 @@ const Body = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
 
-  pre {
-    white-space: pre-wrap;
-  }
+  ${markdownStyles}
 `;
 
 const Author = styled.div`

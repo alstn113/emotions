@@ -39,12 +39,6 @@ export class SeriesRepository {
             },
           },
         },
-        user: {
-          select: {
-            id: true,
-            username: true,
-          },
-        },
       },
     });
   }

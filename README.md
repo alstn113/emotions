@@ -18,6 +18,15 @@
   - 방장의 실시간 질문 선택 및 답변 기능
   - 다이나믹 아일랜드
 
+- ### Codemirror
+
+  - codemirror를 통한 Markdown Editor
+  - codemirror
+  - @codemirror/commands
+  - @codemirror/lang-markdown
+  - @codemirror/view
+  - markdown-it, @types/markdown-it
+
 ## `구조`
 
 - Cloud: AWS EC2, NGINX

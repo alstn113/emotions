@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import TagInput from './TagInput';
 import { mediaQuery } from '~/lib/styles';
+import MarkdownEditor from './MarkdownEditor';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =
@@ -24,11 +25,7 @@ const Editor = () => {
         <TagInput />
       </EditorHeader>
       <EditorBody>
-        <PostBody
-          placeholder="내용을 입력하세요"
-          value={body}
-          onChange={(e) => changeBody(e.target.value)}
-        />
+        <StyledEditor onChangeText={changeBody} defaultValue={body} />
       </EditorBody>
       <EditorFooter>
         <Button shadow color="error" onClick={() => navigate('/')}>
@@ -82,25 +79,20 @@ const PostTitle = styled(TextareaAutosize)`
 const EditorBody = styled.div`
   flex: 1;
   width: 100%;
-`;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 
-const PostBody = styled.textarea`
-  padding: 1rem 3rem;
-  background: transparent;
-  display: block;
-  font-size: 1rem;
-  width: 100%;
-  height: 100%;
-  resize: none;
-  line-height: 1.5;
-  outline: none;
-  border: none;
-  color: #000;
-  &::placeholder {
-    color: #999;
+  // custom scrollbar
+  &::-webkit-scrollbar {
+    width: 0.5rem;
   }
-  ${mediaQuery.tablet} {
-    font-size: 1.2rem;
+  &::-webkit-scrollbar-thumb {
+    background: #f6d365;
+    border-radius: 0.5rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #fff;
   }
 `;
 
@@ -115,6 +107,15 @@ const EditorFooter = styled.div`
   width: 100%;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   background-color: #fff;
+`;
+
+const StyledEditor = styled(MarkdownEditor)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  ${mediaQuery.desktop} {
+    flex: initial;
+  }
 `;
 
 export default Editor;

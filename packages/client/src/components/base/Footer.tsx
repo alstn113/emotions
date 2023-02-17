@@ -5,8 +5,10 @@ import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
 import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
+import useUser from '~/hooks/useUser';
 
 const Footer = () => {
+  const user = useUser();
   return (
     <Container>
       <TabItem to="/">
@@ -18,7 +20,7 @@ const Footer = () => {
       <TabItem to="/write">
         <Create width={24} height={24} />
       </TabItem>
-      <TabItem to="/room">
+      <TabItem to={`/user/${user?.username}`}>
         <Comment width={24} height={24} />
       </TabItem>
       <TabItem to="/setting">

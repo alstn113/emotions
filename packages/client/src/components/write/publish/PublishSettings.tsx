@@ -8,6 +8,7 @@ import { Button } from '../../common';
 import PublishEditSeries from './PublishEditSeries';
 import PublishSeriesSetting from './PublishSeriesSetting';
 import PublishURLSetting from './PublishURLSetting';
+import removeMarkdown from 'remove-markdown';
 
 const PublishSettings = () => {
   const {
@@ -27,8 +28,17 @@ const PublishSettings = () => {
 
   const handleCreatePost = () => {
     if (!title || !body) return alert('제목과 내용을 입력해주세요');
+    const descriptionWithoutMd = removeMarkdown(description);
     mutate(
-      { title, body, thumbnail, tags, description, slug, seriesId: series?.id },
+      {
+        title,
+        body,
+        thumbnail,
+        tags,
+        description: descriptionWithoutMd,
+        slug,
+        seriesId: series?.id,
+      },
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetPosts.getKey());
@@ -68,11 +78,13 @@ const PublishSettings = () => {
 
 const Container = styled.div`
   flex: 1;
-  display: flex;
   flex-direction: column;
+  display: flex;
   align-items: center;
   height: 100%;
+  width: 100%;
   justify-content: space-between;
+  gap: 1rem;
 `;
 
 const SettingsWrapper = styled.div`

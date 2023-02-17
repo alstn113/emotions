@@ -2,7 +2,6 @@ const BASE_URL: string =
   import.meta.env.VITE_APP_BASE_URL || 'http://localhost:8080';
 const AUTH = 'auth';
 const USER = 'users';
-const ROOM = 'rooms';
 const POST = 'posts';
 const COMMENT = 'comments';
 const SERIES = 'series';
@@ -14,7 +13,6 @@ export const API = {
   // rest
   AUTH: `${BASE_URL}/${AUTH}`,
   USER: `${BASE_URL}/${USER}`,
-  ROOM: `${BASE_URL}/${ROOM}`,
   POST: `${BASE_URL}/${POST}`,
   SERIES: `${BASE_URL}/${SERIES}`,
   COMMENT: `${BASE_URL}/${COMMENT}`,

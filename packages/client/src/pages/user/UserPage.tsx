@@ -1,14 +1,39 @@
 import styled from '@emotion/styled';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { QueryClient } from '@tanstack/react-query';
+import { Link, Outlet, useLoaderData, useParams } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
+import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
+import { User } from '~/lib/types';
+
+export const loader =
+  (queryClient: QueryClient) =>
+  async ({ params }: any) => {
+    const { username } = params;
+    return (
+      queryClient.getQueryData<User>(useGetUserByUsername.getKey(username)) ??
+      (await queryClient.fetchQuery(
+        useGetUserByUsername.getKey(username),
+        useGetUserByUsername.fetcher(username),
+      ))
+    );
+  };
 
 const UserPage = () => {
+  const initialData = useLoaderData() as Awaited<
+    ReturnType<ReturnType<typeof loader>>
+  >;
   const { username } = useParams() as { username: string };
+  const { data: user } = useGetUserByUsername(username, {
+    initialData,
+  });
+
   return (
     <TabLayout>
       <Container>
-        <UserProfileWrapper>{username}</UserProfileWrapper>
+        <UserProfileWrapper>
+          {user?.id} {user?.username}
+        </UserProfileWrapper>
         <div>공사 중 입니다...</div>
         <TabsWrapper>
           <TabItem to="">Posts</TabItem>

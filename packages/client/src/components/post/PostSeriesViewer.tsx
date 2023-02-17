@@ -2,13 +2,14 @@ import styled from '@emotion/styled';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import useDisclosure from '~/hooks/useDisclosure';
-import { Series } from '~/lib/types';
+import { PostWithStats, Series } from '~/lib/types';
 
 interface Props {
+  post: PostWithStats;
   series: Series;
 }
 
-const PostSeriesViewer = ({ series }: Props) => {
+const PostSeriesViewer = ({ post, series }: Props) => {
   const { isOpen, onToggle } = useDisclosure();
 
   const tiggerVariants: Variants = {
@@ -18,8 +19,8 @@ const PostSeriesViewer = ({ series }: Props) => {
       transition: {
         type: 'spring',
         bounce: 0,
-        duration: 0.7,
-        delayChildren: 0.3,
+        duration: 0.3,
+        delayChildren: 0.05,
         staggerChildren: 0.05,
       },
     },
@@ -66,7 +67,9 @@ const PostSeriesViewer = ({ series }: Props) => {
             {series.seriesPosts.map((seriesPost) => {
               return (
                 <motion.div key={seriesPost.id} variants={itemVariants}>
-                  <CollapseItem to={`/post/${seriesPost.post.slug}`}>
+                  <CollapseItem
+                    to={`/user/${post.user.username}/post/${seriesPost.post.slug}`}
+                  >
                     {seriesPost.index}. {seriesPost.post.title}
                   </CollapseItem>
                 </motion.div>

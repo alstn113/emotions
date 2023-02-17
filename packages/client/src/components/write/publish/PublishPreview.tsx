@@ -6,13 +6,17 @@ import useWriteStore from '~/stores/useWriteStore';
 import UploadImageSvg from '~/assets/vectors/upload-image.svg';
 import { extractError } from '~/lib/error';
 import { css } from '@emotion/react';
+import removeMarkdown from 'remove-markdown';
 
 const PublishPreview = () => {
-  const { description, body, changeThumbnail, changeDescription } =
+  const { description, body, changeThumbnail, changeDescription, thumbnail } =
     useWriteStore();
   const { mutate, isLoading } = useUploadImage();
-  const [previewImage, setPreviewImage] = useState<string>(UploadImageSvg);
+  const [previewImage, setPreviewImage] = useState<string>(
+    thumbnail ?? UploadImageSvg,
+  );
   const inputEl = useRef<HTMLInputElement>(null);
+  const mounted = useRef(false);
 
   const handleUploadImage = () => {
     const image = (inputEl.current?.files as FileList)[0];
@@ -42,10 +46,17 @@ const PublishPreview = () => {
     }
   };
 
+  // 처음에 한 번만 description이 없을 때 body를 description으로 설정
   useEffect(() => {
-    if (!body) return;
-    changeDescription(body);
-  }, [body, changeDescription]);
+    if (mounted.current) return;
+
+    if (!description) {
+      const bodyWithoutMd = removeMarkdown(body);
+      changeDescription(bodyWithoutMd);
+    }
+
+    mounted.current = true;
+  }, [changeDescription, body, description]);
 
   return (
     <Container>
@@ -82,6 +93,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
 `;
 
 const Title = styled.span`

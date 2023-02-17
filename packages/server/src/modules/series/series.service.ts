@@ -31,6 +31,7 @@ export class SeriesService {
     return series;
   }
 
+  //TODO: series url slug
   async createSeries(dto: CreateSeriestDto, userId: string) {
     const exists = await this.seriesRepository.findSeriesByUserId(
       userId,

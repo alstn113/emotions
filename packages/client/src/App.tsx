@@ -1,5 +1,11 @@
 // react
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import ErrorBoundary from '~/components/base/ErrorBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
 import { MESSAGE } from '~/constants';
@@ -11,46 +17,54 @@ import { useGetMe } from '~/hooks/queries/user';
 import HomePage from '~/pages/HomePage';
 import SearchPage from '~/pages/SearchPage';
 import SettingPage from '~/pages/SettingPage';
-import PostPage from '~/pages/PostPage';
+import PostPage, { loader as postLoader } from '~/pages/PostPage';
 import WritePage from '~/pages/WritePage';
-import RoomPage from '~/pages/RoomPage';
-import ChatPage from '~/pages/ChatPage';
 import NotFoundPage from '~/pages/NotFoundPage';
-import UserPage from './pages/user/UserPage';
+import UserPage, { loader as userLoader } from './pages/user/UserPage';
 import UserPostsTab from './pages/user/tabs/UserPostsTab';
 import UserAboutTab from './pages/user/tabs/UserAboutTab';
 import UserSeriesTab from './pages/user/tabs/UserSeriesTab';
 import SeriesPage from './pages/user/SeriesPage';
+import ErrorPage from './pages/ErrorPage';
 
 const App = () => {
   useGetMe();
 
+  const queryClient = useQueryClient();
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" errorElement={<ErrorPage />}>
+        <Route index element={<HomePage />} />
+        <Route path="write" element={<WritePage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="setting" element={<SettingPage />} />
+        <Route
+          path="user/:username"
+          element={<UserPage />}
+          loader={userLoader(queryClient)}
+        >
+          <Route index element={<UserPostsTab />} />
+          <Route path="about" element={<UserAboutTab />} />
+          <Route path="series" element={<UserSeriesTab />} />
+        </Route>
+        <Route
+          path="user/:username/series/:seriesName"
+          element={<SeriesPage />}
+        />
+        <Route
+          path="user/:username/post/:slug"
+          element={<PostPage />}
+          loader={postLoader(queryClient)}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>,
+    ),
+  );
+
   return (
     <ErrorBoundary fallback={<ErrorFallback message={MESSAGE.ERROR.UNKNOWN} />}>
-      <Router>
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/write" element={<WritePage />} />
-          <Route path="/room" element={<RoomPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/setting" element={<SettingPage />} />
-
-          {/* user page */}
-          <Route path="/@/:username" element={<UserPage />}>
-            <Route index element={<UserPostsTab />} />
-            <Route path="about" element={<UserAboutTab />} />
-            <Route path="series" element={<UserSeriesTab />} />
-          </Route>
-          <Route path="/@/:username/series/:name" element={<SeriesPage />} />
-
-          <Route path="/post/:slug" element={<PostPage />} />
-          <Route path="/room/:roomId" element={<ChatPage />} />
-
-          {/* catch all */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Router>
+      <RouterProvider router={router} />
     </ErrorBoundary>
   );
 };

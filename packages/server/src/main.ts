@@ -4,7 +4,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from '~/app.module';
-import { SocketIoAdapter } from './adapter';
 import { createDocumnet } from '~/lib/swagger';
 
 const bootstrap = async () => {
@@ -21,7 +20,6 @@ const bootstrap = async () => {
     credentials: true,
   });
 
-  app.useWebSocketAdapter(new SocketIoAdapter(app));
   app.useGlobalPipes(
     new ValidationPipe({
       // request에서 dto에 없는 값 제거
