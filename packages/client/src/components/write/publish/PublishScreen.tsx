@@ -38,6 +38,7 @@ const Container = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
 `;
 
 const Contents = styled.div`
@@ -46,13 +47,14 @@ const Contents = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  max-width: 800px;
-  height: 500px;
-  width: 100%;
+  width: 80%;
   padding: 1rem;
 
   ${mediaQuery.tablet} {
     flex-direction: row;
+    max-width: 800px;
+    width: 100%;
+    height: 500px;
   }
 `;
 

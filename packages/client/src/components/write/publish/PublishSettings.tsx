@@ -78,11 +78,13 @@ const PublishSettings = () => {
 
 const Container = styled.div`
   flex: 1;
-  display: flex;
   flex-direction: column;
+  display: flex;
   align-items: center;
   height: 100%;
+  width: 100%;
   justify-content: space-between;
+  gap: 1rem;
 `;
 
 const SettingsWrapper = styled.div`
