@@ -154,10 +154,10 @@ const reset = css`
   body {
     line-height: 1;
   }
-  ol,
+  /* ol,
   ul {
     list-style: none;
-  }
+  } */
   blockquote,
   q {
     quotes: none;

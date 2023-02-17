@@ -14,10 +14,11 @@ import useModalStore from '~/stores/useModalStore';
 import styled from '@emotion/styled';
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
-import { markdownStyles, mediaQuery } from '~/lib/styles';
+import { mediaQuery } from '~/lib/styles';
 import PostSeriesViewer from './PostSeriesViewer';
 import { useMemo } from 'react';
 import MarkdownIt from 'markdown-it';
+import '~/lib/styles/github-markdown.css';
 
 interface Props {
   slug: string;
@@ -71,7 +72,10 @@ const PostContents = ({ slug }: Props) => {
       </TagList>
       {post?.series && <PostSeriesViewer post={post} series={post?.series} />}
       {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
-      <Body dangerouslySetInnerHTML={{ __html: html }} />
+      <div
+        className="markdown-body"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
       <Group>
         <Author>Authored by {post?.user.username}</Author>
         {isMyPost ? (
@@ -124,13 +128,6 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 0.8rem;
   margin-bottom: 1rem;
-`;
-
-const Body = styled.div`
-  font-size: 1rem;
-  line-height: 1.5rem;
-
-  ${markdownStyles}
 `;
 
 const Author = styled.div`

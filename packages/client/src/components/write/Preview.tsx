@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import useWriteStore from '~/stores/useWriteStore';
-import { markdownStyles, mediaQuery } from '~/lib/styles';
+import { mediaQuery } from '~/lib/styles';
 import MarkdownIt from 'markdown-it';
 import { useMemo } from 'react';
+import '~/lib/styles/github-markdown.css';
 
 const Preview = () => {
   const { title, body } = useWriteStore();
@@ -15,7 +16,10 @@ const Preview = () => {
     <Container>
       <ContentsWrapper>
         <Title>{title}</Title>
-        <MarkdownBody dangerouslySetInnerHTML={{ __html: html }} />
+        <div
+          className="markdown-body"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </ContentsWrapper>
     </Container>
   );
@@ -47,10 +51,6 @@ const Title = styled.h1`
   line-height: 1.2;
   font-weight: 800;
   margin-bottom: 3rem;
-`;
-
-const MarkdownBody = styled.div`
-  ${markdownStyles}
 `;
 
 export default Preview;
