@@ -3,26 +3,17 @@ import styled from '@emotion/styled';
 import { useRouteError } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
 import { extractError } from '~/lib/error';
-import NotFoundLottie from '~/assets/lotties/not-found.json';
-import Lottie from 'react-lottie';
 import { mediaQuery } from '~/lib/styles';
 const UserErrorBoundary = () => {
   const _error = useRouteError();
   console.error(JSON.stringify(_error));
   const error = extractError(_error);
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: NotFoundLottie,
-  };
-
   return (
     <TabLayout>
       <Container>
         <h1>{error.message}</h1>
         <h2>{error.statusCode}</h2>
-        <Lottie options={defaultOptions} />
       </Container>
     </TabLayout>
   );
@@ -42,15 +33,6 @@ const Container = styled.div`
   h2 {
     font-size: 1.5rem;
     font-weight: 700;
-  }
-
-  div {
-    width: 100%;
-    height: 100%;
-    min-width: 300px;
-    min-height: 300px;
-    max-width: 500px;
-    max-height: 500px;
   }
 
   ${mediaQuery.tablet} {
