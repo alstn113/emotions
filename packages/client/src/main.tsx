@@ -19,11 +19,11 @@ const queryClient = new QueryClient({
     queries: {
       // suspense: true,
       // -- react-query default config --
-      retry: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-      refetchInterval: false,
+      // retry: false,
+      // refetchOnMount: false,
+      // refetchOnReconnect: false,
+      // refetchOnWindowFocus: false,
+      // refetchInterval: false,
       // staleTime: 1000 * 60 * 3, // 3m
     },
   },
