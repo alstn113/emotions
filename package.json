@@ -7,7 +7,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "ssr": "pnpm --filter ssr dev",
     "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server start:dev\"",
     "build:client": "pnpm --filter client build",
     "build:server": "pnpm --filter server build",
