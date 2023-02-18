@@ -5,7 +5,11 @@ import { extractError } from '~/lib/error';
 // hooks
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
-import { useDeletePost, useGetPostBySlug } from '~/hooks/queries/post';
+import {
+  useDeletePost,
+  useGetPostBySlug,
+  useGetPostComments,
+} from '~/hooks/queries/post';
 
 // stores
 import useModalStore from '~/stores/useModalStore';
@@ -19,6 +23,12 @@ import PostSeriesViewer from './PostSeriesViewer';
 import { useMemo } from 'react';
 import MarkdownIt from 'markdown-it';
 import '~/lib/styles/github-markdown.css';
+import CommentInput from './CommentInput';
+import CommentList from './CommentList';
+import AsyncBoundary from '../base/AsyncBoundary';
+import CommentListSkeleton from './skeleton/CommentListSkeleton';
+import ErrorFallback from '../base/ErrorFallback';
+import { MESSAGE } from '~/constants';
 
 interface Props {
   slug: string;
@@ -95,6 +105,18 @@ const PostContents = ({ slug }: Props) => {
         <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
         <span>좋아요 {likeCount.toLocaleString()}개</span>
       </LikeButtonWrapper>
+      <CommentInput postId={post?.id!} />
+      <AsyncBoundary
+        pendingFallback={<CommentListSkeleton />}
+        rejectedFallback={
+          <ErrorFallback
+            message={MESSAGE.ERROR.LOAD_DATA}
+            queryKey={useGetPostComments.getKey(post?.id!)}
+          />
+        }
+      >
+        <CommentList postId={post?.id!} />
+      </AsyncBoundary>
     </>
   );
 };

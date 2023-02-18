@@ -13,6 +13,7 @@ import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '~/lib/styles/themes';
 import { GlobalStyle } from '~/GlobalStyle';
 import ScrollToTop from './components/base/ScrollToTop';
+import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,8 +35,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ReactQueryDevtools initialIsOpen={false} />
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
-      <ScrollToTop />
-      <App />
+      <BrowserRouter>
+        <ScrollToTop />
+        <App />
+      </BrowserRouter>
       <ModalProvider />
       <BottomSheetProvider />
     </ThemeProvider>
