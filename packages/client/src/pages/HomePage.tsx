@@ -24,6 +24,11 @@ const HomePage = () => {
           }
           pendingFallback={<PostListSkeleton />}
         >
+          <div
+            style={{ fontSize: '4rem', textAlign: 'center', margin: '20px' }}
+          >
+            공사 중!!!!!
+          </div>
           <PostList />
         </AsyncBoundary>
       </Container>
