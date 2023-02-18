@@ -9,6 +9,7 @@ import PublishEditSeries from './PublishEditSeries';
 import PublishSeriesSetting from './PublishSeriesSetting';
 import PublishURLSetting from './PublishURLSetting';
 import removeMarkdown from 'remove-markdown';
+import useModalStore from '~/stores/useModalStore';
 
 const PublishSettings = () => {
   const {
@@ -22,13 +23,21 @@ const PublishSettings = () => {
     editSeries,
     closePublishScreen,
   } = useWriteStore();
-  const { mutate } = useCreatePost();
+  const { mutate, isLoading } = useCreatePost();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { openModal, closeModal } = useModalStore();
 
   const handleCreatePost = () => {
-    if (!title || !body) return alert('제목과 내용을 입력해주세요');
+    if (!title || !body)
+      return openModal({
+        title: '제목과 내용을 채워주세요',
+        message: '제목과 내용은 필수입니다.',
+        onConfirm: () => closeModal(),
+      });
+
     const descriptionWithoutMd = removeMarkdown(description);
+
     mutate(
       {
         title,
@@ -66,8 +75,13 @@ const PublishSettings = () => {
             <Button color="error" shadow onClick={closePublishScreen}>
               Cancel
             </Button>
-            <Button color="success" shadow onClick={handleCreatePost}>
-              Publish
+            <Button
+              color="success"
+              shadow
+              onClick={handleCreatePost}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Loading' : 'Publish'}
             </Button>
           </ButtonsWrapper>
         </>
