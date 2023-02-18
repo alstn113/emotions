@@ -76,6 +76,9 @@ const HeaderDropdown = () => {
         <MenuItem variants={itemVariants} onClick={() => navigate('/')}>
           <MenuItemText>Posts</MenuItemText>
         </MenuItem>
+        <MenuItem variants={itemVariants} onClick={() => navigate('/search')}>
+          <MenuItemText>Search</MenuItemText>
+        </MenuItem>
         <MenuItem variants={itemVariants} onClick={() => navigate('/setting')}>
           <MenuItemText>Setting</MenuItemText>
         </MenuItem>

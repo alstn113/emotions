@@ -15,17 +15,21 @@ import { useGetMe } from '~/hooks/queries/user';
 
 // pages
 import HomePage from '~/pages/HomePage';
-import SearchPage from '~/pages/SearchPage';
-import SettingPage from '~/pages/SettingPage';
-import PostPage, { loader as postLoader } from '~/pages/PostPage';
-import WritePage from '~/pages/WritePage';
+import { loader as postLoader } from '~/pages/PostPage';
 import NotFoundPage from '~/pages/NotFoundPage';
-import UserPage, { loader as userLoader } from './pages/user/UserPage';
+import { loader as userLoader } from './pages/user/UserPage';
 import UserPostsTab from './pages/user/tabs/UserPostsTab';
 import UserAboutTab from './pages/user/tabs/UserAboutTab';
 import UserSeriesTab from './pages/user/tabs/UserSeriesTab';
-import SeriesPage from './pages/user/SeriesPage';
 import ErrorPage from './pages/ErrorPage';
+import { lazy, Suspense } from 'react';
+
+const WritePage = lazy(() => import('~/pages/WritePage'));
+const SearchPage = lazy(() => import('~/pages/SearchPage'));
+const SettingPage = lazy(() => import('~/pages/SettingPage'));
+const UserPage = lazy(() => import('~/pages/user/UserPage'));
+const SeriesPage = lazy(() => import('~/pages/user/SeriesPage'));
+const PostPage = lazy(() => import('~/pages/PostPage'));
 
 const App = () => {
   useGetMe();
@@ -36,12 +40,37 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" errorElement={<ErrorPage />}>
         <Route index element={<HomePage />} />
-        <Route path="write" element={<WritePage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="setting" element={<SettingPage />} />
+        <Route
+          path="write"
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <WritePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="search"
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <SearchPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="setting"
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <SettingPage />
+            </Suspense>
+          }
+        />
         <Route
           path="user/:username"
-          element={<UserPage />}
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <UserPage />
+            </Suspense>
+          }
           loader={userLoader(queryClient)}
         >
           <Route index element={<UserPostsTab />} />
@@ -50,11 +79,19 @@ const App = () => {
         </Route>
         <Route
           path="user/:username/series/:seriesName"
-          element={<SeriesPage />}
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <SeriesPage />
+            </Suspense>
+          }
         />
         <Route
           path="user/:username/post/:slug"
-          element={<PostPage />}
+          element={
+            <Suspense fallback={<div>loading...</div>}>
+              <PostPage />
+            </Suspense>
+          }
           loader={postLoader(queryClient)}
         />
         <Route path="*" element={<NotFoundPage />} />
