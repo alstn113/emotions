@@ -7,9 +7,9 @@ import { useGetMe } from '~/hooks/queries/user';
 
 // pages
 import NotFoundPage from '~/pages/NotFoundPage';
-import BaseLayout from './components/layouts/BaseLayout';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import ErrorFallback from './components/base/ErrorFallback';
+import TabLayout from './components/layouts/TabLayout';
 
 const HomePage = lazy(() => import('~/pages/HomePage'));
 const WritePage = lazy(() => import('~/pages/WritePage'));
@@ -34,7 +34,7 @@ const App = () => {
             />
           )}
         >
-          <Suspense fallback={<BaseLayout />}>
+          <Suspense fallback={<TabLayout />}>
             <Routes>
               <Route index element={<HomePage />} />
               <Route path="write" element={<WritePage />} />
