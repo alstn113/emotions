@@ -2,8 +2,8 @@
   "name": "emotions",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/neko113/",
-  "author": "neko113 <alstn113@gmail.com>",
+  "repository": "https://github.com/kms113/",
+  "author": "kms113 <alstn113@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
