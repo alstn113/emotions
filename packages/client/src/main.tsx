@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
     queries: {
       // suspense: true,
       // -- react-query default config --
-      // retry: false,
+      retry: 1,
       // refetchOnMount: false,
       // refetchOnReconnect: false,
       // refetchOnWindowFocus: false,

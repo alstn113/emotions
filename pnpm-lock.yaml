@@ -60,6 +60,7 @@ importers:
       qs: ^6.11.0
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-error-boundary: ^3.1.4
       react-router-dom: ^6.6.2
       react-textarea-autosize: ^8.4.0
       remove-markdown: ^0.5.0
@@ -82,6 +83,7 @@ importers:
       qs: 6.11.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-error-boundary: 3.1.4_react@18.2.0
       react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
       react-textarea-autosize: 8.4.0_pmekkgnqduwlme35zpnqhenc34
       remove-markdown: 0.5.0
@@ -8297,6 +8299,16 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-error-boundary/3.1.4_react@18.2.0:
+    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.20.13
+      react: 18.2.0
+    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}

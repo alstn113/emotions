@@ -5,11 +5,7 @@ import { extractError } from '~/lib/error';
 // hooks
 import usePostLikeManager from '~/hooks/usePostLikeManager';
 import useUser from '~/hooks/useUser';
-import {
-  useDeletePost,
-  useGetPostBySlug,
-  useGetPostComments,
-} from '~/hooks/queries/post';
+import { useDeletePost, useGetPostBySlug } from '~/hooks/queries/post';
 
 // stores
 import useModalStore from '~/stores/useModalStore';
@@ -25,10 +21,8 @@ import MarkdownIt from 'markdown-it';
 import '~/lib/styles/github-markdown.css';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
-import AsyncBoundary from '../base/AsyncBoundary';
-import CommentListSkeleton from './skeleton/CommentListSkeleton';
-import ErrorFallback from '../base/ErrorFallback';
-import { MESSAGE } from '~/constants';
+import BaseLayout from '../layouts/BaseLayout';
+import { MenuDots, Pencil, Trash } from '../vectors';
 
 interface Props {
   slug: string;
@@ -72,52 +66,88 @@ const PostContents = ({ slug }: Props) => {
     });
   };
 
+  const handleDelete = async () => {
+    deletePost(post?.id!, {
+      onSuccess: () => {
+        navigate('/');
+      },
+      onError: (e) => {
+        const error = extractError(e);
+        alert(error.message);
+      },
+    });
+  };
+
+  const onClickMore = () => {
+    openBottomSheet([
+      {
+        icon: <Pencil />,
+        name: '수정',
+        onClick: () => {
+          //TODO: 수정
+        },
+      },
+      {
+        icon: <Trash />,
+        name: '삭제',
+        onClick: () =>
+          openModal({
+            title: '포스트 삭제',
+            message: '정말로 포스트을 삭제하시겠습니까?',
+            confirmText: '확인',
+            cancelText: '취소',
+            onConfirm: handleDelete,
+          }),
+      },
+    ]);
+  };
+
   return (
-    <>
-      <Title>{post?.title}</Title>
-      <TagList>
-        {post?.tags.map((tag) => {
-          return <div key={tag}>{tag}</div>;
-        })}
-      </TagList>
-      {post?.series && <PostSeriesViewer post={post} series={post?.series} />}
-      {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
-      <div
-        className="markdown-body"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      <Group>
-        <Author>Authored by {post?.user.username}</Author>
-        {isMyPost ? (
-          <ButtonsWrapper>
-            <Button shadow color="warning" size="sm">
-              수정
-            </Button>
-            <Button shadow color="error" size="sm" onClick={handleDeletePost}>
-              삭제
-            </Button>
-          </ButtonsWrapper>
-        ) : (
-          <></>
-        )}
-      </Group>
-      <LikeButtonWrapper>
-        <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
-        <span>좋아요 {likeCount.toLocaleString()}개</span>
-      </LikeButtonWrapper>
-      <CommentInput postId={post?.id!} />
-      <AsyncBoundary
-        pendingFallback={<CommentListSkeleton />}
-        rejectedFallback={
-          <ErrorFallback
-            message={MESSAGE.ERROR.LOAD_DATA}
-            queryKey={useGetPostComments.getKey(post?.id!)}
-          />
-        }
-      >
+    <BaseLayout
+      headerRight={
+        isMyPost && (
+          <MoreButton onClick={onClickMore}>
+            <MenuDots />
+          </MoreButton>
+        )
+      }
+    >
+      <Container>
+        <Title>{post?.title}</Title>
+        <TagList>
+          {post?.tags.map((tag) => {
+            return <div key={tag}>{tag}</div>;
+          })}
+        </TagList>
+        {post?.series && <PostSeriesViewer post={post} series={post?.series} />}
+        {post?.thumbnail && <Thumbnail src={post?.thumbnail} />}
+        <div
+          className="markdown-body"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        <Group>
+          <Author>Authored by {post?.user.username}</Author>
+          {isMyPost ? (
+            <ButtonsWrapper>
+              <Button shadow color="warning" size="sm">
+                수정
+              </Button>
+              <Button shadow color="error" size="sm" onClick={handleDeletePost}>
+                삭제
+              </Button>
+            </ButtonsWrapper>
+          ) : (
+            <></>
+          )}
+        </Group>
+        <LikeButtonWrapper>
+          <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
+          <span>좋아요 {likeCount.toLocaleString()}개</span>
+        </LikeButtonWrapper>
+        <CommentInput postId={post?.id!} />
         <CommentList postId={post?.id!} />
-      </AsyncBoundary>
-    </>
+      </Container>
+    </BaseLayout>
   );
 };
 
@@ -183,4 +213,33 @@ const LikeButtonWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  gap: 1rem;
+  ${mediaQuery.tablet} {
+    width: 736px;
+    margin: 4rem auto;
+  }
+`;
+
+const MoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
 export default PostContents;
+function openBottomSheet(
+  arg0: { icon: JSX.Element; name: string; onClick: () => void }[],
+) {
+  throw new Error('Function not implemented.');
+}

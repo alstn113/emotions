@@ -1,29 +1,27 @@
-// react
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-
 // components
 import styled from '@emotion/styled';
+import { extractError } from '~/lib/error';
+import { Button } from '../common';
+import BaseLayout from '../layouts/BaseLayout';
 
 interface Props {
-  message: string;
-  queryKey?: string[];
+  error: Error;
+  resetErrorBoundary: () => void;
 }
 
-const ErrorFallback = ({ message, queryKey }: Props) => {
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.resetQueries(queryKey && queryKey);
-  }, [queryClient, queryKey]);
+const ErrorFallback = ({ error, resetErrorBoundary }: Props) => {
+  const e = extractError(error);
 
   return (
-    <Container>
-      <Text>
-        <h1>ERROR</h1>
-        <h2>{message}</h2>
-      </Text>
-    </Container>
+    <BaseLayout>
+      <Container>
+        <Text>{e.message}</Text>
+        <Text>{e.statusCode}</Text>
+        <Button shadow color="error" onClick={resetErrorBoundary}>
+          Try again
+        </Button>
+      </Container>
+    </BaseLayout>
   );
 };
 
@@ -31,20 +29,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100%;
   width: 100%;
+  gap: 1rem;
 `;
 
 const Text = styled.div`
   color: red;
-  h1 {
-    font-weight: 700;
-    font-size: 2rem;
-  }
-  h2 {
-    font-weight: 700;
-    font-size: 1.2rem;
-  }
+  font-weight: 700;
+  font-size: 3rem;
 `;
 
 export default ErrorFallback;

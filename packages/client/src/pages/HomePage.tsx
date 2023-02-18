@@ -1,31 +1,35 @@
-// hooks
-import { useGetPosts } from '~/hooks/queries/post';
-
 // components
 import styled from '@emotion/styled';
-import AsyncBoundary from '~/components/base/AsyncBoundary';
 import ErrorFallback from '~/components/base/ErrorFallback';
-import { MESSAGE } from '~/constants';
 import { mediaQuery } from '~/lib/styles';
 import TabLayout from '~/components/layouts/TabLayout';
 import PostList from '~/components/home/PostList';
-import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import BaseLayout from '~/components/layouts/BaseLayout';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const HomePage = () => {
   return (
     <TabLayout>
       <Container>
-        <AsyncBoundary
-          rejectedFallback={
-            <ErrorFallback
-              message={MESSAGE.ERROR.LOAD_DATA}
-              queryKey={useGetPosts.getKey()}
-            />
-          }
-          pendingFallback={<PostListSkeleton />}
-        >
-          <PostList />
-        </AsyncBoundary>
+        <QueryErrorResetBoundary>
+          {({ reset }) => (
+            <ErrorBoundary
+              onReset={reset}
+              fallbackRender={({ error, resetErrorBoundary }) => (
+                <ErrorFallback
+                  error={error}
+                  resetErrorBoundary={resetErrorBoundary}
+                />
+              )}
+            >
+              <Suspense fallback={<BaseLayout />}>
+                <PostList />
+              </Suspense>
+            </ErrorBoundary>
+          )}
+        </QueryErrorResetBoundary>
       </Container>
     </TabLayout>
   );
