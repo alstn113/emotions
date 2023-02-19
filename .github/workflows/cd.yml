@@ -17,7 +17,7 @@ jobs:
       - run: ls -al
 
       # SSH를 통해 원격 서버에 접속하여 명령어를 실행할 수 있습니다.
-      - name: ssh
+      - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_IP }}
@@ -29,6 +29,8 @@ jobs:
           timeout: 40s
 
           script: |
-            cd ~/Emotions
-            git stash && git pull origin main
-            ./deploy.sh
+            cd ~/Emotions/ && git stash && git pull origin develop
+            pnpm install
+            pnpm build:client 
+            pnpm build:server
+            pnpm start:pm2

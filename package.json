@@ -10,6 +10,7 @@
     "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server start:dev\"",
     "build:client": "pnpm --filter client build",
     "build:server": "pnpm --filter server build",
+    "start:pm2": "pnpm --filter server start:pm2",
     "prisma:generate": "pnpm --filter server prisma:generate",
     "prisma:migrate": "pnpm --filter server prisma:migrate",
     "prisma:studio": "pnpm --filter server prisma:studio",
