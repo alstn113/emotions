@@ -3,13 +3,32 @@ import useWriteStore from '~/stores/useWriteStore';
 import { mediaQuery } from '~/lib/styles';
 import MarkdownIt from 'markdown-it';
 import { useMemo } from 'react';
+import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
+import '../../../node_modules/highlight.js/styles/github.css';
 
 const Preview = () => {
   const { title, body } = useWriteStore();
 
   const html = useMemo(() => {
-    return MarkdownIt().render(body);
+    return MarkdownIt({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return (
+              '<pre class="hljs"><code>' +
+              hljs.highlight(str, { language: lang, ignoreIllegals: true })
+                .value +
+              '</code></pre>'
+            );
+          } catch (__) {
+            // ignores
+          }
+        }
+
+        return '<pre class="hljs"><code>' + '</code></pre>';
+      },
+    }).render(body);
   }, [body]);
 
   return (

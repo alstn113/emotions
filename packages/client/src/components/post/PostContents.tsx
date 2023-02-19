@@ -18,11 +18,14 @@ import { mediaQuery } from '~/lib/styles';
 import PostSeriesViewer from './PostSeriesViewer';
 import { useMemo } from 'react';
 import MarkdownIt from 'markdown-it';
-import '~/lib/styles/github-markdown.css';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import BaseLayout from '../layouts/BaseLayout';
 import { MenuDots, Pencil, Trash } from '../vectors';
+import useBottomSheetStore from '~/stores/useBottomSheetStore';
+import hljs from 'highlight.js';
+import '~/lib/styles/github-markdown.css';
+import '../../../node_modules/highlight.js/styles/github.css';
 
 interface Props {
   slug: string;
@@ -34,6 +37,7 @@ const PostContents = ({ slug }: Props) => {
   const isMyPost = user?.id === post?.user.id;
   const navigate = useNavigate();
   const { openModal } = useModalStore();
+  const { openBottomSheet } = useBottomSheetStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
     initialIsLiked: post?.isLiked!,
     initialLikeCount: post?.postStats.likes!,
@@ -41,7 +45,24 @@ const PostContents = ({ slug }: Props) => {
   });
 
   const html = useMemo(() => {
-    return MarkdownIt().render(post?.body!);
+    return MarkdownIt({
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return (
+              '<pre class="hljs"><code>' +
+              hljs.highlight(str, { language: lang, ignoreIllegals: true })
+                .value +
+              '</code></pre>'
+            );
+          } catch (__) {
+            // ignores
+          }
+        }
+
+        return '<pre class="hljs"><code>' + '</code></pre>';
+      },
+    }).render(post?.body!);
   }, [post?.body]);
 
   const { mutate: deletePost } = useDeletePost();
@@ -238,8 +259,3 @@ const MoreButton = styled.button`
 `;
 
 export default PostContents;
-function openBottomSheet(
-  arg0: { icon: JSX.Element; name: string; onClick: () => void }[],
-) {
-  throw new Error('Function not implemented.');
-}

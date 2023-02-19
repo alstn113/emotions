@@ -21,6 +21,7 @@
     "axios": "^1.2.2",
     "codemirror": "^6.0.1",
     "framer-motion": "^8.4.2",
+    "highlight.js": "^11.7.0",
     "immer": "^9.0.17",
     "markdown-it": "^13.0.1",
     "qs": "^6.11.0",
