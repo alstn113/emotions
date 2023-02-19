@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "tsc && vite build",
+    "build": "rm -rf dist && tsc && vite build",
     "preview": "vite preview",
     "transform:svg": "pnpm svgr --typescript --out-dir src/components/vectors src/assets/vectors",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --config ./.eslintrc.js --fix",
