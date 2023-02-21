@@ -10,6 +10,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsQueryDto } from './dto/get-post-query.dto';
 import { PostsRepository } from './posts.repository';
 import removeMarkdown from 'remove-markdown';
+import { GetSearchPostsQueryDto } from './dto';
 
 @Injectable()
 export class PostsService {
@@ -52,6 +53,11 @@ export class PostsService {
     const series = await this.seriesService.getSeriesByPostId(id);
 
     return this.serializePost({ ...post, series });
+  }
+
+  async getSearchPosts(dto: GetSearchPostsQueryDto) {
+    const posts = await this.postRepository.findSearchPosts(dto);
+    return posts;
   }
 
   async createPost(dto: CreatePostDto, userId: string) {

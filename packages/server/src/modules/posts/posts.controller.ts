@@ -56,6 +56,17 @@ export class PostsController {
   }
 
   @Public()
+  @Get('search')
+  async getSearchPosts(
+    @Query() dto: GetSearchPostsQueryDto,
+  ): Promise<SearchPostsDto> {
+    const posts = await this.postsService.getSearchPosts(dto);
+    return plainToInstance(SearchPostsDto, posts, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  @Public()
   @Get(':id')
   async getPost(
     @GetCurrentUser('userId') userId: string | null,
@@ -63,17 +74,6 @@ export class PostsController {
   ) {
     const post = await this.postsService.getPost(id, userId);
     return plainToInstance(PostDto, post, {
-      excludeExtraneousValues: true,
-    });
-  }
-
-  @Public()
-  @Get('search')
-  async getSearchPosts(
-    @Query() dto: GetSearchPostsQueryDto,
-  ): Promise<SearchPostsDto> {
-    const posts = await this.postsService.getSearchPosts(dto.keyword);
-    return plainToInstance(SearchPostsDto, posts, {
       excludeExtraneousValues: true,
     });
   }

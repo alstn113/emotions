@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '~/prisma/prisma.service';
+import { GetSearchPostsQueryDto } from './dto';
 import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
@@ -50,6 +51,32 @@ export class PostsRepository {
         ...postSelector(userId),
       },
     });
+  }
+
+  async findSearchPosts(dto: GetSearchPostsQueryDto) {
+    const { keyword } = dto;
+    const posts = await this.prisma.post.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: keyword,
+              mode: 'insensitive',
+            },
+          },
+          {
+            body: {
+              contains: keyword,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+      include: {
+        ...postSelector(),
+      },
+    });
+    return { posts, count: posts.length };
   }
 
   async findPostLike(postId: string, userId: string) {
