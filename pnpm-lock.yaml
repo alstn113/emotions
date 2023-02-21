@@ -52,6 +52,7 @@ importers:
       '@vitejs/plugin-react-swc': ^3.0.0
       axios: ^1.2.2
       codemirror: ^6.0.1
+      date-fns: ^2.29.3
       eslint-plugin-react: ^7.32.0
       eslint-plugin-react-hooks: ^4.6.0
       framer-motion: ^8.4.2
@@ -78,6 +79,7 @@ importers:
       '@types/qs': 6.9.7
       axios: 1.3.2
       codemirror: 6.0.1
+      date-fns: 2.29.3
       framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
       highlight.js: 11.7.0
       immer: 9.0.19
@@ -4912,6 +4914,11 @@ packages:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
     engines: {node: '>= 6'}
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /dayjs/1.11.7:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}

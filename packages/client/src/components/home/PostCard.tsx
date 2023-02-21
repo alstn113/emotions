@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 // components
 import styled from '@emotion/styled';
+import formatDate from '~/lib/formatDate';
 
 interface Props {
   post: PostWithStats;
@@ -11,6 +12,8 @@ interface Props {
 
 const PostCard = ({ post }: Props) => {
   const link = `/user/${post.user.username}/post/${post.slug}`;
+  const postDate = formatDate(post.createdAt);
+
   return (
     <Card>
       <CardHeader to={link}>
@@ -30,7 +33,10 @@ const PostCard = ({ post }: Props) => {
           <div>좋아요 {post.postStats.likes.toLocaleString()}개</div>
           <div>댓글 {post.postStats.commentsCount.toLocaleString()}개 </div>
         </PostStatsWrapper>
-        <Author>Authored By {post.user.username}</Author>
+
+        <Author>
+          Authored By <b>{post.user.username}</b>•{postDate}
+        </Author>
       </CardFooter>
     </Card>
   );
@@ -102,7 +108,7 @@ const TagList = styled.div`
   gap: 0.5rem;
   white-space: nowrap;
   overflow-y: scroll;
-  height: 2rem;
+  height: 1.8rem;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -115,8 +121,8 @@ const TagList = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.6rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.5rem;
+    font-size: 0.7rem;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom right, #f6d365, #ffc9ba);
     color: #000;
@@ -137,17 +143,22 @@ const PostStatsWrapper = styled.div`
   gap: 0.5rem;
   div {
     font-size: 0.7rem;
-    font-weight: 600;
+    line-height: 0.7rem;
+    font-weight: 500;
     color: #999;
   }
 `;
 
 const Author = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   font-size: 0.7rem;
   line-height: 0.7rem;
+  font-weight: 500;
+  color: #999;
+
+  b {
+    color: #cc6600;
+    font-weight: 900;
+  }
 `;
 
 export default PostCard;
