@@ -13,4 +13,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  // https://github.com/vitejs/vite/issues/2433
+  // vite build memory issue
+  build: { sourcemap: false, rollupOptions: { cache: false } },
 });

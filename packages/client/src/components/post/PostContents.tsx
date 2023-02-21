@@ -25,7 +25,7 @@ import { MenuDots, Pencil, Trash } from '../vectors';
 import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
-import '../../../node_modules/highlight.js/styles/github.css';
+import 'highlight.js/styles/github.css';
 import formatDate from '~/lib/formatDate';
 
 interface Props {
