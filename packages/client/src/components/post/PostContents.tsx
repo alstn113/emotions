@@ -26,16 +26,18 @@ import useBottomSheetStore from '~/stores/useBottomSheetStore';
 import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
 import '../../../node_modules/highlight.js/styles/github.css';
+import formatDate from '~/lib/formatDate';
 
 interface Props {
   slug: string;
 }
 
 const PostContents = ({ slug }: Props) => {
+  const navigate = useNavigate();
   const { data: post } = useGetPostBySlug(slug, { suspense: true });
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
-  const navigate = useNavigate();
+  const postDate = formatDate(post?.createdAt!);
   const { openModal } = useModalStore();
   const { openBottomSheet } = useBottomSheetStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
@@ -147,7 +149,9 @@ const PostContents = ({ slug }: Props) => {
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <Group>
-          <Author>Authored by {post?.user.username}</Author>
+          <Author>
+            Authored by <b>{post?.user.username}</b>•{postDate}
+          </Author>
           {isMyPost ? (
             <ButtonsWrapper>
               <Button shadow color="warning" size="sm">
@@ -204,10 +208,14 @@ const Thumbnail = styled.img`
 `;
 
 const Author = styled.div`
-  display: flex;
   font-size: 0.8rem;
   font-weight: 500;
   color: #999;
+
+  b {
+    font-weight: 900;
+    color: #cc6600;
+  }
 `;
 const Group = styled.div`
   display: flex;
