@@ -3,6 +3,7 @@ import {
   Comment,
   CreatePostParams,
   PostList,
+  PostSearchResult,
   PostStats,
   PostWithStats,
   SinglePostReponse,
@@ -30,6 +31,15 @@ const PostAPI = {
 
   getPostComments: async (id: string): Promise<Comment[]> => {
     const { data } = await apiClient.get(`${API.POST}/${id}/comments`);
+    return data;
+  },
+
+  getSearchPosts: async (keyword: string): Promise<PostSearchResult> => {
+    const { data } = await apiClient.get(
+      `${API.POST}/search`.concat(
+        qs.stringify({ keyword }, { addQueryPrefix: true }),
+      ),
+    );
     return data;
   },
 
