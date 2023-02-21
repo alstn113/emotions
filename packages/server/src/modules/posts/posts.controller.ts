@@ -10,14 +10,20 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
 import { GetCurrentUser, Public } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multerOptions from '~/lib/multer';
-import { GetPostsQueryDto } from './dto/get-post-query.dto';
 import { plainToInstance } from 'class-transformer';
-import { PaginatedPostsDto, PostDto, PostStatsDto } from './dto';
+import {
+  PaginatedPostsDto,
+  PostDto,
+  PostStatsDto,
+  GetPostsQueryDto,
+  CreatePostDto,
+  GetSearchPostsQueryDto,
+  SearchPostsDto,
+} from './dto';
 import { CommentDto } from '../comments/dto';
 
 @ApiTags('posts')
@@ -57,6 +63,17 @@ export class PostsController {
   ) {
     const post = await this.postsService.getPost(id, userId);
     return plainToInstance(PostDto, post, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  @Public()
+  @Get('search')
+  async getSearchPosts(
+    @Query() dto: GetSearchPostsQueryDto,
+  ): Promise<SearchPostsDto> {
+    const posts = await this.postsService.getSearchPosts(dto.keyword);
+    return plainToInstance(SearchPostsDto, posts, {
       excludeExtraneousValues: true,
     });
   }
