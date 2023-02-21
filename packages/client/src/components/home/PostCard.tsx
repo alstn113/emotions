@@ -108,7 +108,7 @@ const TagList = styled.div`
   gap: 0.5rem;
   white-space: nowrap;
   overflow-y: scroll;
-  height: 2rem;
+  height: 1.8rem;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -121,8 +121,8 @@ const TagList = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.6rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.5rem;
+    font-size: 0.7rem;
     border-radius: 0.8rem;
     background: linear-gradient(to bottom right, #f6d365, #ffc9ba);
     color: #000;
