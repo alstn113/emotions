@@ -35,7 +35,7 @@ const PostCard = ({ post }: Props) => {
         </PostStatsWrapper>
 
         <Author>
-          Authored By <b>{post.user.username}</b>•{postDate}
+          Authored By <b>{post.user.username}</b> · {postDate}
         </Author>
       </CardFooter>
     </Card>

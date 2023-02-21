@@ -14,10 +14,11 @@ import styled from '@emotion/styled';
 
 interface Props {
   postId: string;
+  commentsCount: number;
 }
 
 //TODO: mutation loading ui
-const CommentInput = ({ postId }: Props) => {
+const CommentInput = ({ postId, commentsCount }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
@@ -50,7 +51,7 @@ const CommentInput = ({ postId }: Props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormTitle>Comments</FormTitle>
+      <FormTitle>{commentsCount.toLocaleString()} Comments</FormTitle>
       <Input
         type="text"
         placeholder="Write Comment..."

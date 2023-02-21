@@ -150,7 +150,7 @@ const PostContents = ({ slug }: Props) => {
         />
         <Group>
           <Author>
-            Authored by <b>{post?.user.username}</b>•{postDate}
+            Authored by <b>{post?.user.username}</b> · {postDate}
           </Author>
           {isMyPost ? (
             <ButtonsWrapper>
@@ -169,7 +169,10 @@ const PostContents = ({ slug }: Props) => {
           <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
           <span>좋아요 {likeCount.toLocaleString()}개</span>
         </LikeButtonWrapper>
-        <CommentInput postId={post?.id!} />
+        <CommentInput
+          postId={post?.id!}
+          commentsCount={post?.postStats.commentsCount!}
+        />
         <CommentList postId={post?.id!} />
       </Container>
     </BaseLayout>
