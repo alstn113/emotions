@@ -43,6 +43,11 @@ export interface PostWithStats extends Post {
   isLiked: boolean;
 }
 
+export interface PostSearchResult {
+  posts: PostWithStats[];
+  count: number;
+}
+
 export interface Comment {
   id: string;
   text: string;
