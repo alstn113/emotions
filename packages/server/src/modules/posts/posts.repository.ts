@@ -76,7 +76,7 @@ export class PostsRepository {
         ...postSelector(),
       },
     });
-    return { posts, count: posts.length };
+    return posts;
   }
 
   async findPostLike(postId: string, userId: string) {

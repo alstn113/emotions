@@ -2,8 +2,12 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { TextInput } from '~/components/common';
+import PostCard from '~/components/home/PostCard';
 import TabLayout from '~/components/layouts/TabLayout';
+import SearchResultInfto from '~/components/search/SearchResultInfto';
+import { useGetSearchPosts } from '~/hooks/queries/post';
 import useDebounce from '~/hooks/useDebounce';
+import { mediaQuery } from '~/lib/styles';
 
 const SearchPage = () => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -12,6 +16,10 @@ const SearchPage = () => {
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
+
+  const { data: posts } = useGetSearchPosts(debouncedText, {
+    enabled: !!debouncedText,
+  });
 
   return (
     <TabLayout>
@@ -22,22 +30,32 @@ const SearchPage = () => {
           value={searchInput}
           onChange={handleChangeInput}
         />
-        <div></div>
-        <div>{debouncedText}</div>
+        {posts?.posts && <SearchResultInfto count={posts?.count!} />}
+        <ListWrapper>
+          {posts?.posts.map((post) => (
+            <PostCard key={post?.id} post={post} />
+          ))}
+        </ListWrapper>
       </Container>
     </TabLayout>
   );
 };
 
 const Container = styled.div`
+  padding: 16px;
+  ${mediaQuery.tablet} {
+    width: 700px;
+    margin: 0 auto;
+  }
+`;
+
+const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 16px;
+  gap: 1rem;
   width: 100%;
-  height: 100%;
-  font-size: 2rem;
-  font-weight: 700;
 `;
 
 export default SearchPage;

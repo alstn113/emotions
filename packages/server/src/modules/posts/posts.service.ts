@@ -57,7 +57,12 @@ export class PostsService {
 
   async getSearchPosts(dto: GetSearchPostsQueryDto) {
     const posts = await this.postRepository.findSearchPosts(dto);
-    return posts;
+    const serializedList = posts.map((post) => this.serializePost(post));
+
+    return {
+      posts: serializedList,
+      count: serializedList.length,
+    };
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
