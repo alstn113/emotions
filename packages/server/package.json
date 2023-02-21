@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "rm -rf dist && nest build",
+    "build": "nest build",
     "lint": "eslint \"src/**/*.ts\" --config ./.eslintrc.js --fix",
     "format": "prettier \"src/**/*.ts\" --write",
     "start:dev": "NODE_ENV=development nest start --watch",

@@ -30,7 +30,4 @@ jobs:
 
           script: |
             cd ~/Emotions/ && git stash && git pull origin main
-            pnpm install
-            pnpm build:client 
-            pnpm build:server
-            pnpm start:pm2
+            ./deploy.sh
