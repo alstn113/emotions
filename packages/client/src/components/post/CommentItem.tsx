@@ -20,6 +20,7 @@ import SubCommentList from '~/components/post/SubCommentList';
 import ReplyComment from '~/components/post/ReplyComment';
 import MoreVertMenu from '~/components/post/MoreVertMenu';
 import LikeButton from '~/components/base/LikeButton';
+import formatDate from '~/lib/formatDate';
 
 interface Props {
   comment: Comment;
@@ -41,10 +42,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
   const isDeleted = comment.isDeleted;
   const isMyComment = user?.id === comment.user.id;
-  const commentDate = new Intl.DateTimeFormat('ko-kr', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }).format(new Date(comment.createdAt));
+  const commentDate = formatDate(comment.createdAt);
 
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
