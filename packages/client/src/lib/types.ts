@@ -52,10 +52,12 @@ export interface Comment {
   id: string;
   text: string;
   userId: string;
+  mentionUserId?: string;
   postId: string;
   subcommentsCount: number;
   likes: number;
   user: User;
+  mentionUser?: User;
   post: Post;
   subcomments?: Comment[];
   createdAt: string;

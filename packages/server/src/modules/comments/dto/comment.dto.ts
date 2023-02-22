@@ -21,7 +21,10 @@ export class CommentDto {
   postId: string;
 
   @Expose()
-  parentCommentId: string | null;
+  parentCommentId?: string;
+
+  @Expose()
+  mentionUserId?: string;
 
   @Expose()
   createdAt: Date;
@@ -35,6 +38,10 @@ export class CommentDto {
   @Expose()
   @Type(() => UserDto)
   user: UserDto;
+
+  @Expose()
+  @Type(() => UserDto)
+  mentionUser?: UserDto;
 
   @Expose()
   isLiked: boolean;
