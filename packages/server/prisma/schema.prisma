@@ -22,11 +22,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  posts        Post[]
-  postLikes    PostLike[]
-  comments     Comment[]
-  commentLikes CommentLike[]
-  Series       Series[]
+  posts             Post[]
+  postLikes         PostLike[]
+  comments          Comment[]     @relation("user")
+  mentionedComments Comment[]     @relation("mentionUser")
+  commentLikes      CommentLike[]
+  Series            Series[]
 }
 
 model Post {
@@ -112,11 +113,13 @@ model Comment {
   userId          String
   postId          String
   parentCommentId String?
+  mentionUserId   String?
 
   commentLikes CommentLike[]
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user        User  @relation("user", fields: [userId], references: [id], onDelete: Cascade)
+  mentionUser User? @relation("mentionUser", fields: [mentionUserId], references: [id], onDelete: Cascade)
+  post        Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
