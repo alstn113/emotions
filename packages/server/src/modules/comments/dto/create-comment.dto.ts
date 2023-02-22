@@ -17,4 +17,9 @@ export class CreateCommentDto {
   @IsString()
   @IsOptional()
   parentCommentId?: string;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  mentionUserId?: string;
 }

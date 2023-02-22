@@ -47,10 +47,10 @@ const ReplyComment = ({ parentComment, onClose, isSubcomment }: Props) => {
       postId: parentComment.postId,
       text,
       parentCommentId: parentComment.id,
+      mentionUserId: ableToMention ? parentComment.user.id : undefined,
     });
     onClose();
   };
-
   const handleCommentInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!user) {
       openLoginDialog('subcomment');

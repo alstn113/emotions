@@ -86,6 +86,7 @@ export interface CreateCommentParams {
   text: string;
   postId: string;
   parentCommentId?: string;
+  mentionUserId?: string;
 }
 
 export interface CreateSeriesParams {
