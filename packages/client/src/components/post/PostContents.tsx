@@ -18,7 +18,6 @@ import { mediaQuery } from '~/lib/styles';
 import PostSeriesViewer from './PostSeriesViewer';
 import { useMemo } from 'react';
 import MarkdownIt from 'markdown-it';
-import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import BaseLayout from '../layouts/BaseLayout';
 import { MenuDots, Pencil, Trash } from '../vectors';

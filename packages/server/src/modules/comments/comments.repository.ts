@@ -45,6 +45,7 @@ export class CommentsRepository {
         postId: dto.postId,
         userId,
         parentCommentId: dto.parentCommentId,
+        mentionUserId: dto.mentionUserId,
       },
       ...commentSelector,
     });
@@ -127,6 +128,13 @@ export class CommentsRepository {
 const commentSelector = {
   include: {
     user: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
+      },
+    },
+    mentionUser: {
       select: {
         id: true,
         username: true,

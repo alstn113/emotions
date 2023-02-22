@@ -101,6 +101,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     );
   }
 
+  // normal comment
   return (
     <Container>
       <CommentHeader>
@@ -111,6 +112,9 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
         {isMyComment && <MoreVertMenu items={items} />}
       </CommentHeader>
       <CommentBody>
+        {comment.mentionUser && (
+          <MentionUserInfo>@{comment.mentionUser.username}</MentionUserInfo>
+        )}
         <p>{comment.text}</p>
       </CommentBody>
       <CommentFooter>
@@ -125,7 +129,11 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
       {/* if reply button is clicked, show ReplyComment component */}
       {isReplying && (
-        <ReplyComment parentComment={comment} onClose={handleCloseReply} />
+        <ReplyComment
+          isSubcomment={isSubcomment}
+          parentComment={comment}
+          onClose={handleCloseReply}
+        />
       )}
 
       {/* if subcomments exist, show SubCommentList component */}
@@ -158,8 +166,17 @@ const CommentBody = styled.div`
     color: #000;
     line-height: 1.5;
     font-size: 1rem;
+    word-break: break-word;
   }
 `;
+
+const MentionUserInfo = styled.span`
+  color: #4dabf7;
+  font-weight: 900;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+`;
+
 const CommentFooter = styled.div`
   display: flex;
   align-items: center;
