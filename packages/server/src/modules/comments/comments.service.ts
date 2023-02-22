@@ -100,6 +100,7 @@ export class CommentsService {
       : null;
 
     // level이 2인 경우, rootComment의 id를 parentCommentId로 설정
+    // 즉 comment의 level은 0, 1로 제한
     const rootParentCommentId = parentComment?.parentCommentId;
     const targetParentCommentId = rootParentCommentId ?? dto.parentCommentId;
     dto.parentCommentId = targetParentCommentId;
