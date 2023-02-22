@@ -51,7 +51,9 @@ const CommentInput = ({ postId, commentsCount }: Props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormTitle>{commentsCount.toLocaleString()} Comments</FormTitle>
+      {/* <FormTitle>{commentsCount.toLocaleString()} Comments</FormTitle> */}
+      {/* TODO: comment count를 갱신해야하는데 postStat이랑 묶여있어서 고민 중, 그냥 없앨까?? */}
+      <FormTitle>Comments</FormTitle>
       <Input
         type="text"
         placeholder="Write Comment..."
