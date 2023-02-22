@@ -13,13 +13,15 @@ import useUser from '~/hooks/useUser';
 import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import { Comment } from '~/lib/types';
+import { css } from '@emotion/react';
 
 interface Props {
   parentComment: Comment;
+  isSubcomment?: boolean;
   onClose: () => void;
 }
 
-const ReplyComment = ({ parentComment, onClose }: Props) => {
+const ReplyComment = ({ parentComment, onClose, isSubcomment }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
@@ -58,13 +60,28 @@ const ReplyComment = ({ parentComment, onClose }: Props) => {
 
   return (
     <Container>
-      <Input
-        type="text"
-        placeholder="Write Comment..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onFocus={handleCommentInputFocus}
-      />
+      {isSubcomment ? (
+        <MentionCommentWrapper>
+          <LeftAddon>@{parentComment.user.username}</LeftAddon>
+          <Input
+            type="text"
+            placeholder="Write Comment..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onFocus={handleCommentInputFocus}
+            mention
+          />
+        </MentionCommentWrapper>
+      ) : (
+        <Input
+          type="text"
+          placeholder="Write Comment..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onFocus={handleCommentInputFocus}
+        />
+      )}
+
       <ButtonsWrapper>
         <Button shadow color="success" size="sm" onClick={handleSubmit}>
           Confirm
@@ -87,7 +104,7 @@ const Container = styled.div`
   padding-left: 1.5rem;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ mention?: boolean }>`
   width: 100%;
   height: 100%;
   padding: 0 16px;
@@ -98,6 +115,33 @@ const Input = styled.input`
   &:focus {
     border: 1px solid #2c2c2c;
   }
+
+  ${({ mention }) =>
+    mention &&
+    css`
+      border-radius: 0 8px 8px 0;
+    `}
+`;
+
+const MentionCommentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const LeftAddon = styled.div`
+  display: flex;
+  align-items: center;
+  background: #cccccc;
+  border: 1px solid #cccccc;
+  border-right: none;
+  font-size: 1em;
+  color: #7d7d7d;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  height: 100%;
+  padding: 0 16px;
+  height: 45px;
 `;
 
 const ButtonsWrapper = styled.div`

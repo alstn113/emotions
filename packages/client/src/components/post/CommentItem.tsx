@@ -101,6 +101,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     );
   }
 
+  // normal comment
   return (
     <Container>
       <CommentHeader>
@@ -125,7 +126,11 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
 
       {/* if reply button is clicked, show ReplyComment component */}
       {isReplying && (
-        <ReplyComment parentComment={comment} onClose={handleCloseReply} />
+        <ReplyComment
+          isSubcomment={isSubcomment}
+          parentComment={comment}
+          onClose={handleCloseReply}
+        />
       )}
 
       {/* if subcomments exist, show SubCommentList component */}
