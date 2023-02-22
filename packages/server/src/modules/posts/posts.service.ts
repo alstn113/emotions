@@ -161,8 +161,10 @@ export class PostsService {
     await this.postRepository.deletePost(postId);
   }
 
-  async getPostComments(id: string, userId: string | null) {
-    return await this.commentsService.getComments(id, userId);
+  async getPostComments(postId: string, userId: string | null) {
+    const comments = await this.commentsService.getComments(postId, userId);
+    const postStats = await this.postRepository.getPostStats(postId);
+    return { list: comments, totalCount: postStats.commentsCount };
   }
 
   async uploadImage(file: Express.Multer.File) {

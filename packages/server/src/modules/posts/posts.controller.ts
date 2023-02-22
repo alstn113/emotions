@@ -24,7 +24,7 @@ import {
   GetSearchPostsQueryDto,
   SearchPostsDto,
 } from './dto';
-import { CommentDto } from '../comments/dto';
+import { PostCommentsDto } from '../comments/dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -83,9 +83,9 @@ export class PostsController {
   async getPostComments(
     @Param('id') id: string,
     @GetCurrentUser('userId') userId: string | null,
-  ): Promise<CommentDto[]> {
+  ): Promise<PostCommentsDto> {
     const postComments = await this.postsService.getPostComments(id, userId);
-    return plainToInstance(CommentDto, postComments, {
+    return plainToInstance(PostCommentsDto, postComments, {
       excludeExtraneousValues: true,
     });
   }

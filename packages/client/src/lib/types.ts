@@ -65,6 +65,11 @@ export interface Comment {
   isDeleted: boolean;
 }
 
+export interface PostComments {
+  list: Comment[];
+  totalCount: number;
+}
+
 export interface CreatePostParams {
   title: string;
   body: string;

@@ -87,16 +87,34 @@ export class CommentsService {
   }
 
   async createComment(dto: CreateCommentDto, userId: string) {
+    if (dto.text.length > 300 || dto.text.length === 0) {
+      throw new AppErrorException(
+        'BadRequest',
+        'Comment text must be between 1 and 300 characters',
+      );
+    }
+
+    // rootComment의 level이 0이라고 할 때, 현재 comment의 level을 확인하는 과정.
+    const parentComment = dto.parentCommentId
+      ? await this.getComment(dto.parentCommentId)
+      : null;
+
+    // level이 2인 경우, rootComment의 id를 parentCommentId로 설정
+    // 즉 comment의 level은 0, 1로 제한
+    const rootParentCommentId = parentComment?.parentCommentId;
+    const targetParentCommentId = rootParentCommentId ?? dto.parentCommentId;
+    dto.parentCommentId = targetParentCommentId;
+
     const comment = await this.commentRepository.createComment(dto, userId);
 
     // update parent comment's subcomment count if it has parent
     if (dto.parentCommentId) {
       const subcommentsCount = await this.commentRepository.countSubcomments(
-        dto.parentCommentId,
+        targetParentCommentId,
       );
 
       await this.commentRepository.updateSubcommentCount(
-        dto.parentCommentId,
+        targetParentCommentId,
         subcommentsCount,
       );
     }
