@@ -94,16 +94,26 @@ export class CommentsService {
       );
     }
 
+    // rootComment의 level이 0이라고 할 때, 현재 comment의 level을 확인하는 과정.
+    const parentComment = dto.parentCommentId
+      ? await this.getComment(dto.parentCommentId)
+      : null;
+
+    // level이 2인 경우, rootComment의 id를 parentCommentId로 설정
+    const rootParentCommentId = parentComment?.parentCommentId;
+    const targetParentCommentId = rootParentCommentId ?? dto.parentCommentId;
+    dto.parentCommentId = targetParentCommentId;
+
     const comment = await this.commentRepository.createComment(dto, userId);
 
     // update parent comment's subcomment count if it has parent
     if (dto.parentCommentId) {
       const subcommentsCount = await this.commentRepository.countSubcomments(
-        dto.parentCommentId,
+        targetParentCommentId,
       );
 
       await this.commentRepository.updateSubcommentCount(
-        dto.parentCommentId,
+        targetParentCommentId,
         subcommentsCount,
       );
     }
