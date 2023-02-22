@@ -87,6 +87,13 @@ export class CommentsService {
   }
 
   async createComment(dto: CreateCommentDto, userId: string) {
+    if (dto.text.length > 300 || dto.text.length === 0) {
+      throw new AppErrorException(
+        'BadRequest',
+        'Comment text must be between 1 and 300 characters',
+      );
+    }
+
     const comment = await this.commentRepository.createComment(dto, userId);
 
     // update parent comment's subcomment count if it has parent
