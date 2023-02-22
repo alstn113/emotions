@@ -25,6 +25,7 @@ const ReplyComment = ({ parentComment, onClose, isSubcomment }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
+  const ableToMention = isSubcomment && user?.id !== parentComment.user.id;
   const openLoginDialog = useOpenLoginDialog();
 
   const { mutate } = useCreateComment({
@@ -60,7 +61,7 @@ const ReplyComment = ({ parentComment, onClose, isSubcomment }: Props) => {
 
   return (
     <Container>
-      {isSubcomment ? (
+      {ableToMention ? (
         <MentionCommentWrapper>
           <LeftAddon>@{parentComment.user.username}</LeftAddon>
           <Input
