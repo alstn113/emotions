@@ -4,6 +4,7 @@ import { useGetPostComments } from '~/hooks/queries/post';
 // components
 import styled from '@emotion/styled';
 import CommentItem from '~/components/post/CommentItem';
+import CommentInput from './CommentInput';
 
 interface Props {
   postId: string;
@@ -13,7 +14,8 @@ const CommentList = ({ postId }: Props) => {
   const { data: comments } = useGetPostComments(postId, { suspense: true });
   return (
     <Container>
-      {comments?.map((comment) => {
+      <CommentInput postId={postId} commentsCount={comments?.totalCount!} />
+      {comments?.list.map((comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
       })}
     </Container>

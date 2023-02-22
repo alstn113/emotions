@@ -183,6 +183,12 @@ export class PostsRepository {
       },
     });
   }
+
+  async getPostStats(postId: string) {
+    return await this.prisma.postStats.findUnique({
+      where: { postId },
+    });
+  }
 }
 
 const postSelector = (userId: string | null = null) => {
