@@ -217,6 +217,8 @@ const LikeCount = styled.div`
 
 const ReplyButton = styled.button`
   padding: 0;
+  font-size: 0.9rem;
+  color: #999;
 `;
 
 export default CommentItem;
