@@ -107,11 +107,9 @@ const Container = styled.div`
 
 const Input = styled.input<{ mention?: boolean }>`
   width: 100%;
-  height: 100%;
   padding: 0 16px;
   border: 1px solid #cccccc;
-  width: 100%;
-  height: 45px;
+  height: 40px;
   border-radius: 8px;
   &:focus {
     border: 1px solid #2c2c2c;
@@ -127,6 +125,7 @@ const Input = styled.input<{ mention?: boolean }>`
 const MentionCommentWrapper = styled.div`
   width: 100%;
   display: flex;
+  height: 40px;
 `;
 
 const LeftAddon = styled.div`
@@ -135,14 +134,15 @@ const LeftAddon = styled.div`
   background: #cccccc;
   border: 1px solid #cccccc;
   border-right: none;
-  font-size: 1em;
+  font-size: 12px;
   color: #7d7d7d;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  padding: 0 8px;
+  height: 40px;
 
-  height: 100%;
-  padding: 0 16px;
-  height: 45px;
+  // 줄바꿈 안하게
+  white-space: nowrap;
 `;
 
 const ButtonsWrapper = styled.div`

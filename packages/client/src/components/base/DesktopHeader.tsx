@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles/mediaQuery';
 import { Button } from '~/components/common';
 import HeaderDropdown from '~/components/base/HeaderDropdown';
+import Logo from '~/assets/images/logo.png';
 
 const DesktopHeader = () => {
   const user = useUser();
@@ -16,7 +17,10 @@ const DesktopHeader = () => {
 
   return (
     <Container>
-      <Logo to="/">Emotions</Logo>
+      <LogoLink to="/">
+        <img src={Logo} />
+        Emotions
+      </LogoLink>
       <HeaderItems>
         {user ? (
           <>
@@ -53,13 +57,23 @@ const Container = styled.header`
   }
 `;
 
-const Logo = styled(Link)`
+const LogoLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-family: 'PyeongChangPeace-Bold', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   border-radius: 10px;
   color: #fff;
   padding: 0 16px;
+
+  img {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const HeaderItems = styled.div`
