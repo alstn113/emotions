@@ -55,7 +55,7 @@ const Thumbnail = styled.div`
   width: 100%;
   height: 200px;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
 `;
 
 const CardBody = styled.div`
@@ -65,14 +65,14 @@ const CardBody = styled.div`
     height: 1.2rem;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    animation: ${shine} 1.5s infinite;
+    animation: ${shine} 1s infinite;
   }
   p {
     margin-bottom: 1rem;
     height: 3.6rem;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    animation: ${shine} 1.5s infinite;
+    animation: ${shine} 1s infinite;
   }
 `;
 
@@ -92,7 +92,7 @@ const TagList = styled.div`
     width: 4rem;
     border-radius: 0.8rem;
     background: rgba(0, 0, 0, 0.1);
-    animation: ${shine} 1.5s infinite;
+    animation: ${shine} 1s infinite;
   }
 `;
 
@@ -113,7 +113,7 @@ const PostStatsWrapper = styled.div`
     width: 2rem;
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    animation: ${shine} 1.5s infinite;
+    animation: ${shine} 1s infinite;
   }
 `;
 
@@ -125,7 +125,7 @@ const Author = styled.div`
   width: 3rem;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
 `;
 
 export default PostCardSkeleton;

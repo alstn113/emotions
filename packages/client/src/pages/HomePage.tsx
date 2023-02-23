@@ -5,8 +5,6 @@ import { mediaQuery } from '~/lib/styles';
 import TabLayout from '~/components/layouts/TabLayout';
 import PostList from '~/components/home/PostList';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { Suspense } from 'react';
-import BaseLayout from '~/components/layouts/BaseLayout';
 import { ErrorBoundary } from 'react-error-boundary';
 
 const HomePage = () => {
@@ -24,9 +22,7 @@ const HomePage = () => {
                 />
               )}
             >
-              <Suspense fallback={<BaseLayout />}>
-                <PostList />
-              </Suspense>
+              <PostList />
             </ErrorBoundary>
           )}
         </QueryErrorResetBoundary>

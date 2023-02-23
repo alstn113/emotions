@@ -39,7 +39,7 @@ const Title = styled.div`
   width: 80%;
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
 `;
 
 const TagList = styled.div`
@@ -55,7 +55,7 @@ const TagList = styled.div`
     width: 4rem;
     border-radius: 0.8rem;
     background: rgba(0, 0, 0, 0.1);
-    animation: ${shine} 1.5s infinite;
+    animation: ${shine} 1s infinite;
   }
 `;
 
@@ -64,7 +64,7 @@ const Body = styled.div`
   height: 20rem;
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
 `;
 
 const Author = styled.div`
@@ -87,7 +87,7 @@ const LikeButtonWrapper = styled.div`
   width: 5rem;
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
   margin-bottom: 1rem;
 `;
 

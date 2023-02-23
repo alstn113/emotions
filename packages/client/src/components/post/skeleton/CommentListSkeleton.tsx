@@ -35,7 +35,7 @@ const CommentItemSkeleton = styled.div`
   width: 100%;
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${shine} 1.5s infinite;
+  animation: ${shine} 1s infinite;
 `;
 
 export default CommentListSkeleton;
