@@ -33,7 +33,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
     profile: any,
     done: any,
   ) {
-    const { login, name }: GithubProfileType = profile._json;
+    const { login, name, avatar_url }: GithubProfileType = profile._json;
     try {
       const exUser = await this.prisma.user.findUnique({
         where: {
@@ -50,6 +50,8 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
         data: {
           username: login,
           displayName: name ?? login,
+          //TODO: image를 arraybuffer나 stream으로 받아서 저장해야함
+          profileImage: avatar_url,
         },
       });
 
