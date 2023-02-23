@@ -11,7 +11,7 @@ import useLogout from '~/hooks/useLogout';
 // components
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
 import { Avatar } from '~/components/common';
 import CaretDown from '../vectors/CaretDown';
@@ -54,7 +54,7 @@ const HeaderDropdown = () => {
   ];
 
   return (
-    <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'}>
+    <>
       <DropdownButton ref={triggerRef} onClick={onToggle}>
         <Avatar src={user?.profileImage || null} size="md" isBorder />
         <UserInfo>
@@ -63,47 +63,23 @@ const HeaderDropdown = () => {
         </UserInfo>
         <CaretDown />
       </DropdownButton>
-      <DropdownMenu
-        variants={{
-          open: {
-            scale: 1,
-            transition: {
-              type: 'spring',
-              bounce: 0,
-              duration: 0.7,
-              delayChildren: 0.3,
-              staggerChildren: 0.05,
-            },
-          },
-          closed: {
-            scale: 0,
-            transition: {
-              type: 'spring',
-              bounce: 0,
-              duration: 0.3,
-            },
-          },
-        }}
-      >
-        {MenuItemList.map((item) => (
-          <MenuItem
-            key={item.text}
-            onClick={item.onClick}
-            red={item.red}
-            variants={{
-              open: {
-                opacity: 1,
-                y: 0,
-                transition: { type: 'spring', stiffness: 300, damping: 24 },
-              },
-              closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-            }}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <DropdownMenu
+            initial={{ scale: 0.7, opacity: 0.2 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.7, opacity: 0 }}
+            transition={{ type: 'spring', bounce: 0.2, duration: 0.2 }}
           >
-            <MenuItemText>{item.text}</MenuItemText>
-          </MenuItem>
-        ))}
-      </DropdownMenu>
-    </motion.nav>
+            {MenuItemList.map((item) => (
+              <MenuItem key={item.text} onClick={item.onClick} red={item.red}>
+                <MenuItemText>{item.text}</MenuItemText>
+              </MenuItem>
+            ))}
+          </DropdownMenu>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -122,6 +98,11 @@ const DropdownButton = styled.div`
   &:hover {
     color: #afb8c1;
   }
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const DropdownMenu = styled(motion.div)`
