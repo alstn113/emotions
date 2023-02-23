@@ -46,14 +46,13 @@ const Preview = () => {
 
 const Container = styled.div`
   position: relative;
-  display: flex;
   flex-direction: column;
   flex: 1;
   background-color: #f8f9fa;
   display: none;
+  width: 50%;
   ${mediaQuery.tablet} {
     display: flex;
-    width: 100%;
   }
 `;
 
