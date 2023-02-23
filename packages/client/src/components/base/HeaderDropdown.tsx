@@ -13,7 +13,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion, Variants } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
-import { Avatar, Button } from '~/components/common';
+import { Avatar } from '~/components/common';
 import CaretDown from '../vectors/CaretDown';
 
 const HeaderDropdown = () => {
@@ -138,7 +138,7 @@ const UserInfo = styled.div`
   }
 `;
 
-const MenuItem = styled(motion.button)<{ red?: boolean }>`
+const MenuItem = styled(motion.div)<{ red?: boolean }>`
   display: flex;
   flex-direction: column;
   min-width: 200px;
