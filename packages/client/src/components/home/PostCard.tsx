@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // components
 import styled from '@emotion/styled';
 import formatDate from '~/lib/formatDate';
+import { Avatar } from '../common';
 
 interface Props {
   post: PostWithStats;
@@ -29,14 +30,17 @@ const PostCard = ({ post }: Props) => {
         </TagList>
       </CardBody>
       <CardFooter>
+        <UserInfo>
+          <Avatar src={post.user.profileImage} size="sm" />
+          <Author>
+            by <b>{post.user.username}</b> · {postDate}
+          </Author>
+        </UserInfo>
+
         <PostStatsWrapper>
           <div>좋아요 {post.postStats.likes.toLocaleString()}개</div>
           <div>댓글 {post.postStats.commentsCount.toLocaleString()}개 </div>
         </PostStatsWrapper>
-
-        <Author>
-          Authored By <b>{post.user.username}</b> · {postDate}
-        </Author>
       </CardFooter>
     </Card>
   );
@@ -134,7 +138,7 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 `;
 
 const PostStatsWrapper = styled.div`
@@ -159,6 +163,13 @@ const Author = styled.div`
     color: #cc6600;
     font-weight: 900;
   }
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 `;
 
 export default PostCard;

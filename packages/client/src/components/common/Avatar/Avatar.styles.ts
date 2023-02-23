@@ -10,8 +10,8 @@ export const Container = styled.div<{ size: AvatarSize }>`
   ${({ size }) =>
     size === 'sm' &&
     css`
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     `}
 
   ${({ size }) =>

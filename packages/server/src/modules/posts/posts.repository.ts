@@ -198,6 +198,7 @@ const postSelector = (userId: string | null = null) => {
         id: true,
         username: true,
         displayName: true,
+        profileImage: true,
       },
     },
     tags: {
