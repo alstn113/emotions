@@ -79,9 +79,10 @@ const MoreButton = styled.button`
   width: 24px;
   height: 24px;
   color: #000;
+  padding: 0;
   svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 `;
 

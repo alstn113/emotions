@@ -255,12 +255,12 @@ const MoreButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   color: #fff;
   svg {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
 `;
 
