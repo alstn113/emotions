@@ -149,7 +149,7 @@ const PostContents = ({ slug }: Props) => {
         />
         <Group>
           <Author>
-            Authored by <b>{post?.user.username}</b> · {postDate}
+            by <b>{post?.user.username}</b> · {postDate}
           </Author>
           {isMyPost ? (
             <ButtonsWrapper>
