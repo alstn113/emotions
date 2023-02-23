@@ -112,10 +112,12 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
         {isMyComment && <MoreVertMenu items={items} />}
       </CommentHeader>
       <CommentBody>
-        {comment.mentionUser && (
-          <MentionUserInfo>@{comment.mentionUser.username}</MentionUserInfo>
-        )}
-        <p>{comment.text}</p>
+        <p>
+          {comment.mentionUser && (
+            <MentionUserInfo>@{comment.mentionUser.username}</MentionUserInfo>
+          )}
+          {comment.text}
+        </p>
       </CommentBody>
       <CommentFooter>
         <LikeWrapper>
@@ -170,7 +172,7 @@ const CommentBody = styled.div`
   }
 `;
 
-const MentionUserInfo = styled.span`
+const MentionUserInfo = styled.b`
   color: #4dabf7;
   font-weight: 900;
   font-size: 1rem;
