@@ -13,15 +13,15 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion, Variants } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
-import { Button } from '~/components/common';
-import { User } from '~/components/vectors';
+import { Avatar, Button } from '~/components/common';
+import CaretDown from '../vectors/CaretDown';
 
 const HeaderDropdown = () => {
   const user = useUser();
   const logout = useLogout();
   const navigate = useNavigate();
   const { isOpen, onClose, onToggle } = useDisclosure();
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(triggerRef, onClose);
   const itemVariants: Variants = {
@@ -35,15 +35,13 @@ const HeaderDropdown = () => {
 
   return (
     <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'}>
-      <DropdownButton
-        shadow
-        color="success"
-        size="sm"
-        ref={triggerRef}
-        onClick={onToggle}
-      >
-        <User />
-        {user?.username}
+      <DropdownButton ref={triggerRef} onClick={onToggle}>
+        <Avatar src={user?.profileImage || null} size="md" isBorder />
+        <UserInfo>
+          <div className="username">{user?.username}</div>
+          <div className="displayName">@{user?.displayName}</div>
+        </UserInfo>
+        <CaretDown />
       </DropdownButton>
       <DropdownMenu
         variants={{
@@ -90,13 +88,20 @@ const HeaderDropdown = () => {
   );
 };
 
-const DropdownButton = styled(Button)`
+const DropdownButton = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
   svg {
     margin-right: 8px;
     width: 16px;
     height: 16px;
+  }
+  &:hover {
+    color: #afb8c1;
   }
 `;
 
@@ -111,6 +116,26 @@ const DropdownMenu = styled(motion.div)`
   background: #26292b;
   border-radius: 14px;
   z-index: ${zIndexes.popper};
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 8px;
+
+  .username {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ecedee;
+  }
+
+  .displayName {
+    font-size: 12px;
+    color: #787f85;
+    font-weight: 400;
+  }
 `;
 
 const MenuItem = styled(motion.button)<{ red?: boolean }>`

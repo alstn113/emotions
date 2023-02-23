@@ -2,10 +2,18 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { AvatarSize } from './Avatar';
 
-export const Container = styled.div<{ size: AvatarSize }>`
+export const Container = styled.div<{ size: AvatarSize; isBorder: boolean }>`
   // md
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  ${({ isBorder }) =>
+    isBorder &&
+    css`
+      border: 2px solid #0072f5;
+    `}
 
   ${({ size }) =>
     size === 'sm' &&
@@ -17,8 +25,8 @@ export const Container = styled.div<{ size: AvatarSize }>`
   ${({ size }) =>
     size === 'lg' &&
     css`
-      width: 54px;
-      height: 54px;
+      width: 40px;
+      height: 40px;
     `}
 
   ${({ size }) =>
@@ -33,5 +41,4 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
 `;
