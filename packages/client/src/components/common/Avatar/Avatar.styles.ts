@@ -4,8 +4,8 @@ import type { AvatarSize } from './Avatar';
 
 export const Container = styled.div<{ size: AvatarSize }>`
   // md
-  width: 54px;
-  height: 54px;
+  width: 40px;
+  height: 40px;
 
   ${({ size }) =>
     size === 'sm' &&
@@ -17,8 +17,8 @@ export const Container = styled.div<{ size: AvatarSize }>`
   ${({ size }) =>
     size === 'lg' &&
     css`
-      width: 40px;
-      height: 40px;
+      width: 54px;
+      height: 54px;
     `}
 
   ${({ size }) =>
@@ -33,4 +33,5 @@ export const Image = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 `;

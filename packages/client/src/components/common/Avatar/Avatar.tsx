@@ -4,7 +4,7 @@ import BlankUser from '~/assets/vectors/blank-user.svg';
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface AvatarProps {
-  src?: string;
+  src: string | null;
   alt?: string;
   size?: AvatarSize;
 }
@@ -14,9 +14,10 @@ const Avatar = ({
   alt = 'profile image',
   size = 'md',
 }: AvatarProps) => {
+  const imageSrc = src || BlankUser;
   return (
     <S.Container size={size}>
-      <S.Image src={src} alt={alt} />
+      <S.Image src={imageSrc} alt={alt} />
     </S.Container>
   );
 };

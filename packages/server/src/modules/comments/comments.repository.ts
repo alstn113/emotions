@@ -132,6 +132,7 @@ const commentSelector = {
         id: true,
         username: true,
         displayName: true,
+        profileImage: true,
       },
     },
     mentionUser: {
@@ -139,6 +140,7 @@ const commentSelector = {
         id: true,
         username: true,
         displayName: true,
+        profileImage: true,
       },
     },
   },
