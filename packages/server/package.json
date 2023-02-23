@@ -14,7 +14,8 @@
     "start:pm2": "pnpm pm2 start ecosystem.config.js",
     "prisma:generate": "pnpm dlx prisma generate",
     "prisma:migrate": "pnpm dlx prisma migrate dev --name init && prisma generate",
-    "prisma:studio": "pnpm dlx prisma studio"
+    "prisma:studio": "pnpm dlx prisma studio",
+    "prisma:push": "pnpm dlx prisma db push"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.264.0",
