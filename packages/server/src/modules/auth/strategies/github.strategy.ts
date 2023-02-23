@@ -50,7 +50,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
         data: {
           username: login,
           displayName: name ?? login,
-          //TODO: image를 arraybuffer나 stream으로 받아서 저장해야함
+          //TODO: image를 arraybuffer나 stream으로 받아서 저장해보기
           profileImage: avatar_url,
         },
       });

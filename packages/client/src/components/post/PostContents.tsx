@@ -26,6 +26,7 @@ import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
 import 'highlight.js/styles/github.css';
 import formatDate from '~/lib/formatDate';
+import Avatar from '../common/Avatar/Avatar';
 
 interface Props {
   slug: string;
@@ -135,7 +136,10 @@ const PostContents = ({ slug }: Props) => {
       }
     >
       <Container>
-        <Title>{post?.title}</Title>
+        <Title>
+          <Avatar />
+          {post?.title}
+        </Title>
         <TagList>
           {post?.tags.map((tag) => {
             return <div key={tag}>{tag}</div>;
