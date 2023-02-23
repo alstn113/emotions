@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles/mediaQuery';
 import { Button } from '~/components/common';
 import HeaderDropdown from '~/components/base/HeaderDropdown';
-import Logo from '~/assets/images/logo.png';
+import Logo from '~/assets/images/Logo.png';
 
 const DesktopHeader = () => {
   const user = useUser();
