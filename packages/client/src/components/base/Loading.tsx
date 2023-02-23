@@ -1,18 +1,20 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import { LoadingSpinner } from '../common';
+import BaseLayout from '../layouts/BaseLayout';
 
 const Loading = () => {
   return (
-    <Container>
-      <LoadingSpinner />
-    </Container>
+    <BaseLayout>
+      <Container>
+        <LoadingSpinner />
+      </Container>
+    </BaseLayout>
   );
 };
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
