@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { SVGProps } from 'react';
+
 const SvgMenuDots = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g data-name="01 align center" fill="currentColor">
-      <circle cx={12} cy={2} r={2} />
-      <circle cx={12} cy={12} r={2} />
-      <circle cx={12} cy={22} r={2} />
-    </g>
+    <path
+      d="M10.5 12a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM10.5 19a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM10.5 5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
+      fill="currentColor"
+    />
   </svg>
 );
+
 export default SvgMenuDots;
