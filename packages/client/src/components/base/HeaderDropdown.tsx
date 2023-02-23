@@ -11,7 +11,7 @@ import useLogout from '~/hooks/useLogout';
 // components
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
 import { Avatar } from '~/components/common';
 import CaretDown from '../vectors/CaretDown';
@@ -24,14 +24,34 @@ const HeaderDropdown = () => {
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(triggerRef, onClose);
-  const itemVariants: Variants = {
-    open: {
-      opacity: 1,
-      y: 0,
-      transition: { type: 'spring', stiffness: 300, damping: 24 },
+
+  const MenuItemList = [
+    {
+      text: 'My Page',
+      onClick: () => navigate(`/user/${user?.username}`),
+      red: false,
     },
-    closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
-  };
+    {
+      text: 'Posts',
+      onClick: () => navigate('/'),
+      red: false,
+    },
+    {
+      text: 'Search',
+      onClick: () => navigate('/search'),
+      red: false,
+    },
+    {
+      text: 'Setting',
+      onClick: () => navigate('/setting'),
+      red: false,
+    },
+    {
+      text: 'Logout',
+      onClick: logout,
+      red: true,
+    },
+  ];
 
   return (
     <motion.nav initial={false} animate={isOpen ? 'open' : 'closed'}>
@@ -65,24 +85,23 @@ const HeaderDropdown = () => {
           },
         }}
       >
-        <MenuItem
-          variants={itemVariants}
-          onClick={() => navigate(`/user/${user?.username}`)}
-        >
-          <MenuItemText>My Page</MenuItemText>
-        </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => navigate('/')}>
-          <MenuItemText>Posts</MenuItemText>
-        </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => navigate('/search')}>
-          <MenuItemText>Search</MenuItemText>
-        </MenuItem>
-        <MenuItem variants={itemVariants} onClick={() => navigate('/setting')}>
-          <MenuItemText>Setting</MenuItemText>
-        </MenuItem>
-        <MenuItem variants={itemVariants} onClick={logout} red>
-          <MenuItemText>Logout</MenuItemText>
-        </MenuItem>
+        {MenuItemList.map((item) => (
+          <MenuItem
+            key={item.text}
+            onClick={item.onClick}
+            red={item.red}
+            variants={{
+              open: {
+                opacity: 1,
+                y: 0,
+                transition: { type: 'spring', stiffness: 300, damping: 24 },
+              },
+              closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+            }}
+          >
+            <MenuItemText>{item.text}</MenuItemText>
+          </MenuItem>
+        ))}
       </DropdownMenu>
     </motion.nav>
   );
