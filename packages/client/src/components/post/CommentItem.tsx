@@ -110,7 +110,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
           <Avatar
             src={comment.user.profileImage}
             alt={`${comment.user.username}'s profile image`}
-            size="md"
+            size="lg"
           />
           <UserInfo>
             <Username>{comment.user.username}</Username>
