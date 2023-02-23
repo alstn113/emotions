@@ -99,6 +99,7 @@ const DropdownButton = styled.div`
     color: #afb8c1;
   }
 
+  // 글 선택 못하게 막기
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

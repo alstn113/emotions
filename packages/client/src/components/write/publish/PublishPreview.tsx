@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
-import { Loader } from '~/components/common';
+import { LoadingSpinner } from '~/components/common';
 import { useUploadImage } from '~/hooks/queries/post';
 import useWriteStore from '~/stores/useWriteStore';
 import UploadImageSvg from '~/assets/vectors/upload-image.svg';
@@ -63,7 +63,7 @@ const PublishPreview = () => {
       <Title>Post Preview</Title>
       <InageWrapper>
         {isLoading ? (
-          <Loader size="lg" color="success" />
+          <LoadingSpinner />
         ) : (
           <ThumbnailImage src={previewImage} onClick={handleButtononClick} />
         )}
