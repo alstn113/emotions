@@ -14,7 +14,8 @@
     "start:pm2": "pnpm pm2 start ecosystem.config.js",
     "prisma:generate": "pnpm dlx prisma generate",
     "prisma:migrate": "pnpm dlx prisma migrate dev --name init && prisma generate",
-    "prisma:studio": "pnpm dlx prisma studio"
+    "prisma:studio": "pnpm dlx prisma studio",
+    "prisma:push": "pnpm dlx prisma db push"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.264.0",
@@ -27,6 +28,7 @@
     "@nestjs/swagger": "^6.1.4",
     "@prisma/client": "^4.10.1",
     "@types/cookie-parser": "^1.4.3",
+    "axios": "^1.2.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",

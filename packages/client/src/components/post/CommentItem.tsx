@@ -21,6 +21,7 @@ import ReplyComment from '~/components/post/ReplyComment';
 import MoreVertMenu from '~/components/post/MoreVertMenu';
 import LikeButton from '~/components/base/LikeButton';
 import formatDate from '~/lib/formatDate';
+import { Avatar } from '../common';
 
 interface Props {
   comment: Comment;
@@ -106,8 +107,15 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     <Container>
       <CommentHeader>
         <LeftWrapper>
-          <Username>{comment.user.username}</Username>
-          <Time>{commentDate}</Time>
+          <Avatar
+            src={comment.user.profileImage}
+            alt={`${comment.user.username}'s profile image`}
+            size="md"
+          />
+          <UserInfo>
+            <Username>{comment.user.username}</Username>
+            <Time>{commentDate}</Time>
+          </UserInfo>
         </LeftWrapper>
         {isMyComment && <MoreVertMenu items={items} />}
       </CommentHeader>
@@ -188,8 +196,15 @@ const CommentFooter = styled.div`
 
 const LeftWrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 0.5rem;
 `;
 
 const Username = styled.div`
@@ -201,7 +216,6 @@ const Username = styled.div`
 const Time = styled.div`
   font-size: 0.8rem;
   line-height: 1.5;
-  margin-left: 0.5rem;
   color: #999;
 `;
 
