@@ -46,7 +46,7 @@ const SeriesItem = styled(Link)`
   background-color: #f5f5f5;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
-  font-size: 4rem;
+  font-size: 2rem;
 
   &:hover {
     background-color: #e5e5e5;
