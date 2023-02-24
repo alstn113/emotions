@@ -30,7 +30,7 @@ const PostCard = ({ post }: Props) => {
         </TagList>
       </CardBody>
       <CardFooter>
-        <UserInfo>
+        <UserInfo to={`/user/${post.user.username}`}>
           <Avatar src={post.user.profileImage} size="sm" />
           <Author>
             by <b>{post.user.username}</b> · {postDate}
@@ -165,7 +165,7 @@ const Author = styled.div`
   }
 `;
 
-const UserInfo = styled.div`
+const UserInfo = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

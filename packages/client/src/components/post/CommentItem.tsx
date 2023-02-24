@@ -22,6 +22,7 @@ import MoreVertMenu from '~/components/post/MoreVertMenu';
 import LikeButton from '~/components/base/LikeButton';
 import formatDate from '~/lib/formatDate';
 import { Avatar } from '../common';
+import { Link } from 'react-router-dom';
 
 interface Props {
   comment: Comment;
@@ -107,13 +108,17 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
     <Container>
       <CommentHeader>
         <LeftWrapper>
-          <Avatar
-            src={comment.user.profileImage}
-            alt={`${comment.user.username}'s profile image`}
-            size="lg"
-          />
+          <Link to={`/user/${comment.user.username}`}>
+            <Avatar
+              src={comment.user.profileImage}
+              alt={`${comment.user.username}'s profile image`}
+              size="lg"
+            />
+          </Link>
           <UserInfo>
-            <Username>{comment.user.username}</Username>
+            <Link to={`/user/${comment.user.username}`}>
+              <Username>{comment.user.username}</Username>
+            </Link>
             <Time>{commentDate}</Time>
           </UserInfo>
         </LeftWrapper>
@@ -122,7 +127,9 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
       <CommentBody>
         <p>
           {comment.mentionUser && (
-            <MentionUserInfo>@{comment.mentionUser.username}</MentionUserInfo>
+            <Link to={`/user/${comment.mentionUser.username}`}>
+              <MentionUserInfo>@{comment.mentionUser.username}</MentionUserInfo>
+            </Link>
           )}
           {comment.text}
         </p>

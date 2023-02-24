@@ -1,5 +1,5 @@
 // react
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { extractError } from '~/lib/error';
 
 // hooks
@@ -151,9 +151,11 @@ const PostContents = ({ slug }: Props) => {
           dangerouslySetInnerHTML={{ __html: html }}
         />
         <Group>
-          <Author>
-            by <b>{post?.user.username}</b> · {postDate}
-          </Author>
+          <Link to={`/user/${post?.user.username}`}>
+            <Author>
+              by <b>{post?.user.username}</b> · {postDate}
+            </Author>
+          </Link>
           {isMyPost ? (
             <ButtonsWrapper>
               <Button shadow color="warning" size="sm">
