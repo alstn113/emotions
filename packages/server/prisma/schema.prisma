@@ -35,7 +35,7 @@ model User {
 model Post {
   id          String  @id() @default(uuid())
   title       String
-  slug        String  @unique
+  slug        String
   description String
   body        String
   userId      String

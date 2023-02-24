@@ -25,7 +25,7 @@ const PostPage = () => {
           )}
         >
           <Suspense fallback={<PostPageSkeleton />}>
-            <PostContents usename={username} slug={slug} />
+            <PostContents username={username} slug={slug} />
           </Suspense>
         </ErrorBoundary>
       )}
