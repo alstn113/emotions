@@ -14,7 +14,11 @@ export class PostsRepository {
     username?: string,
   ) {
     const [totalCount, list] = await Promise.all([
-      this.prisma.post.count(),
+      this.prisma.post.count({
+        where: {
+          ...(username && { user: { username } }),
+        },
+      }),
       this.prisma.post.findMany({
         take: 12,
         skip: cursor ? 1 : 0,
@@ -37,6 +41,9 @@ export class PostsRepository {
           skip: endCursor ? 1 : 0,
           cursor: endCursor ? { id: endCursor } : undefined,
           orderBy: { createdAt: 'desc' },
+          where: {
+            ...(username && { user: { username } }),
+          },
         })
       ).length > 0;
 
