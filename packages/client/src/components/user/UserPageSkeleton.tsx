@@ -24,7 +24,7 @@ const shine = keyframes`
 `;
 
 const Container = styled.div`
-  margin: 1rem;
+  margin: 4rem;
   height: 200px;
   ${mediaQuery.desktop} {
     width: 1200px;

@@ -47,6 +47,7 @@ const Card = styled.div`
   background: #fff;
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+  width: 100%;
 `;
 
 const CardHeader = styled.div``;

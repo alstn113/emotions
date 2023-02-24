@@ -6,6 +6,8 @@ import PostList from '~/components/home/PostList';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import PostListErrorFallback from '~/components/home/PostListErrorFallback';
+import { Suspense } from 'react';
+import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
 
 const HomePage = () => {
   return (
@@ -22,7 +24,9 @@ const HomePage = () => {
                 />
               )}
             >
-              <PostList />
+              <Suspense fallback={<PostListSkeleton />}>
+                <PostList />
+              </Suspense>
             </ErrorBoundary>
           )}
         </QueryErrorResetBoundary>
