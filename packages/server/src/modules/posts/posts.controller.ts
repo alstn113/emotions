@@ -61,12 +61,17 @@ export class PostsController {
   }
 
   @Public()
-  @Get('slug/:slug')
+  @Get('/username/:username/slug/:slug')
   async getPostBySlug(
+    @Param('username') username: string,
     @Param('slug') slug: string,
     @GetCurrentUser('userId') userId: string | null,
   ): Promise<PostDto> {
-    const post = await this.postsService.getPostBySlug({ slug, userId });
+    const post = await this.postsService.getPostBySlug({
+      username,
+      slug,
+      userId,
+    });
     return plainToInstance(PostDto, post, {
       excludeExtraneousValues: true,
     });
@@ -111,9 +116,9 @@ export class PostsController {
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createPost(
     @Body() dto: CreatePostDto,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('username') username: string,
   ): Promise<PostDto> {
-    const post = await this.postsService.createPost(dto, userId);
+    const post = await this.postsService.createPost(dto, username);
     return plainToInstance(PostDto, post, {
       excludeExtraneousValues: true,
     });

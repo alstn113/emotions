@@ -57,8 +57,12 @@ export class PostsService {
     };
   }
 
-  async getPostBySlug({ slug, userId }: GetPostParams) {
-    const post = await this.postRepository.findPostBySlug(slug, userId);
+  async getPostBySlug({ username, slug, userId }: GetPostParams) {
+    const post = await this.postRepository.findPostBySlug(
+      username,
+      slug,
+      userId,
+    );
     if (!post) throw new AppErrorException('NotFound', 'Post not found');
 
     const series = await this.seriesService.getSeriesByPostId(post.id);
@@ -85,10 +89,13 @@ export class PostsService {
     };
   }
 
-  async createPost(dto: CreatePostDto, userId: string) {
+  async createPost(dto: CreatePostDto, username: string) {
     // slug duplicate check
     let slug = dto.slug ? slugify(dto.slug) : slugify(dto.title);
-    const isSameSlugExists = await this.postRepository.findPostBySlug(slug);
+    const isSameSlugExists = await this.postRepository.findPostBySlug(
+      username,
+      slug,
+    );
     if (isSameSlugExists) {
       slug += `-${generateId()}`;
     }
@@ -206,6 +213,7 @@ export class PostsService {
 }
 
 interface GetPostParams {
+  username: string;
   slug: string;
   userId: string | null;
 }

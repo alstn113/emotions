@@ -59,9 +59,21 @@ export class PostsRepository {
     });
   }
 
-  async findPostBySlug(slug: string, userId: string | null = null) {
+  async findPostBySlug(
+    username: string,
+    slug: string,
+    userId: string | null = null,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { username },
+    });
     return await this.prisma.post.findUnique({
-      where: { slug },
+      where: {
+        slug_userId: {
+          slug,
+          userId: user.id,
+        },
+      },
       include: {
         ...postSelector(userId),
       },

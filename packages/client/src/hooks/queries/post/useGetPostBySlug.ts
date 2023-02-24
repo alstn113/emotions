@@ -3,14 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 
 const useGetPostBySlug = (
+  username: string,
   slug: string,
   options: UseQueryOptionsOf<typeof PostAPI.getPostBySlug> = {},
 ) => {
-  return useQuery(getKey(slug), fetcher(slug), options);
+  return useQuery(getKey(username, slug), fetcher(username, slug), options);
 };
 
-const getKey = (slug: string) => ['useGetPostBySlug', slug];
-const fetcher = (slug: string) => async () => await PostAPI.getPostBySlug(slug);
+const getKey = (username: string, slug: string) => [
+  'useGetPostBySlug',
+  username,
+  slug,
+];
+const fetcher = (username: string, slug: string) => async () =>
+  await PostAPI.getPostBySlug(username, slug);
 
 useGetPostBySlug.getKey = getKey;
 useGetPostBySlug.fetcher = fetcher;

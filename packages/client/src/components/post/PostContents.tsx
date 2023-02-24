@@ -29,12 +29,13 @@ import formatDate from '~/lib/formatDate';
 import { SinglePostReponse } from '~/lib/types';
 
 interface Props {
+  username: string;
   slug: string;
 }
 
-const PostContents = ({ slug }: Props) => {
+const PostContents = ({ username, slug }: Props) => {
   const navigate = useNavigate();
-  const { data } = useGetPostBySlug(slug, { suspense: true });
+  const { data } = useGetPostBySlug(username, slug, { suspense: true });
   const post = data as SinglePostReponse; // suspense
 
   const user = useUser();

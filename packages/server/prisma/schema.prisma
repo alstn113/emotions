@@ -51,6 +51,8 @@ model Post {
   tags       PostsOnTags[]
   postStats  PostStats?
   seriesPost SeriesPost?
+
+  @@unique([slug, userId])
 }
 
 model Series {

@@ -36,8 +36,13 @@ const PostAPI = {
     return data;
   },
 
-  getPostBySlug: async (slug: string): Promise<SinglePostReponse> => {
-    const { data } = await apiClient.get(`${API.POST}/slug/${slug}`);
+  getPostBySlug: async (
+    username: string,
+    slug: string,
+  ): Promise<SinglePostReponse> => {
+    const { data } = await apiClient.get(
+      `${API.POST}/username/${username}/slug/${slug}`,
+    );
     return data;
   },
 

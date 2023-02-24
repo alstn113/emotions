@@ -14,7 +14,7 @@
     "prisma:generate": "pnpm --filter server prisma:generate",
     "prisma:migrate": "pnpm --filter server prisma:migrate",
     "prisma:studio": "pnpm --filter server prisma:studio",
-    "primsa:push": "pnpm --filter server prisma:push",
+    "prisma:push": "pnpm --filter server prisma:push",
     "prepare": "husky install"
   },
   "lint-staged": {
