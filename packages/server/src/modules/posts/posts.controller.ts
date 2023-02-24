@@ -116,9 +116,9 @@ export class PostsController {
   @UseInterceptors(FileInterceptor('file', multerOptions))
   async createPost(
     @Body() dto: CreatePostDto,
-    @GetCurrentUser('username') username: string,
+    @GetCurrentUser() user,
   ): Promise<PostDto> {
-    const post = await this.postsService.createPost(dto, username);
+    const post = await this.postsService.createPost(dto, user);
     return plainToInstance(PostDto, post, {
       excludeExtraneousValues: true,
     });

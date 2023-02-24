@@ -89,11 +89,14 @@ export class PostsService {
     };
   }
 
-  async createPost(dto: CreatePostDto, username: string) {
+  async createPost(
+    dto: CreatePostDto,
+    user: { userId: string; username: string },
+  ) {
     // slug duplicate check
     let slug = dto.slug ? slugify(dto.slug) : slugify(dto.title);
     const isSameSlugExists = await this.postRepository.findPostBySlug(
-      username,
+      user.username,
       slug,
     );
     if (isSameSlugExists) {
@@ -114,7 +117,7 @@ export class PostsService {
       dto,
       slug,
       description,
-      userId,
+      user.userId,
     );
 
     // if seriesId is provided, add post to series
@@ -122,7 +125,7 @@ export class PostsService {
       await this.seriesService.appendPostToSeries(
         dto.seriesId,
         post.id,
-        userId,
+        user.userId,
       );
     }
 
