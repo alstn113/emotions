@@ -6,6 +6,7 @@ import TabLayout from '~/components/layouts/TabLayout';
 import PostList from '~/components/home/PostList';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
+import PostListErrorFallback from '~/components/home/PostListErrorFallback';
 
 const HomePage = () => {
   return (
@@ -16,7 +17,7 @@ const HomePage = () => {
             <ErrorBoundary
               onReset={reset}
               fallbackRender={({ error, resetErrorBoundary }) => (
-                <ErrorFallback
+                <PostListErrorFallback
                   error={error}
                   resetErrorBoundary={resetErrorBoundary}
                 />
@@ -37,6 +38,8 @@ const Container = styled.div`
     width: 1200px;
     margin: 0 auto;
   }
+  height: 100%;
+  width: 100%;
 `;
 
 export default HomePage;

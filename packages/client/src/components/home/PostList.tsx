@@ -9,7 +9,14 @@ import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
 
 const PostList = () => {
-  const { data: posts, hasNextPage, fetchNextPage, isFetching } = useGetPosts();
+  const {
+    data: posts,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+  } = useGetPosts({
+    suspense: true,
+  });
 
   const loadMore = () => {
     if (hasNextPage) fetchNextPage();

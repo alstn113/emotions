@@ -9,21 +9,19 @@ interface Props {
   resetErrorBoundary: () => void;
 }
 
-const ErrorFallback = ({ error, resetErrorBoundary }: Props) => {
+const PostListErrorFallback = ({ error, resetErrorBoundary }: Props) => {
   const e = extractError(error);
 
   return (
-    <BaseLayout>
-      <Container>
-        <Text>
-          <div>{e.message}</div>
-          <div>{e.statusCode}</div>
-        </Text>
-        <Button shadow color="error" onClick={resetErrorBoundary}>
-          Try again
-        </Button>
-      </Container>
-    </BaseLayout>
+    <Container>
+      <Text>
+        <div>{e.message}</div>
+        <div>{e.statusCode}</div>
+      </Text>
+      <Button shadow color="error" onClick={resetErrorBoundary}>
+        Try again
+      </Button>
+    </Container>
   );
 };
 
@@ -47,4 +45,4 @@ const Text = styled.div`
   margin-bottom: 2rem;
 `;
 
-export default ErrorFallback;
+export default PostListErrorFallback;
