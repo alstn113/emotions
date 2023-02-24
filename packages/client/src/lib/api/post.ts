@@ -19,6 +19,18 @@ const PostAPI = {
     return data;
   },
 
+  getPostsByUsername: async (
+    username: string,
+    cursor?: string,
+  ): Promise<PostList> => {
+    const { data } = await apiClient.get(
+      `${API.POST}/username/${username}`.concat(
+        qs.stringify({ cursor }, { addQueryPrefix: true }),
+      ),
+    );
+    return data;
+  },
+
   getPost: async (id: string): Promise<SinglePostReponse> => {
     const { data } = await apiClient.get(`${API.POST}/${id}`);
     return data;

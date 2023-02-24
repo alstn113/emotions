@@ -44,7 +44,7 @@ export class PostsController {
   }
 
   @Public()
-  @Get('user/:username')
+  @Get('username/:username')
   async getPostsByUsername(
     @Param('username') username: string,
     @Query() dto: GetPostsQueryDto,

@@ -6,3 +6,4 @@ export { default as useDeletePost } from './useDeletePost';
 export { default as useGetPostComments } from './useGetPostComments';
 export { default as useUploadImage } from './useUploadImage';
 export { default as useGetSearchPosts } from './useGetSearchPosts';
+export { default as useGetPostsByUsername } from './useGetPostsByUsername';
