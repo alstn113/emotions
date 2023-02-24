@@ -12,7 +12,7 @@ import useLogout from '~/hooks/useLogout';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { zIndexes } from '~/lib/styles';
+import { mediaQuery, zIndexes } from '~/lib/styles';
 import { Avatar } from '~/components/common';
 import CaretDown from '../vectors/CaretDown';
 
@@ -120,7 +120,7 @@ const DropdownMenu = styled(motion.div)`
 `;
 
 const UserInfo = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -136,6 +136,10 @@ const UserInfo = styled.div`
     font-size: 12px;
     color: #787f85;
     font-weight: 400;
+  }
+
+  ${mediaQuery.tablet} {
+    display: flex;
   }
 `;
 
