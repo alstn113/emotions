@@ -37,6 +37,26 @@ export class PostsService {
     };
   }
 
+  async getPostsByUsername(
+    dto: GetPostsQueryDto,
+    username: string,
+    userId: string | null,
+  ) {
+    const { totalCount, endCursor, hasNextPage, list } =
+      await this.postRepository.findPosts(dto.cursor, userId, username);
+
+    const serializedList = list.map((post) => this.serializePost(post));
+
+    return {
+      list: serializedList,
+      totalCount,
+      pageInfo: {
+        endCursor: hasNextPage ? endCursor : null,
+        hasNextPage,
+      },
+    };
+  }
+
   async getPostBySlug({ slug, userId }: GetPostParams) {
     const post = await this.postRepository.findPostBySlug(slug, userId);
     if (!post) throw new AppErrorException('NotFound', 'Post not found');

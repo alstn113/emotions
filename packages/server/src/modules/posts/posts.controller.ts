@@ -44,6 +44,23 @@ export class PostsController {
   }
 
   @Public()
+  @Get('user/:username')
+  async getPostsByUsername(
+    @Param('username') username: string,
+    @Query() dto: GetPostsQueryDto,
+    @GetCurrentUser('userId') userId: string | null,
+  ): Promise<PaginatedPostsDto> {
+    const paginatedPosts = await this.postsService.getPostsByUsername(
+      dto,
+      username,
+      userId,
+    );
+    return plainToInstance(PaginatedPostsDto, paginatedPosts, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  @Public()
   @Get('slug/:slug')
   async getPostBySlug(
     @Param('slug') slug: string,

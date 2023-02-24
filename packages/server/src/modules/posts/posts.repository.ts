@@ -7,7 +7,12 @@ import { CreatePostDto } from './dto/create-post.dto';
 export class PostsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findPosts(cursor: string | null, userId: string | null) {
+  async findPosts(
+    cursor: string | null,
+    userId: string | null,
+    // username이 있을 경우 username으로 검색
+    username?: string,
+  ) {
     const [totalCount, list] = await Promise.all([
       this.prisma.post.count(),
       this.prisma.post.findMany({
@@ -17,6 +22,9 @@ export class PostsRepository {
         orderBy: { createdAt: 'desc' },
         include: {
           ...postSelector(userId),
+        },
+        where: {
+          ...(username && { user: { username } }),
         },
       }),
     ]);
