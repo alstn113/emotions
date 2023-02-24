@@ -1,22 +1,28 @@
 import styled from '@emotion/styled';
 import { Outlet, Link, useParams } from 'react-router-dom';
+import { Avatar } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
+import { User } from '~/lib/types';
 
 const UserLayout = () => {
   const { username } = useParams() as { username: string };
-  const { data: user } = useGetUserByUsername(username, {
+  const { data } = useGetUserByUsername(username, {
     suspense: true,
   });
+  const user = data as User; // suspense
 
   return (
     <TabLayout>
       <Container>
-        <UserProfileWrapper>
-          {user?.id} {user?.username}
-        </UserProfileWrapper>
-        <div>공사 중 입니다...</div>
+        <UserProfileContainer>
+          <Avatar size="xl" src={user.profileImage} />
+          <UserInfo>
+            <div className="username">{user.username}</div>
+            <div className="displayName">{user.displayName}</div>
+          </UserInfo>
+        </UserProfileContainer>
         <TabsWrapper>
           <TabItem to="">Posts</TabItem>
           <TabItem to="series">Series</TabItem>
@@ -29,10 +35,10 @@ const UserLayout = () => {
 };
 
 const Container = styled.div`
-  padding: 16px;
-  ${mediaQuery.desktop} {
-    width: 1200px;
-    margin: 0 auto;
+  margin: 0 auto;
+  width: 100%;
+  ${mediaQuery.tablet} {
+    width: 736px;
   }
   display: flex;
   flex-direction: column;
@@ -67,15 +73,36 @@ const TabItem = styled(Link)`
   }
 `;
 
-const UserProfileWrapper = styled.div`
+const UserProfileContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 180px;
+  background-color: #fff;
+  border-bottom: 2px solid #e5e5e5;
+  margin-top: 5rem;
+  padding: 0 2rem;
+`;
+
+const UserInfo = styled.div`
+  margin-left: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 150px;
-  background-color: #f5f5f5;
-  font-size: 2rem;
+  align-items: flex-start;
+
+  .username {
+    font-size: 2rem;
+    color: #000;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .displayName {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #787f85;
+  }
 `;
 
 export default UserLayout;

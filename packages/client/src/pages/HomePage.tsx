@@ -1,6 +1,5 @@
 // components
 import styled from '@emotion/styled';
-import ErrorFallback from '~/components/base/ErrorFallback';
 import { mediaQuery } from '~/lib/styles';
 import TabLayout from '~/components/layouts/TabLayout';
 import PostList from '~/components/home/PostList';
