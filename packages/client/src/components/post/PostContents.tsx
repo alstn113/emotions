@@ -26,6 +26,7 @@ import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
 import 'highlight.js/styles/github.css';
 import formatDate from '~/lib/formatDate';
+import { SinglePostReponse } from '~/lib/types';
 
 interface Props {
   slug: string;
@@ -33,16 +34,18 @@ interface Props {
 
 const PostContents = ({ slug }: Props) => {
   const navigate = useNavigate();
-  const { data: post } = useGetPostBySlug(slug, { suspense: true });
+  const { data } = useGetPostBySlug(slug, { suspense: true });
+  const post = data as SinglePostReponse; // suspense
+
   const user = useUser();
   const isMyPost = user?.id === post?.user.id;
-  const postDate = formatDate(post?.createdAt!);
+  const postDate = formatDate(post?.createdAt);
   const { openModal } = useModalStore();
   const { openBottomSheet } = useBottomSheetStore();
   const { isLiked, likeCount, toggleLike } = usePostLikeManager({
-    initialIsLiked: post?.isLiked!,
-    initialLikeCount: post?.postStats.likes!,
-    postId: post?.id!,
+    initialIsLiked: post?.isLiked,
+    initialLikeCount: post?.postStats.likes,
+    postId: post?.id,
   });
 
   const html = useMemo(() => {
@@ -63,7 +66,7 @@ const PostContents = ({ slug }: Props) => {
 
         return '<pre class="hljs"><code>' + '</code></pre>';
       },
-    }).render(post?.body!);
+    }).render(post?.body);
   }, [post?.body]);
 
   const { mutate: deletePost } = useDeletePost();
@@ -75,7 +78,7 @@ const PostContents = ({ slug }: Props) => {
       confirmText: '확인',
       cancelText: '취소',
       onConfirm: () => {
-        deletePost(post?.id!, {
+        deletePost(post?.id, {
           onSuccess: () => {
             navigate('/');
           },
@@ -89,7 +92,7 @@ const PostContents = ({ slug }: Props) => {
   };
 
   const handleDelete = async () => {
-    deletePost(post?.id!, {
+    deletePost(post?.id, {
       onSuccess: () => {
         navigate('/');
       },
@@ -168,7 +171,7 @@ const PostContents = ({ slug }: Props) => {
           <LikeButton size="md" isLiked={isLiked} onClick={toggleLike} />
           <span>좋아요 {likeCount.toLocaleString()}개</span>
         </LikeButtonWrapper>
-        <CommentList postId={post?.id!} />
+        <CommentList postId={post?.id} />
       </Container>
     </BaseLayout>
   );

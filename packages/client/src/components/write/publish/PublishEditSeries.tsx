@@ -15,7 +15,7 @@ const PublishEditSeries = () => {
     name: string;
   } | null>(series);
   const [input, setInput] = useState('');
-  const { data: seriesList } = useGetUserSeries(user?.username!);
+  const { data: seriesList } = useGetUserSeries(user?.username);
   const { mutate } = useCreateSeries();
   const queryClient = useQueryClient();
 
@@ -39,7 +39,7 @@ const PublishEditSeries = () => {
       {
         onSuccess: async (data) => {
           await queryClient.refetchQueries(
-            useGetUserSeries.getKey(user?.username!),
+            useGetUserSeries.getKey(user?.username),
           );
           setSelected({ id: data.id, name: data.name });
           setInput('');

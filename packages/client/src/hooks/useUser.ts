@@ -5,7 +5,7 @@ import { useGetMe } from './queries/user';
 const useUser = () => {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData<User>(useGetMe.getKey());
-  return user;
+  return user as User;
 };
 
 export default useUser;
