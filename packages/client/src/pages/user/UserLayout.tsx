@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import { Avatar } from '~/components/common';
-import TabLayout from '~/components/layouts/TabLayout';
 import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
 import { User } from '~/lib/types';
@@ -16,51 +15,38 @@ const UserLayout = () => {
   const user = data as User; // suspense
 
   return (
-    <TabLayout>
-      <Container>
-        <UserProfileContainer>
-          <Avatar size="xl" src={user.profileImage} />
-          <UserInfo>
-            <div className="username">{user.username}</div>
-            <div className="displayName">{user.displayName}</div>
-          </UserInfo>
-        </UserProfileContainer>
-        <TabsWrapper>
-          <TabItem
-            to={`/user/${username}`}
-            isActive={location.pathname === `/user/${username}`}
-          >
-            Posts
-          </TabItem>
-          <TabItem
-            to={`/user/${username}/series`}
-            isActive={location.pathname === `/user/${username}/series`}
-          >
-            Series
-          </TabItem>
-          <TabItem
-            to={`/user/${username}/about`}
-            isActive={location.pathname === `/user/${username}/about`}
-          >
-            About
-          </TabItem>
-        </TabsWrapper>
-        <Outlet />
-      </Container>
-    </TabLayout>
+    <>
+      <UserProfileContainer>
+        <Avatar size="xl" src={user.profileImage} />
+        <UserInfo>
+          <div className="username">{user.username}</div>
+          <div className="displayName">{user.displayName}</div>
+        </UserInfo>
+      </UserProfileContainer>
+      <TabsWrapper>
+        <TabItem
+          to={`/user/${username}`}
+          isActive={location.pathname === `/user/${username}`}
+        >
+          Posts
+        </TabItem>
+        <TabItem
+          to={`/user/${username}/series`}
+          isActive={location.pathname === `/user/${username}/series`}
+        >
+          Series
+        </TabItem>
+        <TabItem
+          to={`/user/${username}/about`}
+          isActive={location.pathname === `/user/${username}/about`}
+        >
+          About
+        </TabItem>
+      </TabsWrapper>
+      <Outlet />
+    </>
   );
 };
-
-const Container = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  ${mediaQuery.tablet} {
-    width: 736px;
-  }
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const TabsWrapper = styled.div`
   display: flex;

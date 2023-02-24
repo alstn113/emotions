@@ -1,14 +1,9 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
-import TabLayout from '../layouts/TabLayout';
 
 const UserPageSkeleton = () => {
-  return (
-    <TabLayout>
-      <Container />
-    </TabLayout>
-  );
+  return <Container />;
 };
 
 const shine = keyframes`
@@ -24,8 +19,9 @@ const shine = keyframes`
 `;
 
 const Container = styled.div`
-  margin: 4rem;
+  margin-top: 2rem;
   height: 200px;
+  width: 100%;
   ${mediaQuery.desktop} {
     width: 1200px;
     margin: 0 auto;
