@@ -48,6 +48,8 @@ const Container = styled.div`
 const TabsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  border-radius: 1rem;
+  overflow: hidden;
   margin-bottom: 16px;
   width: 100%;
   ${mediaQuery.tablet} {
@@ -81,8 +83,12 @@ const UserProfileContainer = styled.div`
   height: 180px;
   background-color: #fff;
   border-bottom: 2px solid #e5e5e5;
-  margin-top: 5rem;
+  margin-top: 1rem;
   padding: 0 2rem;
+
+  ${mediaQuery.tablet} {
+    margin-top: 5rem;
+  }
 `;
 
 const UserInfo = styled.div`
