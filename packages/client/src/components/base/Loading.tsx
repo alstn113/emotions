@@ -1,23 +1,22 @@
 import styled from '@emotion/styled';
 import { LoadingSpinner } from '../common';
-import BaseLayout from '../layouts/BaseLayout';
+import TabLayout from '../layouts/TabLayout';
 
 const Loading = () => {
   return (
-    <BaseLayout>
+    <TabLayout>
       <Container>
         <LoadingSpinner />
       </Container>
-    </BaseLayout>
+    </TabLayout>
   );
 };
 
 const Container = styled.div`
-  height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20vh;
 `;
 
 export default Loading;
