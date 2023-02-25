@@ -247,13 +247,14 @@ const LikeButtonWrapper = styled.div`
 `;
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
   gap: 1rem;
   ${mediaQuery.tablet} {
     width: 736px;
-    margin: 4rem auto;
+    margin: 0 auto;
   }
 `;
 

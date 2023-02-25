@@ -10,6 +10,7 @@ import { mediaQuery } from '~/lib/styles/mediaQuery';
 import { Button } from '~/components/common';
 import HeaderDropdown from '~/components/base/HeaderDropdown';
 import Logo from '~/assets/images/Logo.png';
+import { zIndexes } from '~/lib/styles';
 
 const DesktopHeader = () => {
   const user = useUser();
@@ -45,10 +46,15 @@ const DesktopHeader = () => {
 };
 
 const Container = styled.header`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: ${zIndexes.Header};
+
   display: none;
   align-items: center;
-  height: 60px;
+  height: 4rem;
   padding: 0px 16px;
   background: #000;
 

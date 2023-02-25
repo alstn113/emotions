@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 // components
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
+import { mediaQuery, zIndexes } from '~/lib/styles';
 import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
 import useUser from '~/hooks/useUser';
 
@@ -30,6 +30,21 @@ const Footer = () => {
   );
 };
 
+const Container = styled.footer`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  z-index: ${zIndexes.Footer};
+  display: flex;
+  background: #000;
+
+  ${mediaQuery.mobile} {
+    display: none;
+  }
+`;
+
 const TabItem = styled(NavLink)`
   flex: 1;
   display: flex;
@@ -44,16 +59,6 @@ const TabItem = styled(NavLink)`
     svg {
       color: #fff;
     }
-  }
-`;
-
-const Container = styled.footer`
-  display: flex;
-  height: 60px;
-  background: #000;
-
-  ${mediaQuery.mobile} {
-    display: none;
   }
 `;
 

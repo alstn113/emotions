@@ -22,32 +22,57 @@ const SettingPage = () => {
 
   return (
     <TabLayout>
-      {user ? (
-        <Container>
-          <Text>My Account</Text>
-          <Text>Username: {user?.username}</Text>
-          <Text>Displayname: {user?.displayName}</Text>
-          <Button size="auto" shadow color="error" onClick={logout}>
-            Logout
-          </Button>
-        </Container>
-      ) : (
-        <Container>
-          <Text>Not Logged In</Text>
-          <StyledButton
-            size="auto"
-            shadow
-            color="secondary"
-            onClick={handleGithubLogin}
-          >
-            <GithubIcon />
-            <span>Login With Github</span>
-          </StyledButton>
-        </Container>
-      )}
+      <Container>
+        {user ? (
+          <Box>
+            <Text>My Account</Text>
+            <Text>Username: {user?.username}</Text>
+            <Text>Displayname: {user?.displayName}</Text>
+            <Button size="auto" shadow color="error" onClick={logout}>
+              Logout
+            </Button>
+          </Box>
+        ) : (
+          <Box>
+            <Text>Not Logged In</Text>
+            <StyledButton
+              size="auto"
+              shadow
+              color="secondary"
+              onClick={handleGithubLogin}
+            >
+              <GithubIcon />
+              <span>Login With Github</span>
+            </StyledButton>
+          </Box>
+        )}
+      </Container>
     </TabLayout>
   );
 };
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  margin: auto auto;
+  height: 25rem;
+  width: 16rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  padding: 1rem;
+  ${glassmorphism}
+`;
 
 const Text = styled.div`
   display: flex;
@@ -57,20 +82,6 @@ const Text = styled.div`
   font-weight: 700;
   color: #000;
   margin-bottom: 1rem;
-`;
-
-const Container = styled.div`
-  margin: auto auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 25rem;
-  width: 16rem;
-  border-radius: 20px;
-  border: 1px solid #e5e5e5;
-  padding: 1rem;
-  ${glassmorphism}
 `;
 
 const StyledButton = styled(Button)`

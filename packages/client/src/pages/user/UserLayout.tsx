@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
 import { Outlet, useParams, Link } from 'react-router-dom';
 import { Avatar } from '~/components/common';
 import { useGetUserByUsername } from '~/hooks/queries/user';
@@ -11,6 +12,11 @@ const UserLayout = () => {
     suspense: true,
   });
   const user = data as User; // suspense
+
+  // 새로운 유저 포스트를 불러올 때마다 스크롤을 맨 위로 올려준다.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [username]);
 
   return (
     <>

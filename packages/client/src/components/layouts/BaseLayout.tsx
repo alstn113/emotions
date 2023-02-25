@@ -1,6 +1,5 @@
 // components
 import styled from '@emotion/styled';
-import FullHeightScreen from '~/components/base/FullHeightScreen';
 import MobileHeader from '~/components/base/MobileHeader';
 import DesktopHeader from '~/components/base/DesktopHeader';
 
@@ -13,7 +12,7 @@ interface Props {
 
 const BaseLayout = ({ children, backButton, headerRight, title }: Props) => {
   return (
-    <FullHeightScreen>
+    <Block>
       <MobileHeader
         backButton={backButton}
         headerRight={headerRight}
@@ -21,15 +20,23 @@ const BaseLayout = ({ children, backButton, headerRight, title }: Props) => {
       />
       <DesktopHeader />
       <Content>{children}</Content>
-    </FullHeightScreen>
+    </Block>
   );
 };
+
+const Block = styled.div`
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  min-height: 100%;
+  height: 100%;
+`;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  overflow: scroll;
+  width: 100%;
+  height: 100%;
 `;
 
 export default BaseLayout;

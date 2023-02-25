@@ -9,7 +9,6 @@ import styled from '@emotion/styled';
 import Editor from '~/components/write/Editor';
 import Preview from '~/components/write/Preview';
 import PublishScreen from '~/components/write/publish/PublishScreen';
-import FullHeightScreen from '~/components/base/FullHeightScreen';
 
 const WritePage = () => {
   const { reset } = useWriteStore();
@@ -20,13 +19,11 @@ const WritePage = () => {
   }, [reset]);
 
   return (
-    <FullHeightScreen>
-      <Container>
-        <Editor />
-        <Preview />
-        <PublishScreen />
-      </Container>
-    </FullHeightScreen>
+    <Container>
+      <Editor />
+      <Preview />
+      <PublishScreen />
+    </Container>
   );
 };
 

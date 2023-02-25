@@ -33,8 +33,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <ReactQueryDevtools initialIsOpen={false} />
     <ThemeProvider theme={lightTheme}>
-      <GlobalStyle />
       <BrowserRouter>
+        <GlobalStyle />
         <App />
       </BrowserRouter>
       <ModalProvider />

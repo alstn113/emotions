@@ -1,6 +1,6 @@
 // components
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
+import { mediaQuery, zIndexes } from '~/lib/styles';
 import HeaderBackButton from '~/components/base/HeaderBackButton';
 import { Link } from 'react-router-dom';
 
@@ -29,11 +29,16 @@ const MobileHeader = ({
 };
 
 const Container = styled.header`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: ${zIndexes.Header};
+
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 4rem;
   padding: 0px 16px;
   background: #000;
 

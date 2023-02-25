@@ -2,7 +2,6 @@
 import styled from '@emotion/styled';
 import { extractError } from '~/lib/error';
 import { Button } from '../common';
-import BaseLayout from '../layouts/BaseLayout';
 
 interface Props {
   error: Error;
@@ -32,7 +31,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20vh;
 `;
 
 const Text = styled.div`
