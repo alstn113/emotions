@@ -36,7 +36,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
       <BrowserRouter>
-        <ScrollToTop />
         <App />
       </BrowserRouter>
       <ModalProvider />
