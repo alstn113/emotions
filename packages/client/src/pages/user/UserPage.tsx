@@ -4,13 +4,13 @@ import UserPostsTab from './tabs/UserPostsTab';
 import UserSeriesTab from './tabs/UserSeriesTab';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import ErrorFallback from '~/components/base/ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
 import UserPageSkeleton from '~/components/user/UserPageSkeleton';
 import UserLayout from './UserLayout';
 import TabLayout from '~/components/layouts/TabLayout';
 import { mediaQuery } from '~/lib/styles';
 import styled from '@emotion/styled';
+import UserPageErrorFallback from '~/components/user/UserPageFallback';
 
 const UserPage = () => {
   return (
@@ -21,13 +21,12 @@ const UserPage = () => {
             <ErrorBoundary
               onReset={reset}
               fallbackRender={({ error, resetErrorBoundary }) => (
-                <ErrorFallback
+                <UserPageErrorFallback
                   error={error}
                   resetErrorBoundary={resetErrorBoundary}
                 />
               )}
             >
-              {/* TODO: skeleton layout 수정 */}
               <Suspense fallback={<UserPageSkeleton />}>
                 <Routes>
                   <Route path="/" element={<UserLayout />}>
