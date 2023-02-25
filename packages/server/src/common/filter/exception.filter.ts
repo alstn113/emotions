@@ -3,6 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
+  Logger,
 } from '@nestjs/common';
 import { AppErrorException } from '../exceptions';
 
@@ -13,15 +14,21 @@ export class AppErrorExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const status = exception.getStatus();
 
+    Logger.error(exception.getResponse());
+
     if (exception instanceof AppErrorException) {
       return response.status(status).json(exception.getResponse());
     }
 
     // class validator를 위한 코드
     if (status == 400) {
+      const message = Array.isArray(exception.getResponse()['message'])
+        ? exception.getResponse()['message'][0]
+        : exception.getResponse()['message'] || 'Bad Request';
+
       return response.status(status).json({
         name: 'BadRequest',
-        message: exception.getResponse()['message'][0] || 'Bad Request',
+        message,
         statusCode: status,
       });
     }
