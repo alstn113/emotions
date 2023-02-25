@@ -5,7 +5,7 @@ import PostCardSkeleton from '../../home/skeleton/PostCardSkeleton';
 const UserPostsContentsSkeleton = () => {
   return (
     <Container>
-      {[1, 2, 3, 4, 5, 6]?.map((number) => {
+      {[1, 2, 3, 4]?.map((number) => {
         return <PostCardSkeleton key={number} />;
       })}
     </Container>

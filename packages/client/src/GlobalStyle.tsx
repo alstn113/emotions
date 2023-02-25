@@ -8,6 +8,11 @@ export const GlobalStyle = () => {
         * {
           box-sizing: border-box;
         }
+        html,
+        body,
+        #root {
+          height: 100%;
+        }
         input {
           outline: none;
           border: none;

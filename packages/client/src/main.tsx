@@ -12,7 +12,6 @@ import BottomSheetProvider from '~/components/base/BottomSheetProvider';
 import { ThemeProvider } from '@emotion/react';
 import { lightTheme } from '~/lib/styles/themes';
 import { GlobalStyle } from '~/GlobalStyle';
-import ScrollToTop from './components/base/ScrollToTop';
 import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient({

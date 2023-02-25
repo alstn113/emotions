@@ -5,7 +5,7 @@ import { useGetPostsByUsername } from '~/hooks/queries/post';
 import styled from '@emotion/styled';
 import PostCard from '../home/PostCard';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
-import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
+import UserPostsContentsSkeleton from './skeleton/UserPostsContentsSkeleton';
 
 interface Props {
   username: string;
@@ -34,7 +34,7 @@ const UserPostsContents = ({ username }: Props) => {
           page.list.map((post) => <PostCard key={post.id} post={post} />),
         )}
       </Container>
-      {isFetching && <PostListSkeleton />}
+      {isFetching && <UserPostsContentsSkeleton />}
       <InfiniteScrollTarget ref={targetElement} />
     </>
   );
