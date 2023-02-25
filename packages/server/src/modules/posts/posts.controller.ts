@@ -117,10 +117,7 @@ export class PostsController {
     @Body() dto: CreatePostDto,
     @GetCurrentUser() user: { userId: string; username: string },
   ): Promise<PostDto> {
-    console.log(1);
-
     const post = await this.postsService.createPost(dto, user);
-    console.log(1);
 
     return plainToInstance(PostDto, post, {
       excludeExtraneousValues: true,
