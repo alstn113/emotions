@@ -19,12 +19,11 @@ const shine = keyframes`
 `;
 
 const Container = styled.div`
-  margin-top: 2rem;
+  margin-top: 4rem;
   height: 200px;
   width: 100%;
   ${mediaQuery.desktop} {
-    width: 1200px;
-    margin: 0 auto;
+    width: 738px;
   }
   display: flex;
   flex-direction: column;

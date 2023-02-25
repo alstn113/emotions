@@ -27,6 +27,7 @@ const UserPage = () => {
                 />
               )}
             >
+              {/* TODO: skeleton layout 수정 */}
               <Suspense fallback={<UserPageSkeleton />}>
                 <Routes>
                   <Route path="/" element={<UserLayout />}>
@@ -48,7 +49,7 @@ const Container = styled.div`
   margin: 0 auto;
   width: 100%;
   ${mediaQuery.tablet} {
-    width: 736px;
+    width: 738px;
   }
   display: flex;
   flex-direction: column;

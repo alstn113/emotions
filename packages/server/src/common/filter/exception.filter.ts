@@ -17,6 +17,15 @@ export class AppErrorExceptionFilter implements ExceptionFilter {
       return response.status(status).json(exception.getResponse());
     }
 
+    // class validator를 위한 코드
+    if (status == 400) {
+      return response.status(status).json({
+        name: 'BadRequest',
+        message: exception.getResponse()['message'][0] || 'Bad Request',
+        statusCode: status,
+      });
+    }
+
     response.status(500).json({
       name: 'Unknown',
       statusCode: 500,

@@ -1,6 +1,5 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
+import { Outlet, useParams, Link } from 'react-router-dom';
 import { Avatar } from '~/components/common';
 import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
@@ -8,7 +7,6 @@ import { User } from '~/lib/types';
 
 const UserLayout = () => {
   const { username } = useParams() as { username: string };
-  const location = useLocation();
   const { data } = useGetUserByUsername(username, {
     suspense: true,
   });
@@ -24,24 +22,9 @@ const UserLayout = () => {
         </UserInfo>
       </UserProfileContainer>
       <TabsWrapper>
-        <TabItem
-          to={`/user/${username}`}
-          isActive={location.pathname === `/user/${username}`}
-        >
-          Posts
-        </TabItem>
-        <TabItem
-          to={`/user/${username}/series`}
-          isActive={location.pathname === `/user/${username}/series`}
-        >
-          Series
-        </TabItem>
-        <TabItem
-          to={`/user/${username}/about`}
-          isActive={location.pathname === `/user/${username}/about`}
-        >
-          About
-        </TabItem>
+        <TabItem to={`/user/${username}`}>Posts</TabItem>
+        <TabItem to={`/user/${username}/series`}>Series</TabItem>
+        <TabItem to={`/user/${username}/about`}>About</TabItem>
       </TabsWrapper>
       <Outlet />
     </>
@@ -64,7 +47,7 @@ const TabsWrapper = styled.div`
   margin-top: 2rem;
 `;
 
-const TabItem = styled(Link)<{ isActive: boolean }>`
+const TabItem = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,12 +59,6 @@ const TabItem = styled(Link)<{ isActive: boolean }>`
   &:hover {
     background-color: #e5e5e5;
   }
-
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      background-color: #d6d6d6;
-    `}
 `;
 
 const UserProfileContainer = styled.div`
