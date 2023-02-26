@@ -111,7 +111,7 @@ const DropdownMenu = styled(motion.div)`
   top: 60px;
   right: 10px;
   // 기준점
-  transform-origin: 70% top;
+  /* transform-origin: 70% top; */
   margin-top: 0.5rem;
   padding: 8px;
   background: #26292b;
