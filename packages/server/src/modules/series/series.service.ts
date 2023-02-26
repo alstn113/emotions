@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AppErrorException } from '~/common/exceptions';
+import { UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesRepository } from './series.repository';
 
@@ -85,6 +86,86 @@ export class SeriesService {
     await this.seriesRepository.updateSeriesCount(seriesId);
 
     return seriesPost;
+  }
+
+  async editSeries(seriesId: string, dto: UpdateSeriesDto, userId: string) {
+    // check if series exists
+    const series = await this.getSeriesById(userId, seriesId);
+
+    // check if user has permission to edit series
+    if (series.userId !== userId) {
+      throw new AppErrorException(
+        'Forbidden',
+        "You don't have permission to edit this series",
+      );
+    }
+
+    // check if series with this name already exists
+    const exists = await this.seriesRepository.findSeriesByUserId(
+      userId,
+      dto.name,
+    );
+
+    if (exists && exists.id !== seriesId) {
+      throw new AppErrorException(
+        'BadRequest',
+        'Series with this name already exists',
+      );
+    }
+
+    // update series name if needed
+    if (series.name !== dto.name) {
+      await this.seriesRepository.updateSeriesName(seriesId, dto.name);
+      series.name = dto.name;
+    }
+
+    // check if series posts order is valid
+    const seriesPosts = await this.seriesRepository.findSeriesPostsList(
+      seriesId,
+    );
+
+    const valid =
+      seriesPosts.length === dto.seriesOrder.length &&
+      seriesPosts.every((seriesPost) => {
+        return dto.seriesOrder.includes(seriesPost.postId);
+      });
+
+    if (!valid) {
+      throw new AppErrorException('BadRequest', 'Invalid series posts order');
+    }
+
+    // find out which posts were updated from series
+    type UpdateSeriesPost = {
+      id: string;
+      index: number;
+    };
+
+    const needToUpdate = seriesPosts.reduce<UpdateSeriesPost[]>(
+      (acc, seriesPost) => {
+        // find index of post in series order array
+        const index = dto.seriesOrder.indexOf(seriesPost.postId);
+        if (index !== seriesPost.index - 1) {
+          acc.push({
+            id: seriesPost.id,
+            index: index + 1,
+          });
+        }
+        return acc;
+      },
+      [],
+    );
+
+    // update series posts order if needed
+    await Promise.all(
+      needToUpdate.map((seriesPost) =>
+        this.seriesRepository.updateSeriesPostIndex(
+          seriesPost.id,
+          seriesPost.index,
+        ),
+      ),
+    );
+
+    return series;
   }
 
   async deleteSeries(seriesId: string, userId: string) {

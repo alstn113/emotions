@@ -135,6 +135,28 @@ export class SeriesRepository {
     });
   }
 
+  async updateSeriesName(seriesId: string, name: string) {
+    return await this.prisma.series.update({
+      where: {
+        id: seriesId,
+      },
+      data: {
+        name,
+      },
+    });
+  }
+
+  async updateSeriesPostIndex(postId: string, index: number) {
+    return await this.prisma.seriesPost.update({
+      where: {
+        postId,
+      },
+      data: {
+        index,
+      },
+    });
+  }
+
   async updateSeriesCount(seriesId: string) {
     const count = await this.prisma.seriesPost.count({
       where: { seriesId },

@@ -146,6 +146,7 @@ export class PostsController {
     });
   }
 
+  //TODO: series update 해야함
   @Delete(':postId')
   async deletePost(
     @Param('postId') postId: string,
