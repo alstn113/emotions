@@ -152,6 +152,7 @@ const MenuItem = styled(motion.div)<{ red?: boolean }>`
   justify-content: center;
   border-radius: 9px;
   cursor: pointer;
+  z-index: ${zIndexes.popper};
   &:hover {
     background-color: #495057;
   }

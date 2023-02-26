@@ -40,10 +40,8 @@ export const GlobalStyle = () => {
         body {
           font-family: 'Roboto', sans-serif;
         }
-        // 모바일에서 터치시 하이라이트 제거
-        // 근데 transparent로 하면 안되고 rgba로 해야함
         * {
-          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          -webkit-tap-highlight-color: transparent !important;
         }
       `}
     />
