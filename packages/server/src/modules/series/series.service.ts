@@ -47,7 +47,6 @@ export class SeriesService {
     return await this.seriesRepository.createSeries(dto, userId);
   }
 
-  //TODO: check post exists
   async appendPostToSeries(seriesId: string, postId: string, userId: string) {
     const series = await this.getSeriesById(userId, seriesId);
     if (series.userId !== userId)
@@ -56,10 +55,31 @@ export class SeriesService {
         "You don't have permission to append post this series",
       );
 
+    // check if post is already included in series
+    const seriesPostsList = await this.seriesRepository.findSeriesPostsList(
+      seriesId,
+    );
+
+    const postExists = seriesPostsList.find(
+      (seriesPost) => seriesPost.postId === postId,
+    );
+
+    if (postExists) {
+      throw new AppErrorException(
+        'BadRequest',
+        'Post is already in this series',
+      );
+    }
+
+    const nextIndex =
+      seriesPostsList.length === 0
+        ? 1
+        : seriesPostsList[seriesPostsList.length - 1].index + 1;
+
     const seriesPost = await this.seriesRepository.createSeriesPost(
       series.id,
       postId,
-      series.postsCount + 1,
+      nextIndex,
     );
 
     await this.seriesRepository.updateSeriesCount(seriesId);
@@ -67,7 +87,6 @@ export class SeriesService {
     return seriesPost;
   }
 
-  // TODO: remove post from series
   async deleteSeries(seriesId: string, userId: string) {
     const series = await this.getSeriesById(userId, seriesId);
     if (series.userId !== userId)
