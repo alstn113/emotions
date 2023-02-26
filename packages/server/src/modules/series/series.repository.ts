@@ -43,6 +43,25 @@ export class SeriesRepository {
     });
   }
 
+  async findSeriesPostsList(seriesId: string) {
+    return await this.prisma.seriesPost.findMany({
+      where: { seriesId },
+      include: {
+        post: {
+          select: {
+            id: true,
+            title: true,
+            thumbnail: true,
+            slug: true,
+          },
+        },
+      },
+      orderBy: {
+        index: 'asc',
+      },
+    });
+  }
+
   async findSeriesByUserId(userId: string, seriesName: string) {
     return await this.prisma.series.findUnique({
       where: {

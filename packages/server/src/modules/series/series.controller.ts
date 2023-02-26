@@ -62,7 +62,7 @@ export class SeriesController {
   }
 
   @Post(':seriesId/post/:postId')
-  async appendPostToSeries(
+  async appendToSeries(
     @Param('seriesId') seriesId: string,
     @Param('postId') postId: string,
     @GetCurrentUser('userId') userId: string,

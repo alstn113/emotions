@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
 import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
 import { mediaQuery } from '~/lib/styles';
@@ -17,7 +17,10 @@ const SeriesPage = () => {
         <div>{series?.name}</div>
         <div>{series?.postsCount}</div>
         {series?.seriesPosts?.map((seriesPost) => (
-          <SerisePostItem key={seriesPost.id}>
+          <SerisePostItem
+            key={seriesPost.id}
+            to={`/user/${username}/post/${seriesPost.post.slug}`}
+          >
             <div>{seriesPost.id}</div>
             <div>{seriesPost.index}</div>
             <div>{seriesPost.post.title}</div>
@@ -39,7 +42,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const SerisePostItem = styled.div`
+const SerisePostItem = styled(Link)`
   width: 100%;
   display: flex;
   flex-direction: column;
