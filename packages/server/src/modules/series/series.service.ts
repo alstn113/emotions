@@ -16,13 +16,13 @@ export class SeriesService {
       username,
       seriesName,
     );
-    if (!series) throw new AppErrorException('NotFound', 'Series not found');
+    if (!series) throw new AppErrorException('NotFound', 'Series is not found');
     return series;
   }
 
   async getSeriesById(userId: string, seriesId: string) {
     const series = await this.seriesRepository.findSeriesById(userId, seriesId);
-    if (!series) throw new AppErrorException('NotFound', 'Series not found');
+    if (!series) throw new AppErrorException('NotFound', 'Series is not found');
     return series;
   }
 
