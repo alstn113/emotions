@@ -30,4 +30,5 @@ jobs:
 
           script: |
             cd ~/Emotions
+            git stash && git pull origin main
             ./scripts/deploy.sh
