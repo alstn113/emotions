@@ -99,7 +99,7 @@ export type SeriesList = Series[];
 export interface Series {
   id: string;
   name: string;
-  postsCount: 0;
+  postsCount: number;
   userId: string;
   seriesPosts: SeriesPost[];
   createdAt: string;

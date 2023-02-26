@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Series } from '@prisma/client';
 import { AppErrorException } from '~/common/exceptions';
 import { UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
@@ -9,7 +10,9 @@ export class SeriesService {
   constructor(private readonly seriesRepository: SeriesRepository) {}
 
   async getUserSeriesList(username: string) {
-    return await this.seriesRepository.findUserSeriesList(username);
+    const seriesList = await this.seriesRepository.findUserSeriesList(username);
+
+    return seriesList.map((series) => this.seriesWithPostsCount(series));
   }
 
   async getSeriesByName(username: string, seriesName: string) {
@@ -18,7 +21,7 @@ export class SeriesService {
       seriesName,
     );
     if (!series) throw new AppErrorException('NotFound', 'Series is not found');
-    return series;
+    return this.seriesWithPostsCount(series);
   }
 
   async getSeriesById(userId: string, seriesId: string) {
@@ -37,6 +40,17 @@ export class SeriesService {
       postId,
     );
     return seriesPost;
+  }
+
+  private seriesWithPostsCount<
+    T extends Series & {
+      seriesPosts: any[];
+    },
+  >(series: T) {
+    return {
+      ...series,
+      postsCount: series.seriesPosts.length,
+    };
   }
 
   async createSeries(dto: CreateSeriestDto, userId: string) {
@@ -88,8 +102,6 @@ export class SeriesService {
       postId,
       nextIndex,
     );
-
-    await this.seriesRepository.updateSeriesCount(seriesId);
 
     return seriesPost;
   }
@@ -171,7 +183,7 @@ export class SeriesService {
       ),
     );
 
-    return await this.seriesRepository.updateSeriesCount(seriesId);
+    return series;
   }
 
   async deleteSeries(seriesId: string, userId: string) {

@@ -12,6 +12,9 @@ export class SeriesRepository {
       orderBy: {
         createdAt: 'asc',
       },
+      include: {
+        seriesPosts: true,
+      },
     });
   }
 
@@ -161,21 +164,6 @@ export class SeriesRepository {
       },
       data: {
         index,
-      },
-    });
-  }
-
-  async updateSeriesCount(seriesId: string) {
-    const count = await this.prisma.seriesPost.count({
-      where: { seriesId },
-    });
-
-    return await this.prisma.series.update({
-      where: {
-        id: seriesId,
-      },
-      data: {
-        postsCount: count,
       },
     });
   }

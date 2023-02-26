@@ -19,7 +19,6 @@ const SeriesPage = () => {
     <TabLayout>
       <Container>
         <div>{series?.name}</div>
-        <div>{series?.postsCount}</div>
         {series?.seriesPosts?.map((seriesPost) => (
           <SerisePostItem
             key={seriesPost.id}
