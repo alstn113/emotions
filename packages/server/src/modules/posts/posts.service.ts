@@ -184,9 +184,24 @@ export class PostsService {
   }
 
   async deletePost({ userId, postId }: PostActionParams) {
+    // check if post exists
     const post = await this.getPost(postId);
+
+    // check if user is the author
     if (post.userId !== userId)
       throw new AppErrorException('Forbidden', 'You are not the author');
+
+    // if post is in series, subtract index after the post
+    const seriesPost = await this.seriesService.getSeriesPostByPostId(postId);
+
+    if (seriesPost) {
+      await this.seriesService.subtractIndexAfter(
+        seriesPost.seriesId,
+        seriesPost.index,
+      );
+    }
+
+    // delete image
     if (post.thumbnail) await this.deleteImage(post.thumbnail);
     await this.postRepository.deletePost(postId);
   }

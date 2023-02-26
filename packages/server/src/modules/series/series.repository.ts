@@ -15,6 +15,14 @@ export class SeriesRepository {
     });
   }
 
+  async findSeriesPostByPostId(postId: string) {
+    return await this.prisma.seriesPost.findUnique({
+      where: {
+        postId,
+      },
+    });
+  }
+
   async findSeriesByName(username: string, seriesName: string) {
     const user = await this.prisma.user.findUnique({
       where: { username },
@@ -168,6 +176,22 @@ export class SeriesRepository {
       },
       data: {
         postsCount: count,
+      },
+    });
+  }
+
+  async subtractIndexAfter(seriesId: string, index: number) {
+    return await this.prisma.seriesPost.updateMany({
+      where: {
+        seriesId,
+        index: {
+          gt: index,
+        },
+      },
+      data: {
+        index: {
+          decrement: 1,
+        },
       },
     });
   }

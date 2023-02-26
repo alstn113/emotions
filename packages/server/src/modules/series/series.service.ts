@@ -32,7 +32,13 @@ export class SeriesService {
     return series;
   }
 
-  //TODO: series url slug
+  async getSeriesPostByPostId(postId: string) {
+    const seriesPost = await this.seriesRepository.findSeriesPostByPostId(
+      postId,
+    );
+    return seriesPost;
+  }
+
   async createSeries(dto: CreateSeriestDto, userId: string) {
     const exists = await this.seriesRepository.findSeriesByUserId(
       userId,
@@ -176,5 +182,9 @@ export class SeriesService {
         "You don't have permission to delete this series",
       );
     return await this.seriesRepository.deleteSeries(seriesId);
+  }
+
+  async subtractIndexAfter(seriesId: string, afterIndex: number) {
+    await this.seriesRepository.subtractIndexAfter(seriesId, afterIndex);
   }
 }
