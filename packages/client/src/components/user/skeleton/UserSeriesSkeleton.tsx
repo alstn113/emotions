@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { mediaQuery } from '~/lib/styles';
 
@@ -11,6 +12,18 @@ const UserSeriesSkeleton = () => {
   );
 };
 
+const shine = keyframes`
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+`;
+
 const SeriesItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,13 +33,9 @@ const SeriesItem = styled.div`
   height: 400px;
   border-radius: 10px;
   background-color: #f5f5f5;
-  transition: background-color 0.2s ease-in-out;
+  transition: ${shine} 1s ease-in-out infinite;
   cursor: pointer;
   font-size: 2rem;
-
-  &:hover {
-    background-color: #e5e5e5;
-  }
 
   ${mediaQuery.tablet} {
     font-size: 1.5rem;
