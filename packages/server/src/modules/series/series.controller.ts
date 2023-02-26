@@ -1,8 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { GetCurrentUser, Public } from '~/common/decorators';
-import { SeriesDto, SeriesPostDto } from './dto';
+import { SeriesDto, SeriesPostDto, UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesService } from './series.service';
 
@@ -78,4 +86,21 @@ export class SeriesController {
   }
 
   //TODO: add edit series controller
+  // patch는 일부만 수정할 때 사용, put은 전체를 수정할 때 사용
+  @Patch(':seriesId')
+  async editSeries(
+    @Param('seriesId') seriesId: string,
+    @Body() dto: UpdateSeriesDto,
+    @GetCurrentUser('userId') userId: string,
+  ): Promise<SeriesDto> {
+    const editedSeries = await this.seriesService.editSeries(
+      seriesId,
+      dto,
+      userId,
+    );
+
+    return plainToInstance(SeriesDto, editedSeries, {
+      excludeExtraneousValues: true,
+    });
+  }
 }

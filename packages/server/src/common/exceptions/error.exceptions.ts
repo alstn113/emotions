@@ -30,6 +30,13 @@ export const errors = {
 type ErrorName = keyof typeof errors;
 
 export class AppErrorException extends HttpException {
+  /**
+   * @NotFound - 요청한 리소스가 없는 경우
+   * @Unauthorized - 인증이 필요한 경우
+   * @Forbidden - 권한이 없는 경우
+   * @BadRequest - 잘못된 요청인 경우
+   * @Unknown - 알 수 없는 에러인 경우
+   */
   constructor(name: ErrorName, message?: string) {
     const errorInfo = errors[name];
     super(

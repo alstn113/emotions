@@ -12,6 +12,17 @@ export class SeriesRepository {
       orderBy: {
         createdAt: 'asc',
       },
+      include: {
+        seriesPosts: true,
+      },
+    });
+  }
+
+  async findSeriesPostByPostId(postId: string) {
+    return await this.prisma.seriesPost.findUnique({
+      where: {
+        postId,
+      },
     });
   }
 
@@ -135,17 +146,40 @@ export class SeriesRepository {
     });
   }
 
-  async updateSeriesCount(seriesId: string) {
-    const count = await this.prisma.seriesPost.count({
-      where: { seriesId },
-    });
-
+  async updateSeriesName(seriesId: string, name: string) {
     return await this.prisma.series.update({
       where: {
         id: seriesId,
       },
       data: {
-        postsCount: count,
+        name,
+      },
+    });
+  }
+
+  async updateSeriesPostIndex(postId: string, index: number) {
+    return await this.prisma.seriesPost.update({
+      where: {
+        postId,
+      },
+      data: {
+        index,
+      },
+    });
+  }
+
+  async subtractIndexAfter(seriesId: string, index: number) {
+    return await this.prisma.seriesPost.updateMany({
+      where: {
+        seriesId,
+        index: {
+          gt: index,
+        },
+      },
+      data: {
+        index: {
+          decrement: 1,
+        },
       },
     });
   }

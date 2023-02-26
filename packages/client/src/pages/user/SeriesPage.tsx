@@ -4,18 +4,21 @@ import TabLayout from '~/components/layouts/TabLayout';
 import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
 import { mediaQuery } from '~/lib/styles';
 
+// TODO: 여기 뭔가 deploy된 거 에러남
+// suspense 달아줘야하나?
 const SeriesPage = () => {
   const { username, seriesName } = useParams() as {
     username: string;
     seriesName: string;
   };
 
-  const { data: series } = useGetUserSeriesByName(username, seriesName);
+  const { data: series } = useGetUserSeriesByName(username, seriesName, {
+    suspense: true,
+  });
   return (
     <TabLayout>
       <Container>
         <div>{series?.name}</div>
-        <div>{series?.postsCount}</div>
         {series?.seriesPosts?.map((seriesPost) => (
           <SerisePostItem
             key={seriesPost.id}
