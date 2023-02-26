@@ -29,5 +29,5 @@ jobs:
           timeout: 40s
 
           script: |
-            cd ~/Emotions/ && git stash && git pull origin main
-            ./deploy.sh
+            cd ~/Emotions
+            ./scripts/deploy.sh
