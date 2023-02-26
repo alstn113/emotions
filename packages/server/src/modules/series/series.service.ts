@@ -165,7 +165,7 @@ export class SeriesService {
       ),
     );
 
-    return series;
+    return await this.seriesRepository.updateSeriesCount(seriesId);
   }
 
   async deleteSeries(seriesId: string, userId: string) {
