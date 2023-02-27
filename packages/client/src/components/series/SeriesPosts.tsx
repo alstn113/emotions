@@ -1,21 +1,16 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
+import { SeriesPost } from '~/lib/types';
 
 interface Props {
+  seriesPosts: SeriesPost[];
   username: string;
-  seriesName: string;
 }
 
-const SeriesPageContents = ({ username, seriesName }: Props) => {
-  const { data: series } = useGetUserSeriesByName(username, seriesName, {
-    suspense: true,
-  });
-
+const SeriesPosts = ({ seriesPosts, username }: Props) => {
   return (
     <div>
-      <div>{series?.name}</div>
-      {series?.seriesPosts?.map((seriesPost) => (
+      {seriesPosts?.map((seriesPost) => (
         <SerisePostItem
           key={seriesPost.id}
           to={`/user/${username}/post/${seriesPost.post.slug}`}
@@ -47,4 +42,4 @@ const SerisePostItem = styled(Link)`
   }
 `;
 
-export default SeriesPageContents;
+export default SeriesPosts;

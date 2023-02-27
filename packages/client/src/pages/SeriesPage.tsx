@@ -4,10 +4,10 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useParams } from 'react-router-dom';
 import TabLayout from '~/components/layouts/TabLayout';
-import SeriesPageContents from '~/components/user/SeriesPageContents';
-import SeriesContentsSkeleton from '~/components/user/skeleton/SeriesContentsSkeleton';
+import SeriesPageContents from '~/components/series/SeriesPageContents';
+import SeriesContentsSkeleton from '~/components/series/skeleton/SeriesContentsSkeleton';
 import { mediaQuery } from '~/lib/styles';
-import SeriesPageErrorFallback from '../../components/user/SeriesPageErrorFallback';
+import SeriesPageErrorFallback from '../components/user/SeriesPageErrorFallback';
 
 //TODO: fallback 보완
 const SeriesPage = () => {
@@ -46,8 +46,9 @@ const SeriesPage = () => {
 
 const Container = styled.div`
   padding: 16px;
-  ${mediaQuery.desktop} {
-    width: 1200px;
+  width: 100%;
+  ${mediaQuery.tablet} {
+    width: 768px;
     margin: 0 auto;
   }
   display: flex;

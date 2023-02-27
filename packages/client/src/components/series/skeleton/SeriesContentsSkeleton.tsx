@@ -9,7 +9,7 @@ const Container = styled.div`
   margin-top: 4rem;
   height: 200px;
   width: 100%;
-  ${mediaQuery.desktop} {
+  ${mediaQuery.tablet} {
     width: 738px;
   }
   display: flex;
