@@ -1,22 +1,9 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
+import { mediaQuery, shine } from '~/lib/styles';
 
 const UserPageSkeleton = () => {
   return <Container />;
 };
-
-const shine = keyframes`
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.6;
-  }
-`;
 
 const Container = styled.div`
   margin-top: 4rem;

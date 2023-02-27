@@ -40,8 +40,10 @@ export const GlobalStyle = () => {
         body {
           font-family: 'Roboto', sans-serif;
         }
+        // 모바일에서 tap highlight 제거
+        // transparent로 하면 안됨 (투명하게 보이는 경우가 있음)
         * {
-          -webkit-tap-highlight-color: transparent !important;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
       `}
     />

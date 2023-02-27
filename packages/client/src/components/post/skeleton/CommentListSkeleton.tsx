@@ -1,6 +1,6 @@
 // components
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { shine } from '~/lib/styles';
 
 const CommentListSkeleton = () => {
   return (
@@ -11,18 +11,6 @@ const CommentListSkeleton = () => {
     </Container>
   );
 };
-
-const shine = keyframes`
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.6;
-  }
-`;
 
 const Container = styled.div`
   display: flex;

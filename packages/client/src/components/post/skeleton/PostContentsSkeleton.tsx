@@ -1,6 +1,6 @@
 // components
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { shine } from '~/lib/styles';
 
 const PostContentsSkeleton = () => {
   return (
@@ -21,18 +21,6 @@ const PostContentsSkeleton = () => {
     </>
   );
 };
-
-const shine = keyframes`
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.6;
-  }
-`;
 
 const Title = styled.div`
   height: 2.5rem;

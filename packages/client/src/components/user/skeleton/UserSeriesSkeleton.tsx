@@ -1,6 +1,5 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
+import { mediaQuery, shine } from '~/lib/styles';
 
 const UserSeriesSkeleton = () => {
   return (
@@ -11,18 +10,6 @@ const UserSeriesSkeleton = () => {
     </>
   );
 };
-
-const shine = keyframes`
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.6;
-  }
-`;
 
 const SeriesItem = styled.div`
   display: flex;
