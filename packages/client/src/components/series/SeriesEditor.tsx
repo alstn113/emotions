@@ -72,7 +72,9 @@ const SeriesEditor = ({ seriesPosts, onChangeSeriesOrder }: Props) => {
 };
 
 const DroppableBlock = styled.div<{ isDraggingOver: boolean }>`
-  background: ${(props) => (props.isDraggingOver ? 'gray' : 'red')};
+  transition: background-color 0.1s ease-in-out;
+  background-color: ${(props) =>
+    props.isDraggingOver ? '#dafc55' : '#ecff9f'};
   border-radius: 4px;
   padding: 1.5rem;
   padding-bottom: 0.5rem;
@@ -80,7 +82,7 @@ const DroppableBlock = styled.div<{ isDraggingOver: boolean }>`
 
 const DraggableBlock = styled.div<{ isDragging: boolean }>`
   user-select: none;
-  background-color: #ccc;
+  background-color: #b7bfff;
   padding: 1.5rem;
   border-radius: 10px;
   ${(props) =>
@@ -91,6 +93,11 @@ const DraggableBlock = styled.div<{ isDragging: boolean }>`
       : css`
           opacity: 1;
         `}
+
+  transition: background-color 0.1s ease-in-out;
+  &:hover {
+    background-color: #95a1fb;
+  }
   margin-bottom: 1rem;
 `;
 

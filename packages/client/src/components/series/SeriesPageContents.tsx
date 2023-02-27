@@ -4,6 +4,7 @@ import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByNam
 import useDisclosure from '~/hooks/useDisclosure';
 import useUser from '~/hooks/useUser';
 import { Series } from '~/lib/types';
+import useModalStore from '~/stores/useModalStore';
 import SeriesActionButtons from './SeriesActionButtons';
 import SeriesEditor from './SeriesEditor';
 import SeriesPosts from './SeriesPosts';
@@ -18,13 +19,35 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
     suspense: true,
   });
   const series = data as Series; // suspense
+
   const user = useUser();
   const { isOpen: isEditing, onToggle: toggleEditing } = useDisclosure({
     defaultIsOpen: false,
   });
+  const { openModal } = useModalStore();
 
   const [order, setOrder] = useState<string[]>([]);
   const isMySeries = data?.userId === user?.id;
+
+  const handleApply = () => {
+    openModal({
+      title: '시리즈 수정',
+      message: '정말로 시리즈를 수정하시겠습니까?',
+      onConfirm: () => {
+        // empty
+      },
+    });
+  };
+
+  const handleDelete = () => {
+    openModal({
+      title: '시리즈 삭제',
+      message: '정말로 시리즈를 삭제하시겠습니까?',
+      onConfirm: () => {
+        // empty
+      },
+    });
+  };
 
   return (
     <Container>
@@ -34,12 +57,8 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
           <SeriesActionButtons
             isEditing={isEditing}
             onEdit={toggleEditing}
-            onApply={() => {
-              // empty
-            }}
-            onDelete={() => {
-              // empty
-            }}
+            onApply={handleApply}
+            onDelete={handleDelete}
           />
         )}
       </div>

@@ -17,18 +17,18 @@ const SeriesActionButtons = ({
   return (
     <Container>
       {isEditing ? (
+        <Button shadow color="success" onClick={onApply}>
+          Apply
+        </Button>
+      ) : (
         <ButtonsWrapper>
-          <Button shadow color="success" onClick={onApply}>
-            Apply
+          <Button shadow color="warning" onClick={onEdit}>
+            Edit
           </Button>
           <Button shadow color="error" onClick={onDelete}>
             Delete
           </Button>
         </ButtonsWrapper>
-      ) : (
-        <Button shadow color="warning" onClick={onEdit}>
-          Edit
-        </Button>
       )}
     </Container>
   );
