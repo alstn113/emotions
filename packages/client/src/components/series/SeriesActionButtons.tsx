@@ -6,6 +6,7 @@ interface Props {
   onEdit: () => void;
   onApply: () => void;
   onDelete: () => void;
+  onCancel: () => void;
 }
 
 const SeriesActionButtons = ({
@@ -13,13 +14,19 @@ const SeriesActionButtons = ({
   onEdit,
   onApply,
   onDelete,
+  onCancel,
 }: Props) => {
   return (
     <Container>
       {isEditing ? (
-        <Button shadow color="success" onClick={onApply}>
-          Apply
-        </Button>
+        <ButtonsWrapper>
+          <Button shadow color="success" onClick={onApply}>
+            Apply
+          </Button>
+          <Button shadow color="error" onClick={onCancel}>
+            Cancel
+          </Button>
+        </ButtonsWrapper>
       ) : (
         <ButtonsWrapper>
           <Button shadow color="warning" onClick={onEdit}>

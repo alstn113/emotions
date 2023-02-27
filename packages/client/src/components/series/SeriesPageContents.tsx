@@ -59,6 +59,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
             onEdit={toggleEditing}
             onApply={handleApply}
             onDelete={handleDelete}
+            onCancel={toggleEditing}
           />
         )}
       </div>
