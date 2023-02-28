@@ -16,7 +16,7 @@ export interface Post {
   slug: string;
   description: string;
   body: string;
-  thumbnail: string | null;
+  thumbnail?: string;
   userId: string;
   user: User;
   comments: Comment[];

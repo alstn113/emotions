@@ -18,7 +18,7 @@ const PostCard = ({ post }: Props) => {
   return (
     <Card>
       <CardHeader to={link}>
-        <Thumbnail src={post.thumbnail || ''} />
+        <Thumbnail src={post.thumbnail} />
       </CardHeader>
       <CardBody to={link}>
         <h3>{post.title}</h3>
