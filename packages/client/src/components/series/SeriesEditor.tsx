@@ -91,7 +91,7 @@ const DraggableBlock = styled.div<{ isDragging: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #fbd892;
+  background-color: #fff;
   padding: 2rem;
   transition: all 0.2s ease-in-out;
   border-radius: 10px;
@@ -106,7 +106,7 @@ const DraggableBlock = styled.div<{ isDragging: boolean }>`
 
   transition: background-color 0.1s ease-in-out;
   &:hover {
-    background-color: #fecf70;
+    background-color: #ebebeb;
   }
 `;
 
