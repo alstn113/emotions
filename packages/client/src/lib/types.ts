@@ -118,3 +118,9 @@ export interface AppendToPostSeriesParams {
   seriesId: string;
   postId: string;
 }
+
+export interface EditSeriesParams {
+  seriesId: string;
+  name: string;
+  seriesOrder: string[];
+}

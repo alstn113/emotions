@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import useEditSeries from '~/hooks/queries/series/useEditSeries';
 import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
 import useDisclosure from '~/hooks/useDisclosure';
 import useUser from '~/hooks/useUser';
+import { extractError } from '~/lib/error';
 import { Series } from '~/lib/types';
 import useModalStore from '~/stores/useModalStore';
 import SeriesActionButtons from './SeriesActionButtons';
@@ -19,6 +22,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
     suspense: true,
   });
   const series = data as Series; // suspense
+  const queryClient = useQueryClient();
 
   const user = useUser();
   const { isOpen: isEditing, onToggle: toggleEditing } = useDisclosure({
@@ -26,15 +30,38 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
   });
   const { openModal } = useModalStore();
 
+  const [name, setName] = useState(series?.name);
   const [order, setOrder] = useState<string[]>([]);
   const isMySeries = data?.userId === user?.id;
+
+  useEffect(() => {
+    setName(series.name);
+    setOrder(series.seriesPosts.map((item) => item.id));
+  }, [series]);
+
+  const { mutate } = useEditSeries({
+    onSuccess: async () => {
+      await queryClient.refetchQueries(
+        useGetUserSeriesByName.getKey(username, seriesName),
+      );
+      toggleEditing();
+    },
+    onError: (e) => {
+      const error = extractError(e);
+      alert(error.message);
+    },
+  });
 
   const handleApply = () => {
     openModal({
       title: '시리즈 수정',
-      message: '정말로 시리즈를 수정하시겠습니까?',
+      message: '정말로 시리즈를 수정하시겠습니까?s',
       onConfirm: () => {
-        // empty
+        mutate({
+          seriesId: series.id,
+          name,
+          seriesOrder: order,
+        });
       },
     });
   };
@@ -42,7 +69,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
   const handleDelete = () => {
     openModal({
       title: '시리즈 삭제',
-      message: '정말로 시리즈를 삭제하시겠습니까?',
+      message: '시리즈를 삭제해도 포스트는 삭제되지 않습니다.',
       onConfirm: () => {
         // empty
       },

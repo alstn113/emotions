@@ -144,15 +144,15 @@ export class SeriesService {
 
     const valid =
       seriesPosts.length === dto.seriesOrder.length &&
-      seriesPosts.every((seriesPost) => {
-        return dto.seriesOrder.includes(seriesPost.postId);
-      });
+      seriesPosts.every((seriesPost) =>
+        dto.seriesOrder.includes(seriesPost.id),
+      );
 
     if (!valid) {
       throw new AppErrorException('BadRequest', 'Invalid series posts order');
     }
 
-    // find out which posts were updated from series
+    // find out which seriesPosts were updated from series
     type UpdateSeriesPost = {
       id: string;
       index: number;
@@ -160,13 +160,14 @@ export class SeriesService {
 
     const needToUpdate = seriesPosts.reduce<UpdateSeriesPost[]>(
       (acc, seriesPost) => {
-        // find index of post in series order array
-        const index = dto.seriesOrder.indexOf(seriesPost.postId);
-        if (index !== seriesPost.index - 1) {
+        // find index of seriesPost in series order array
+        const index = dto.seriesOrder.indexOf(seriesPost.id);
+        if (index + 1 !== seriesPost.index) {
           acc.push({
             id: seriesPost.id,
             index: index + 1,
           });
+          return acc;
         }
         return acc;
       },

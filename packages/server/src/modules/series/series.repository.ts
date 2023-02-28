@@ -49,6 +49,9 @@ export class SeriesRepository {
               },
             },
           },
+          orderBy: {
+            index: 'asc',
+          },
         },
       },
     });
@@ -116,6 +119,9 @@ export class SeriesRepository {
               },
             },
           },
+          orderBy: {
+            index: 'asc',
+          },
         },
       },
     });
@@ -157,10 +163,10 @@ export class SeriesRepository {
     });
   }
 
-  async updateSeriesPostIndex(postId: string, index: number) {
+  async updateSeriesPostIndex(seriesPostId: string, index: number) {
     return await this.prisma.seriesPost.update({
       where: {
-        postId,
+        id: seriesPostId,
       },
       data: {
         index,
