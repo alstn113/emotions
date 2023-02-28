@@ -13,6 +13,7 @@ import { Series } from '~/lib/types';
 import useModalStore from '~/stores/useModalStore';
 import SeriesActionButtons from './SeriesActionButtons';
 import SeriesEditor from './SeriesEditor';
+import SeriesNameEditor from './SeriesNameEditor';
 import SeriesPosts from './SeriesPosts';
 
 interface Props {
@@ -34,12 +35,12 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
   });
   const { openModal } = useModalStore();
 
-  const [name, setName] = useState(series?.name);
+  const [nextSeriesName, setNextSeriesName] = useState(series?.name);
   const [order, setOrder] = useState<string[]>([]);
   const isMySeries = data?.userId === user?.id;
 
   useEffect(() => {
-    setName(series.name);
+    setNextSeriesName(series.name);
     setOrder(series.seriesPosts.map((item) => item.id));
   }, [series]);
 
@@ -48,6 +49,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
       await queryClient.refetchQueries(
         useGetUserSeriesByName.getKey(username, seriesName),
       );
+      navigate(`/user/${username}/series/${nextSeriesName}`);
       toggleEditing();
     },
     onError: (e) => {
@@ -67,6 +69,10 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
     },
   });
 
+  const handleChangeNextName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNextSeriesName(e.target.value);
+  };
+
   const handleApply = () => {
     openModal({
       title: '시리즈 수정',
@@ -74,7 +80,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
       onConfirm: () => {
         editSeries({
           seriesId: series.id,
-          name,
+          name: nextSeriesName,
           seriesOrder: order,
         });
       },
@@ -93,18 +99,22 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
 
   return (
     <Container>
-      <div>{series?.name}</div>
-      <div>
-        {isMySeries && (
-          <SeriesActionButtons
-            isEditing={isEditing}
-            onEdit={toggleEditing}
-            onApply={handleApply}
-            onDelete={handleDelete}
-            onCancel={toggleEditing}
-          />
-        )}
-      </div>
+      <SeriesNameEditor
+        isEditing={isEditing}
+        nextSeriesName={nextSeriesName}
+        onChangeNextName={handleChangeNextName}
+        seriesName={series.name}
+      />
+
+      {isMySeries && (
+        <SeriesActionButtons
+          isEditing={isEditing}
+          onEdit={toggleEditing}
+          onApply={handleApply}
+          onDelete={handleDelete}
+          onCancel={toggleEditing}
+        />
+      )}
 
       {isEditing ? (
         <SeriesEditor
