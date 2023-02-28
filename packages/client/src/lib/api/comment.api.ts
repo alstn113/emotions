@@ -2,7 +2,7 @@ import { API } from '~/constants';
 import { CreateCommentParams, Comment } from '~/lib/types';
 import apiClient from './apiClient';
 
-const CommentAPI = {
+export const CommentAPI = {
   createComment: async (params: CreateCommentParams): Promise<Comment> => {
     const { data } = await apiClient.post(`${API.COMMENT}`, params);
     return data;
@@ -22,5 +22,3 @@ const CommentAPI = {
     return data;
   },
 };
-
-export default CommentAPI;

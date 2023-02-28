@@ -1,4 +1,4 @@
-import SeriesAPI from '~/lib/api/series';
+import { SeriesAPI } from '~/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
 

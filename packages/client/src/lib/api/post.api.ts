@@ -11,7 +11,7 @@ import {
 import apiClient from './apiClient';
 import qs from 'qs';
 
-const PostAPI = {
+export const PostAPI = {
   getPosts: async (cursor?: string): Promise<PostList> => {
     const { data } = await apiClient.get(
       `${API.POST}`.concat(qs.stringify({ cursor }, { addQueryPrefix: true })),
@@ -91,5 +91,3 @@ const PostAPI = {
     return data;
   },
 };
-
-export default PostAPI;

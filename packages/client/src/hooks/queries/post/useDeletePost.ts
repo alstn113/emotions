@@ -1,4 +1,4 @@
-import PostAPI from '~/lib/api/post';
+import { PostAPI } from '~/lib/api';
 import { useMutation } from '@tanstack/react-query';
 import type { UseMutationOptionsOf } from '~/hooks/queries/types';
 

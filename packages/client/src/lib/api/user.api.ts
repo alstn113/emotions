@@ -2,7 +2,7 @@ import { API } from '~/constants';
 import { User } from '~/lib/types';
 import apiClient from './apiClient';
 
-const UserAPI = {
+export const UserAPI = {
   getMe: async (): Promise<User | null> => {
     const { data } = await apiClient.get(`${API.USER}/me`);
     return data;
@@ -13,5 +13,3 @@ const UserAPI = {
     return data;
   },
 };
-
-export default UserAPI;

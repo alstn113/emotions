@@ -8,7 +8,7 @@ import {
 } from '../types';
 import apiClient from './apiClient';
 
-const SeriesAPI = {
+export const SeriesAPI = {
   getUserSeries: async (username: string): Promise<SeriesList> => {
     const { data } = await apiClient.get(`${API.SERIES}/user/${username}`);
     return data;
@@ -45,5 +45,3 @@ const SeriesAPI = {
     return data;
   },
 };
-
-export default SeriesAPI;
