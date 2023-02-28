@@ -5,20 +5,22 @@ import { extractError } from '~/lib/error';
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
 import { useCreateComment } from '~/hooks/queries/comment';
-import { useGetPostComments } from '~/hooks/queries/post';
+import { useGetCommentList } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
 
 // components
 import styled from '@emotion/styled';
+import sleep from '~/lib/sleep';
 
 interface Props {
   postId: string;
   commentsCount: number;
+  commentListRef: React.RefObject<HTMLDivElement>;
 }
 
 //TODO: mutation loading ui
-const CommentInput = ({ postId, commentsCount }: Props) => {
+const CommentInput = ({ postId, commentsCount, commentListRef }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
@@ -26,7 +28,13 @@ const CommentInput = ({ postId, commentsCount }: Props) => {
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetPostComments.getKey(postId));
+      await queryClient.refetchQueries(useGetCommentList.getKey(postId));
+      await sleep(500);
+      commentListRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
     },
     onError: (e) => {
       const error = extractError(e);

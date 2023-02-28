@@ -5,7 +5,7 @@ import { extractError } from '~/lib/error';
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
 import { useCreateComment } from '~/hooks/queries/comment';
-import { useGetPostComments } from '~/hooks/queries/post';
+import { useGetCommentList } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
 
@@ -31,7 +31,7 @@ const ReplyComment = ({ parentComment, onClose, isSubcomment }: Props) => {
   const { mutate } = useCreateComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(
-        useGetPostComments.getKey(parentComment.postId),
+        useGetCommentList.getKey(parentComment.postId),
       );
       return;
     },

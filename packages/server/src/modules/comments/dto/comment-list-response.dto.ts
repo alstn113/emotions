@@ -1,7 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { CommentDto } from './comment.dto';
 
-export class PostCommentsDto {
+export class CommentListResponseDto {
   @Expose()
   @Type(() => CommentDto)
   list: CommentDto[];

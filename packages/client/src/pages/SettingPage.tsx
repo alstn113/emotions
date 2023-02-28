@@ -1,5 +1,5 @@
 // react
-import { API } from '~/constants';
+import { GITHUB_OAUTH_LOGIN_URL } from '~/constants';
 
 // hooks
 import useLogout from '~/hooks/useLogout';
@@ -15,7 +15,7 @@ import { glassmorphism } from '~/lib/styles';
 const SettingPage = () => {
   const user = useUser();
   const handleGithubLogin = () => {
-    window.location.href = API.GITHUB_AUTH;
+    window.location.href = GITHUB_OAUTH_LOGIN_URL;
   };
 
   const logout = useLogout();

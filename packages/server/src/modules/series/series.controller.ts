@@ -21,7 +21,7 @@ export class SeriesController {
 
   // Get a specific user's series list.
   @Public()
-  @Get('user/:username')
+  @Get('username/:username')
   async getUserSeriesList(
     @Param('username') username: string,
   ): Promise<SeriesDto[]> {
@@ -33,7 +33,7 @@ export class SeriesController {
 
   // Get a specific series by name.
   @Public()
-  @Get('user/:username/name/:seriesName')
+  @Get(':seriesName/username/:username')
   async getUserSeriesByName(
     @Param('username') username: string,
     @Param('seriesName') seriesName: string,
@@ -69,7 +69,7 @@ export class SeriesController {
     });
   }
 
-  @Post(':seriesId/post/:postId')
+  @Post(':seriesId/postId/:postId')
   async appendToSeries(
     @Param('seriesId') seriesId: string,
     @Param('postId') postId: string,
@@ -85,7 +85,6 @@ export class SeriesController {
     });
   }
 
-  //TODO: add edit series controller
   // patch는 일부만 수정할 때 사용, put은 전체를 수정할 때 사용
   @Patch(':seriesId')
   async editSeries(

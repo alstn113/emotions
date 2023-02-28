@@ -1,23 +1,28 @@
 // hooks
-import { useGetPostComments } from '~/hooks/queries/post';
+import { useGetCommentList } from '~/hooks/queries/post';
 
 // components
 import styled from '@emotion/styled';
 import CommentItem from '~/components/post/CommentItem';
 import CommentInput from './CommentInput';
-import { PostComments } from '~/lib/types';
+import { CommentListResponse } from '~/lib/types';
+import { useRef } from 'react';
 
 interface Props {
   postId: string;
 }
 
 const CommentList = ({ postId }: Props) => {
-  const { data } = useGetPostComments(postId, { suspense: true });
-  const comments = data as PostComments; // suspense
-
+  const { data } = useGetCommentList(postId, { suspense: true });
+  const comments = data as CommentListResponse; // suspense
+  const commentListRef = useRef<HTMLDivElement>(null);
   return (
-    <Container>
-      <CommentInput postId={postId} commentsCount={comments?.totalCount} />
+    <Container ref={commentListRef}>
+      <CommentInput
+        postId={postId}
+        commentsCount={comments?.totalCount}
+        commentListRef={commentListRef}
+      />
       {comments?.list.map((comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
       })}

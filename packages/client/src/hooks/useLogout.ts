@@ -1,4 +1,4 @@
-import AuthAPI from '~/lib/api/auth';
+import { AuthAPI } from '~/lib/api';
 
 const useLogout = () => {
   const logout = async () => {
