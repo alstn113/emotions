@@ -16,7 +16,7 @@ export interface Post {
   slug: string;
   description: string;
   body: string;
-  thumbnail: string | null;
+  thumbnail?: string;
   userId: string;
   user: User;
   comments: Comment[];
@@ -50,7 +50,7 @@ export interface CreatePostParams {
   body: string;
   slug?: string;
   description?: string;
-  thumbnail?: string;
+  thumbnail: string | null;
   tags?: string[];
   seriesId?: string;
 }

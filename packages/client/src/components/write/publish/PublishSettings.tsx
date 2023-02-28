@@ -23,7 +23,7 @@ const PublishSettings = () => {
     editSeries,
     closePublishScreen,
   } = useWriteStore();
-  const { mutate, isLoading } = useCreatePost();
+  const { mutate: createPost, isLoading } = useCreatePost();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { openModal, closeModal } = useModalStore();
@@ -38,7 +38,7 @@ const PublishSettings = () => {
 
     const descriptionWithoutMd = removeMarkdown(description);
 
-    mutate(
+    createPost(
       {
         title,
         body,
