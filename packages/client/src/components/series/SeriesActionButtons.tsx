@@ -45,7 +45,6 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 1rem;
 `;
 
 const ButtonsWrapper = styled.div`

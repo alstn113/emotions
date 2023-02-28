@@ -27,7 +27,7 @@ const SeriesNameEditor = ({
   return (
     <Container>
       {isEditing ? (
-        <TextInput
+        <StyledTextInput
           variant="underlined"
           placeholder="수정될 시리즈 이름"
           ref={seriesNameRef}
@@ -35,7 +35,7 @@ const SeriesNameEditor = ({
           onChange={onChangeNextName}
         />
       ) : (
-        <div>{seriesName}</div>
+        <SeriesName>{seriesName}</SeriesName>
       )}
     </Container>
   );
@@ -45,4 +45,11 @@ const Container = styled.div`
   margin-bottom: 1rem;
 `;
 
+const SeriesName = styled.div`
+  font-size: 2rem;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  font-size: 2rem;
+`;
 export default SeriesNameEditor;

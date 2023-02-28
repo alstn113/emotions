@@ -47,9 +47,11 @@ const SeriesPage = () => {
 const Container = styled.div`
   padding: 16px;
   width: 100%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
   ${mediaQuery.tablet} {
     width: 768px;
-    margin: 0 auto;
   }
   display: flex;
   flex-direction: column;

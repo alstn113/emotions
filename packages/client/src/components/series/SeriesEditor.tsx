@@ -74,18 +74,26 @@ const SeriesEditor = ({ seriesPosts, onChangeSeriesOrder }: Props) => {
 };
 
 const DroppableBlock = styled.div<{ isDraggingOver: boolean }>`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   transition: background-color 0.1s ease-in-out;
   background-color: ${(props) =>
-    props.isDraggingOver ? '#dafc55' : '#ecff9f'};
-  border-radius: 4px;
-  padding: 1.5rem;
-  padding-bottom: 0.5rem;
+    props.isDraggingOver ? '#e8e8e8' : '#dcdbdb'};
+  border-radius: 10px;
+  padding: 2rem;
+  margin-top: 2rem;
 `;
 
 const DraggableBlock = styled.div<{ isDragging: boolean }>`
   user-select: none;
-  background-color: #b7bfff;
-  padding: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fbd892;
+  padding: 2rem;
+  transition: all 0.2s ease-in-out;
   border-radius: 10px;
   ${(props) =>
     props.isDragging
@@ -98,9 +106,8 @@ const DraggableBlock = styled.div<{ isDragging: boolean }>`
 
   transition: background-color 0.1s ease-in-out;
   &:hover {
-    background-color: #95a1fb;
+    background-color: #fecf70;
   }
-  margin-bottom: 1rem;
 `;
 
 export default SeriesEditor;
