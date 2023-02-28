@@ -13,7 +13,7 @@ import { Series } from '~/lib/types';
 import useModalStore from '~/stores/useModalStore';
 import SeriesActionButtons from './SeriesActionButtons';
 import SeriesEditor from './SeriesEditor';
-import SeriesNameEditor from './SeriesNameEditor';
+import SeriesName from './SeriesName';
 import SeriesPosts from './SeriesPosts';
 
 interface Props {
@@ -99,7 +99,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
 
   return (
     <Container>
-      <SeriesNameEditor
+      <SeriesName
         isEditing={isEditing}
         nextSeriesName={nextSeriesName}
         onChangeNextName={handleChangeNextName}
