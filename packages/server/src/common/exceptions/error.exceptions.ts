@@ -21,6 +21,10 @@ export const errors = {
     statusCode: 404,
     message: 'Not Found',
   },
+  PayloadTooLarge: {
+    statusCode: 413,
+    message: 'Payload Too Large',
+  },
   Unknown: {
     statusCode: 500,
     message: 'Unknown error',
@@ -35,6 +39,7 @@ export class AppErrorException extends HttpException {
    * @Unauthorized - 인증이 필요한 경우
    * @Forbidden - 권한이 없는 경우
    * @BadRequest - 잘못된 요청인 경우
+   * @PayloadTooLarge - 파일 크기가 너무 큰 경우
    * @Unknown - 알 수 없는 에러인 경우
    */
   constructor(name: ErrorName, message?: string) {

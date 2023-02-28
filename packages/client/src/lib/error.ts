@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 type ErrorName =
-  | 'BadRequest'
-  | 'Unauthorized'
-  | 'Forbidden'
-  | 'NotFound'
-  | 'Unknown';
+  | 'BadRequest' // 400
+  | 'Unauthorized' // 401
+  | 'Forbidden' // 403
+  | 'NotFound' // 404
+  | 'PayloadTooLarge' // 413
+  | 'Unknown'; // 500
 
 export interface AppError {
   statusCode: number;

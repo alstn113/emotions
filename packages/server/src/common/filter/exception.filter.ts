@@ -33,6 +33,15 @@ export class AppErrorExceptionFilter implements ExceptionFilter {
       });
     }
 
+    // multer file size limit custom이 없음 ㅠㅠ
+    if (status === 413) {
+      return response.status(status).json({
+        name: 'PayloadTooLarge',
+        message: 'Payload Too Large',
+        statusCode: status,
+      });
+    }
+
     response.status(500).json({
       name: 'Unknown',
       statusCode: 500,
