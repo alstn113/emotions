@@ -15,10 +15,11 @@ import styled from '@emotion/styled';
 interface Props {
   postId: string;
   commentsCount: number;
+  commentListRef: React.RefObject<HTMLDivElement>;
 }
 
 //TODO: mutation loading ui
-const CommentInput = ({ postId, commentsCount }: Props) => {
+const CommentInput = ({ postId, commentsCount, commentListRef }: Props) => {
   const [text, setText] = useState('');
   const queryClient = useQueryClient();
   const user = useUser();
@@ -27,6 +28,11 @@ const CommentInput = ({ postId, commentsCount }: Props) => {
   const { mutate } = useCreateComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetCommentList.getKey(postId));
+      commentListRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
     },
     onError: (e) => {
       const error = extractError(e);

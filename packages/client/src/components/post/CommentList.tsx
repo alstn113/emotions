@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import CommentItem from '~/components/post/CommentItem';
 import CommentInput from './CommentInput';
 import { CommentListResponse } from '~/lib/types';
+import { useRef } from 'react';
 
 interface Props {
   postId: string;
@@ -14,10 +15,14 @@ interface Props {
 const CommentList = ({ postId }: Props) => {
   const { data } = useGetCommentList(postId, { suspense: true });
   const comments = data as CommentListResponse; // suspense
-
+  const commentListRef = useRef<HTMLDivElement>(null);
   return (
-    <Container>
-      <CommentInput postId={postId} commentsCount={comments?.totalCount} />
+    <Container ref={commentListRef}>
+      <CommentInput
+        postId={postId}
+        commentsCount={comments?.totalCount}
+        commentListRef={commentListRef}
+      />
       {comments?.list.map((comment) => {
         return <CommentItem key={comment.id} comment={comment} />;
       })}
