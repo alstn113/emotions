@@ -206,16 +206,16 @@ export class PostsService {
     await this.postRepository.deletePost(postId);
   }
 
-  async getPostComments(postId: string, userId: string | null) {
+  async getCommentList(postId: string, userId: string | null) {
     const comments = await this.commentsService.getComments(postId, userId);
     const postStats = await this.postRepository.getPostStats(postId);
     return { list: comments, totalCount: postStats.commentsCount };
   }
 
-  async uploadImage(file: Express.Multer.File) {
-    const filename = `${Date.now()}-${file.originalname}`;
+  async uploadImage(image: Express.Multer.File) {
+    const filename = `${Date.now()}-${image.originalname}`;
     const bucket = this.configService.get<string>('AWS_S3_BUCKET');
-    await this.s3Service.pubObject(filename, file);
+    await this.s3Service.pubObject(filename, image);
     return `https://${bucket}.s3.amazonaws.com/${filename}`;
   }
 

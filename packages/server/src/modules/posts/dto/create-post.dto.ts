@@ -1,11 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Matches,
-} from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @ApiTags('/posts')
 export class CreatePostDto {

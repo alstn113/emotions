@@ -1,4 +1,4 @@
-import { API } from '~/constants';
+import { API_URL } from '~/constants';
 import {
   AppendToPostSeriesParams,
   CreateSeriesParams,
@@ -10,7 +10,9 @@ import apiClient from './apiClient';
 
 export const SeriesAPI = {
   getUserSeries: async (username: string): Promise<SeriesList> => {
-    const { data } = await apiClient.get(`${API.SERIES}/user/${username}`);
+    const { data } = await apiClient.get(
+      API_URL.SERIES.GET_USER_SERIES(username),
+    );
     return data;
   },
   getUserSeriesByName: async (
@@ -18,30 +20,37 @@ export const SeriesAPI = {
     seriesName: string,
   ): Promise<Series> => {
     const { data } = await apiClient.get(
-      `${API.SERIES}/user/${username}/name/${seriesName}`,
+      API_URL.SERIES.GET_USER_SERIES_BY_NAME(username, seriesName),
     );
     return data;
   },
   createSeries: async (params: CreateSeriesParams) => {
-    const { data } = await apiClient.post(`${API.SERIES}`, params);
+    const { data } = await apiClient.post(API_URL.SERIES.CREATE_SERIES, params);
     return data;
   },
   deleteSeries: async (seriesId: string) => {
-    const { data } = await apiClient.delete(`${API.SERIES}/${seriesId}`);
+    const { data } = await apiClient.delete(
+      API_URL.SERIES.DELETE_SERIES(seriesId),
+    );
     return data;
   },
-  appendPostToSeries: async (params: AppendToPostSeriesParams) => {
-    const { seriesId, postId } = params;
+  appendPostToSeries: async ({
+    seriesId,
+    postId,
+  }: AppendToPostSeriesParams) => {
     const { data } = await apiClient.post(
-      `${API.SERIES}/${seriesId}/post/${postId}`,
+      API_URL.SERIES.APPEND_POST_TO_SERIES(seriesId, postId),
     );
     return data;
   },
   editSeries: async ({ seriesId, name, seriesOrder }: EditSeriesParams) => {
-    const { data } = await apiClient.patch(`${API.SERIES}/${seriesId}`, {
-      name,
-      seriesOrder,
-    });
+    const { data } = await apiClient.patch(
+      API_URL.SERIES.EDIT_SERIES(seriesId),
+      {
+        name,
+        seriesOrder,
+      },
+    );
     return data;
   },
 };

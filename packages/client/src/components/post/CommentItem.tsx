@@ -6,7 +6,7 @@ import { extractError } from '~/lib/error';
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
 import { useDeleteComment } from '~/hooks/queries/comment';
-import { useGetPostComments } from '~/hooks/queries/post';
+import { useGetCommentList } from '~/hooks/queries/post';
 import useUser from '~/hooks/useUser';
 import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
 
@@ -49,7 +49,7 @@ const CommentItem = ({ comment, isSubcomment }: Props) => {
   const { mutate } = useDeleteComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(
-        useGetPostComments.getKey(comment.postId),
+        useGetCommentList.getKey(comment.postId),
       );
     },
     onError: (e) => {

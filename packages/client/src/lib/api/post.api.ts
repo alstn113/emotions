@@ -1,21 +1,18 @@
-import { API } from '~/constants';
+import { API_URL } from '~/constants';
 import {
   CreatePostParams,
-  PostComments,
   PostList,
-  PostSearchResult,
+  SearchPostResponse,
   PostStats,
   PostWithStats,
   SinglePostReponse,
+  CommentListResponse,
 } from '~/lib/types';
 import apiClient from './apiClient';
-import qs from 'qs';
 
 export const PostAPI = {
   getPosts: async (cursor?: string): Promise<PostList> => {
-    const { data } = await apiClient.get(
-      `${API.POST}`.concat(qs.stringify({ cursor }, { addQueryPrefix: true })),
-    );
+    const { data } = await apiClient.get(API_URL.POST.GET_POSTS(cursor));
     return data;
   },
 
@@ -24,15 +21,13 @@ export const PostAPI = {
     cursor?: string,
   ): Promise<PostList> => {
     const { data } = await apiClient.get(
-      `${API.POST}/username/${username}`.concat(
-        qs.stringify({ cursor }, { addQueryPrefix: true }),
-      ),
+      API_URL.POST.GET_POSTS_BY_USERNAME(username, cursor),
     );
     return data;
   },
 
-  getPost: async (id: string): Promise<SinglePostReponse> => {
-    const { data } = await apiClient.get(`${API.POST}/${id}`);
+  getPost: async (postId: string): Promise<SinglePostReponse> => {
+    const { data } = await apiClient.get(API_URL.POST.GET_POST(postId));
     return data;
   },
 
@@ -41,49 +36,48 @@ export const PostAPI = {
     slug: string,
   ): Promise<SinglePostReponse> => {
     const { data } = await apiClient.get(
-      `${API.POST}/username/${username}/slug/${slug}`,
+      API_URL.POST.GET_POST_BY_SLUG(username, slug),
     );
     return data;
   },
 
-  getPostComments: async (id: string): Promise<PostComments> => {
-    const { data } = await apiClient.get(`${API.POST}/${id}/comments`);
+  getCommentList: async (postId: string): Promise<CommentListResponse> => {
+    const { data } = await apiClient.get(API_URL.POST.GET_COMMENT_LIST(postId));
     return data;
   },
 
-  getSearchPosts: async (keyword: string): Promise<PostSearchResult> => {
+  getSearchPosts: async (keyword: string): Promise<SearchPostResponse> => {
     const { data } = await apiClient.get(
-      `${API.POST}/search`.concat(
-        qs.stringify({ keyword }, { addQueryPrefix: true }),
-      ),
+      API_URL.POST.GET_SEARCH_POSTS(keyword),
     );
     return data;
   },
 
   createPost: async (params: CreatePostParams): Promise<PostWithStats> => {
-    const { data } = await apiClient.post(`${API.POST}`, params);
+    const { data } = await apiClient.post(API_URL.POST.CREATE_POST, params);
     return data;
   },
 
-  deletePost: async (id: string): Promise<void> => {
-    await apiClient.delete(`${API.POST}/${id}`);
-  },
-
-  likePost: async (id: string): Promise<PostStats> => {
-    const { data } = await apiClient.post(`${API.POST}/${id}/likes`);
+  deletePost: async (postId: string): Promise<void> => {
+    const { data } = await apiClient.delete(API_URL.POST.DELETE_POST(postId));
     return data;
   },
 
-  unlikePost: async (id: string): Promise<PostStats> => {
-    const { data } = await apiClient.delete(`${API.POST}/${id}/likes`);
+  likePost: async (postId: string): Promise<PostStats> => {
+    const { data } = await apiClient.post(API_URL.POST.LIKE_POST(postId));
     return data;
   },
 
-  uploadImage: async (file: File): Promise<string> => {
+  unlikePost: async (postId: string): Promise<PostStats> => {
+    const { data } = await apiClient.delete(API_URL.POST.UNLIKE_POST(postId));
+    return data;
+  },
+
+  uploadImage: async (image: File): Promise<string> => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('image', image);
 
-    const { data } = await apiClient.post(`${API.POST}/upload`, formData, {
+    const { data } = await apiClient.post(API_URL.POST.UPLOAD_IMAGE, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

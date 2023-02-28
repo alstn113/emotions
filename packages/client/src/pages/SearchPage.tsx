@@ -30,7 +30,7 @@ const SearchPage = () => {
           value={searchInput}
           onChange={handleChangeInput}
         />
-        {posts?.posts && <SearchResultInfto count={posts?.count!} />}
+        {posts?.posts && <SearchResultInfto count={posts?.count} />}
         <ListWrapper>
           {posts?.posts.map((post) => (
             <PostCard key={post?.id} post={post} />

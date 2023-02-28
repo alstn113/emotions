@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { Comment } from '~/lib/types';
 import { useLikeComment, useUnlikeComment } from './queries/comment';
-import { useGetPostComments } from './queries/post';
+import { useGetCommentList } from './queries/post';
 import useOpenLoginDialog from './useOpenLoginDialog';
 import useUser from './useUser';
 
@@ -38,7 +38,7 @@ const useCommnetLikeManager = ({
         onSuccess: (likes) => {
           setLikeCount(likes);
           queryClient.setQueryData<Comment[] | undefined>(
-            useGetPostComments.getKey(postId),
+            useGetCommentList.getKey(postId),
             (oldData) =>
               oldData &&
               oldData.map((comment) => {
@@ -62,7 +62,7 @@ const useCommnetLikeManager = ({
         onSuccess: (likes) => {
           setLikeCount(likes);
           queryClient.setQueryData<Comment[] | undefined>(
-            useGetPostComments.getKey(postId),
+            useGetCommentList.getKey(postId),
             (oldData) =>
               oldData &&
               oldData.map((comment) => {

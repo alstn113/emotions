@@ -24,7 +24,7 @@ import {
   GetSearchPostsQueryDto,
   SearchPostsDto,
 } from './dto';
-import { PostCommentsDto } from '../comments/dto';
+import { CommentListResponseDto } from '../comments/dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -102,12 +102,12 @@ export class PostsController {
 
   @Public()
   @Get(':id/comments')
-  async getPostComments(
+  async getCommentList(
     @Param('id') id: string,
     @GetCurrentUser('userId') userId: string | null,
-  ): Promise<PostCommentsDto> {
-    const postComments = await this.postsService.getPostComments(id, userId);
-    return plainToInstance(PostCommentsDto, postComments, {
+  ): Promise<CommentListResponseDto> {
+    const commentList = await this.postsService.getCommentList(id, userId);
+    return plainToInstance(CommentListResponseDto, commentList, {
       excludeExtraneousValues: true,
     });
   }
@@ -154,11 +154,11 @@ export class PostsController {
     return await this.postsService.deletePost({ postId, userId });
   }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file', multerOptions))
+  @Post('image')
+  @UseInterceptors(FileInterceptor('image', multerOptions))
   async uploadImage(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ): Promise<string> {
-    return await this.postsService.uploadImage(file);
+    return await this.postsService.uploadImage(image);
   }
 }

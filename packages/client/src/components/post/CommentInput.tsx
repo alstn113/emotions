@@ -5,7 +5,7 @@ import { extractError } from '~/lib/error';
 // hooks
 import { useQueryClient } from '@tanstack/react-query';
 import { useCreateComment } from '~/hooks/queries/comment';
-import { useGetPostComments } from '~/hooks/queries/post';
+import { useGetCommentList } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
 
@@ -26,7 +26,7 @@ const CommentInput = ({ postId, commentsCount }: Props) => {
 
   const { mutate } = useCreateComment({
     onSuccess: async () => {
-      await queryClient.refetchQueries(useGetPostComments.getKey(postId));
+      await queryClient.refetchQueries(useGetCommentList.getKey(postId));
     },
     onError: (e) => {
       const error = extractError(e);
