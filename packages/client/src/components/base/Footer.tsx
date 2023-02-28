@@ -1,31 +1,67 @@
 // react
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 // components
 import styled from '@emotion/styled';
 import { mediaQuery, zIndexes } from '~/lib/styles';
 import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
 import useUser from '~/hooks/useUser';
+import { css } from '@emotion/react';
 
 const Footer = () => {
   const user = useUser();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const FooterItemList = [
+    {
+      to: '/',
+      icon: <Home width={24} height={24} />,
+      checkLogin: false,
+    },
+    {
+      to: '/search',
+      icon: <Search width={24} height={24} />,
+      checkLogin: false,
+    },
+    {
+      to: '/write',
+      icon: <Create width={24} height={24} />,
+      checkLogin: true,
+    },
+    {
+      to: `/user/${user?.username}`,
+      icon: <Comment width={24} height={24} />,
+      checkLogin: true,
+    },
+    {
+      to: '/setting',
+      icon: <Settings width={24} height={24} />,
+      checkLogin: false,
+    },
+  ];
+
+  const handleClick = (checkLogin: boolean, to: string) => {
+    if (checkLogin && !user) {
+      navigate('/setting');
+    } else {
+      navigate(to);
+    }
+  };
+
   return (
     <Container>
-      <TabItem to="/">
-        <Home width={24} height={24} />
-      </TabItem>
-      <TabItem to="/search">
-        <Search width={24} height={24} />
-      </TabItem>
-      <TabItem to="/write">
-        <Create width={24} height={24} />
-      </TabItem>
-      <TabItem to={`/user/${user?.username}`}>
-        <Comment width={24} height={24} />
-      </TabItem>
-      <TabItem to="/setting">
-        <Settings width={24} height={24} />
-      </TabItem>
+      {FooterItemList.map((item) => {
+        return (
+          <TabItem
+            key={item.to}
+            active={location.pathname === item.to}
+            onClick={() => handleClick(item.checkLogin, item.to)}
+          >
+            {item.icon}
+          </TabItem>
+        );
+      })}
     </Container>
   );
 };
@@ -45,21 +81,24 @@ const Container = styled.footer`
   }
 `;
 
-const TabItem = styled(NavLink)`
+const TabItem = styled.div<{ active: boolean }>`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   svg {
     color: #808080;
     width: 28px;
     height: 28px;
   }
-  &.active {
-    svg {
-      color: #fff;
-    }
-  }
+  ${({ active }) =>
+    active &&
+    css`
+      svg {
+        color: #fff;
+      }
+    `}
 `;
 
 export default Footer;
