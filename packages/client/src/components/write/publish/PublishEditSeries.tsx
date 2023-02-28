@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Button } from '~/components/common';
-import useCreateSeries from '~/hooks/queries/series/useCreateSeries';
-import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
+import { useCreateSeries, useGetUserSeries } from '~/hooks/queries/series';
 import useUser from '~/hooks/useUser';
 import useWriteStore from '~/stores/useWriteStore';
 

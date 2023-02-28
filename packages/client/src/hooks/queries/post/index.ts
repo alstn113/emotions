@@ -7,3 +7,5 @@ export { default as useGetPostComments } from './useGetPostComments';
 export { default as useUploadImage } from './useUploadImage';
 export { default as useGetSearchPosts } from './useGetSearchPosts';
 export { default as useGetPostsByUsername } from './useGetPostsByUsername';
+export { default as useLikePost } from './useLikePost';
+export { default as useUnlikePost } from './useUnlikePost';

@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useDeleteSeries from '~/hooks/queries/series/useDeleteSeries';
-import useEditSeries from '~/hooks/queries/series/useEditSeries';
-import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
-import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
+import {
+  useGetUserSeriesByName,
+  useGetUserSeries,
+  useEditSeries,
+  useDeleteSeries,
+} from '~/hooks/queries/series';
 import useDisclosure from '~/hooks/useDisclosure';
 import useUser from '~/hooks/useUser';
 import { extractError } from '~/lib/error';
