@@ -11,6 +11,7 @@ import useUser from '~/hooks/useUser';
 
 // components
 import styled from '@emotion/styled';
+import sleep from '~/lib/sleep';
 
 interface Props {
   postId: string;
@@ -28,6 +29,7 @@ const CommentInput = ({ postId, commentsCount, commentListRef }: Props) => {
   const { mutate } = useCreateComment({
     onSuccess: async () => {
       await queryClient.refetchQueries(useGetCommentList.getKey(postId));
+      await sleep(500);
       commentListRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'end',

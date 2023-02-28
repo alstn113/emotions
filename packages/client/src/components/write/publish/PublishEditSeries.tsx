@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '~/components/common';
 import { useCreateSeries, useGetUserSeries } from '~/hooks/queries/series';
 import useUser from '~/hooks/useUser';
+import sleep from '~/lib/sleep';
 import useWriteStore from '~/stores/useWriteStore';
 
 const PublishEditSeries = () => {
@@ -17,6 +18,7 @@ const PublishEditSeries = () => {
   const { data: seriesList } = useGetUserSeries(user?.username);
   const { mutate } = useCreateSeries();
   const queryClient = useQueryClient();
+  const seriesListRef = useRef<HTMLDivElement>(null);
 
   const handleCloseEditSeries = () => {
     changeEditSeries(false);
@@ -42,6 +44,12 @@ const PublishEditSeries = () => {
           );
           setSelected({ id: data.id, name: data.name });
           setInput('');
+          await sleep(500);
+          seriesListRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+            inline: 'nearest',
+          });
         },
         onError: (error) => {
           alert('시리즈 생성에 실패했습니다.');
@@ -73,6 +81,7 @@ const PublishEditSeries = () => {
               </SeriesItem>
             );
           })}
+          <div ref={seriesListRef} />
         </SeriesList>
       </EditSeriesContainer>
       <ButtonsWrapper>
@@ -120,13 +129,13 @@ const CreateSeriesInput = styled.input`
   border-radius: 4px;
 `;
 
-const SeriesList = styled.ul`
+const SeriesList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   align-items: center;
   height: 200px;
-  overflow-y: auto;
   background: #f1f3f5;
 `;
 
