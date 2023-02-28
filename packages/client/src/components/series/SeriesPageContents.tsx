@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useDeleteSeries from '~/hooks/queries/series/useDeleteSeries';
 import useEditSeries from '~/hooks/queries/series/useEditSeries';
+import useGetUserSeries from '~/hooks/queries/series/useGetUserSeries';
 import useGetUserSeriesByName from '~/hooks/queries/series/useGetUserSeriesByName';
 import useDisclosure from '~/hooks/useDisclosure';
 import useUser from '~/hooks/useUser';
@@ -18,6 +21,7 @@ interface Props {
 }
 
 const SeriesPageContents = ({ username, seriesName }: Props) => {
+  const navigate = useNavigate();
   const { data } = useGetUserSeriesByName(username, seriesName, {
     suspense: true,
   });
@@ -39,7 +43,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
     setOrder(series.seriesPosts.map((item) => item.id));
   }, [series]);
 
-  const { mutate } = useEditSeries({
+  const { mutate: editSeries } = useEditSeries({
     onSuccess: async () => {
       await queryClient.refetchQueries(
         useGetUserSeriesByName.getKey(username, seriesName),
@@ -52,12 +56,23 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
     },
   });
 
+  const { mutate: deleteSeries } = useDeleteSeries({
+    onSuccess: async () => {
+      await queryClient.refetchQueries(useGetUserSeries.getKey(username));
+      navigate(`/user/${username}/series`);
+    },
+    onError: (e) => {
+      const error = extractError(e);
+      alert(error.message);
+    },
+  });
+
   const handleApply = () => {
     openModal({
       title: '시리즈 수정',
       message: '정말로 시리즈를 수정하시겠습니까?s',
       onConfirm: () => {
-        mutate({
+        editSeries({
           seriesId: series.id,
           name,
           seriesOrder: order,
@@ -71,7 +86,7 @@ const SeriesPageContents = ({ username, seriesName }: Props) => {
       title: '시리즈 삭제',
       message: '시리즈를 삭제해도 포스트는 삭제되지 않습니다.',
       onConfirm: () => {
-        // empty
+        deleteSeries(series.id);
       },
     });
   };
