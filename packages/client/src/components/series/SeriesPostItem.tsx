@@ -9,7 +9,7 @@ const SeriesPostItem = ({ seriesPost, index }: Props) => {
   return (
     <div>
       <div>{seriesPost.id}</div>
-      <div>{index + 1}</div>
+      <div>{index}</div>
       <div>{seriesPost.post.title}</div>
       <div>{seriesPost.createdAt}</div>
     </div>

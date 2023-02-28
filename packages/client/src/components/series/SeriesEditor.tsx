@@ -20,8 +20,6 @@ const SeriesEditor = ({ seriesPosts, onChangeSeriesOrder }: Props) => {
   const [tempSeriesPosts, setTempSeriesPosts] = useState(seriesPosts);
 
   useEffect(() => {
-    console.log('tempSeriesPosts', tempSeriesPosts);
-
     onChangeSeriesOrder(tempSeriesPosts.map((item) => item.id));
   }, [onChangeSeriesOrder, tempSeriesPosts]);
 
@@ -57,7 +55,11 @@ const SeriesEditor = ({ seriesPosts, onChangeSeriesOrder }: Props) => {
                       {...provided.dragHandleProps}
                       isDragging={snapshot.isDragging}
                     >
-                      <SeriesPostItem seriesPost={seriesPost} index={index} />
+                      <SeriesPostItem
+                        seriesPost={seriesPost}
+                        // index starts from 1
+                        index={index + 1}
+                      />
                     </DraggableBlock>
                   )}
                 </Draggable>
