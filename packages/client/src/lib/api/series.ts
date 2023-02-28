@@ -2,6 +2,7 @@ import { API } from '~/constants';
 import {
   AppendToPostSeriesParams,
   CreateSeriesParams,
+  EditSeriesParams,
   Series,
   SeriesList,
 } from '../types';
@@ -34,6 +35,13 @@ const SeriesAPI = {
     const { data } = await apiClient.post(
       `${API.SERIES}/${seriesId}/post/${postId}`,
     );
+    return data;
+  },
+  editSeries: async ({ seriesId, name, seriesOrder }: EditSeriesParams) => {
+    const { data } = await apiClient.patch(`${API.SERIES}/${seriesId}`, {
+      name,
+      seriesOrder,
+    });
     return data;
   },
 };

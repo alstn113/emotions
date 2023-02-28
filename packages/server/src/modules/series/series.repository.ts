@@ -46,8 +46,13 @@ export class SeriesRepository {
                 title: true,
                 thumbnail: true,
                 slug: true,
+                description: true,
+                createdAt: true,
               },
             },
+          },
+          orderBy: {
+            index: 'asc',
           },
         },
       },
@@ -64,6 +69,8 @@ export class SeriesRepository {
             title: true,
             thumbnail: true,
             slug: true,
+            description: true,
+            createdAt: true,
           },
         },
       },
@@ -113,8 +120,13 @@ export class SeriesRepository {
                 title: true,
                 thumbnail: true,
                 slug: true,
+                description: true,
+                createdAt: true,
               },
             },
+          },
+          orderBy: {
+            index: 'asc',
           },
         },
       },
@@ -157,10 +169,10 @@ export class SeriesRepository {
     });
   }
 
-  async updateSeriesPostIndex(postId: string, index: number) {
+  async updateSeriesPostIndex(seriesPostId: string, index: number) {
     return await this.prisma.seriesPost.update({
       where: {
-        postId,
+        id: seriesPostId,
       },
       data: {
         index,

@@ -16,7 +16,7 @@ const WritePage = lazy(() => import('~/pages/WritePage'));
 const SearchPage = lazy(() => import('~/pages/SearchPage'));
 const SettingPage = lazy(() => import('~/pages/SettingPage'));
 const UserPage = lazy(() => import('~/pages/user/UserPage'));
-const SeriesPage = lazy(() => import('~/pages/user/SeriesPage'));
+const SeriesPage = lazy(() => import('~/pages/SeriesPage'));
 const PostPage = lazy(() => import('~/pages/PostPage'));
 
 const App = () => {
