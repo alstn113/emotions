@@ -21,7 +21,7 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
 
 ## `Sturcture`
 
-- Deploy: AWS EC2 Ubuntu, NGINX, Docker, PM2, Git ACtions
+- Deploy: AWS EC2 Ubuntu, NGINX, Docker, PM2, Git Actions
 - DB: Superbase + Postgresql, AWS S3
 - Client: React + Vite
 - Server: Nest
