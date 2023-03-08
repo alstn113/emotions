@@ -47,15 +47,17 @@ export class SESService {
     return command;
   }
 
-  // TODO:
   createCommentEmail({
     postAuthor,
     postTitle,
     postSlug,
-    username,
+    commentUsername,
     profileImage,
-    comment,
+    commentText,
   }: CreateCommentEmailParams) {
+    const postLink = `https://wap-dev.store/user/${postAuthor}/post/${postSlug}`;
+    const commentUserLink = `https://wap-dev.store/user/${commentUsername}`;
+
     return `
     <body
     style="
@@ -86,36 +88,65 @@ export class SESService {
                 align="center"
                 style="background-color: #ffab37; padding: 40px; color: #fff"
               >
-                <h1 style="margin: 0; font-size: 36px">이메일 제목</h1>
-                <p style="margin: 20px 0 0; font-size: 18px">이메일 부제목</p>
+                <a
+                  href="https://wap-dev.store"
+                  style="text-decoration: none; color: #fff"
+                  ><h1 style="margin: 0; font-size: 36px">Emotions</h1></a
+                >
+                <p style="margin: 20px 0 0; font-size: 18px">
+                  새로운 댓글이 달렸습니다.
+                </p>
               </td>
             </tr>
             <tr>
               <td style="background-color: #fff; padding: 40px">
-                <h2 style="margin: 0; font-size: 24px; color: #ffab37">
-                  본문 제목
-                </h2>
-                <p style="margin-top: 20px; font-size: 16px; color: #666">
-                  안녕하세요!
-                </p>
-                <p style="font-size: 16px; color: #666">
-                  이메일 본문 내용입니다.
-                </p>
-                <p style="font-size: 16px; color: #666">감사합니다.</p>
+                <a href="${postLink}" style="text-decoration: none">
+                  <h2 style="margin: 0; font-size: 24px; color: #ffab37">
+                    ${postTitle}
+                  </h2>
+                </a>
+                <div style="display: flex; align-items: center; gap: 10px">
+                  <div>
+                    <a
+                      href="${commentUserLink}"
+                    >
+                      <img
+                        style="
+                          height: 64px;
+                          width: 64px;
+                          display: block;
+                          border-radius: 32px;
+                        "
+                        src="${profileImage}"
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <p style="margin-top: 20px; font-size: 16px; color: #666">
+                      ${commentUsername}
+                    </p>
+                    <p style="font-size: 16px; color: #666">${commentText}</p>
+                  </div>
+                </div>
               </td>
             </tr>
             <tr>
               <td style="background-color: #ffab37; padding: 40px; color: #fff">
-                <p style="margin: 0; font-size: 14px">
-                  이메일 하단에 추가 정보 또는 링크를 입력할 수 있습니다.
-                </p>
+                <a
+                  href="https://github.com/neko113/Emotions"
+                  style="text-decoration: none; color: #fff"
+                >
+                  <p style="margin: 0; font-size: 14px">
+                    @neko113 // Follow 및 Star는 개발자에게 큰 힘이 됩니다.
+                  </p>
+                </a>
               </td>
             </tr>
           </table>
         </td>
       </tr>
     </table>
-  </body>
+  </body>  
     `;
   }
 }
@@ -131,7 +162,7 @@ interface CreateCommentEmailParams {
   postAuthor: string;
   postTitle: string;
   postSlug: string;
-  username: string;
+  commentUsername: string;
   profileImage: string | null;
-  comment: string;
+  commentText: string;
 }

@@ -137,9 +137,9 @@ export class CommentsService {
           postAuthor: post.user.username,
           postTitle: post.title,
           postSlug: post.slug,
-          username: comment.user.username,
+          commentUsername: comment.user.username,
           profileImage: comment.user.profileImage,
-          comment: comment.text,
+          commentText: comment.text,
         });
 
         await this.sesService.sendEmail({
@@ -169,9 +169,9 @@ export class CommentsService {
           postAuthor: post.user.username,
           postTitle: post.title,
           postSlug: post.slug,
-          username: comment.user.username,
+          commentUsername: comment.user.username,
           profileImage: comment.user.profileImage,
-          comment: comment.text,
+          commentText: comment.text,
         });
 
         await this.sesService.sendEmail({
