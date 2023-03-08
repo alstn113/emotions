@@ -7,6 +7,7 @@ import { CommentsService } from '../comments/comments.service';
 import { S3Service } from '~/providers/aws/s3/s3.service';
 import { SeriesService } from '../series/series.service';
 import { SeriesRepository } from '../series/series.repository';
+import { SESService } from '~/providers/aws/ses/ses.service';
 
 @Module({
   controllers: [PostsController],
@@ -18,6 +19,7 @@ import { SeriesRepository } from '../series/series.repository';
     S3Service,
     SeriesService,
     SeriesRepository,
+    SESService,
   ],
 })
 export class PostsModule {}

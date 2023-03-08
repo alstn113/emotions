@@ -4,12 +4,14 @@ import { CommentsRepository } from './comments.repository';
 import { Comment } from '@prisma/client';
 import { PostsRepository } from '../posts/posts.repository';
 import { AppErrorException } from '~/common/exceptions';
+import { SESService } from '~/providers/aws/ses/ses.service';
 
 @Injectable()
 export class CommentsService {
   constructor(
     private readonly commentRepository: CommentsRepository,
     private readonly postRepository: PostsRepository,
+    private readonly sesService: SESService,
   ) {}
 
   async getComment(id: string) {
@@ -87,6 +89,9 @@ export class CommentsService {
   }
 
   async createComment(dto: CreateCommentDto, userId: string) {
+    const post = await this.postRepository.findPostById(dto.postId);
+    if (!post) throw new AppErrorException('NotFound', 'Post not found');
+
     if (dto.text.length > 300 || dto.text.length === 0) {
       throw new AppErrorException(
         'BadRequest',
@@ -121,9 +126,28 @@ export class CommentsService {
 
     await this.countAndSyncComments(dto.postId);
 
+    // notify to post author and parent comment author
+
     try {
       const nofifyToPostAuthor = async () => {
-        return;
+        if (!post.user.email) return; // don't notify to user who doesn't have email
+        if (post.user.id === userId) return; // don't notify to myself
+
+        const body = this.sesService.createCommentEmail({
+          postAuthor: post.user.username,
+          postTitle: post.title,
+          postSlug: post.slug,
+          username: comment.user.username,
+          profileImage: comment.user.profileImage,
+          comment: comment.text,
+        });
+
+        await this.sesService.sendEmail({
+          to: post.user.email,
+          subject: 'New comment on your post',
+          body,
+          from: `no-reply@wap-dev.store`,
+        });
       };
       const notifyToParentCommentAuthor = async () => {
         return;

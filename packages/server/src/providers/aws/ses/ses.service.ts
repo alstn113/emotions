@@ -51,9 +51,9 @@ export class SESService {
   createCommentEmail({
     postAuthor,
     postTitle,
+    postSlug,
     username,
     profileImage,
-    postSlug,
     comment,
   }: CreateCommentEmailParams) {
     return `
@@ -130,8 +130,8 @@ interface EmailParams {
 interface CreateCommentEmailParams {
   postAuthor: string;
   postTitle: string;
+  postSlug: string;
   username: string;
   profileImage: string | null;
-  postSlug: string;
   comment: string;
 }
