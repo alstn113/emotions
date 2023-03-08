@@ -131,6 +131,7 @@ const commentSelector = {
       select: {
         id: true,
         username: true,
+        email: true,
         displayName: true,
         profileImage: true,
       },
@@ -139,6 +140,7 @@ const commentSelector = {
       select: {
         id: true,
         username: true,
+        email: true,
         displayName: true,
         profileImage: true,
       },

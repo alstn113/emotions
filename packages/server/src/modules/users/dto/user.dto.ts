@@ -11,5 +11,8 @@ export class UserDto {
   displayName: string;
 
   @Expose()
+  email: string | null;
+
+  @Expose()
   profileImage: string | null;
 }

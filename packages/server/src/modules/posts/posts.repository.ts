@@ -224,6 +224,7 @@ const postSelector = (userId: string | null = null) => {
       select: {
         id: true,
         username: true,
+        email: true,
         displayName: true,
         profileImage: true,
       },

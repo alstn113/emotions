@@ -27,7 +27,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.4",
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.11.0",
     "@types/cookie-parser": "^1.4.3",
     "axios": "^1.2.2",
     "class-transformer": "^0.5.1",
