@@ -144,7 +144,7 @@ export class CommentsService {
 
         await this.sesService.sendEmail({
           to: post.user.email,
-          subject: 'New Comment On Your Post!',
+          subject: `Re: ${post.title} - New Comment On Your Post!`,
           body,
           from: `no-reply@wap-dev.store`,
         });
@@ -176,7 +176,7 @@ export class CommentsService {
 
         await this.sesService.sendEmail({
           to,
-          subject: 'New Reply On Your Comment!',
+          subject: `Re: ${post.title} - New Reply On Your Comment!`,
           body,
           from: `no-reply@wap-dev.store`,
         });

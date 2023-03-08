@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
-
+import sanitizeHtml from 'sanitize-html';
 @Injectable()
 export class SESService {
   private readonly sesClient: SESClient;
@@ -38,7 +38,7 @@ export class SESService {
         Body: {
           Text: {
             Charset: 'UTF-8',
-            Data: body,
+            Data: sanitizeHtml(body, { allowedTags: [] }),
           },
         },
       },
