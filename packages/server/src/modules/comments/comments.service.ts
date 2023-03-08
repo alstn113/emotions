@@ -121,6 +121,19 @@ export class CommentsService {
 
     await this.countAndSyncComments(dto.postId);
 
+    try {
+      const nofifyToPostAuthor = async () => {
+        return;
+      };
+      const notifyToParentCommentAuthor = async () => {
+        return;
+      };
+
+      await Promise.all([nofifyToPostAuthor(), notifyToParentCommentAuthor()]);
+    } catch (error) {
+      console.log(error);
+    }
+
     return { ...comment, isDeleted: false, subcomments: [], isLiked: false };
   }
 
