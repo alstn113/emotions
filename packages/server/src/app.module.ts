@@ -16,7 +16,7 @@ import { AppErrorExceptionFilter } from './common/filter';
 import { JwtGuard } from './common/guards';
 
 // provider modules
-import { S3Module } from './providers';
+import { S3Module, SESModule } from './providers';
 
 // main modules
 import {
@@ -46,6 +46,7 @@ import {
     SeriesModule,
     // provider modules
     S3Module,
+    SESModule,
   ],
   controllers: [AppController],
   providers: [
