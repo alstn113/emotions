@@ -144,16 +144,45 @@ export class CommentsService {
 
         await this.sesService.sendEmail({
           to: post.user.email,
-          subject: 'New comment on your post',
+          subject: 'New Comment On Your Post!',
           body,
           from: `no-reply@wap-dev.store`,
         });
       };
-      const notifyToParentCommentAuthor = async () => {
-        return;
+      const notifyToParentCommenter = async () => {
+        let to: string;
+        if (comment.mentionUser) {
+          if (!comment.mentionUser.email) return; // don't notify to user who doesn't have email
+          if (comment.mentionUser.id === userId) return; // don't notify to myself
+
+          to = comment.mentionUser.email;
+        } else if (parentComment) {
+          if (!parentComment.user.email) return; // don't notify to user who doesn't have email
+          if (parentComment.user.id === userId) return; // don't notify to myself
+
+          to = parentComment.user.email;
+        } else {
+          return; // don't notify if it's root comment
+        }
+
+        const body = this.sesService.createCommentEmail({
+          postAuthor: post.user.username,
+          postTitle: post.title,
+          postSlug: post.slug,
+          username: comment.user.username,
+          profileImage: comment.user.profileImage,
+          comment: comment.text,
+        });
+
+        await this.sesService.sendEmail({
+          to,
+          subject: 'New Reply On Your Comment!',
+          body,
+          from: `no-reply@wap-dev.store`,
+        });
       };
 
-      await Promise.all([nofifyToPostAuthor(), notifyToParentCommentAuthor()]);
+      await Promise.all([nofifyToPostAuthor(), notifyToParentCommenter()]);
     } catch (error) {
       console.log(error);
     }
