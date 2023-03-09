@@ -10,8 +10,8 @@ import styled from '@emotion/styled';
 import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
-import { glassmorphism } from '~/lib/styles';
 import { useEffect } from 'react';
+import { mediaQuery } from '~/lib/styles';
 
 const SettingPage = () => {
   const user = useUser();
@@ -30,16 +30,15 @@ const SettingPage = () => {
       <Container>
         {user ? (
           <Box>
-            <Text>My Account</Text>
-            <Text>Username: {user?.username}</Text>
-            <Text>Displayname: {user?.displayName}</Text>
+            <Text className="profile">Profile</Text>
+            <Text>{user?.username}</Text>
+            <Text>{user?.displayName}</Text>
             <Button size="auto" shadow color="error" onClick={logout}>
               Logout
             </Button>
           </Box>
         ) : (
           <Box>
-            <Text>Not Logged In</Text>
             <StyledButton
               size="auto"
               shadow
@@ -59,40 +58,53 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10vh;
+  height: 100%;
 `;
 
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  height: 100%;
-  margin: auto auto;
-  height: 25rem;
-  width: 16rem;
-  border-radius: 20px;
-  border: 1px solid #e5e5e5;
-  padding: 1rem;
-  ${glassmorphism}
+  width: 100%;
+  height: 400px;
+  padding: 2rem;
+  ${mediaQuery.mobile} {
+    border-radius: 20px;
+    width: 500px;
+    margin-top: 5rem;
+    background-color: #f2f2f2;
+  }
 `;
 
 const Text = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 0.8rem;
+  width: 100%;
+  padding: 0 1rem;
   font-weight: 700;
   color: #000;
   margin-bottom: 1rem;
+  &.profile {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+  }
+  ${mediaQuery.mobile} {
+    font-size: 1.2rem;
+    &.profile {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 900;
+    }
+  }
 `;
 
 const StyledButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
   svg {
     width: 24px;
     height: 24px;

@@ -6,3 +6,11 @@ export interface User {
   emailNotification: boolean;
   profileImage: string | null;
 }
+
+export interface UpdateEmailParams {
+  email: string | null;
+}
+
+export interface UpdateEmailNotificationParams {
+  enabled: boolean;
+}

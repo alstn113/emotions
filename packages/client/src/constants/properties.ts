@@ -12,6 +12,8 @@ export const API_URL = {
   USER: {
     GET_ME: `/users/me`,
     GET_USER_BY_USERNAME: (username: string) => `/users/${username}`,
+    UPDATE_EMAIL: `/users/email`,
+    UPDATE_EMAIL_NOTIFICATION: `/users/email-notification`,
   },
   POST: {
     GET_POSTS: (cursor?: string) =>
