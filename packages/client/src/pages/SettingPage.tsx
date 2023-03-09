@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import { Button, Toggle } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { mediaQuery } from '~/lib/styles';
 import {
   useGetMe,
@@ -19,6 +19,7 @@ import {
 } from '~/hooks/queries/user';
 import { extractError } from '~/lib/error';
 import { useQueryClient } from '@tanstack/react-query';
+import EmailEditor from '~/components/setting/EmailEditor';
 
 const SettingPage = () => {
   const user = useUser();
@@ -27,35 +28,60 @@ const SettingPage = () => {
   };
   const queryClient = useQueryClient();
   const logout = useLogout();
+  const [isEditEmail, setIsEditEmail] = useState(false);
+  const [nextEmail, setNextEmail] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { mutate: updateEmail } = useUpdateEmail({
-    onSuccess: async () => {
-      await queryClient.refetchQueries(useGetMe.getKey());
-    },
-    onError: (e) => {
-      const error = extractError(e);
-      alert(error.message);
-    },
-  });
+  const { mutate: updateEmail } = useUpdateEmail();
 
-  const { mutate: updateEmailNotification } = useUpdateEmailNotification({
-    onSuccess: async () => {
-      await queryClient.refetchQueries(useGetMe.getKey());
-    },
-    onError: (e) => {
-      const error = extractError(e);
-      alert(error.message);
-    },
-  });
+  const { mutate: updateEmailNotification } = useUpdateEmailNotification();
 
   const handleChangeEmailNotification = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    updateEmailNotification({ enabled: e.target.checked });
+    updateEmailNotification(
+      { enabled: e.target.checked },
+      {
+        onSuccess: async () => {
+          await queryClient.refetchQueries(useGetMe.getKey());
+        },
+        onError: (e) => {
+          const error = extractError(e);
+          alert(error.message);
+        },
+      },
+    );
+  };
+
+  const handleEditEmail = () => {
+    setIsEditEmail(true);
+  };
+
+  const handleCancelEditEmail = () => {
+    setIsEditEmail(false);
+  };
+
+  const handleConfirmEditEmail = () => {
+    updateEmail(
+      { email: nextEmail },
+      {
+        onSuccess: async () => {
+          await queryClient.refetchQueries(useGetMe.getKey());
+          setIsEditEmail(false);
+        },
+        onError: (e) => {
+          const error = extractError(e);
+          alert(error.message);
+        },
+      },
+    );
+  };
+
+  const handleChangeNextEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNextEmail(e.target.value);
   };
 
   return (
@@ -66,10 +92,32 @@ const SettingPage = () => {
             <Text className="profile">Profile</Text>
             <Text>{user?.username}</Text>
             <Text>{user?.displayName}</Text>
-            <Text>Email: {user?.email}</Text>
+            {isEditEmail ? (
+              <EmailEditor
+                isEmailEdit={isEditEmail}
+                nextEmail={nextEmail}
+                onChangeNextEmail={handleChangeNextEmail}
+                onEdit={handleConfirmEditEmail}
+                onCancel={handleCancelEditEmail}
+              />
+            ) : (
+              <EmailWrapper>
+                <Text>
+                  Email: {user?.email || <b>현재 존재하지 않습니다.</b>}
+                </Text>
+                <Button
+                  size="sm"
+                  color="secondary"
+                  shadow
+                  onClick={handleEditEmail}
+                >
+                  Edit
+                </Button>
+              </EmailWrapper>
+            )}
             <Toggle
               labelText="Email Notification"
-              defaultChecked={user.emailNotification}
+              defaultChecked={user?.emailNotification}
               onChange={handleChangeEmailNotification}
             />
             <Button size="auto" shadow color="error" onClick={logout}>
@@ -118,9 +166,9 @@ const Box = styled.div`
   }
 `;
 
-const Text = styled.div`
+const Text = styled.span`
   display: flex;
-  font-size: 0.8rem;
+  font-size: 16px;
   width: 100%;
   color: #000;
   &.profile {
@@ -128,14 +176,24 @@ const Text = styled.div`
     margin-bottom: 1rem;
     font-weight: 900;
   }
+  b {
+    color: #ff0000;
+  }
   ${mediaQuery.mobile} {
-    font-size: 1.2rem;
+    font-size: 16px;
     &.profile {
       font-size: 2rem;
       margin-bottom: 1rem;
       font-weight: 900;
     }
   }
+`;
+
+const EmailWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const StyledButton = styled(Button)`
