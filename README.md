@@ -15,16 +15,17 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
 
 5. Nest.js에서 class-transformer, class-validator, plainToInstance를 통해서 dto를 요청과 응답에서 알맞는 타입의 값을 받을 수 있게 했습니다.
 
-6. 댓글을 2단계까지 구성하였고, 그 이후로는 mention으로 처리하였습니다.
-   또한 parentId값을 통해서 한 번의 query 요청으로 댓글들을 받아오고,
-   이후 Map을 통해 group화하는 방식을 사용했습니다.
+6. 댓글을 2단계까지 구성하였고, 그 이후로는 mention으로 처리하였습니다. 또한 parentId값을 통해서 한 번의 query 요청으로 댓글들을 받아오고, 이후 Map을 통해 group화하는 방식을 사용했습니다.
+
+7. AWS SES(Simple Email Service)를 통해서 댓글이나 답글이 달릴 시, 경우에 따라 Post Author이나 Commenter, Mention User에게 Notification Email을 보냅니다.
 
 ## `Sturcture`
 
-- Deploy: AWS EC2 Ubuntu, NGINX, Docker, PM2, Git Actions
-- DB: Superbase + Postgresql, AWS S3
-- Client: React + Vite
 - Server: Nest
+- Client: React + Vite
+- Deploy: AWS EC2 Ubuntu, NGINX, Docker, PM2, Git Actions
+- DB: Superbase + Postgresql
+- ETC: AWS S3, AWS SES
 
 ## `Website Link`
 
@@ -42,8 +43,8 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
   - Postgresql
   - Passport
   - JWT + Cookie
+  - AWS S3, AWS SES
   - PM2
-  - AWS
 
 - Frontend
   - React
