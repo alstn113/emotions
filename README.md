@@ -25,7 +25,7 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
 - Client: React + Vite
 - Deploy: AWS EC2 Ubuntu, NGINX, Docker, PM2, Git Actions
 - DB: Superbase + Postgresql
-- ETC: AWS S3, AWS SES
+- ETC: AWS S3, AWS SES, Google Analytics
 
 ## `Website Link`
 
