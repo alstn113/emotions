@@ -37,9 +37,17 @@ export const GlobalStyle = () => {
           font-weight: normal;
           font-style: normal;
         }
-        body {
-          font-family: 'Roboto', sans-serif;
+        @font-face {
+          font-family: 'Pretendard';
+          src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css');
+          font-weight: normal;
+          font-style: normal;
         }
+
+        body {
+          font-family: 'Pretendard', sans-serif;
+        }
+
         // 모바일에서 tap highlight 제거
         // transparent로 하면 안됨 (투명하게 보이는 경우가 있음)
         * {
