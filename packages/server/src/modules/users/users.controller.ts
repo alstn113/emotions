@@ -39,17 +39,17 @@ export class UsersController {
   async updateEmail(
     @GetCurrentUser('userId') userId: string,
     @Body() dto: UpdateEmailDto,
-  ): Promise<string> {
-    await this.usersService.updateEmail(userId, dto);
-    return 'Email updated';
+  ): Promise<string | null> {
+    const user = await this.usersService.updateEmail(userId, dto);
+    return user.email;
   }
 
   @Patch('email-notification')
   async updateEmailNotification(
     @GetCurrentUser('userId') userId: string,
     @Body() dto: UpdateEmailNotificationDto,
-  ): Promise<string> {
-    await this.usersService.updateEmailNotification(userId, dto);
-    return 'Email notification updated';
+  ): Promise<boolean> {
+    const user = await this.usersService.updateEmailNotification(userId, dto);
+    return user.emailNotification;
   }
 }

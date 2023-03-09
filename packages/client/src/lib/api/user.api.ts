@@ -19,14 +19,14 @@ export const UserAPI = {
     return data;
   },
 
-  updateEmail: async (params: UpdateEmailParams): Promise<void> => {
+  updateEmail: async (params: UpdateEmailParams): Promise<string | null> => {
     const { data } = await apiClient.patch(API_URL.USER.UPDATE_EMAIL, params);
     return data;
   },
 
   updateEmailNotification: async (
     params: UpdateEmailNotificationParams,
-  ): Promise<void> => {
+  ): Promise<boolean> => {
     const { data } = await apiClient.patch(
       API_URL.USER.UPDATE_EMAIL_NOTIFICATION,
       params,

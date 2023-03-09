@@ -7,23 +7,56 @@ import useUser from '~/hooks/useUser';
 
 // components
 import styled from '@emotion/styled';
-import { Button } from '~/components/common';
+import { Button, Toggle } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
 import { useEffect } from 'react';
 import { mediaQuery } from '~/lib/styles';
+import {
+  useGetMe,
+  useUpdateEmail,
+  useUpdateEmailNotification,
+} from '~/hooks/queries/user';
+import { extractError } from '~/lib/error';
+import { useQueryClient } from '@tanstack/react-query';
 
 const SettingPage = () => {
   const user = useUser();
   const handleGithubLogin = () => {
     window.location.href = GITHUB_OAUTH_LOGIN_URL;
   };
-
+  const queryClient = useQueryClient();
   const logout = useLogout();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const { mutate: updateEmail } = useUpdateEmail({
+    onSuccess: async () => {
+      await queryClient.refetchQueries(useGetMe.getKey());
+    },
+    onError: (e) => {
+      const error = extractError(e);
+      alert(error.message);
+    },
+  });
+
+  const { mutate: updateEmailNotification } = useUpdateEmailNotification({
+    onSuccess: async () => {
+      await queryClient.refetchQueries(useGetMe.getKey());
+    },
+    onError: (e) => {
+      const error = extractError(e);
+      alert(error.message);
+    },
+  });
+
+  const handleChangeEmailNotification = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    updateEmailNotification({ enabled: e.target.checked });
+  };
 
   return (
     <TabLayout>
@@ -33,6 +66,12 @@ const SettingPage = () => {
             <Text className="profile">Profile</Text>
             <Text>{user?.username}</Text>
             <Text>{user?.displayName}</Text>
+            <Text>Email: {user?.email}</Text>
+            <Toggle
+              labelText="Email Notification"
+              defaultChecked={user.emailNotification}
+              onChange={handleChangeEmailNotification}
+            />
             <Button size="auto" shadow color="error" onClick={logout}>
               Logout
             </Button>
@@ -64,8 +103,9 @@ const Container = styled.div`
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  gap: 1rem;
 
   width: 100%;
   height: 400px;
@@ -82,10 +122,7 @@ const Text = styled.div`
   display: flex;
   font-size: 0.8rem;
   width: 100%;
-  padding: 0 1rem;
-  font-weight: 700;
   color: #000;
-  margin-bottom: 1rem;
   &.profile {
     font-size: 1.5rem;
     margin-bottom: 1rem;

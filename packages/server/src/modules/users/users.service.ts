@@ -20,7 +20,7 @@ export class UsersService {
 
   async updateEmail(userId: string, dto: UpdateEmailDto) {
     try {
-      await this.usersRepository.updateEmail(userId, dto);
+      return await this.usersRepository.updateEmail(userId, dto);
     } catch (e) {
       if (e.code === 'P2002') {
         throw new AppErrorException('BadRequest', 'Email already exists');
@@ -32,6 +32,6 @@ export class UsersService {
     userId: string,
     dto: UpdateEmailNotificationDto,
   ) {
-    await this.usersRepository.updateEmailNotification(userId, dto);
+    return await this.usersRepository.updateEmailNotification(userId, dto);
   }
 }
