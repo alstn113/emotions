@@ -11,6 +11,7 @@ import { Button } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
 import { GithubIcon } from '~/components/vectors';
 import { glassmorphism } from '~/lib/styles';
+import { useEffect } from 'react';
 
 const SettingPage = () => {
   const user = useUser();
@@ -19,6 +20,10 @@ const SettingPage = () => {
   };
 
   const logout = useLogout();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <TabLayout>

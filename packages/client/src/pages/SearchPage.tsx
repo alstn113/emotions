@@ -1,6 +1,6 @@
 // components
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextInput } from '~/components/common';
 import PostCard from '~/components/home/PostCard';
 import TabLayout from '~/components/layouts/TabLayout';
@@ -20,6 +20,10 @@ const SearchPage = () => {
   const { data: posts } = useGetSearchPosts(debouncedText, {
     enabled: !!debouncedText,
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <TabLayout>
