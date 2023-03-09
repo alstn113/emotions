@@ -1,9 +1,10 @@
-import { ApiTags } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { IsEmail, IsOptional } from 'class-validator';
 
-@ApiTags('users ')
+@ApiTags('users')
 export class UpdateEmailDto {
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  email: string | null;
 }
