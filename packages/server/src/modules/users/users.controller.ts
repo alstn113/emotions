@@ -39,15 +39,17 @@ export class UsersController {
   async updateEmail(
     @GetCurrentUser('userId') userId: string,
     @Body() dto: UpdateEmailDto,
-  ): Promise<void> {
+  ): Promise<string> {
     await this.usersService.updateEmail(userId, dto);
+    return 'Email updated';
   }
 
   @Patch('email-notification')
   async updateEmailNotification(
     @GetCurrentUser('userId') userId: string,
     @Body() dto: UpdateEmailNotificationDto,
-  ): Promise<void> {
+  ): Promise<string> {
     await this.usersService.updateEmailNotification(userId, dto);
+    return 'Email notification updated';
   }
 }
