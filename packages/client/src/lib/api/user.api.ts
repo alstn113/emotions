@@ -1,8 +1,8 @@
 import { API_URL } from '~/constants';
 import {
   UpdateEmailParams,
-  User,
   UpdateEmailNotificationParams,
+  User,
 } from '~/lib/types';
 import apiClient from './apiClient';
 

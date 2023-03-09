@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface UpdateEmailParams {
-  email: string | null;
+  email?: string | null;
 }
 
 export interface UpdateEmailNotificationParams {
