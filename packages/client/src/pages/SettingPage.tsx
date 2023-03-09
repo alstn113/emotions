@@ -66,7 +66,9 @@ const SettingPage = () => {
 
   const handleConfirmEditEmail = () => {
     updateEmail(
-      { email: nextEmail },
+      // if nextEmail is empty string, set null
+      // because empty string is not valid email
+      { email: nextEmail === '' ? null : nextEmail },
       {
         onSuccess: async () => {
           await queryClient.refetchQueries(useGetMe.getKey());
