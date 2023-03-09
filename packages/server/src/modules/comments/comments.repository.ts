@@ -132,6 +132,7 @@ const commentSelector = {
         id: true,
         username: true,
         email: true,
+        emailNotification: true,
         displayName: true,
         profileImage: true,
       },

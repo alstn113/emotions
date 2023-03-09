@@ -9,7 +9,6 @@ import SeriesContentsSkeleton from '~/components/series/skeleton/SeriesContentsS
 import { mediaQuery } from '~/lib/styles';
 import SeriesPageErrorFallback from '../components/user/SeriesPageErrorFallback';
 
-//TODO: fallback 보완
 const SeriesPage = () => {
   const { username, seriesName } = useParams() as {
     username: string;

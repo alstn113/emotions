@@ -3,5 +3,6 @@ export interface User {
   username: string;
   displayName: string;
   email: string | null;
+  emailNotification: boolean;
   profileImage: string | null;
 }
