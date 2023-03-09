@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=
+=1.0"
+    />
+  </head>
+  <body>
+    <div
+      style="
+        min-height: 100vh;
+        background-color: #f4f4f4;
+        font-family: 'Roboto', sans-serif;
+        padding: 10px;
+      "
+    >
+      <div
+        style="max-width: 600px; background-color: #ffffff; margin: 0px auto"
+      >
+        <div
+          style="
+            padding: 16px 32px;
+            font-size: 32px;
+            font-weight: 800;
+            background-color: #ffab37;
+            color: #fff;
+          "
+        >
+          Emotions
+        </div>
+        <div style="padding: 32px 32px 64px 32px">
+          <h1 style="color: #000; font-size: 24px; line-height: 36px">
+            ${postTitle}
+          </h1>
+          <h2
+            style="
+              color: #fff;
+              font-size: 18px;
+              line-height: 30px;
+              background: #ffab37;
+              padding: 20px;
+            "
+          >
+            새로운 댓글이 달렸습니다.
+          </h2>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <div>
+              <a href="${commentUserLink}">
+                <img
+                  style="
+                    height: 64px;
+                    width: 64px;
+                    display: block;
+                    border-radius: 32px;
+                  "
+                  src="${profileImage}"
+                />
+              </a>
+            </div>
+            <div>
+              <p style="margin-top: 20px; font-size: 16px; color: #666">
+                ${commentUsername}
+              </p>
+              <p style="font-size: 16px; color: #666">${commentText}</p>
+            </div>
+          </div>
+        </div>
+        <div style="background-color: #ffab37; padding: 40px; color: #fff">
+          <a
+            href="https://github.com/neko113/Emotions"
+            style="text-decoration: none; color: #fff"
+          >
+            <p style="margin: 0; font-size: 14px">
+              @neko113 // Follow 및 Star는 개발자에게 큰 힘이 됩니다.
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

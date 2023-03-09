@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
-import sanitizeHtml from 'sanitize-html';
+import * as sanitizeHtml from 'sanitize-html';
 @Injectable()
 export class SESService {
   private readonly sesClient: SESClient;
@@ -59,7 +59,14 @@ export class SESService {
     const commentUserLink = `https://wap-dev.store/user/${commentUsername}`;
 
     return `
-    <body
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body
     style="
       font-family: Arial, sans-serif;
       font-size: 16px;
@@ -107,9 +114,7 @@ export class SESService {
                 </a>
                 <div style="display: flex; align-items: center; gap: 10px">
                   <div>
-                    <a
-                      href="${commentUserLink}"
-                    >
+                    <a href="${commentUserLink}">
                       <img
                         style="
                           height: 64px;
@@ -146,7 +151,9 @@ export class SESService {
         </td>
       </tr>
     </table>
-  </body>  
+  </body>
+</html>
+
     `;
   }
 }
