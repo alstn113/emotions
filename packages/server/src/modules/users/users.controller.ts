@@ -1,8 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 import { GetCurrentUser, Public } from '~/common/decorators';
-import { UserDto } from './dto';
+import { UpdateEmailDto, UpdateEmailNotificationDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
@@ -33,5 +33,21 @@ export class UsersController {
     return plainToInstance(UserDto, user, {
       excludeExtraneousValues: true,
     });
+  }
+
+  @Patch('email')
+  async updateEmail(
+    @GetCurrentUser('userId') userId: string,
+    @Body() dto: UpdateEmailDto,
+  ): Promise<void> {
+    await this.usersService.updateEmail(userId, dto);
+  }
+
+  @Patch('email-notification')
+  async updateEmailNotification(
+    @GetCurrentUser('userId') userId: string,
+    @Body() dto: UpdateEmailNotificationDto,
+  ): Promise<void> {
+    await this.usersService.updateEmailNotification(userId, dto);
   }
 }
