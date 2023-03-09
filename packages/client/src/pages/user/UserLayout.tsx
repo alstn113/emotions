@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
-import { Outlet, useParams, Link } from 'react-router-dom';
+import { Outlet, useParams, NavLink } from 'react-router-dom';
 import { Avatar } from '~/components/common';
 import { useGetUserByUsername } from '~/hooks/queries/user';
 import { mediaQuery } from '~/lib/styles';
@@ -28,9 +28,12 @@ const UserLayout = () => {
         </UserInfo>
       </UserProfileContainer>
       <TabsWrapper>
-        <TabItem to={`/user/${username}`}>Posts</TabItem>
-        <TabItem to={`/user/${username}/series`}>Series</TabItem>
-        <TabItem to={`/user/${username}/about`}>About</TabItem>
+        <TabItem to={`/user/${username}`} end>
+          Posts
+        </TabItem>
+        <TabItem to={`/user/${username}/series`} end>
+          Series
+        </TabItem>
       </TabsWrapper>
       <Outlet />
     </>
@@ -40,20 +43,20 @@ const UserLayout = () => {
 const TabsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  border-radius: 1rem;
   overflow: hidden;
-  margin-bottom: 16px;
   width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   ${mediaQuery.tablet} {
     width: 50%;
+    border-radius: 1rem;
   }
   height: 50px;
   background-color: #f5f5f5;
   font-size: 1.5rem;
-  margin-top: 2rem;
 `;
 
-const TabItem = styled(Link)`
+const TabItem = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +67,9 @@ const TabItem = styled(Link)`
   transition: 0.3s;
   &:hover {
     background-color: #e5e5e5;
+  }
+  &.active {
+    background-color: #e3e3e3;
   }
 `;
 
