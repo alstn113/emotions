@@ -1,6 +1,7 @@
-import { Expose, Type } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { SeriesPostDto } from './series-post.dto';
 
+@Exclude()
 export class SeriesDto {
   @Expose()
   id: string;

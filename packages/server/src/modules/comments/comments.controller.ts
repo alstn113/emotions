@@ -16,9 +16,7 @@ export class CommentsController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<CommentDto> {
     const comment = await this.commentsService.createComment(dto, userId);
-    return plainToInstance(CommentDto, comment, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(CommentDto, comment);
   }
 
   @Delete(':id')

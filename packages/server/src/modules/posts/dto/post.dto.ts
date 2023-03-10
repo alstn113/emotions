@@ -1,8 +1,9 @@
-import { Expose, Type } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { SeriesDto } from '~/modules/series/dto';
 import { UserDto } from '~/modules/users/dto';
 import { PostStatsDto } from './post-stats.dto';
 
+@Exclude()
 export class PostDto {
   @Expose()
   id: string;

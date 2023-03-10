@@ -10,4 +10,7 @@ export default () => ({
   AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY,
   AWS_S3_REGION: process.env.AWS_S3_REGION || 'ap-northeast-2',
   AWS_S3_BUCKET: process.env.AWS_S3_BUCKET || 'wap-dev-store',
+
+  // aws-ses
+  AWS_SES_REGION: process.env.AWS_SES_REGION || 'ap-northeast-2',
 });

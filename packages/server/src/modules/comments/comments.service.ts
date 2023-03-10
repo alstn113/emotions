@@ -4,12 +4,14 @@ import { CommentsRepository } from './comments.repository';
 import { Comment } from '@prisma/client';
 import { PostsRepository } from '../posts/posts.repository';
 import { AppErrorException } from '~/common/exceptions';
+import { SESService } from '~/providers/aws/ses/ses.service';
 
 @Injectable()
 export class CommentsService {
   constructor(
     private readonly commentRepository: CommentsRepository,
     private readonly postRepository: PostsRepository,
+    private readonly sesService: SESService,
   ) {}
 
   async getComment(id: string) {
@@ -87,6 +89,9 @@ export class CommentsService {
   }
 
   async createComment(dto: CreateCommentDto, userId: string) {
+    const post = await this.postRepository.findPostById(dto.postId);
+    if (!post) throw new AppErrorException('NotFound', 'Post not found');
+
     if (dto.text.length > 300 || dto.text.length === 0) {
       throw new AppErrorException(
         'BadRequest',
@@ -120,6 +125,67 @@ export class CommentsService {
     }
 
     await this.countAndSyncComments(dto.postId);
+
+    // notify to post author and parent comment author
+
+    try {
+      const nofifyToPostAuthor = async () => {
+        if (!post.user.email) return; // don't notify to user who doesn't have email
+        if (post.user.id === userId) return; // don't notify to myself
+
+        const body = this.sesService.createCommentEmail({
+          postAuthor: post.user.username,
+          postTitle: post.title,
+          postSlug: post.slug,
+          commentUsername: comment.user.username,
+          profileImage: comment.user.profileImage,
+          commentText: comment.text,
+        });
+
+        await this.sesService.sendEmail({
+          to: post.user.email,
+          subject: `Re: ${post.title} - New Comment On Your Post!`,
+          body,
+          from: `no-reply@wap-dev.store`,
+        });
+      };
+      const notifyToParentCommenter = async () => {
+        let to: string;
+        if (comment.mentionUser) {
+          if (!comment.mentionUser.email) return; // don't notify to user who doesn't have email
+          if (comment.mentionUser.id === userId) return; // don't notify to myself
+
+          to = comment.mentionUser.email;
+        } else if (parentComment) {
+          if (!parentComment.user.email) return; // don't notify to user who doesn't have email
+          if (parentComment.user.id === userId) return; // don't notify to myself
+
+          to = parentComment.user.email;
+        } else {
+          return; // don't notify if it's root comment
+        }
+
+        const body = this.sesService.createCommentEmail({
+          postAuthor: post.user.username,
+          postTitle: post.title,
+          postSlug: post.slug,
+          commentUsername: comment.user.username,
+          profileImage: comment.user.profileImage,
+          commentText: comment.text,
+        });
+
+        await this.sesService.sendEmail({
+          to,
+          subject: `Re: ${post.title} - New Reply On Your Comment!`,
+          body,
+          from: `no-reply@wap-dev.store`,
+        });
+      };
+
+      await Promise.all([nofifyToPostAuthor(), notifyToParentCommenter()]);
+    } catch (error) {
+      console.log(error);
+    }
 
     return { ...comment, isDeleted: false, subcomments: [], isLiked: false };
   }

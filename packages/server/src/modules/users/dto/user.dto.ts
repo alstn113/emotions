@@ -1,5 +1,6 @@
-import { Expose } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
+@Exclude()
 export class UserDto {
   @Expose()
   id: string;
@@ -9,6 +10,12 @@ export class UserDto {
 
   @Expose()
   displayName: string;
+
+  @Expose()
+  email: string | null;
+
+  @Expose()
+  emailNotification: boolean;
 
   @Expose()
   profileImage: string | null;
