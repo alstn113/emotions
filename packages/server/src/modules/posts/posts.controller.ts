@@ -38,9 +38,7 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string | null,
   ): Promise<PaginatedPostsDto> {
     const paginatedPosts = await this.postsService.getPosts(dto, userId);
-    return plainToInstance(PaginatedPostsDto, paginatedPosts, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PaginatedPostsDto, paginatedPosts);
   }
 
   @Public()
@@ -55,9 +53,7 @@ export class PostsController {
       username,
       userId,
     );
-    return plainToInstance(PaginatedPostsDto, paginatedPosts, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PaginatedPostsDto, paginatedPosts);
   }
 
   @Public()
@@ -72,9 +68,7 @@ export class PostsController {
       slug,
       userId,
     });
-    return plainToInstance(PostDto, post, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PostDto, post);
   }
 
   @Public()
@@ -83,9 +77,7 @@ export class PostsController {
     @Query() dto: GetSearchPostsQueryDto,
   ): Promise<SearchPostsDto> {
     const posts = await this.postsService.getSearchPosts(dto);
-    return plainToInstance(SearchPostsDto, posts, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SearchPostsDto, posts);
   }
 
   @Public()
@@ -95,9 +87,7 @@ export class PostsController {
     @Param('id') id: string,
   ) {
     const post = await this.postsService.getPost(id, userId);
-    return plainToInstance(PostDto, post, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PostDto, post);
   }
 
   @Public()
@@ -107,9 +97,7 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string | null,
   ): Promise<CommentListResponseDto> {
     const commentList = await this.postsService.getCommentList(id, userId);
-    return plainToInstance(CommentListResponseDto, commentList, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(CommentListResponseDto, commentList);
   }
 
   @Post()
@@ -119,9 +107,7 @@ export class PostsController {
   ): Promise<PostDto> {
     const post = await this.postsService.createPost(dto, user);
 
-    return plainToInstance(PostDto, post, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PostDto, post);
   }
 
   @Post(':postId/likes')
@@ -130,9 +116,7 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<PostStatsDto> {
     const postStats = await this.postsService.likePost({ postId, userId });
-    return plainToInstance(PostStatsDto, postStats, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PostStatsDto, postStats);
   }
 
   @Delete(':postId/likes')
@@ -141,9 +125,7 @@ export class PostsController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<PostStatsDto> {
     const postStats = await this.postsService.unlikePost({ postId, userId });
-    return plainToInstance(PostStatsDto, postStats, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(PostStatsDto, postStats);
   }
 
   @Delete(':postId')

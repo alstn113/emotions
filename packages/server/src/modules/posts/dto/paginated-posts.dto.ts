@@ -1,6 +1,7 @@
-import { Expose, Type } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { PostDto } from './post.dto';
 
+@Exclude()
 export class PaginatedPostsDto {
   @Expose()
   @Type(() => PostDto)

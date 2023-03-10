@@ -4,15 +4,11 @@ import { GetCurrentUser } from '~/common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { CommentDto, CreateCommentDto } from './dto';
 import { plainToInstance } from 'class-transformer';
-import { SESService } from '~/providers/aws/ses/ses.service';
 
 @ApiTags('comments')
 @Controller('comments')
 export class CommentsController {
-  constructor(
-    private readonly commentsService: CommentsService,
-    private readonly sesService: SESService,
-  ) {}
+  constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
   async createComment(
@@ -20,9 +16,7 @@ export class CommentsController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<CommentDto> {
     const comment = await this.commentsService.createComment(dto, userId);
-    return plainToInstance(CommentDto, comment, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(CommentDto, comment);
   }
 
   @Delete(':id')

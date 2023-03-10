@@ -19,9 +19,7 @@ export class UsersController {
       return null;
     }
     const user = await this.usersService.getUserById(userId);
-    return plainToInstance(UserDto, user, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(UserDto, user);
   }
 
   @Public()
@@ -30,9 +28,7 @@ export class UsersController {
     @Param('username') username: string,
   ): Promise<UserDto> {
     const user = await this.usersService.getUserByUsername(username);
-    return plainToInstance(UserDto, user, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(UserDto, user);
   }
 
   @Patch('email')

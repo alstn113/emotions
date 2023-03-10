@@ -26,9 +26,7 @@ export class SeriesController {
     @Param('username') username: string,
   ): Promise<SeriesDto[]> {
     const seriesList = await this.seriesService.getUserSeriesList(username);
-    return plainToInstance(SeriesDto, seriesList, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesDto, seriesList);
   }
 
   // Get a specific series by name.
@@ -42,9 +40,7 @@ export class SeriesController {
       username,
       seriesName,
     );
-    return plainToInstance(SeriesDto, series, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesDto, series);
   }
 
   @Post()
@@ -53,9 +49,7 @@ export class SeriesController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<SeriesDto> {
     const series = await this.seriesService.createSeries(dto, userId);
-    return plainToInstance(SeriesDto, series, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesDto, series);
   }
 
   @Delete(':seriesId')
@@ -64,9 +58,7 @@ export class SeriesController {
     @GetCurrentUser('userId') userId: string,
   ): Promise<SeriesDto> {
     const series = await this.seriesService.deleteSeries(seriesId, userId);
-    return plainToInstance(SeriesDto, series, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesDto, series);
   }
 
   @Post(':seriesId/postId/:postId')
@@ -80,9 +72,7 @@ export class SeriesController {
       postId,
       userId,
     );
-    return plainToInstance(SeriesPostDto, seriesPost, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesPostDto, seriesPost);
   }
 
   // patch는 일부만 수정할 때 사용, put은 전체를 수정할 때 사용
@@ -98,8 +88,6 @@ export class SeriesController {
       userId,
     );
 
-    return plainToInstance(SeriesDto, editedSeries, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(SeriesDto, editedSeries);
   }
 }
