@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'server', // pm2 name
+      name: 'emotions-server', // pm2 name
       script: './dist/main.js', // // 앱 실행 스크립트
       instances: 3, // 클러스터 모드 사용 시 생성할 인스턴스 수
       exec_mode: 'cluster', // fork, cluster 모드 중 선택
