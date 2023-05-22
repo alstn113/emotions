@@ -2,24 +2,24 @@ import * as S from './ProgressBar.styles';
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   percent?: number;
-  animation: 'play' | 'done' | 'pending' | 'unset';
+  progressStatus: 'playing' | 'completed' | 'pending' | 'unset';
   duration?: `${number}s`;
 }
 
 const ProgressBar = ({
   percent = 0,
-  animation = 'unset',
+  progressStatus = 'unset',
   duration = '0s',
   ...props
 }: ProgressBarProps) => {
   return (
-    <S.Container {...props} status={animation}>
-      <S.Percent
-        style={{
-          width: `${percent}%`,
-          animationDuration: animation === 'play' ? duration : '',
-        }}
-      />
+    <S.Container
+      {...props}
+      progressStatus={progressStatus}
+      progressPercent={percent}
+      progressDuration={progressStatus === 'playing' ? duration : ''}
+    >
+      <div className="percent" />
     </S.Container>
   );
 };

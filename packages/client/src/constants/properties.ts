@@ -1,5 +1,7 @@
 import qs from 'qs';
 
+export const API_REQUEST_TIMEOUT = 5000; // 5s
+
 export const BASE_URL: string =
   import.meta.env.VITE_APP_BASE_URL || 'http://localhost:8080';
 
