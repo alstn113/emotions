@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Post, PostLike } from '@prisma/client';
-import { AppErrorException } from '~/common/exceptions';
-import { generateId, slugify } from '~/lib/slugify';
-import { S3Service } from '~/providers/aws/s3/s3.service';
+import { AppErrorException } from '../../common/exceptions';
+import { generateId, slugify } from '../../lib/slugify';
+import { S3Service } from '../../providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { SeriesService } from '../series/series.service';
 import { CreatePostDto } from './dto/create-post.dto';

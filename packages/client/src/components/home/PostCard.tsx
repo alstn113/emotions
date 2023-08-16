@@ -1,10 +1,10 @@
-// react
-import { PostWithStats } from '~/lib/types';
 import { Link } from 'react-router-dom';
 
-// components
 import styled from '@emotion/styled';
+
 import formatDate from '~/lib/formatDate';
+import { PostWithStats } from '~/lib/types';
+
 import { Avatar } from '../common';
 
 interface Props {

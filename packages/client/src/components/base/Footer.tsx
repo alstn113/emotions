@@ -1,12 +1,13 @@
-// react
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// components
-import styled from '@emotion/styled';
-import { mediaQuery, zIndexes } from '~/lib/styles';
-import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
-import useUser from '~/hooks/useUser';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import { Home, Create, Search, Settings, Comment } from '~/components/vectors';
+
+import useUser from '~/hooks/useUser';
+
+import { mediaQuery, zIndexes } from '~/lib/styles';
 
 const Footer = () => {
   const user = useUser();

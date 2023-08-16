@@ -1,5 +1,6 @@
-import * as S from './Avatar.styles';
 import BlankUser from '~/assets/vectors/blank-user.svg';
+
+import * as S from './Avatar.styles';
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl';
 

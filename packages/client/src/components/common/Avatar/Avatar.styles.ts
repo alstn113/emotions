@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import type { AvatarSize } from './Avatar';
 
 export const Container = styled.div<{ size: AvatarSize; isBorder: boolean }>`
-  // md
   width: 32px;
   height: 32px;
   border-radius: 50%;

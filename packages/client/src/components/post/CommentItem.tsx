@@ -1,28 +1,27 @@
-// react
 import { useState } from 'react';
-import { Comment } from '~/lib/types';
-import { extractError } from '~/lib/error';
+import { Link } from 'react-router-dom';
 
-// hooks
+import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
+
+import LikeButton from '~/components/base/LikeButton';
+import MoreVertMenu from '~/components/post/MoreVertMenu';
+import ReplyComment from '~/components/post/ReplyComment';
+import SubCommentList from '~/components/post/SubCommentList';
+import { Pencil, Trash } from '~/components/vectors';
+
 import { useDeleteComment } from '~/hooks/queries/comment';
 import { useGetCommentList } from '~/hooks/queries/post';
-import useUser from '~/hooks/useUser';
 import useCommnetLikeManager from '~/hooks/useCommentLikeManager';
+import useUser from '~/hooks/useUser';
 
-// stores
+import { extractError } from '~/lib/error';
+import formatDate from '~/lib/formatDate';
+import { Comment } from '~/lib/types';
+
 import useModalStore from '~/stores/useModalStore';
 
-// components
-import styled from '@emotion/styled';
-import { Pencil, Trash } from '~/components/vectors';
-import SubCommentList from '~/components/post/SubCommentList';
-import ReplyComment from '~/components/post/ReplyComment';
-import MoreVertMenu from '~/components/post/MoreVertMenu';
-import LikeButton from '~/components/base/LikeButton';
-import formatDate from '~/lib/formatDate';
 import { Avatar } from '../common';
-import { Link } from 'react-router-dom';
 
 interface Props {
   comment: Comment;

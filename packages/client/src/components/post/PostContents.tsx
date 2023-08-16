@@ -1,32 +1,31 @@
-// react
+import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { extractError } from '~/lib/error';
 
-// hooks
-import usePostLikeManager from '~/hooks/usePostLikeManager';
-import useUser from '~/hooks/useUser';
-import { useDeletePost, useGetPostBySlug } from '~/hooks/queries/post';
-
-// stores
-import useModalStore from '~/stores/useModalStore';
-
-// components
 import styled from '@emotion/styled';
+import hljs from 'highlight.js';
+import MarkdownIt from 'markdown-it';
+
 import LikeButton from '~/components/base/LikeButton';
 import { Button } from '~/components/common';
+
+import { useDeletePost, useGetPostBySlug } from '~/hooks/queries/post';
+import usePostLikeManager from '~/hooks/usePostLikeManager';
+import useUser from '~/hooks/useUser';
+
+import { extractError } from '~/lib/error';
+import formatDate from '~/lib/formatDate';
 import { mediaQuery } from '~/lib/styles';
-import PostSeriesViewer from './PostSeriesViewer';
-import { useMemo } from 'react';
-import MarkdownIt from 'markdown-it';
-import CommentList from './CommentList';
-import BaseLayout from '../layouts/BaseLayout';
-import { MenuDots, Pencil, Trash } from '../vectors';
-import useBottomSheetStore from '~/stores/useBottomSheetStore';
-import hljs from 'highlight.js';
 import '~/lib/styles/github-markdown.css';
 import 'highlight.js/styles/github.css';
-import formatDate from '~/lib/formatDate';
 import { SinglePostReponse } from '~/lib/types';
+
+import useBottomSheetStore from '~/stores/useBottomSheetStore';
+import useModalStore from '~/stores/useModalStore';
+
+import CommentList from './CommentList';
+import PostSeriesViewer from './PostSeriesViewer';
+import BaseLayout from '../layouts/BaseLayout';
+import { MenuDots, Pencil, Trash } from '../vectors';
 
 interface Props {
   username: string;

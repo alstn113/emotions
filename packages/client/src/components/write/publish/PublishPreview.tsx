@@ -1,12 +1,18 @@
-import styled from '@emotion/styled';
 import { useEffect, useRef, useState } from 'react';
-import { LoadingSpinner } from '~/components/common';
-import { useUploadImage } from '~/hooks/queries/post';
-import useWriteStore from '~/stores/useWriteStore';
-import UploadImageSvg from '~/assets/vectors/upload-image.svg';
-import { extractError } from '~/lib/error';
+
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import removeMarkdown from 'remove-markdown';
+
+import { LoadingSpinner } from '~/components/common';
+
+import { useUploadImage } from '~/hooks/queries/post';
+
+import { extractError } from '~/lib/error';
+
+import useWriteStore from '~/stores/useWriteStore';
+
+import UploadImageSvg from '~/assets/vectors/upload-image.svg';
 
 const PublishPreview = () => {
   const { description, body, changeThumbnail, changeDescription, thumbnail } =

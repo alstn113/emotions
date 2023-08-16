@@ -1,6 +1,9 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Comment } from '~/lib/types';
+
 import { useLikeComment, useUnlikeComment } from './queries/comment';
 import { useGetCommentList } from './queries/post';
 import useOpenLoginDialog from './useOpenLoginDialog';

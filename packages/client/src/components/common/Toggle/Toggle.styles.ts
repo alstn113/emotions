@@ -1,6 +1,7 @@
-import { NormalColorType, palette } from '~/lib/styles';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import { NormalColorType, palette } from '~/lib/styles';
 
 export const ToggleLabel = styled.label<{ variant: 'sm' | 'lg' }>`
   display: flex;

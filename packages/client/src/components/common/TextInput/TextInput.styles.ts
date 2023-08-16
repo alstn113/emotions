@@ -1,6 +1,8 @@
-import { palette, NormalColorType } from '~/lib/styles';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import { palette, NormalColorType } from '~/lib/styles';
+
 import { InputVariantType } from './TextInput';
 
 export const Root = styled.div`

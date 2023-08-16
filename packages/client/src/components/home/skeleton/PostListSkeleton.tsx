@@ -1,6 +1,7 @@
-// components
 import styled from '@emotion/styled';
+
 import { mediaQuery } from '~/lib/styles';
+
 import PostCardSkeleton from './PostCardSkeleton';
 
 const PostListSkeleton = () => {

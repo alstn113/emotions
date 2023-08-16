@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { RippleContainer } from './Ripple.styles';
 
 interface useDebouncedRippleCleanUpProps {

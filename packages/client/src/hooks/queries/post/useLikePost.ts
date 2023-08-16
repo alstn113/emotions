@@ -1,6 +1,8 @@
-import { PostAPI } from '~/lib/api';
 import { useMutation } from '@tanstack/react-query';
+
 import { UseMutationOptionsOf } from '~/hooks/queries/types';
+
+import { PostAPI } from '~/lib/api';
 
 const useLikePost = (
   options: UseMutationOptionsOf<typeof PostAPI.likePost> = {},

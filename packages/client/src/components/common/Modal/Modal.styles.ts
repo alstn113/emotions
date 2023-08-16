@@ -1,6 +1,7 @@
-import { mediaQuery, zIndexes } from '~/lib/styles';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+
+import { mediaQuery, zIndexes } from '~/lib/styles';
 
 export const Overlay = styled(motion.div)`
   position: fixed;

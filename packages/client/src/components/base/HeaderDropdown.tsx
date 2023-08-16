@@ -1,17 +1,19 @@
-// react
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-// hooks
-import useUser from '~/hooks/useUser';
-import useDisclosure from '~/hooks/useDisclosure';
-import useOnClickOutside from '~/hooks/useOnClickOutside';
-import useLogout from '~/hooks/useLogout';
-// components
-import styled from '@emotion/styled';
+
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { zIndexes } from '~/lib/styles';
+
 import { Avatar } from '~/components/common';
+
+import useDisclosure from '~/hooks/useDisclosure';
+import useLogout from '~/hooks/useLogout';
+import useOnClickOutside from '~/hooks/useOnClickOutside';
+import useUser from '~/hooks/useUser';
+
+import { zIndexes } from '~/lib/styles';
+
 import CaretDown from '../vectors/CaretDown';
 
 const HeaderDropdown = () => {

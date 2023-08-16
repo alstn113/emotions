@@ -1,7 +1,7 @@
+import { indentWithTab } from '@codemirror/commands';
 import { markdown } from '@codemirror/lang-markdown';
 import { keymap } from '@codemirror/view';
 import { EditorView, minimalSetup } from 'codemirror';
-import { indentWithTab } from '@codemirror/commands';
 
 const customTheme = EditorView.theme({
   // paper

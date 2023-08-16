@@ -1,15 +1,18 @@
-import { SeriesPost } from '~/lib/types';
+import { useEffect, useState } from 'react';
 import {
   DragDropContext,
   Draggable,
   Droppable,
   DropResult,
 } from 'react-beautiful-dnd';
-import reorder from '~/lib/reorder';
-import { useEffect, useState } from 'react';
-import SeriesPostItem from './SeriesPostItem';
-import styled from '@emotion/styled';
+
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import reorder from '~/lib/reorder';
+import { SeriesPost } from '~/lib/types';
+
+import SeriesPostItem from './SeriesPostItem';
 
 interface Props {
   seriesPosts: SeriesPost[];

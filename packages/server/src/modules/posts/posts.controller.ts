@@ -10,10 +10,10 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { GetCurrentUser, Public } from '~/common/decorators';
+import { GetCurrentUser, Public } from '../../common/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import multerOptions from '~/lib/multer';
+import multerOptions from '../../lib/multer';
 import { plainToInstance } from 'class-transformer';
 import {
   PaginatedPostsDto,

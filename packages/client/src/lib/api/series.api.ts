@@ -1,4 +1,6 @@
 import { API_URL } from '~/constants';
+
+import apiClient from './apiClient';
 import {
   AppendToPostSeriesParams,
   CreateSeriesParams,
@@ -6,7 +8,6 @@ import {
   Series,
   SeriesList,
 } from '../types';
-import apiClient from './apiClient';
 
 export const SeriesAPI = {
   getUserSeries: async (username: string): Promise<SeriesList> => {

@@ -1,9 +1,13 @@
-import styled from '@emotion/styled';
-import useWriteStore from '~/stores/useWriteStore';
-import { mediaQuery } from '~/lib/styles';
-import MarkdownIt from 'markdown-it';
 import { useMemo } from 'react';
+
+import styled from '@emotion/styled';
 import hljs from 'highlight.js';
+import MarkdownIt from 'markdown-it';
+
+import { mediaQuery } from '~/lib/styles';
+
+import useWriteStore from '~/stores/useWriteStore';
+
 import '~/lib/styles/github-markdown.css';
 import '../../../node_modules/highlight.js/styles/github.css';
 

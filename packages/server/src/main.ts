@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-import { AppModule } from '~/app.module';
-import { createDocumnet } from '~/lib/swagger';
+import { AppModule } from './app.module';
+import { createDocumnet } from './lib/swagger';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
@@ -34,7 +34,7 @@ const bootstrap = async () => {
   // }
   //TODO: 임시 사용
   createDocumnet(app);
-
+  app.enableShutdownHooks();
   await app.listen(PORT);
 
   logger.log(`Server is running on port ${PORT}`);

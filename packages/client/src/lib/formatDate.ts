@@ -1,5 +1,4 @@
-import { formatDistanceToNow, format } from 'date-fns';
-import koLocale from 'date-fns/locale/ko';
+import { formatDistanceToNow, format, ko } from 'date-fns';
 
 const formatDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
@@ -12,7 +11,7 @@ const formatDate = (date: string | Date): string => {
 
   // less than 1 hour
   if (diff < 1000 * 60 * 60 * 24) {
-    return formatDistanceToNow(d, { addSuffix: true, locale: koLocale }); // 3시간 전
+    return formatDistanceToNow(d, { addSuffix: true, locale: ko }); // 3시간 전
   }
 
   // less than 36 hours
@@ -22,7 +21,7 @@ const formatDate = (date: string | Date): string => {
 
   // less than 7 days
   if (diff < 1000 * 60 * 60 * 24 * 7) {
-    return formatDistanceToNow(d, { addSuffix: true, locale: koLocale }); // 3일 전
+    return formatDistanceToNow(d, { addSuffix: true, locale: ko }); // 3일 전
   }
 
   return format(d, 'yyyy년 M월 d일'); // 2019년 1월 1일

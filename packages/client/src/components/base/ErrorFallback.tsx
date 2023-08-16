@@ -1,6 +1,7 @@
-// components
 import styled from '@emotion/styled';
+
 import { extractError } from '~/lib/error';
+
 import { Button } from '../common';
 import BaseLayout from '../layouts/BaseLayout';
 

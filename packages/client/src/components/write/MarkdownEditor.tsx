@@ -1,6 +1,8 @@
-import { EditorView } from 'codemirror';
 import { useEffect, useRef } from 'react';
+
 import styled from '@emotion/styled';
+import { EditorView } from 'codemirror';
+
 import { codeMirrorExtensions } from '~/lib/codemirror';
 
 interface Props {

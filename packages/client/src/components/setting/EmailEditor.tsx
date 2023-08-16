@@ -1,6 +1,9 @@
-import styled from '@emotion/styled';
 import { useEffect, useRef } from 'react';
+
+import styled from '@emotion/styled';
+
 import { mediaQuery } from '~/lib/styles';
+
 import { Button } from '../common';
 
 interface Props {

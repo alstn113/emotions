@@ -1,6 +1,8 @@
-import { PostAPI } from '~/lib/api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import type { UseInfiniteQueryOptionsOf } from '~/hooks/queries/types';
+
+import { PostAPI } from '~/lib/api';
 
 const useGetPosts = (
   options: UseInfiniteQueryOptionsOf<typeof PostAPI.getPosts> = {},

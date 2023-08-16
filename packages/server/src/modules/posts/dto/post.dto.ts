@@ -1,6 +1,6 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { SeriesDto } from '~/modules/series/dto';
-import { UserDto } from '~/modules/users/dto';
+import { SeriesDto } from '../../../modules/series/dto';
+import { UserDto } from '../../../modules/users/dto';
 import { PostStatsDto } from './post-stats.dto';
 
 @Exclude()

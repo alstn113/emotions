@@ -3,8 +3,8 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { CommentsRepository } from './comments.repository';
 import { Comment } from '@prisma/client';
 import { PostsRepository } from '../posts/posts.repository';
-import { AppErrorException } from '~/common/exceptions';
-import { SESService } from '~/providers/aws/ses/ses.service';
+import { AppErrorException } from '../../common/exceptions';
+import { SESService } from '../../providers/aws/ses/ses.service';
 
 @Injectable()
 export class CommentsService {

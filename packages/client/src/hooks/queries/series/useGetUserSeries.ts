@@ -1,6 +1,8 @@
-import { SeriesAPI } from '~/lib/api';
 import { useQuery } from '@tanstack/react-query';
+
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
+
+import { SeriesAPI } from '~/lib/api';
 
 const useGetUserSeries = (
   username: string,

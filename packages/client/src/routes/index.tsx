@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
+
 import NotFoundPage from '~/pages/NotFoundPage';
+
 import * as lazy from './lazy';
 
 const PageRoutes = () => {

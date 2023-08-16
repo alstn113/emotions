@@ -1,9 +1,13 @@
-import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { mediaQuery } from '~/lib/styles';
+
+import styled from '@emotion/styled';
+
 import { useGetUserSeries } from '~/hooks/queries/series';
-import { Comment as SeriesVector } from '../vectors';
+
 import formatDate from '~/lib/formatDate';
+import { mediaQuery } from '~/lib/styles';
+
+import { Comment as SeriesVector } from '../vectors';
 
 interface Props {
   username: string;

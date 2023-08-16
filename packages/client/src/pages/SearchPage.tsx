@@ -1,12 +1,15 @@
-// components
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+
+import styled from '@emotion/styled';
+
 import { TextInput } from '~/components/common';
 import PostCard from '~/components/home/PostCard';
 import TabLayout from '~/components/layouts/TabLayout';
 import SearchResultInfto from '~/components/search/SearchResultInfto';
+
 import { useGetSearchPosts } from '~/hooks/queries/post';
 import useDebounce from '~/hooks/useDebounce';
+
 import { mediaQuery } from '~/lib/styles';
 
 const SearchPage = () => {

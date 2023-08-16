@@ -1,8 +1,9 @@
-// components
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
-import { zIndexes } from '~/lib/styles';
+
 import Portal from '~/components/base/Portal';
+
+import { zIndexes } from '~/lib/styles';
 
 interface item {
   icon: React.ReactNode;

@@ -1,6 +1,9 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
+
 import { PostStats, PostWithStats } from '~/lib/types';
+
 import { useGetPost } from './queries/post';
 import useLikePost from './queries/post/useLikePost';
 import useUnlikePost from './queries/post/useUnlikePost';

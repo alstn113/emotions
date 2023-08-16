@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+
 import { mediaQuery } from '~/lib/styles';
-import BaseLayout from '../layouts/BaseLayout';
+
 import CommentListSkeleton from './skeleton/CommentListSkeleton';
 import PostContentsSkeleton from './skeleton/PostContentsSkeleton';
+import BaseLayout from '../layouts/BaseLayout';
 
 const PostPageSkeleton = () => {
   return (

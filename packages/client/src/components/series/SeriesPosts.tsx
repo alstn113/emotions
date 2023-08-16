@@ -1,5 +1,7 @@
-import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+
 import formatDate from '~/lib/formatDate';
 import { SeriesPost } from '~/lib/types';
 

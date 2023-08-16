@@ -1,5 +1,7 @@
-import { API_URL } from '~/constants';
 import { CreateCommentParams, Comment } from '~/lib/types';
+
+import { API_URL } from '~/constants';
+
 import apiClient from './apiClient';
 
 export const CommentAPI = {

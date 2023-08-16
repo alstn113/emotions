@@ -1,12 +1,14 @@
-// hooks
+import { useRef } from 'react';
+
+import styled from '@emotion/styled';
+
+import CommentItem from '~/components/post/CommentItem';
+
 import { useGetCommentList } from '~/hooks/queries/post';
 
-// components
-import styled from '@emotion/styled';
-import CommentItem from '~/components/post/CommentItem';
-import CommentInput from './CommentInput';
 import { CommentListResponse } from '~/lib/types';
-import { useRef } from 'react';
+
+import CommentInput from './CommentInput';
 
 interface Props {
   postId: string;

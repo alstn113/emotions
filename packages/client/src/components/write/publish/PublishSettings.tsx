@@ -1,15 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import removeMarkdown from 'remove-markdown';
+
 import { useCreatePost, useGetPosts } from '~/hooks/queries/post';
+
 import { extractError } from '~/lib/error';
+
+import useModalStore from '~/stores/useModalStore';
 import useWriteStore from '~/stores/useWriteStore';
-import { Button } from '../../common';
+
 import PublishEditSeries from './PublishEditSeries';
 import PublishSeriesSetting from './PublishSeriesSetting';
 import PublishURLSetting from './PublishURLSetting';
-import removeMarkdown from 'remove-markdown';
-import useModalStore from '~/stores/useModalStore';
+import { Button } from '../../common';
 
 const PublishSettings = () => {
   const {

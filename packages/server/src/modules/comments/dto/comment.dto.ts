@@ -1,5 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { UserDto } from '~/modules/users/dto';
+import { UserDto } from '../../../modules/users/dto';
 
 @Exclude()
 export class CommentDto {

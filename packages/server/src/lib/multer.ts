@@ -1,5 +1,5 @@
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
-import { AppErrorException } from '~/common/exceptions';
+import { AppErrorException } from '../common/exceptions';
 
 const multerOptions: MulterOptions = {
   /** 5mb로 제한 */

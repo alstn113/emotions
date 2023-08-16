@@ -1,12 +1,17 @@
-import styled from '@emotion/styled';
-import { Button } from '~/components/common';
-import useWriteStore from '~/stores/useWriteStore';
-import TextareaAutosize from 'react-textarea-autosize';
 import { useNavigate } from 'react-router-dom';
+import TextareaAutosize from 'react-textarea-autosize';
+
+import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import TagInput from './TagInput';
+
+import { Button } from '~/components/common';
+
 import { mediaQuery } from '~/lib/styles';
+
+import useWriteStore from '~/stores/useWriteStore';
+
 import MarkdownEditor from './MarkdownEditor';
+import TagInput from './TagInput';
 
 const Editor = () => {
   const { title, body, changeTitle, changeBody, openPublishScreen } =

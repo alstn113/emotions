@@ -1,5 +1,5 @@
-// components
 import styled from '@emotion/styled';
+
 import PostCardSkeleton from '../../home/skeleton/PostCardSkeleton';
 
 const UserPostsContentsSkeleton = () => {

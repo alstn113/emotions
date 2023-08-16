@@ -1,6 +1,8 @@
-import { PostAPI } from '~/lib/api';
 import { useQuery } from '@tanstack/react-query';
+
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
+
+import { PostAPI } from '~/lib/api';
 
 const useGetPostBySlug = (
   username: string,

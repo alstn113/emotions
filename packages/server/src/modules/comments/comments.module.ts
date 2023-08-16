@@ -3,7 +3,7 @@ import { CommentsService } from './comments.service';
 import { CommentsController } from './comments.controller';
 import { CommentsRepository } from './comments.repository';
 import { PostsRepository } from '../posts/posts.repository';
-import { SESService } from '~/providers/aws/ses/ses.service';
+import { SESService } from '../../providers/aws/ses/ses.service';
 
 @Module({
   controllers: [CommentsController],

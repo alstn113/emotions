@@ -1,6 +1,7 @@
-import useModalStore from '~/stores/useModalStore';
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import useModalStore from '~/stores/useModalStore';
 
 const messageMap = {
   postLike: '게시글을 추천하기위해서는 로그인이 필요합니다.',

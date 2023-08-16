@@ -1,5 +1,5 @@
-// components
 import styled from '@emotion/styled';
+
 import { shine } from '~/lib/styles';
 
 const PostCardSkeleton = () => {

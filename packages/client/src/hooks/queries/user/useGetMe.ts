@@ -1,6 +1,8 @@
-import { UserAPI } from '~/lib/api';
 import { useQuery } from '@tanstack/react-query';
+
 import type { UseQueryOptionsOf } from '~/hooks/queries/types';
+
+import { UserAPI } from '~/lib/api';
 
 const useGetMe = (options: UseQueryOptionsOf<typeof UserAPI.getMe> = {}) => {
   return useQuery(getKey(), fetcher(), options);

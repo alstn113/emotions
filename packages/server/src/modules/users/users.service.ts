@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AppErrorException } from '~/common/exceptions';
+import { AppErrorException } from '../../common/exceptions';
 import { UpdateEmailDto, UpdateEmailNotificationDto } from './dto';
 import { UsersRepository } from './users.repository';
 

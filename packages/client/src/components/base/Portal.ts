@@ -1,4 +1,3 @@
-// react
 import { createPortal } from 'react-dom';
 
 interface PortalProps {

@@ -1,11 +1,10 @@
-// hooks
-import { useGetPostsByUsername } from '~/hooks/queries/post';
-
-// components
 import styled from '@emotion/styled';
-import PostCard from '../home/PostCard';
+
+import { useGetPostsByUsername } from '~/hooks/queries/post';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
+
 import UserPostsContentsSkeleton from './skeleton/UserPostsContentsSkeleton';
+import PostCard from '../home/PostCard';
 
 interface Props {
   username: string;

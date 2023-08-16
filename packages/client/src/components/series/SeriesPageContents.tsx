@@ -1,7 +1,9 @@
-import styled from '@emotion/styled';
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+import { useQueryClient } from '@tanstack/react-query';
+
 import {
   useGetUserSeriesByName,
   useGetUserSeries,
@@ -10,9 +12,12 @@ import {
 } from '~/hooks/queries/series';
 import useDisclosure from '~/hooks/useDisclosure';
 import useUser from '~/hooks/useUser';
+
 import { extractError } from '~/lib/error';
 import { Series } from '~/lib/types';
+
 import useModalStore from '~/stores/useModalStore';
+
 import SeriesActionButtons from './SeriesActionButtons';
 import SeriesEditor from './SeriesEditor';
 import SeriesName from './SeriesName';

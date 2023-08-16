@@ -1,11 +1,14 @@
-import styled from '@emotion/styled';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useParams } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+
 import PostListErrorFallback from '~/components/home/PostListErrorFallback';
 import UserSeriesSkeleton from '~/components/user/skeleton/UserSeriesSkeleton';
 import UserSeriesContents from '~/components/user/UserSeriesContents';
+
 import { mediaQuery } from '~/lib/styles';
 
 const UserSeriesTab = () => {

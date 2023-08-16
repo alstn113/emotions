@@ -1,18 +1,16 @@
-// react
 import { useRef } from 'react';
 
-// hooks
+import styled from '@emotion/styled';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { MenuDots } from '~/components/vectors';
+
 import useDisclosure from '~/hooks/useDisclosure';
 import useOnClickOutside from '~/hooks/useOnClickOutside';
 
-// store
-import useBottomSheetStore from '~/stores/useBottomSheetStore';
-
-// components
-import styled from '@emotion/styled';
-import { AnimatePresence, motion } from 'framer-motion';
 import { zIndexes } from '~/lib/styles';
-import { MenuDots } from '~/components/vectors';
+
+import useBottomSheetStore from '~/stores/useBottomSheetStore';
 
 interface MoreVertMenuItem {
   icon: React.ReactNode;

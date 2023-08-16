@@ -1,7 +1,10 @@
+import { NavLink } from 'react-router-dom';
+
 import styled from '@emotion/styled';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
+
 import useDisclosure from '~/hooks/useDisclosure';
+
 import { PostWithStats, Series } from '~/lib/types';
 
 interface Props {

@@ -1,25 +1,25 @@
-// react
-import { GITHUB_OAUTH_LOGIN_URL } from '~/constants';
+import { useEffect, useState } from 'react';
 
-// hooks
-import useLogout from '~/hooks/useLogout';
-import useUser from '~/hooks/useUser';
-
-// components
 import styled from '@emotion/styled';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Button, Toggle } from '~/components/common';
 import TabLayout from '~/components/layouts/TabLayout';
+import EmailEditor from '~/components/setting/EmailEditor';
 import { GithubIcon } from '~/components/vectors';
-import { useEffect, useState } from 'react';
-import { mediaQuery } from '~/lib/styles';
+
 import {
   useGetMe,
   useUpdateEmail,
   useUpdateEmailNotification,
 } from '~/hooks/queries/user';
+import useLogout from '~/hooks/useLogout';
+import useUser from '~/hooks/useUser';
+
 import { extractError } from '~/lib/error';
-import { useQueryClient } from '@tanstack/react-query';
-import EmailEditor from '~/components/setting/EmailEditor';
+import { mediaQuery } from '~/lib/styles';
+
+import { GITHUB_OAUTH_LOGIN_URL } from '~/constants';
 
 const SettingPage = () => {
   const user = useUser();

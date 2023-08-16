@@ -1,12 +1,13 @@
-// hooks
-import { useGetPosts } from '~/hooks/queries/post';
-
-// components
 import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles';
-import PostCard from './PostCard';
-import useIntersectionObserver from '~/hooks/useIntersectionObserver';
+
 import PostListSkeleton from '~/components/home/skeleton/PostListSkeleton';
+
+import { useGetPosts } from '~/hooks/queries/post';
+import useIntersectionObserver from '~/hooks/useIntersectionObserver';
+
+import { mediaQuery } from '~/lib/styles';
+
+import PostCard from './PostCard';
 
 const PostList = () => {
   const {

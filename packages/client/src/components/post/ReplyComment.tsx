@@ -1,19 +1,18 @@
-// react
 import { useState } from 'react';
-import { extractError } from '~/lib/error';
 
-// hooks
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
+
+import { Button } from '~/components/common';
+
 import { useCreateComment } from '~/hooks/queries/comment';
 import { useGetCommentList } from '~/hooks/queries/post';
 import useOpenLoginDialog from '~/hooks/useOpenLoginDialog';
 import useUser from '~/hooks/useUser';
 
-// components
-import styled from '@emotion/styled';
-import { Button } from '~/components/common';
+import { extractError } from '~/lib/error';
 import { Comment } from '~/lib/types';
-import { css } from '@emotion/react';
 
 interface Props {
   parentComment: Comment;

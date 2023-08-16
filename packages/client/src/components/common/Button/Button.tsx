@@ -1,5 +1,7 @@
-import { NormalColorType } from '~/lib/styles';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
+
+import { NormalColorType } from '~/lib/styles';
+
 import * as S from './Button.styles';
 import Ripple from './Ripple';
 

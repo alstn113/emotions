@@ -1,18 +1,18 @@
-// react
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 
-// react-query
+import { ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-// provider
-import ModalProvider from '~/components/base/ModalProvider';
 import BottomSheetProvider from '~/components/base/BottomSheetProvider';
-import { ThemeProvider } from '@emotion/react';
+import ModalProvider from '~/components/base/ModalProvider';
+
 import { lightTheme } from '~/lib/styles/themes';
+
 import { GlobalStyle } from '~/GlobalStyle';
-import { BrowserRouter } from 'react-router-dom';
+
+import App from './App';
 
 const queryClient = new QueryClient({
   defaultOptions: {

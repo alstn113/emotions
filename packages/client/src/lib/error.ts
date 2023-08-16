@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { isAxiosError } from 'axios';
 
 type ErrorName =
   | 'BadRequest' // 400
@@ -25,7 +25,7 @@ export const isAppError = (error: any): error is AppError => {
 };
 
 export const extractError = (error: any): AppError => {
-  if (axios.isAxiosError(error)) {
+  if (isAxiosError(error)) {
     const data = error.response?.data;
     if (isAppError(data)) {
       return data;

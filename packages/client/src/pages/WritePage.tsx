@@ -1,14 +1,12 @@
-// react
 import { useEffect } from 'react';
 
-// stores
-import useWriteStore from '~/stores/useWriteStore';
-
-// components
 import styled from '@emotion/styled';
+
 import Editor from '~/components/write/Editor';
 import Preview from '~/components/write/Preview';
 import PublishScreen from '~/components/write/publish/PublishScreen';
+
+import useWriteStore from '~/stores/useWriteStore';
 
 const WritePage = () => {
   const { reset } = useWriteStore();

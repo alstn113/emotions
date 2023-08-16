@@ -1,16 +1,16 @@
-// react
 import { Link, useNavigate } from 'react-router-dom';
 
-// hookes
+import styled from '@emotion/styled';
+
+import HeaderDropdown from '~/components/base/HeaderDropdown';
+import { Button } from '~/components/common';
+
 import useUser from '~/hooks/useUser';
 
-// components
-import styled from '@emotion/styled';
-import { mediaQuery } from '~/lib/styles/mediaQuery';
-import { Button } from '~/components/common';
-import HeaderDropdown from '~/components/base/HeaderDropdown';
-import Logo from '~/assets/images/Logo.png';
 import { zIndexes } from '~/lib/styles';
+import { mediaQuery } from '~/lib/styles/mediaQuery';
+
+import Logo from '~/assets/images/Logo.png';
 
 const DesktopHeader = () => {
   const user = useUser();

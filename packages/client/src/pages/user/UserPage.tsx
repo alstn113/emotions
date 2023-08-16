@@ -1,15 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
-import UserPostsTab from './tabs/UserPostsTab';
-import UserSeriesTab from './tabs/UserSeriesTab';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import UserPageSkeleton from '~/components/user/skeleton/UserPageSkeleton';
-import UserLayout from './UserLayout';
-import TabLayout from '~/components/layouts/TabLayout';
-import { mediaQuery } from '~/lib/styles';
+import { Route, Routes } from 'react-router-dom';
+
 import styled from '@emotion/styled';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+
+import TabLayout from '~/components/layouts/TabLayout';
+import UserPageSkeleton from '~/components/user/skeleton/UserPageSkeleton';
 import UserPageErrorFallback from '~/components/user/UserPageFallback';
+
+import { mediaQuery } from '~/lib/styles';
+
+import UserPostsTab from './tabs/UserPostsTab';
+import UserSeriesTab from './tabs/UserSeriesTab';
+import UserLayout from './UserLayout';
 
 const UserPage = () => {
   return (

@@ -1,7 +1,7 @@
-// components
 import styled from '@emotion/styled';
-import MobileHeader from '~/components/base/MobileHeader';
+
 import DesktopHeader from '~/components/base/DesktopHeader';
+import MobileHeader from '~/components/base/MobileHeader';
 
 interface Props {
   backButton?: boolean;

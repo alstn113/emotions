@@ -1,8 +1,12 @@
-import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { Outlet, useParams, NavLink } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+
 import { Avatar } from '~/components/common';
+
 import { useGetUserByUsername } from '~/hooks/queries/user';
+
 import { mediaQuery } from '~/lib/styles';
 import { User } from '~/lib/types';
 

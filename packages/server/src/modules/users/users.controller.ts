@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
-import { GetCurrentUser, Public } from '~/common/decorators';
+import { GetCurrentUser, Public } from '../../common/decorators';
 import { UpdateEmailDto, UpdateEmailNotificationDto, UserDto } from './dto';
 import { UsersService } from './users.service';
 

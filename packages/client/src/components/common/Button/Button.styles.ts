@@ -1,6 +1,7 @@
-import { palette, NormalColorType } from '~/lib/styles';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { palette, NormalColorType } from '~/lib/styles';
 
 export const Container = styled.button<{
   size: 'sm' | 'md' | 'lg' | 'auto';

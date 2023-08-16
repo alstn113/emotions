@@ -1,6 +1,9 @@
-import styled from '@emotion/styled';
 import { useCallback, useState } from 'react';
+
+import styled from '@emotion/styled';
+
 import { mediaQuery } from '~/lib/styles';
+
 import useWriteStore from '~/stores/useWriteStore';
 
 const TagInput = () => {

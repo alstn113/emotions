@@ -1,9 +1,13 @@
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useGetMe } from '~/hooks/queries/user';
+
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import ErrorFallback from './components/base/ErrorFallback';
-import Loading from './components/base/Loading';
+
+import ErrorFallback from '~/components/base/ErrorFallback';
+import Loading from '~/components/base/Loading';
+
+import { useGetMe } from '~/hooks/queries/user';
+
 import PageRoutes from './routes';
 
 const App = () => {

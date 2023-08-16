@@ -1,12 +1,11 @@
-// react
+import { Suspense, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useParams } from 'react-router-dom';
 
-// components
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+
 import ErrorFallback from '~/components/base/ErrorFallback';
 import PostContents from '~/components/post/PostContents';
-import { Suspense, useEffect } from 'react';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
 import PostPageSkeleton from '~/components/post/PostPageSkeleton';
 
 const PostPage = () => {

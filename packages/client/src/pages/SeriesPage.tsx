@@ -1,13 +1,16 @@
-import styled from '@emotion/styled';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useParams } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+
 import TabLayout from '~/components/layouts/TabLayout';
 import SeriesPageContents from '~/components/series/SeriesPageContents';
 import SeriesContentsSkeleton from '~/components/series/skeleton/SeriesContentsSkeleton';
+import SeriesPageErrorFallback from '~/components/user/SeriesPageErrorFallback';
+
 import { mediaQuery } from '~/lib/styles';
-import SeriesPageErrorFallback from '../components/user/SeriesPageErrorFallback';
 
 const SeriesPage = () => {
   const { username, seriesName } = useParams() as {

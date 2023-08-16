@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import { AnimatePresence, motion } from 'framer-motion';
+
 import { mediaQuery } from '~/lib/styles';
+
 import useWriteStore from '~/stores/useWriteStore';
+
 import PublishPreview from './PublishPreview';
 import PublishSettings from './PublishSettings';
 
