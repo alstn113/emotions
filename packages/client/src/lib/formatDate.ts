@@ -1,4 +1,6 @@
-import { formatDistanceToNow, format, ko } from 'date-fns';
+/* eslint-disable import/no-duplicates */
+import { formatDistanceToNow, format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const formatDate = (date: string | Date): string => {
   const d = date instanceof Date ? date : new Date(date);
