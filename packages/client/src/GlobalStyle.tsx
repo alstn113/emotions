@@ -39,7 +39,7 @@ export const GlobalStyle = () => {
         }
         @font-face {
           font-family: 'Pretendard';
-          src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css');
+          src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css');
           font-weight: normal;
           font-style: normal;
         }
