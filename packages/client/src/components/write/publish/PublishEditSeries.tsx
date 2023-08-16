@@ -51,9 +51,8 @@ const PublishEditSeries = () => {
             inline: 'nearest',
           });
         },
-        onError: (error) => {
+        onError: () => {
           alert('시리즈 생성에 실패했습니다.');
-          console.log(error);
         },
       },
     );

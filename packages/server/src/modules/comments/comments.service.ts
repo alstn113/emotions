@@ -183,9 +183,7 @@ export class CommentsService {
       };
 
       await Promise.all([nofifyToPostAuthor(), notifyToParentCommenter()]);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
 
     return { ...comment, isDeleted: false, subcomments: [], isLiked: false };
   }

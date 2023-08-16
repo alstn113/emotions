@@ -37,7 +37,6 @@ export class JwtMiddleware implements NestMiddleware {
       };
     } catch (error) {
       clearTokenCookie(res);
-      console.log(error);
     }
 
     return next();
