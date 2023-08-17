@@ -17,7 +17,8 @@ datasource db {
 model User {
   id                String  @id() @default(uuid())
   username          String  @unique
-  displayName       String
+  password          String?
+  displayName       String  @default("John Doe")
   email             String? @unique
   emailNotification Boolean @default(true)
   profileImage      String?
