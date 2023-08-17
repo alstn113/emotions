@@ -1,9 +1,11 @@
 import { Controller, Post, Body, Param, Delete } from '@nestjs/common';
-import { CommentsService } from './comments.service';
-import { GetCurrentUser } from '../../common/decorators';
 import { ApiTags } from '@nestjs/swagger';
-import { CommentDto, CreateCommentDto } from './dto';
+
 import { plainToInstance } from 'class-transformer';
+
+import { CommentsService } from './comments.service';
+import { CommentDto, CreateCommentDto } from './dto';
+import { GetCurrentUser } from '../../common/decorators';
 
 @ApiTags('comments')
 @Controller('comments')

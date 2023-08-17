@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+
 import { Series } from '@prisma/client';
-import { AppErrorException } from '../../common/exceptions';
+
 import { UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesRepository } from './series.repository';
+import { AppErrorException } from '../../common/exceptions';
 
 @Injectable()
 export class SeriesService {

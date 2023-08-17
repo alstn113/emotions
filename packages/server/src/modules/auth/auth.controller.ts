@@ -1,11 +1,13 @@
 import { Controller, Delete, Get, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
+
 import { Response } from 'express';
+
+import { AuthService } from './auth.service';
 import { GetCurrentUser, Public } from '../../common/decorators';
 import { GithubGuard } from '../../common/guards';
 import { clearTokenCookie, setTokenCookie } from '../../lib/cookies';
-import { AuthService } from './auth.service';
 
 @Public()
 @ApiTags('auth')

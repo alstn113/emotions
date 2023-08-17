@@ -1,4 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
+
 import { IsOptional, IsString } from 'class-validator';
 
 @ApiTags('/posts')

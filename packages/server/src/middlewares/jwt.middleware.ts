@@ -1,5 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
+
 import { Request, Response, NextFunction } from 'express';
+
 import { AppErrorException } from '../common/exceptions';
 import { clearTokenCookie } from '../lib/cookies';
 import { AuthService } from '../modules/auth/auth.service';

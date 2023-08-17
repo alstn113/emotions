@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
-import * as sanitizeHtml from 'sanitize-html';
 import { format } from 'date-fns';
+import * as sanitizeHtml from 'sanitize-html';
 
 @Injectable()
 export class SESService {

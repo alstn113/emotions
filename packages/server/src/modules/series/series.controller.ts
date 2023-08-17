@@ -8,11 +8,13 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
 import { plainToInstance } from 'class-transformer';
-import { GetCurrentUser, Public } from '../../common/decorators';
+
 import { SeriesDto, SeriesPostDto, UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesService } from './series.service';
+import { GetCurrentUser, Public } from '../../common/decorators';
 
 @ApiTags('series')
 @Controller('series')

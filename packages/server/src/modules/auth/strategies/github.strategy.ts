@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
+
 import { Strategy } from 'passport-github2';
+
 import { PrismaService } from '../../../prisma/prisma.service';
 import { GithubProfileType } from '../types';
 

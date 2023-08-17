@@ -5,6 +5,7 @@ import {
   HttpException,
   Logger,
 } from '@nestjs/common';
+
 import { AppErrorException } from '../exceptions';
 
 @Catch(HttpException)

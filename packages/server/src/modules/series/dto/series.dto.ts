@@ -1,4 +1,5 @@
 import { Exclude, Expose, Type } from 'class-transformer';
+
 import { SeriesPostDto } from './series-post.dto';
 
 @Exclude()

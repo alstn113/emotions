@@ -9,12 +9,11 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
-import { PostsService } from './posts.service';
-import { GetCurrentUser, Public } from '../../common/decorators';
-import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import multerOptions from '../../lib/multer';
+import { ApiTags } from '@nestjs/swagger';
+
 import { plainToInstance } from 'class-transformer';
+
 import {
   PaginatedPostsDto,
   PostDto,
@@ -24,6 +23,9 @@ import {
   GetSearchPostsQueryDto,
   SearchPostsDto,
 } from './dto';
+import { PostsService } from './posts.service';
+import { GetCurrentUser, Public } from '../../common/decorators';
+import multerOptions from '../../lib/multer';
 import { CommentListResponseDto } from '../comments/dto';
 
 @ApiTags('posts')

@@ -1,24 +1,14 @@
-// nest config
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { EnvConfig, AuthConfig, JwtConfig } from './config';
-import { PrismaModule } from './prisma/prisma.module';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-// middlewares
-import { JwtMiddleware } from './middlewares';
-
-// providers
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AppErrorExceptionFilter } from './common/filter';
 import { JwtGuard } from './common/guards';
-
-// provider modules
-import { S3Module, SESModule } from './providers';
-
-// main modules
+import { EnvConfig, AuthConfig, JwtConfig } from './config';
+import { JwtMiddleware } from './middlewares';
 import {
   AuthModule,
   UsersModule,
@@ -27,6 +17,8 @@ import {
   TagsModule,
   SeriesModule,
 } from './modules';
+import { PrismaModule } from './prisma/prisma.module';
+import { S3Module, SESModule } from './providers';
 
 @Module({
   imports: [

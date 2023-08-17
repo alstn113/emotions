@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { Post, PostLike } from '@prisma/client';
+import removeMarkdown from 'remove-markdown';
+
+import { GetSearchPostsQueryDto } from './dto';
+import { CreatePostDto } from './dto/create-post.dto';
+import { GetPostsQueryDto } from './dto/get-post-query.dto';
+import { PostsRepository } from './posts.repository';
 import { AppErrorException } from '../../common/exceptions';
 import { generateId, slugify } from '../../lib/slugify';
 import { S3Service } from '../../providers/aws/s3/s3.service';
 import { CommentsService } from '../comments/comments.service';
 import { SeriesService } from '../series/series.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { GetPostsQueryDto } from './dto/get-post-query.dto';
-import { PostsRepository } from './posts.repository';
-import removeMarkdown from 'remove-markdown';
-import { GetSearchPostsQueryDto } from './dto';
 
 @Injectable()
 export class PostsService {
