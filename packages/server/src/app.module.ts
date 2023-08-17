@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -54,6 +54,16 @@ import { S3Module, SESModule } from './providers';
   ],
 })
 export class AppModule implements NestModule {
+  static PORT: number;
+  static API_PREFIX: string;
+  static FRONTEND_URL: string;
+
+  constructor(private readonly configService: ConfigService) {
+    AppModule.PORT = this.configService.get<number>('PORT');
+    AppModule.API_PREFIX = this.configService.get<string>('API_PREFIX');
+    AppModule.FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
+  }
+
   configure(cunsumer: MiddlewareConsumer) {
     cunsumer.apply(JwtMiddleware).forRoutes('*');
   }
