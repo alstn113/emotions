@@ -37,12 +37,6 @@ export const GlobalStyle = () => {
           font-weight: normal;
           font-style: normal;
         }
-        @font-face {
-          font-family: 'Pretendard';
-          src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css');
-          font-weight: normal;
-          font-style: normal;
-        }
 
         body {
           font-family: 'Pretendard', sans-serif;

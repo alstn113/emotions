@@ -9,6 +9,7 @@ import Loading from '~/components/base/Loading';
 import { useGetMe } from '~/hooks/queries/user';
 
 import PageRoutes from './routes';
+import '../src/lib/styles/fonts.css';
 
 const App = () => {
   useGetMe();
