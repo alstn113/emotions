@@ -34,7 +34,7 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
 
 ## `Project Stack`
 
-- Backend
+- Server
 
   - Nest
   - Typescript
@@ -46,7 +46,7 @@ Emotions는 자신의 감정을 마크다운 형식으로 기록할 수 있는 �
   - AWS S3, AWS SES
   - PM2
 
-- Frontend
+- Web
   - React
   - Typescript
   - React-Router
