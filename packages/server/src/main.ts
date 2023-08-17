@@ -12,7 +12,7 @@ const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const PORT = configService.get<number>('PORT');
-  const ALLOWLIST = configService.get<string[]>('ALLOWLIST');
+  const ALLOWLIST = configService.get<RegExp>('ALLOWLIST');
   const logger = new Logger('Main');
 
   app.use(helmet());
