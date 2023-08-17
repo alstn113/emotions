@@ -3,8 +3,8 @@ import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer
 import { AppErrorException } from '../common/exceptions';
 
 const multerOptions: MulterOptions = {
-  /** 5mb로 제한 */
-  limits: { fileSize: 1024 * 1024 * 5 },
+  /** 10mb로 제한 */
+  limits: { fileSize: 1024 * 1024 * 10 },
   /** only png, jpg, jpeg, gif */
   fileFilter: function (_req, file, callback) {
     if (
