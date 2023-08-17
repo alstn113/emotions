@@ -56,11 +56,13 @@ import { S3Module, SESModule } from './providers';
 export class AppModule implements NestModule {
   static PORT: number;
   static API_PREFIX: string;
+  static ALLOWLIST: RegExp;
   static FRONTEND_URL: string;
 
   constructor(private readonly configService: ConfigService) {
     AppModule.PORT = this.configService.get<number>('PORT');
     AppModule.API_PREFIX = this.configService.get<string>('API_PREFIX');
+    AppModule.ALLOWLIST = this.configService.get<RegExp>('ALLOWLIST');
     AppModule.FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
   }
 

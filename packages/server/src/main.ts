@@ -1,7 +1,11 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  ValidationPipe,
+} from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 
+import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 
@@ -10,36 +14,40 @@ import { createDocumnet } from './lib/swagger';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
-  const PORT = configService.get<number>('PORT');
-  const ALLOWLIST = configService.get<RegExp>('ALLOWLIST');
-  const logger = new Logger('Main');
 
-  app.use(helmet());
-  app.use(cookieParser());
+  app.use(helmet()); // 보안 관련 헤더를 추가합니다.
+  app.use(cookieParser()); // 쿠키를 파싱합니다.
+  app.use(compression()); // 응답을 압축합니다.
+
+  //TODO: prefix 설정
+  // app.setGlobalPrefix(AppModule.API_PREFIX);
+
   app.enableCors({
-    origin: ALLOWLIST,
+    origin: AppModule.ALLOWLIST,
     credentials: true,
   });
 
+  // pipe는 요청을 가공, 검증
+  // 요청 객체 역직렬화 json -> class
   app.useGlobalPipes(
     new ValidationPipe({
-      // request에서 dto에 없는 값 제거
-      whitelist: true,
-      // dto에 있는 타입으로 변환
-      transform: true,
+      whitelist: true, // 유효성 검사에서 정의되지 않은 속성을 자동으로 제거합니다.
+      transform: true, // 요청 데이터를 지정된 타입으로 자동 변환합니다.
     }),
   );
 
-  // if (process.env.NODE_ENV !== 'production') {
-  //   createDocumnet(app);
-  // }
-  //TODO: 임시 사용
-  createDocumnet(app);
-  app.enableShutdownHooks();
-  await app.listen(PORT);
+  // intercept는 응답을 가공, 변경
+  // 응답 객체 직렬화 class -> json
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-  logger.log(`Server is running on port ${PORT}`);
+  createDocumnet(app);
+
+  app.enableShutdownHooks();
+  await app.listen(AppModule.PORT);
+
+  return AppModule.PORT;
 };
 
-bootstrap();
+bootstrap().then((port) => {
+  Logger.log(`Application running on port: ${port}`, 'Main');
+});
