@@ -8,10 +8,10 @@ services:
       target: deploy
     ports: -3000:3001
 
-  client:
+  web:
     image: react-server
     build:
       context: .
-      dockerfile: ./packages/client/Dockerfile
+      dockerfile: ./packages/web/Dockerfile
       target: deploy
     ports: -3000:3000

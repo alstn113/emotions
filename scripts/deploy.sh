@@ -3,5 +3,5 @@
 pnpm install
 pnpm prisma:generate
 
-./scripts/deploy-client.sh
+./scripts/deploy-web.sh
 ./scripts/deploy-server.sh

@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server start:dev\"",
-    "build:client": "pnpm --filter client build",
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter server start:dev\"",
+    "build:web": "pnpm --filter web build",
     "build:server": "pnpm --filter server build",
     "start:pm2": "pnpm --filter server start:pm2",
     "prisma:generate": "pnpm --filter server prisma:generate",
@@ -18,9 +18,9 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "packages/client/**/*.{ts,tsx}": [
+    "packages/web/**/*.{ts,tsx}": [
       "prettier --write",
-      "eslint --config ./packages/client/.eslintrc.js --fix"
+      "eslint --config ./packages/web/.eslintrc.js --fix"
     ],
     "packages/server/**/*.ts": [
       "prettier --write",
