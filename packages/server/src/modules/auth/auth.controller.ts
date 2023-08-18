@@ -31,11 +31,11 @@ export class AuthController {
     @GetCurrentUser() user: CurrentUser,
   ): Promise<void> {
     const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
-    const token = await this.authService.generateToken(
-      user.userId,
-      user.username,
-      user.role,
-    );
+    const token = await this.authService.generateToken({
+      userId: user.userId,
+      username: user.username,
+      role: user.role,
+    });
     setTokenCookie(res, token);
     return res.redirect(`${FRONTEND_URL}`);
   }

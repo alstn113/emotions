@@ -13,11 +13,15 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async generateToken(
-    userId: string,
-    username: string,
-    role: User['role'],
-  ): Promise<string> {
+  async generateToken({
+    userId,
+    username,
+    role,
+  }: {
+    userId: string;
+    username: string;
+    role: User['role'];
+  }): Promise<string> {
     const token = await this.jwtService.signAsync(
       {
         userId,
