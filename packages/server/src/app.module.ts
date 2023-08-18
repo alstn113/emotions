@@ -16,6 +16,7 @@ import {
   CommentsModule,
   TagsModule,
   SeriesModule,
+  AdminModule,
 } from './modules';
 import { PrismaModule } from './prisma/prisma.module';
 import { S3Module, SESModule } from './providers';
@@ -30,6 +31,7 @@ import { S3Module, SESModule } from './providers';
     }),
     PrismaModule,
     // main modules
+    AdminModule,
     AuthModule,
     UsersModule,
     PostsModule,
