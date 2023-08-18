@@ -5,7 +5,7 @@ import { plainToInstance } from 'class-transformer';
 
 import { CommentsService } from './comments.service';
 import { CommentDto, CreateCommentDto } from './dto';
-import { GetCurrentUser } from '../../common/decorators';
+import { CurrentUser, GetCurrentUser } from '../../common/decorators';
 
 @ApiTags('comments')
 @Controller('comments')
@@ -15,7 +15,7 @@ export class CommentsController {
   @Post()
   async createComment(
     @Body() dto: CreateCommentDto,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<CommentDto> {
     const comment = await this.commentsService.createComment(dto, userId);
     return plainToInstance(CommentDto, comment);
@@ -24,7 +24,7 @@ export class CommentsController {
   @Delete(':id')
   async deleteComment(
     @Param('id') id: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<void> {
     await this.commentsService.deleteComment(id, userId);
   }
@@ -32,7 +32,7 @@ export class CommentsController {
   @Post(':commentId/likes')
   async likeComment(
     @Param('commentId') commentId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<number> {
     return await this.commentsService.likeComment({ commentId, userId });
   }
@@ -40,7 +40,7 @@ export class CommentsController {
   @Delete(':commentId/likes')
   async unlikeComment(
     @Param('commentId') commentId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<number> {
     return await this.commentsService.unlikeComment({ commentId, userId });
   }

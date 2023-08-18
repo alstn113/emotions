@@ -14,7 +14,7 @@ import { plainToInstance } from 'class-transformer';
 import { SeriesDto, SeriesPostDto, UpdateSeriesDto } from './dto';
 import { CreateSeriestDto } from './dto/create-series.dto';
 import { SeriesService } from './series.service';
-import { GetCurrentUser, Public } from '../../common/decorators';
+import { CurrentUser, GetCurrentUser, Public } from '../../common/decorators';
 
 @ApiTags('series')
 @Controller('series')
@@ -48,7 +48,7 @@ export class SeriesController {
   @Post()
   async createSeries(
     @Body() dto: CreateSeriestDto,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<SeriesDto> {
     const series = await this.seriesService.createSeries(dto, userId);
     return plainToInstance(SeriesDto, series);
@@ -57,7 +57,7 @@ export class SeriesController {
   @Delete(':seriesId')
   async deleteSeries(
     @Param('seriesId') seriesId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<SeriesDto> {
     const series = await this.seriesService.deleteSeries(seriesId, userId);
     return plainToInstance(SeriesDto, series);
@@ -67,7 +67,7 @@ export class SeriesController {
   async appendToSeries(
     @Param('seriesId') seriesId: string,
     @Param('postId') postId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<SeriesPostDto> {
     const seriesPost = await this.seriesService.appendPostToSeries(
       seriesId,
@@ -82,7 +82,7 @@ export class SeriesController {
   async editSeries(
     @Param('seriesId') seriesId: string,
     @Body() dto: UpdateSeriesDto,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<SeriesDto> {
     const editedSeries = await this.seriesService.editSeries(
       seriesId,

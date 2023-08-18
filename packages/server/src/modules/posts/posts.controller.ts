@@ -24,7 +24,7 @@ import {
   SearchPostsDto,
 } from './dto';
 import { PostsService } from './posts.service';
-import { GetCurrentUser, Public } from '../../common/decorators';
+import { CurrentUser, GetCurrentUser, Public } from '../../common/decorators';
 import multerOptions from '../../lib/multer';
 import { CommentListResponseDto } from '../comments/dto';
 
@@ -37,7 +37,7 @@ export class PostsController {
   @Get()
   async getPosts(
     @Query() dto: GetPostsQueryDto,
-    @GetCurrentUser('userId') userId: string | null,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'> | null,
   ): Promise<PaginatedPostsDto> {
     const paginatedPosts = await this.postsService.getPosts(dto, userId);
     return plainToInstance(PaginatedPostsDto, paginatedPosts);
@@ -48,7 +48,7 @@ export class PostsController {
   async getPostsByUsername(
     @Param('username') username: string,
     @Query() dto: GetPostsQueryDto,
-    @GetCurrentUser('userId') userId: string | null,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'> | null,
   ): Promise<PaginatedPostsDto> {
     const paginatedPosts = await this.postsService.getPostsByUsername(
       dto,
@@ -63,7 +63,7 @@ export class PostsController {
   async getPostBySlug(
     @Param('username') username: string,
     @Param('slug') slug: string,
-    @GetCurrentUser('userId') userId: string | null,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'> | null,
   ): Promise<PostDto> {
     const post = await this.postsService.getPostBySlug({
       username,
@@ -85,7 +85,7 @@ export class PostsController {
   @Public()
   @Get(':id')
   async getPost(
-    @GetCurrentUser('userId') userId: string | null,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'> | null,
     @Param('id') id: string,
   ) {
     const post = await this.postsService.getPost(id, userId);
@@ -96,7 +96,7 @@ export class PostsController {
   @Get(':id/comments')
   async getCommentList(
     @Param('id') id: string,
-    @GetCurrentUser('userId') userId: string | null,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'> | null,
   ): Promise<CommentListResponseDto> {
     const commentList = await this.postsService.getCommentList(id, userId);
     return plainToInstance(CommentListResponseDto, commentList);
@@ -105,7 +105,7 @@ export class PostsController {
   @Post()
   async createPost(
     @Body() dto: CreatePostDto,
-    @GetCurrentUser() user: { userId: string; username: string },
+    @GetCurrentUser() user: CurrentUser,
   ): Promise<PostDto> {
     const post = await this.postsService.createPost(dto, user);
 
@@ -115,7 +115,7 @@ export class PostsController {
   @Post(':postId/likes')
   async likePost(
     @Param('postId') postId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<PostStatsDto> {
     const postStats = await this.postsService.likePost({ postId, userId });
     return plainToInstance(PostStatsDto, postStats);
@@ -124,7 +124,7 @@ export class PostsController {
   @Delete(':postId/likes')
   async unlikePost(
     @Param('postId') postId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<PostStatsDto> {
     const postStats = await this.postsService.unlikePost({ postId, userId });
     return plainToInstance(PostStatsDto, postStats);
@@ -133,7 +133,7 @@ export class PostsController {
   @Delete(':postId')
   async deletePost(
     @Param('postId') postId: string,
-    @GetCurrentUser('userId') userId: string,
+    @GetCurrentUser('userId') userId: CurrentUser<'userId'>,
   ): Promise<void> {
     return await this.postsService.deletePost({ postId, userId });
   }

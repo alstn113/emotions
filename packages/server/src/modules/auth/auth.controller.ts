@@ -2,10 +2,10 @@ import { Controller, Delete, Get, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiTags } from '@nestjs/swagger';
 
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 import { AuthService } from './auth.service';
-import { GetCurrentUser, Public } from '../../common/decorators';
+import { GetCurrentUser, Public, CurrentUser } from '../../common/decorators';
 import { GithubGuard } from '../../common/guards';
 import { clearTokenCookie, setTokenCookie } from '../../lib/cookies';
 
@@ -28,7 +28,7 @@ export class AuthController {
   @UseGuards(GithubGuard)
   async githubCallback(
     @Res() res: Response,
-    @GetCurrentUser() user: Request['user'],
+    @GetCurrentUser() user: CurrentUser,
   ): Promise<void> {
     const FRONTEND_URL = this.configService.get<string>('FRONTEND_URL');
     const token = await this.authService.generateToken(
