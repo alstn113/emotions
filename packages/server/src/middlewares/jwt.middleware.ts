@@ -36,6 +36,7 @@ export class JwtMiddleware implements NestMiddleware {
       req.user = {
         userId: decoded.userId,
         username: decoded.username,
+        role: decoded.role,
       };
     } catch (error) {
       clearTokenCookie(res);
@@ -44,12 +45,3 @@ export class JwtMiddleware implements NestMiddleware {
     return next();
   }
 }
-
-// declare module 'Express' {
-//   interface Request {
-//     user: {
-//       userId: string;
-//       username: string;
-//     } | null;
-//   }
-// }

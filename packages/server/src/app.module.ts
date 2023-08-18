@@ -5,8 +5,8 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AppErrorExceptionFilter } from './common/filter';
-import { JwtGuard } from './common/guards';
+import { AppErrorExceptionFilter } from './common/filters';
+import { AuthGuard } from './common/guards';
 import { EnvConfig, AuthConfig, JwtConfig } from './config';
 import { JwtMiddleware } from './middlewares';
 import {
@@ -51,7 +51,7 @@ import { S3Module, SESModule } from './providers';
     },
     {
       provide: APP_GUARD,
-      useClass: JwtGuard,
+      useClass: AuthGuard,
     },
   ],
 })

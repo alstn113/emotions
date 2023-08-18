@@ -4,7 +4,7 @@ import { Reflector } from '@nestjs/core';
 import { AppErrorException } from '../exceptions';
 
 @Injectable()
-export class JwtGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
   public canActivate(context: ExecutionContext): boolean {
     const isPublic = this.reflector.getAllAndOverride('isPublic', [
